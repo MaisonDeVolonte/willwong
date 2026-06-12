@@ -10,42 +10,41 @@ export default function Folders() {
   useEffect(() => {
     // Server side render guard: no window object on server
     if (typeof window === "undefined") return;
-    const currentPath = window.location.pathname;
 
     // ==============
     // FOLDER TOGGLING
     // ==============
 
     // the .nav__list sibling immediately following a .nav__link
-    function getNavList(link) {
-      return link.parentElement?.querySelector(".nav__list");
+    function getNavList(link: HTMLElement) {
+      return link.parentElement?.querySelector<HTMLElement>(".nav__list") ?? null;
     }
 
     // the .nav__icon child within a .nav__link
-    function getNavIcon(link) {
-      return link.querySelector(".nav__icon");
+    function getNavIcon(link: HTMLElement) {
+      return link.querySelector<HTMLElement>(".nav__icon");
     }
 
     // whether a folder is currently open
-    function isFolderOpen(navList) {
+    function isFolderOpen(navList: HTMLElement) {
       return navList.classList.contains("nav__list--open");
     }
 
     // open a folder: add open classes to list + icon
-    function openFolder(navList, navIcon) {
+    function openFolder(navList: HTMLElement, navIcon: HTMLElement | null) {
       navList.classList.add("nav__list--open");
       if (navIcon) navIcon.classList.add("nav__icon--open");
     }
 
     // close a folder: remove open classes from list + icon
-    function closeFolder(navList, navIcon) {
+    function closeFolder(navList: HTMLElement, navIcon: HTMLElement | null) {
       navList.classList.remove("nav__list--open");
       if (navIcon) navIcon.classList.remove("nav__icon--open");
     }
 
     // delegated click handler: validates nav__link, toggles its folder
-    function toggleFolder(event) {
-      const link = event.target.closest(".nav__link");
+    function toggleFolder(event: MouseEvent) {
+      const link = (event.target as HTMLElement).closest<HTMLElement>(".nav__link");
       if (!link) return;
 
       const navList = getNavList(link);
@@ -68,22 +67,19 @@ export default function Folders() {
     function updateActiveLinks() {
       const currentPath = window.location.pathname;
 
-      document.querySelectorAll(".nav__link").forEach((link) => {
+      document.querySelectorAll<HTMLElement>(".nav__link").forEach((link) => {
         const href = link.getAttribute("href");
-        const isActive =
-          href && (href === currentPath || href === currentPath + "/");
+        const isActive = !!href && (href === currentPath || href === currentPath + "/");
 
         link.classList.toggle("nav__link--active", isActive);
 
         // auto-open the parent folder if a child link is active
         if (isActive) {
-          const parentList = link.closest(".nav__list");
+          const parentList = link.closest<HTMLElement>(".nav__list");
           if (parentList) {
             const parentLink =
-              parentList.previousElementSibling?.closest(".nav__link") ??
-              parentList
-                .closest(".nav__item")
-                ?.querySelector(":scope > .nav__link");
+              parentList.previousElementSibling?.closest<HTMLElement>(".nav__link") ??
+              parentList.closest<HTMLElement>(".nav__item")?.querySelector<HTMLElement>(":scope > .nav__link");
             if (parentLink) {
               openFolder(parentList, getNavIcon(parentLink));
             }

@@ -16,12 +16,12 @@ export default function Panels() {
     // ==============
 
     // panel's display is 'block' (no flex support) — boolean
-    function isDisplayBlock(panel) {
+    function isDisplayBlock(panel: HTMLElement) {
       return getComputedStyle(panel).display === "block";
     }
 
     // panel's data-state, falling back to computed display when default/blank — boolean
-    function isStateOpen(panel) {
+    function isStateOpen(panel: HTMLElement) {
       const panelState = panel.dataset.state;
       if (panelState === "open") return true;
       if (panelState === "closed") return false;
@@ -29,29 +29,29 @@ export default function Panels() {
     }
 
     // panel element matching a data-panel name
-    function getPanelWithName(panelName) {
-      return document.querySelector('[data-panel="' + panelName + '"]');
+    function getPanelWithName(panelName: string) {
+      return document.querySelector<HTMLElement>('[data-panel="' + panelName + '"]');
     }
 
     // sync every trigger's aria-expanded to its panel's rendered visibility
     function updateTriggerAriaAttributes() {
-      document.querySelectorAll("[data-trigger]").forEach((trigger) => {
-        const panel = getPanelWithName(trigger.dataset.trigger);
-        if (panel) trigger.setAttribute("aria-expanded", isDisplayBlock(panel));
+      document.querySelectorAll<HTMLElement>("[data-trigger]").forEach((trigger) => {
+        const panel = getPanelWithName(trigger.dataset.trigger!);
+        if (panel) trigger.setAttribute("aria-expanded", String(isDisplayBlock(panel)));
       });
     }
 
     // sibling behavior: desktop groups by data-group, mobile groups all panels
-    function closeSiblingPanels(currentPanel) {
+    function closeSiblingPanels(currentPanel: HTMLElement) {
       const isDesktop = desktopMediaQuery.matches;
       const group = currentPanel.dataset.group;
-      let siblingPanels;
+      let siblingPanels: NodeListOf<HTMLElement>;
 
       if (isDesktop && !group) return;
       if (isDesktop) {
-        siblingPanels = document.querySelectorAll('[data-panel][data-group="' + group + '"]');
+        siblingPanels = document.querySelectorAll<HTMLElement>('[data-panel][data-group="' + group + '"]');
       } else {
-        siblingPanels = document.querySelectorAll("[data-panel]");
+        siblingPanels = document.querySelectorAll<HTMLElement>("[data-panel]");
       }
 
       siblingPanels.forEach((siblingPanel) => {
@@ -61,10 +61,10 @@ export default function Panels() {
     }
 
     // delegated click handler: validates trigger, toggles its panel
-    function togglePanels(event) {
-      const trigger = event.target.closest("[data-trigger]");
+    function togglePanels(event: MouseEvent) {
+      const trigger = (event.target as HTMLElement).closest<HTMLElement>("[data-trigger]");
       if (!trigger) return;
-      const panel = getPanelWithName(trigger.dataset.trigger);
+      const panel = getPanelWithName(trigger.dataset.trigger!);
       if (!panel) return;
 
       if (isStateOpen(panel)) {
@@ -80,7 +80,7 @@ export default function Panels() {
     // reset all open/closed panels to default, then resync triggers
     function restorePanelDefaults() {
       document
-        .querySelectorAll('[data-panel][data-state="open"], [data-panel][data-state="closed"]')
+        .querySelectorAll<HTMLElement>('[data-panel][data-state="open"], [data-panel][data-state="closed"]')
         .forEach((panel) => {
           panel.dataset.state = "default";
         });
@@ -94,17 +94,17 @@ export default function Panels() {
     let isDragging = false;
     let startX = 0;
     let startWidthPercent = 0;
-    let activePanel = null;
+    let activePanel: HTMLElement | null = null;
     let directionMultiplier = 1; // 1 = left-anchored, -1 = right-anchored
 
     // begin tracking drag (desktop only)
-    function startResize(event) {
+    function startResize(event: MouseEvent) {
       if (!desktopMediaQuery.matches) return;
 
-      const handle = event.target.closest("[data-handle]");
+      const handle = (event.target as HTMLElement).closest<HTMLElement>("[data-handle]");
       if (!handle) return;
 
-      activePanel = getPanelWithName(handle.dataset.handle);
+      activePanel = getPanelWithName(handle.dataset.handle!);
       if (!activePanel) return;
 
       isDragging = true;
@@ -121,7 +121,7 @@ export default function Panels() {
     }
 
     // write the live width to a CSS variable, clamped to min/max
-    function resizePanel(event) {
+    function resizePanel(event: MouseEvent) {
       if (!isDragging || !activePanel) return;
 
       const windowPixels = window.innerWidth;
@@ -131,7 +131,7 @@ export default function Panels() {
 
       const panelStyles = getComputedStyle(activePanel);
 
-      function parseBoundary(styleValue, fallbackPercent) {
+      function parseBoundary(styleValue: string, fallbackPercent: number) {
         if (
           !styleValue ||
           styleValue === "none" ||
@@ -140,7 +140,7 @@ export default function Panels() {
         ) {
           return fallbackPercent;
         }
-        if (String(styleValue).includes("%")) return parseFloat(styleValue);
+        if (styleValue.includes("%")) return parseFloat(styleValue);
         return (parseFloat(styleValue) / windowPixels) * 100;
       }
 
@@ -166,8 +166,8 @@ export default function Panels() {
     }
 
     // named (not anonymous) so cleanup can remove it
-    function onMousedown(event) {
-      if (event.target.closest("[data-handle]")) startResize(event);
+    function onMousedown(event: MouseEvent) {
+      if ((event.target as HTMLElement).closest("[data-handle]")) startResize(event);
     }
 
     // ==============
