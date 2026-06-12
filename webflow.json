@@ -2,5 +2,20 @@
   "cloud": {
     "framework": "nextjs",
     "workspace_id": "632debe2b88d7fb98886297b"
+  },
+  "telemetry": {
+    "global": {
+      "allowTelemetry": true,
+      "lastPrompted": 1781236381092,
+      "version": "2.1.0"
+    }
+  },
+  "devlink-export": {
+    "rootDir": "./webflow",
+    "components": ".*",
+    "componentGroups": ".*",
+    "ts": true,
+    "cssScopes": false,
+    "relativeHrefRoot": "/"
   }
 }

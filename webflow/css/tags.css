@@ -1,0 +1,205 @@
+body {
+  background-color: var(--panels-bg);
+  font-family: var(--headings);
+  color: var(--text-light);
+  font-size: 1vw;
+  line-height: 1em;
+  --panels-bg: hsla(219.99999999999997, 11.94%, 15.48%, 1);
+  --headings: "IBM Plex Sans", sans-serif;
+  --text-light: hsla(222.2222222222222, 12.98%, 57.1%, 1);
+  --canvas-bg: hsla(219.99999999999997, 12.78%, 17.14%, 1);
+  --nav-width: 15%;
+  --panels-border: #1d1f24;
+  --panels-hover: hsla(219.99999999999997, 11.11%, 19.8%, 1);
+  --icon-js: #ffed06;
+  --icon-css: #ad66ff;
+  --icon-md: #65c1ff;
+  --text-active: hsla(222.2222222222222, 100%, 95.56%, 1);
+  --chat-width: 25%;
+  --transparent: hsla(0, 0%, 100%, 0);
+  --text-message: hsla(222.2222222222222, 16.22%, 61.8%, 1);
+  --radius-sm: 0.3em;
+  --canvas-hover: hsla(222, 13.92%, 26.92%, 1);
+  --radius-md: 0.5em;
+  --agents: "IBM Plex Mono", sans-serif;
+  --gray1: hsla(213.3333333333332, 26.2%, 92.77%, 1);
+  --gray2: #b9bfc5;
+  --gray3: #999fa5;
+  --gray4: #797f85;
+  --gray5: hsla(207.27272727272725, 8.17%, 32.05%, 1);
+  --form-error: red;
+  --tripadvisor: #00af87;
+  --facebook: #3b5997;
+  --linkedin: #0072b1;
+  --twitter: #1da1f2;
+  --yelp: #af3526;
+  --pinterest: #c8232c;
+  --youtube: red;
+  --google: #f4b400;
+  --instagram0: #f4b400;
+  --instagram33: #dd2a7b;
+  --instagram66: #8134af;
+  --instagram100: #515bd4;
+  --lightbox-backdrop: hsla(0, 0%, 0%, 0.8);
+  --paragraphs: Jost;
+  --h1-size: 4.5em;
+  --h2-size: 4em;
+  --h2-height: 1.1em;
+  --h2-weight: 900;
+  --h2-margin: 0.35em;
+  --h2p-size: 1.8em;
+  --h2p-height: 1.4em;
+  --h2p-weight: 400;
+  --h2p-margin: 1em;
+  --radius-lg: 1em;
+  ---mode--collection-20d2bbb2-a440-44b1-58c0-3aeb42ed92a3: base;
+  ---mode--collection-440cce0d-a5be-88a9-a4f0-e22f237d9a6b: base;
+  scrollbar-width: none;
+}
+
+h1 {
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  font-size: 1em;
+  line-height: 1em;
+  text-wrap: balance;
+}
+
+h2 {
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  font-size: 1em;
+  line-height: 1em;
+  text-wrap: balance;
+}
+
+h3 {
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  font-size: 1em;
+  line-height: 1em;
+  text-wrap: balance;
+}
+
+h4 {
+  margin: 0em;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+h5 {
+  margin: 0em;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+h6 {
+  margin: 0em;
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 700;
+}
+
+p {
+  margin-top: 0em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  text-wrap: balance;
+}
+
+a {
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+ul {
+  margin: 0em;
+  padding: 0em 0em 0em 1.5em;
+}
+
+ol {
+  margin: 0em;
+  padding: 0em 0em 0em 1.5em;
+}
+
+li {
+  margin: 0em;
+}
+
+blockquote {
+  margin: 0em;
+  padding: 0em;
+  border-left: 5px solid #e2e2e2;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+@media screen and (min-width: 1920px) {
+  body {
+    max-width: none;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  body {
+    font-size: 4vw;
+    ---mode--collection-20d2bbb2-a440-44b1-58c0-3aeb42ed92a3: mode-42d8af22-681b-782d-2c13-fae6660ab01e;
+    --panels-bg: hsla(219.99999999999997, 11.94%, 15.48%, 1);
+    --headings: "IBM Plex Sans", sans-serif;
+    --text-light: hsla(222.2222222222222, 12.98%, 57.1%, 1);
+    --canvas-bg: hsla(219.99999999999997, 12.78%, 17.14%, 1);
+    --nav-width: 100%;
+    --panels-border: #1d1f24;
+    --panels-hover: hsla(219.99999999999997, 11.11%, 19.8%, 1);
+    --icon-js: #ffed06;
+    --icon-css: #ad66ff;
+    --icon-md: #65c1ff;
+    --text-active: hsla(222.2222222222222, 100%, 95.56%, 1);
+    --chat-width: 100%;
+    --transparent: hsla(0, 0%, 100%, 0);
+    --text-message: hsla(222.2222222222222, 16.22%, 61.8%, 1);
+    --radius-sm: 0.3em;
+    --canvas-hover: hsla(222, 13.92%, 26.92%, 1);
+    --radius-md: 0.5em;
+    --agents: "IBM Plex Mono", sans-serif;
+    --gray1: hsla(213.3333333333332, 26.2%, 92.77%, 1);
+    --gray2: #b9bfc5;
+    --gray3: #999fa5;
+    --gray4: #797f85;
+    --gray5: hsla(207.27272727272725, 8.17%, 32.05%, 1);
+    --form-error: red;
+    --tripadvisor: #00af87;
+    --facebook: #3b5997;
+    --linkedin: #0072b1;
+    --twitter: #1da1f2;
+    --yelp: #af3526;
+    --pinterest: #c8232c;
+    --youtube: red;
+    --google: #f4b400;
+    --instagram0: #f4b400;
+    --instagram33: #dd2a7b;
+    --instagram66: #8134af;
+    --instagram100: #515bd4;
+    --lightbox-backdrop: hsla(0, 0%, 0%, 0.8);
+    --paragraphs: Jost;
+    --h1-size: 4.5em;
+    --h2-size: 4em;
+    --h2-height: 1.1em;
+    --h2-weight: 900;
+    --h2-margin: 0.35em;
+    --h2p-size: 1.8em;
+    --h2p-height: 1.4em;
+    --h2p-weight: 400;
+    --h2p-margin: 1em;
+    --radius-lg: 1em;
+    ---mode--collection-440cce0d-a5be-88a9-a4f0-e22f237d9a6b: mode-85ade385-18e8-f8d1-94e6-320e9a9ca43b;
+  }
+}
