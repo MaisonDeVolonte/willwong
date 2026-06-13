@@ -13,13 +13,19 @@ import Block from "../webflow_modules/Basic/components/Block";
 /**
  * Props for {@link Main}
  */
-export type MainProps = {};
+export type MainProps = {
+  slot?: React.ReactNode;
+};
 
 /**
  * Main
  *
  * @see {@link https://willwong.design.webflow.com | Source site in Webflow}
  */
-export function Main({}: MainProps) {
-  return <Block className={"main"} id={"Main"} tag={"main"} />;
+export function Main({ slot }: MainProps) {
+  return (
+    <Block className={"canvas"} id={"Main"} tag={"main"}>
+      {slot}
+    </Block>
+  );
 }

@@ -41,8 +41,8 @@ async function loadAndCreateIX3Engine(): Promise<IX3Engine> {
   // statically analyzable, so chunk emission is unaffected.
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- intentional; see comment above
   // @ts-ignore -- devlink-gsap is a side-effect bundle without typings
-  await import("./webflow_modules/devlink-gsap");
-  const { createIX3Engine } = await import("./webflow_modules/devlink-ix3");
+  await import("./devlink-gsap");
+  const { createIX3Engine } = await import("./devlink-ix3");
   return createIX3Engine();
 }
 
@@ -59,7 +59,7 @@ export const IX3Provider: React.FC<{ children: React.ReactNode }> = ({
   // <IX3Provider> was only rendered for IX3-using sites. With <IX3Provider>
   // now nested unconditionally inside <DevLinkProvider>, every DevLink
   // customer's tree mounts this provider. Eager init would attempt to
-  // dynamically import `./webflow_modules/devlink-{ix3,gsap}` on every page
+  // dynamically import `./devlink-{ix3,gsap}` on every page
   // — bundlers statically analyze those specifiers at customer-build time
   // and would fail on non-IX3 sites (the bundles are stub files emitted by
   // `getDevlinkEngine` so the imports resolve, but with eager init we'd

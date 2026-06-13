@@ -19,7 +19,7 @@ import { Test } from "../panels/Test";
  * Props for {@link Shell}
  */
 export type ShellProps = {
-  main?: React.ReactNode;
+  slot?: React.ReactNode;
 };
 
 /**
@@ -27,13 +27,13 @@ export type ShellProps = {
  *
  * @see {@link https://willwong.design.webflow.com | Source site in Webflow}
  */
-export function Shell({ main }: ShellProps) {
+export function Shell({ slot }: ShellProps) {
   return (
     <Block className={"shell"} tag={"div"}>
       <Header />
-      <Block className={"canvas"} tag={"div"}>
+      <Block className={"stage"} tag={"div"}>
         <Nav />
-        {main}
+        {slot}
         <Test />
         <Chat />
       </Block>

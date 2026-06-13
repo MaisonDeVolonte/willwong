@@ -30,12 +30,19 @@ Next.js app deployed to Webflow Cloud via Cloudflare Workers.
 ```
 src/                  # Application codebase
  ├── app/             # Structural skeleton and page routing
+ │    ├── [...slug]   # Route entry points (dynamic slug)
+ │    ├── custom.css  # Custom styles and overrides
  │    ├── layout.tsx  # Imports styles and mounts features
  │    └── page.tsx    # Route entry points
+ ├── content/         # Raw content files (never imported as modules)
+ │    ├── folder/     # Content folder 
+ │    ├── page.md     # Page content
+ │    └── home.md     # Home content
  ├── features/        # Behavior-only components 
  │    ├── feature.tsx # Behavior layers
  │    └── feature.css # Feature-specific styles
- └── css/             # Project-wide stylesheets
+ ├── utilities/       # Utility functions and helpers
+ └── types.d.ts       # TypeScript type definitions
 
 webflow/              # Devlink components
  ├── components/      # Presentational UI components
@@ -52,3 +59,5 @@ webflow/              # Devlink components
 **Webflow IX3 (GSAP)** — Temporarily managed in `src/features/` until Webflow Devlink supports interactions.
 
 **Active States** — Managed in `src/features/active.tsx` and declaratively controls all nav/ui active states.
+
+**Content Routing** — Managed in `src/content/` and `src/utilities/content.ts` auto-detects file extensions to parse and serve them as pages (folders = routes, files = tabs).

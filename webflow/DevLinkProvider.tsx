@@ -4,7 +4,7 @@ import { InteractionsProvider } from "./webflow_modules/interactions";
 import { createIX2Engine } from "./webflow_modules/devlink";
 import type { FontsManifest } from "./webflow_modules/types";
 import { useInjectFonts } from "./webflow_modules/useInjectFonts";
-import { IX3Provider } from "./ix3-interactions";
+import { IX3Provider } from "./webflow_modules/ix3-interactions";
 import fontsManifest from "./webflow_modules/fonts.manifest.json";
 
 export type RenderLink = React.FC<{
@@ -42,7 +42,7 @@ export const DevLinkProvider: React.FC<DevLinkProviderProps> = ({
   // IX3Provider is nested unconditionally so DevLink customers don't have
   // to compose providers themselves when adding IX3 interactions. The IX3
   // engine + GSAP are only loaded lazily — see the `ensureEngine` guard
-  // in ./ix3-interactions.tsx — so non-IX3 sites pay no runtime cost.
+  // in ./webflow_modules/ix3-interactions.tsx — so non-IX3 sites pay no runtime cost.
   return (
     <DevLinkContext.Provider value={context}>
       <IX3Provider>

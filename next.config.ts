@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
     basePath,
     assetPrefix: process.env.ASSETS_PREFIX || basePath,
   }),
+  webpack(config) {
+    config.module.rules.push({ test: /\.md$/, type: "asset/source" });
+    return config;
+  },
 };
 
 export default nextConfig;

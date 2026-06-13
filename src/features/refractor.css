@@ -1,0 +1,125 @@
+/* Variables */
+pre[class*="language-"] {
+    --refractor-line-height: 1.75em;
+}
+
+pre[class*="language-"],
+code[class*="language-"] {
+    font-family:
+        "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 1em;
+    line-height: var(--refractor-line-height);
+    color: #cdd6f4;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    tab-size: 2;
+    hyphens: none;
+}
+
+pre[class*="language-"] {
+    padding: 1.25em 1em 1.25em 0em;
+    margin: 0;
+    counter-reset: line;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: auto;
+}
+pre[class*="language-"]::-webkit-scrollbar {
+    display: block;
+    width: 1em;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background-color: var(--panels-hover);
+}
+pre[class*="language-"]::-webkit-scrollbar-track {
+    background: var(--panels-border);
+}
+
+.line {
+    display: block;
+    position: relative;
+    counter-increment: line;
+    padding-left: 3.5em;
+    min-height: calc(var(--refractor-line-height));
+}
+
+.line::before {
+    content: counter(line);
+    position: absolute;
+    left: 0;
+    width: 2em;
+    text-align: right;
+    color: #45475a;
+    user-select: none;
+}
+
+/* Markdown tokens */
+.token.title .token.punctuation,
+.token.title {
+    color: #cba6f7;
+    font-weight: bold;
+}
+
+.token.blockquote.punctuation,
+.token.blockquote {
+    color: #6c7086;
+    font-style: italic;
+}
+
+.token.code {
+    color: #a6e3a1;
+}
+
+.token.hr {
+    color: #585b70;
+}
+
+.token.url > .token.content {
+    color: #89b4fa;
+}
+
+.token.url > .token.url {
+    color: #74c7ec;
+}
+
+.token.bold > .token.content {
+    color: #fab387;
+    font-weight: bold;
+}
+
+.token.italic > .token.content {
+    color: #f5c2e7;
+    font-style: italic;
+}
+
+.token.strike > .token.content {
+    color: #6c7086;
+    text-decoration: line-through;
+}
+
+.token.list.punctuation {
+    color: #f38ba8;
+}
+
+.token.punctuation {
+    color: #6c7086;
+}
+
+.token.string {
+    color: #a6e3a1;
+}
+
+.token.keyword {
+    color: #cba6f7;
+}
+
+.token.comment {
+    color: #585b70;
+    font-style: italic;
+}
+
+.token.number {
+    color: #fab387;
+}

@@ -1,0 +1,22 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: var(--panel-width, 20em);
+  min-width: 10em;
+  max-width: 30em;
+}
+
+.panel__handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0.25em;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+}
+
+.panel__handle:hover {
+  background: var(--accent-color, #cba6f7);
+}

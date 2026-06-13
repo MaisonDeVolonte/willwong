@@ -1,10 +1,10 @@
 :root {
-  --panels-bg: hsla(219.99999999999997, 11.94%, 15.48%, 1);
+  --panels-bg: hsla(219.99999999999997, 13.35%, 13.76%, 1);
   --headings: "IBM Plex Sans", sans-serif;
   --text-light: hsla(222.2222222222222, 12.98%, 57.1%, 1);
   --canvas-bg: hsla(219.99999999999997, 12.78%, 17.14%, 1);
   --nav-width: 15%;
-  --panels-border: #1d1f24;
+  --panels-border: hsla(222.85714285714286, 11.94%, 10.01%, 1);
   --panels-hover: hsla(219.99999999999997, 11.11%, 19.8%, 1);
   --icon-js: #ffed06;
   --icon-css: #ad66ff;
@@ -12,7 +12,7 @@
   --text-active: hsla(222.2222222222222, 100%, 95.56%, 1);
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
-  --text-message: hsla(222.2222222222222, 16.22%, 61.8%, 1);
+  --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);
   --radius-sm: 0.3em;
   --canvas-hover: hsla(222, 13.92%, 26.92%, 1);
   --radius-md: 0.5em;
