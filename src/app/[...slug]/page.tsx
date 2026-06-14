@@ -1,4 +1,4 @@
-import { getAllPages, getPage } from "@/utilities/content";
+import { getAllPages, getPage } from "@/utilities/navigation";
 import Tabs from "@/features/tabs";
 import { notFound } from "next/navigation";
 

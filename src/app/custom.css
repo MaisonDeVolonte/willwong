@@ -7,9 +7,9 @@ body {
     font-size: 1vw;
     line-height: 1em;
 
-  @media screen and (max-width: 479px) {
-    font-size: 4vw;
-  }
+    @media screen and (max-width: 479px) {
+        font-size: 4vw;
+    }
 }
 
 /* Native */
@@ -164,39 +164,5 @@ video {
     }
     100% {
         filter: hue-rotate(0deg);
-    }
-}
-
-/* Panels */
-[data-panel] {
-    display: none;
-}
-[data-panel][data-state="open"] {
-    display: block;
-}
-[data-panel][data-state="default"][data-desktop="open"] {
-    display: block;
-}
-[data-trigger] {
-    color: var(--text-light);
-}
-[data-trigger][data-desktop="active"] {
-    color: var(--text-active);
-}
-[data-trigger][aria-expanded="true"] {
-    color: var(--text-active);
-}
-[data-trigger][aria-expanded="false"] {
-    color: var(--text-light);
-}
-.chat__input:placeholder-shown + .chat__button {
-    color: var(--text-light);
-}
-@media screen and (max-width: 479px) {
-    [data-panel][data-state="default"][data-desktop="open"] {
-        display: none;
-    }
-    [data-trigger][data-desktop="active"] {
-        color: var(--text-light);
     }
 }

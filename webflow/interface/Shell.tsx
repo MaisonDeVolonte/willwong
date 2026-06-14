@@ -12,7 +12,6 @@ import Block from "../webflow_modules/Basic/components/Block";
 import { Chat } from "../panels/Chat";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { Nav } from "../panels/Nav";
 import { Test } from "../panels/Test";
 
 /**
@@ -32,7 +31,6 @@ export function Shell({ slot }: ShellProps) {
     <Block className={"shell"} tag={"div"}>
       <Header />
       <Block className={"stage"} tag={"div"}>
-        <Nav />
         {slot}
         <Test />
         <Chat />

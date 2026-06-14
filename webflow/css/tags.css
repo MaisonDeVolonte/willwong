@@ -11,9 +11,10 @@ body {
   --nav-width: 15%;
   --panels-border: hsla(222.85714285714286, 11.94%, 10.01%, 1);
   --panels-hover: hsla(219.99999999999997, 11.11%, 19.8%, 1);
-  --icon-js: #ffed06;
   --icon-css: #ad66ff;
-  --icon-md: #65c1ff;
+  --icon-md: hsla(204.15584415584416, 100%, 68.67%, 1);
+  --icon-tsx: #00a6ff;
+  --icon-ts: #00a6ff;
   --text-active: hsla(222.2222222222222, 100%, 95.56%, 1);
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
@@ -48,6 +49,7 @@ body {
   --h2-weight: 900;
   --h2-margin: 0.35em;
   --h2p-size: 1.8em;
+  --icon-js: #ffed06;
   --h2p-height: 1.4em;
   --h2p-weight: 400;
   --h2p-margin: 1em;
@@ -158,9 +160,10 @@ blockquote {
     --nav-width: 100%;
     --panels-border: hsla(222.85714285714286, 11.94%, 10.01%, 1);
     --panels-hover: hsla(219.99999999999997, 11.11%, 19.8%, 1);
-    --icon-js: #ffed06;
     --icon-css: #ad66ff;
-    --icon-md: #65c1ff;
+    --icon-md: hsla(204.15584415584416, 100%, 68.67%, 1);
+    --icon-tsx: #00a6ff;
+    --icon-ts: #00a6ff;
     --text-active: hsla(222.2222222222222, 100%, 95.56%, 1);
     --chat-width: 100%;
     --transparent: hsla(0, 0%, 100%, 0);
@@ -195,6 +198,7 @@ blockquote {
     --h2-weight: 900;
     --h2-margin: 0.35em;
     --h2p-size: 1.8em;
+    --icon-js: #ffed06;
     --h2p-height: 1.4em;
     --h2p-weight: 400;
     --h2p-margin: 1em;

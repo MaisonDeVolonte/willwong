@@ -4,7 +4,7 @@ import { useState } from "react";
 import Refractor from "@/features/refractor";
 import "@/features/refractor.css";
 import "@/features/tabs.css";
-import type { ContentPage } from "@/utilities/content";
+import type { ContentPage } from "@/utilities/navigation";
 
 type TabsProps = {
   page: ContentPage;

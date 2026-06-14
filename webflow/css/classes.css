@@ -140,8 +140,8 @@
 
 .nav {
   position: relative;
-  overflow: auto;
   width: var(--nav-width);
+  height: 100%;
   max-width: 30%;
   min-width: 10%;
   border-right-style: solid;
@@ -150,17 +150,12 @@
   overflow-x: hidden;
 }
 
-.nav__folder {
-  display: block;
-}
-
 .nav__link {
   display: flex;
   height: 2.25em;
   padding: 0px 0px 0px 1em;
   justify-content: flex-start;
   align-items: center;
-  color: var(--text-light);
   white-space: nowrap;
 }
 
@@ -174,6 +169,14 @@
 
 .nav__link.nav__link--lvl3 {
   padding-left: 4.5em;
+}
+
+.nav__link.nav__link--lvl4 {
+  padding-left: 6.5em;
+}
+
+.nav__link.nav__link--lvl5 {
+  padding-left: 8em;
 }
 
 .nav__text {
@@ -192,10 +195,6 @@
   transform: rotate(90deg);
 }
 
-.nav__icon.nav__icon--js {
-  color: var(--icon-js);
-}
-
 .nav__icon.nav__icon--css {
   color: var(--icon-css);
 }
@@ -204,15 +203,20 @@
   color: var(--icon-md);
 }
 
+.nav__icon.nav__icon--tsx {
+  color: var(--icon-tsx);
+}
+
+.nav__icon.nav__icon--ts {
+  color: var(--icon-ts);
+}
+
 .nav__list {
-  position: relative;
-  overflow: hidden;
-  height: 0em;
-  background-color: transparent;
+  display: none;
 }
 
 .nav__list.nav__list--open {
-  height: auto;
+  display: block;
 }
 
 .stage {
@@ -515,6 +519,11 @@
 }
 
 .slot {
+  height: 100%;
+}
+
+.nav__links {
+  overflow: auto;
   height: 100%;
 }
 

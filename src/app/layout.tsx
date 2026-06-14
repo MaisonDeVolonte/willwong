@@ -20,8 +20,15 @@ import "@webflow/css/global.css";
 // Overrides
 import "./custom.css";
 
-// Layout
-import { Shell } from "@webflow/interface/Shell";
+// Webflow panels + interface
+import { Header } from "@webflow/interface/Header";
+import { Footer } from "@webflow/interface/Footer";
+import { Nav } from "@webflow/panels/Nav";
+import { Chat } from "@webflow/panels/Chat";
+import { Test } from "@webflow/panels/Test";
+
+// Navigation
+import NavLinks from "@/features/navigation";
 
 // Features
 import Active from "@/features/active";
@@ -39,7 +46,16 @@ export default function RootLayout({
     <DevLinkProvider>
       <html lang="en">
         <body>
-          <Shell slot={<main className="canvas">{children}</main>} />
+          <div className="shell">
+            <Header />
+            <div className="stage">
+              <Nav slot={<NavLinks />} />
+              <main className="canvas">{children}</main>
+              <Test />
+              <Chat />
+            </div>
+            <Footer />
+          </div>
           <Active />
           <Folders />
           <Panels />

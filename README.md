@@ -60,4 +60,4 @@ webflow/              # Devlink components
 
 **Active States** — Managed in `src/features/active.tsx` and declaratively controls all nav/ui active states.
 
-**Content Routing** — Managed in `src/content/` and `src/utilities/content.ts` auto-detects file extensions to parse and serve them as pages (folders = routes, files = tabs).
+**Content Routing** — Managed in `src/content/` and `src/utilities/navigation.ts` auto-detects file extensions to parse and serve them as pages (folders = routes, files = tabs).

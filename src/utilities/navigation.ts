@@ -1,5 +1,6 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
+import { cache } from "react";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content");
 
@@ -106,4 +107,66 @@ export async function getPage(slug: string[]): Promise<ContentPage | null> {
   const pages = await getAllPages();
   const key = slug.join("/");
   return pages.find((p) => p.slug.join("/") === key) ?? null;
+}
+
+// === Nav Tree ===
+
+const ICONS_DIR = path.join(process.cwd(), "src/icons");
+
+export const ICON_COLORS: Record<string, string> = {
+  css: "var(--icon-css)",
+  md:  "var(--icon-md)",
+  ts:  "var(--icon-ts)",
+  tsx: "var(--icon-tsx)",
+};
+
+export const readIcon = cache(async (name: string): Promise<string> => {
+  try {
+    return await readFile(path.join(ICONS_DIR, `${name}.svg`), "utf-8");
+  } catch {
+    return readFile(path.join(ICONS_DIR, "fallback.svg"), "utf-8");
+  }
+});
+
+export type NavLeaf = {
+  kind: "leaf";
+  label: string;
+  href: string;
+  files: ContentFile[];
+};
+
+export type NavFolder = {
+  kind: "folder";
+  label: string;
+  children: NavNode[];
+};
+
+export type NavNode = NavLeaf | NavFolder;
+
+export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
+  const leaves: NavLeaf[] = [];
+  const folders = new Map<string, ContentPage[]>();
+
+  for (const page of pages) {
+    if (page.slug.length - 1 === depth) {
+      leaves.push({
+        kind: "leaf",
+        label: page.slug[depth],
+        href: `/${page.slug.join("/")}`,
+        files: page.files,
+      });
+    } else {
+      const key = page.slug[depth];
+      if (!folders.has(key)) folders.set(key, []);
+      folders.get(key)!.push(page);
+    }
+  }
+
+  const folderNodes: NavFolder[] = Array.from(folders.entries()).map(([label, children]) => ({
+    kind: "folder",
+    label,
+    children: buildNavTree(children, depth + 1),
+  }));
+
+  return [...folderNodes, ...leaves];
 }
