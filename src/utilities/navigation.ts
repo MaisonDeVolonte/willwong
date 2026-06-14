@@ -44,6 +44,7 @@ export type ContentFile = {
   name: string;
   language: string;
   content: string;
+  icon: string;
 };
 
 export type ContentPage = {
@@ -59,7 +60,8 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
       .map(async (e) => {
         const ext = e.name.split(".").pop()?.toLowerCase() ?? "";
         const content = await readFile(path.join(dir, e.name), "utf-8");
-        return { name: e.name, language: LANGUAGES[ext] ?? ext, content };
+        const icon = await readIcon(ext);
+        return { name: e.name, language: LANGUAGES[ext] ?? ext, content, icon };
       })
   );
   // .md first (explainer), then alphabetically
@@ -82,9 +84,10 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
       const slug = [file.name.replace(/\.[^.]+$/, "")];
       const content = await readFile(path.join(dir, file.name), "utf-8");
+      const icon = await readIcon(ext);
       pages.push({
         slug,
-        files: [{ name: file.name, language: LANGUAGES[ext] ?? ext, content }],
+        files: [{ name: file.name, language: LANGUAGES[ext] ?? ext, content, icon }],
       });
     }
   } else if (fileEntries.length > 0) {

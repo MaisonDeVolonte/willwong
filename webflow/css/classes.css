@@ -211,14 +211,6 @@
   color: var(--icon-ts);
 }
 
-.nav__list {
-  display: none;
-}
-
-.nav__list.nav__list--open {
-  display: block;
-}
-
 .stage {
   display: flex;
   min-height: 0px;

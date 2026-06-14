@@ -1,17 +1,18 @@
 import { readFile } from "fs/promises";
 import path from "path";
-import Tabs from "@/features/tabs";
+import Canvas from "@/features/canvas";
+import { readIcon } from "@/utilities/navigation";
 
 export default async function Home() {
-  const content = await readFile(
-    path.join(process.cwd(), "src/content/home.md"),
-    "utf-8"
-  );
+  const [content, icon] = await Promise.all([
+    readFile(path.join(process.cwd(), "src/content/home.md"), "utf-8"),
+    readIcon("md"),
+  ]);
   return (
-    <Tabs
+    <Canvas
       page={{
         slug: [],
-        files: [{ name: "home.md", language: "markdown", content }],
+        files: [{ name: "home.md", language: "markdown", content, icon }],
       }}
     />
   );

@@ -1,0 +1,52 @@
+/* Variables */
+.canvas {
+    --canvas-tab-height: 2.5em;
+    --canvas-tab-gap: 0.5em;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.canvas__bar {
+    display: flex;
+    flex-shrink: 0;
+    height: var(--canvas-tab-height);
+    gap: var(--canvas-tab-gap);
+    background: var(--panels-bg);
+    border-bottom: 1px solid var(--panels-border);
+}
+
+.canvas__tab {
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    font-size: 0.875em;
+    color: var(--text-light);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.canvas__tab-icon {
+    display: flex;
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+}
+
+.canvas__tab-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas__tab--active {
+    color: var(--text-active);
+    background: var(--canvas-bg);
+}
+
+.canvas__tab:hover:not(.canvas__tab--active) {
+    background: var(--panels-hover);
+}

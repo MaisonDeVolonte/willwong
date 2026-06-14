@@ -50,7 +50,7 @@ export function Header({}: HeaderProps) {
           button={false}
           className={"nav__title"}
           options={{
-            href: "#",
+            href: "/",
           }}
         >
           <Block tag={"div"}>{"William Wong"}</Block>

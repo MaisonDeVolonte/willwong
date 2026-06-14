@@ -3,26 +3,30 @@
 import { useState } from "react";
 import Refractor from "@/features/refractor";
 import "@/features/refractor.css";
-import "@/features/tabs.css";
+import "@/features/canvas.css";
 import type { ContentPage } from "@/utilities/navigation";
 
-type TabsProps = {
+type CanvasProps = {
   page: ContentPage;
 };
 
-export default function Tabs({ page }: TabsProps) {
+export default function Canvas({ page }: CanvasProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = page.files[activeIndex];
 
   return (
-    <div className="tabs">
-      <div className="tabs__bar">
+    <div className="canvas">
+      <div className="canvas__bar">
         {page.files.map((file, i) => (
           <button
             key={file.name}
-            className={`tabs__tab${i === activeIndex ? " tabs__tab--active" : ""}`}
+            className={`canvas__tab${i === activeIndex ? " canvas__tab--active" : ""}`}
             onClick={() => setActiveIndex(i)}
           >
+            <span
+              className="canvas__tab-icon"
+              dangerouslySetInnerHTML={{ __html: file.icon }}
+            />
             {file.name}
           </button>
         ))}

@@ -1,6 +1,6 @@
 :root {
-  --panels-bg: hsla(219.99999999999997, 13.35%, 13.76%, 1);
-  --headings: "IBM Plex Sans", sans-serif;
+  --panels-bg: hsla(219.99999999999997, 14.21%, 13.19%, 1);
+  --primary: "IBM Plex Sans", sans-serif;
   --text-light: hsla(222.2222222222222, 12.98%, 57.1%, 1);
   --canvas-bg: hsla(219.99999999999997, 12.78%, 17.14%, 1);
   --nav-width: 15%;
@@ -18,12 +18,6 @@
   --canvas-hover: hsla(222, 13.92%, 26.92%, 1);
   --radius-md: 0.5em;
   --agents: "IBM Plex Mono", sans-serif;
-  --gray1: hsla(213.3333333333332, 26.2%, 92.77%, 1);
-  --gray2: #b9bfc5;
-  --gray3: #999fa5;
-  --gray4: #797f85;
-  --gray5: hsla(207.27272727272725, 8.17%, 32.05%, 1);
-  --form-error: red;
   --tripadvisor: #00af87;
   --facebook: #3b5997;
   --linkedin: #0072b1;
@@ -36,17 +30,6 @@
   --instagram33: #dd2a7b;
   --instagram66: #8134af;
   --instagram100: #515bd4;
-  --lightbox-backdrop: hsla(0, 0%, 0%, 0.8);
-  --paragraphs: Jost;
-  --h1-size: 4.5em;
-  --h2-size: 4em;
-  --h2-height: 1.1em;
-  --h2-weight: 900;
-  --h2-margin: 0.35em;
-  --h2p-size: 1.8em;
   --icon-js: #ffed06;
-  --h2p-height: 1.4em;
-  --h2p-weight: 400;
-  --h2p-margin: 1em;
   --radius-lg: 1em;
 }

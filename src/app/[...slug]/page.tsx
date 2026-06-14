@@ -1,5 +1,5 @@
 import { getAllPages, getPage } from "@/utilities/navigation";
-import Tabs from "@/features/tabs";
+import Canvas from "@/features/canvas";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -15,5 +15,5 @@ export default async function DynamicPage({ params }: Props) {
   const { slug } = await params;
   const page = await getPage(slug);
   if (!page) notFound();
-  return <Tabs page={page} />;
+  return <Canvas page={page} />;
 }
