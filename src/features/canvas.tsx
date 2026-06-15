@@ -1,34 +1,37 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
+import type { ContentPage } from "@/navigation/content";
 import Refractor from "@/features/refractor";
 import "@/features/refractor.css";
 import "@/features/canvas.css";
-import type { ContentPage } from "@/utilities/navigation";
 
 type CanvasProps = {
   page: ContentPage;
+  activeIndex?: number;
 };
 
-export default function Canvas({ page }: CanvasProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function Canvas({ page, activeIndex = 0 }: CanvasProps) {
   const active = page.files[activeIndex];
+  const basePath = `/${page.slug.join("/")}`;
+
+  function tabHref(filename: string) {
+    return page.files.length === 1 ? basePath : `${basePath}/${filename}`;
+  }
 
   return (
     <div className="canvas">
       <div className="canvas__bar">
         {page.files.map((file, i) => (
-          <button
+          <Link
             key={file.name}
+            href={tabHref(file.name)}
             className={`canvas__tab${i === activeIndex ? " canvas__tab--active" : ""}`}
-            onClick={() => setActiveIndex(i)}
           >
             <span
               className="canvas__tab-icon"
               dangerouslySetInnerHTML={{ __html: file.icon }}
             />
             {file.name}
-          </button>
+          </Link>
         ))}
       </div>
       <Refractor code={active.content} language={active.language} />

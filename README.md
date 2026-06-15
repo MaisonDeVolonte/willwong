@@ -58,6 +58,14 @@ webflow/              # Devlink components
 
 **Webflow IX3 (GSAP)** — Temporarily managed in `src/features/` until Webflow Devlink supports interactions.
 
+**Content Management** — Managed in `src/content/` and `src/features/refractor.tsx` automatically parses code files as html.
+
+**Content Routing** — Managed in `src/utilities/navigation.ts` and automatically walks `src/content/` to build page routes and construct the nav tree.
+
 **Active States** — Managed in `src/features/active.tsx` and declaratively controls all nav/ui active states.
 
-**Content Routing** — Managed in `src/content/` and `src/utilities/navigation.ts` auto-detects file extensions to parse and serve them as pages (folders = routes, files = tabs).
+**Code Formatting** — Managed in `.zed/settings.json` and uses the built-in language server formatter, disabled on save.
+
+## Notes to self
+
+- **Webflow DevLink only exports component styles.** CSS classes applied exclusively to page-level elements (not inside a DevLink component) are silently omitted from the export. If styles are missing from `webflow/css/` after a sync, check whether the class is used on a component or only on a page. Fix: apply the class to an element inside a component, or use a dedicated style-carrier component.

@@ -150,6 +150,10 @@
   overflow-x: hidden;
 }
 
+.nav__folder {
+  display: block;
+}
+
 .nav__link {
   display: flex;
   height: 2.25em;
@@ -177,6 +181,10 @@
 
 .nav__link.nav__link--lvl5 {
   padding-left: 8em;
+}
+
+.nav__link.nav__link--active {
+  color: var(--text-active);
 }
 
 .nav__text {
@@ -209,6 +217,19 @@
 
 .nav__icon.nav__icon--ts {
   color: var(--icon-ts);
+}
+
+.nav__list {
+  position: relative;
+  overflow: hidden;
+  height: 0em;
+  max-height: 0em;
+  background-color: transparent;
+}
+
+.nav__list.nav__list--open {
+  height: auto;
+  max-height: none;
 }
 
 .stage {

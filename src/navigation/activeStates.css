@@ -1,0 +1,5 @@
+/* Panel Triggers */
+[data-trigger] {color: var(--text-light);}
+[data-trigger][data-desktop="active"] {color: var(--text-active);}
+[data-trigger][aria-expanded="true"] {color: var(--text-active);}
+[data-trigger][aria-expanded="false"] {color: var(--text-light);}

@@ -1,0 +1,4 @@
+.chat__menu__pane::-webkit-scrollbar {width: 0.75em;}
+.chat__menu__pane::-webkit-scrollbar-thumb {background-color: var(--panels-hover);}
+.chat__menu__pane::-webkit-scrollbar-track {background: var(--panels-border);}
+.chat__input:placeholder-shown + .chat__button {color: var(--text-light);}

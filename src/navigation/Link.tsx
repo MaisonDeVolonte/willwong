@@ -1,6 +1,6 @@
-import Link from "next/link";
+import NextLink from "next/link";
 
-type NavLinkProps = {
+type LinkProps = {
   href: string;
   name: string;
   level: number;
@@ -8,15 +8,15 @@ type NavLinkProps = {
   iconColor?: string;
 };
 
-export default function NavLink({ href, name, level, icon, iconColor }: NavLinkProps) {
+export default function Link({ href, name, level, icon, iconColor }: LinkProps) {
   return (
-    <Link className={`nav__link nav__link--lvl${level}`} href={href}>
+    <NextLink className={`nav__link nav__link--lvl${level}`} href={href}>
       <span
         className="nav__icon"
         style={iconColor ? { color: iconColor } : undefined}
         dangerouslySetInnerHTML={{ __html: icon }}
       />
       <div className="nav__text">{name}</div>
-    </Link>
+    </NextLink>
   );
 }

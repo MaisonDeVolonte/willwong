@@ -1,0 +1,8 @@
+{
+  "format_on_save": "off",
+  "languages": {
+    "TypeScript": { "formatter": "language_server" },
+    "TSX": { "formatter": "language_server" },
+    "CSS": { "formatter": "language_server" }
+  }
+}

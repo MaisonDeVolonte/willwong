@@ -18,7 +18,8 @@ import "@webflow/css/classes.css";
 import "@webflow/css/global.css";
 
 // Overrides
-import "./custom.css";
+import "@/app/custom.css";
+import "@/features/panels.css";
 
 // Webflow panels + interface
 import { Header } from "@webflow/interface/Header";
@@ -28,13 +29,12 @@ import { Chat } from "@webflow/panels/Chat";
 import { Test } from "@webflow/panels/Test";
 
 // Navigation
-import NavLinks from "@/features/navigation";
+import NavLinks from "@/navigation/Panel";
+import Active from "@/navigation/activeStates";
+import Folders from "@/navigation/folderStates";
 
 // Features
-import Active from "@/features/active";
-import Folders from "@/features/folders";
 import Panels from "@/features/panels";
-import "@/features/panels.css";
 
 // Render
 export default function RootLayout({

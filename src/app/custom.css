@@ -1,45 +1,26 @@
 /* Body */
 body {
-    background-color: var(--panels-bg);
-    font-family: var(--headings);
-    color: var(--text-light);
-    scrollbar-width: none;
-    font-size: 1vw;
-    line-height: 1em;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  background-color: var(--panels-bg);
+  font-family: var(--headings);
+  color: var(--text-light);
+  scrollbar-width: none;
+  font-size: 1vw;
+  line-height: 1em;
 
-    @media screen and (max-width: 479px) {
-        font-size: 4vw;
-    }
-}
-
-/* Native */
-body {
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-}
-
-/* Captcha */
-.grecaptcha-badge {
-    display: none;
+  @media screen and (max-width: 479px) {font-size: 4vw;}
 }
 
 /* Lists */
-li,
-.w-dyn-item {
-    break-inside: avoid !important;
-}
+li,.w-dyn-item {break-inside: avoid !important;}
 
 /* Menus */
-.w-dropdown-list,
-.w-nav-menu,
-div[data-reach-track="menu"] {
-    overscroll-behavior: contain;
-}
+.w-dropdown-list {overscroll-behavior: contain;}
 
 /* Forms */
-* {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+* {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -48,121 +29,57 @@ input[type="search"],
 input[type="radio"],
 input[type="file"],
 textarea,
-select {
-    -webkit-appearance: none;
-}
+select {-webkit-appearance: none;}
+
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-button {
-    background-color: transparent;
-}
-select[disabled] {
-    background-color: #eee;
-    opacity: 1;
-}
-.w-checkbox-input {
-    box-shadow: none !important;
-}
-.w-form-label {
-    pointer-events: none !important;
-}
+input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none;margin: 0;}
+select[disabled] {background-color: #eee;opacity: 1;}
+button {background-color: transparent;}
+
+.w-checkbox-input {box-shadow: none !important;}
+.w-form-label {pointer-events: none !important;}
 
 /* Videos */
 video {
     display: block;
     outline: none;
     line-height: 0;
-}
-.video video {
     width: 102%;
     height: 102%;
     margin-left: -2px;
     object-fit: cover;
 }
 
-/* Twitter */
-.twitter-tweet {
-    width: auto !important;
-    min-width: 0px !important;
-    margin: 0 !important;
-}
-
 /* Scrollbars */
-.nav,
-.chat__pane {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-.nav::-webkit-scrollbar,
-.chat__pane::-webkit-scrollbar {
-    display: none;
-}
-.chat__menu__pane::-webkit-scrollbar {
-    display: block;
-    width: 0.75em;
-}
-.chat__menu__pane::-webkit-scrollbar-thumb {
-    background-color: var(--panels-hover);
-}
-.chat__menu__pane::-webkit-scrollbar-track {
-    background: var(--panels-border);
-}
+.nav, .chat__pane {scrollbar-width: none; -ms-overflow-style: none;}
+.nav::-webkit-scrollbar, .chat__pane::-webkit-scrollbar {display: none;}
+
+.chat__menu__pane::-webkit-scrollbar {display: block;width: 0.75em;}
+.chat__menu__pane::-webkit-scrollbar-thumb {background-color: var(--panels-hover);}
+.chat__menu__pane::-webkit-scrollbar-track {background: var(--panels-border);}
 
 /* Colorize */
-.colorize {
-    animation: colorize var(--colorize-duration, 20s) infinite alternate;
-}
-.colorize-bg {
-    animation: colorize-bg var(--colorize-bg-duration, 20s) infinite alternate;
-}
-.colorize-hue {
-    animation: colorize-hue 4s infinite;
-}
+.colorize {animation: colorize var(--colorize-duration, 20s) infinite alternate;}
 @keyframes colorize {
-    0% {
-        color: var(--colorize-0);
-    }
-    25% {
-        color: var(--colorize-25);
-    }
-    50% {
-        color: var(--colorize-50);
-    }
-    75% {
-        color: var(--colorize-75);
-    }
-    100% {
-        color: var(--colorize-100);
-    }
+  0% {color: var(--colorize-0);}
+  25% {color: var(--colorize-25);}
+  50% {color: var(--colorize-50);}
+  75% {color: var(--colorize-75);}
+  100% {color: var(--colorize-100);}
 }
+
+.colorize-bg {animation: colorize-bg var(--colorize-bg-duration, 20s) infinite alternate;}
 @keyframes colorize-bg {
-    0% {
-        background-color: var(--colorize-0);
-    }
-    25% {
-        background-color: var(--colorize-25);
-    }
-    50% {
-        background-color: var(--colorize-50);
-    }
-    75% {
-        background-color: var(--colorize-75);
-    }
-    100% {
-        background-color: var(--colorize-100);
-    }
+  0% {background-color: var(--colorize-0);}
+  25% {background-color: var(--colorize-25);}
+  50% {background-color: var(--colorize-50);}
+  75% {background-color: var(--colorize-75);}
+  100% {background-color: var(--colorize-100);}
 }
+
+.colorize-hue {animation: colorize-hue 4s infinite;}
 @keyframes colorize-hue {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    50% {
-        filter: hue-rotate(300deg);
-    }
-    100% {
-        filter: hue-rotate(0deg);
-    }
+  0% {filter: hue-rotate(0deg);}
+  50% {filter: hue-rotate(300deg);}
+  100% {filter: hue-rotate(0deg);}
 }

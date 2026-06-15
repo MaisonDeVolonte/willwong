@@ -1,41 +1,7 @@
-[data-panel] {
-    display: none;
-}
-[data-panel][data-state="open"] {
-    display: block;
-}
-[data-panel][data-state="default"][data-desktop="open"] {
-    display: block;
-}
-[data-trigger] {
-    color: var(--text-light);
-}
-[data-trigger][data-desktop="active"] {
-    color: var(--text-active);
-}
-.chat__menu__pane::-webkit-scrollbar {
-    width: 0.75em;
-}
-.chat__menu__pane::-webkit-scrollbar-thumb {
-    background-color: var(--panels-hover);
-}
-.chat__menu__pane::-webkit-scrollbar-track {
-    background: var(--panels-border);
-}
-.chat__input:placeholder-shown + .chat__button {
-    color: var(--text-light);
-}
+[data-panel] {display: none;}
+[data-panel][data-state="open"] {display: block;}
+[data-panel][data-state="default"][data-desktop="open"] {display: block;}
+
 @media screen and (max-width: 479px) {
-    [data-panel][data-state="default"][data-desktop="open"] {
-        display: none;
-    }
-    [data-trigger][data-desktop="active"] {
-        color: var(--text-light);
-    }
-}
-[data-trigger][aria-expanded="true"] {
-    color: var(--text-active);
-}
-[data-trigger][aria-expanded="false"] {
-    color: var(--text-light);
+  [data-panel][data-state="default"][data-desktop="open"] {display: none;}
 }

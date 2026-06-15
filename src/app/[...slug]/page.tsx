@@ -1,10 +1,9 @@
-import { getAllPages, getPage } from "@/utilities/navigation";
-import Canvas from "@/features/canvas";
 import { notFound } from "next/navigation";
+import { getAllFileParams, getFile } from "@/navigation/routes";
+import Canvas from "@/features/canvas";
 
 export async function generateStaticParams() {
-  const pages = await getAllPages();
-  return pages.map((p) => ({ slug: p.slug }));
+  return getAllFileParams();
 }
 
 type Props = {
@@ -13,7 +12,7 @@ type Props = {
 
 export default async function DynamicPage({ params }: Props) {
   const { slug } = await params;
-  const page = await getPage(slug);
-  if (!page) notFound();
-  return <Canvas page={page} />;
+  const resolved = await getFile(slug);
+  if (!resolved) notFound();
+  return <Canvas page={resolved.page} activeIndex={resolved.fileIndex} />;
 }

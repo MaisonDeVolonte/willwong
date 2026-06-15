@@ -1,11 +1,11 @@
-type NavFolderProps = {
+type FolderProps = {
   name: string;
   level: number;
   chevron: string;
   children: React.ReactNode;
 };
 
-export default function NavFolder({ name, level, chevron, children }: NavFolderProps) {
+export default function Folder({ name, level, chevron, children }: FolderProps) {
   return (
     <div className="nav__folder">
       <a className={`nav__link nav__link--lvl${level}`} href="#">

@@ -1,7 +1,8 @@
-import { getAllPages, buildNavTree, readIcon, ICON_COLORS } from "@/utilities/navigation";
-import type { NavNode, ContentFile } from "@/utilities/navigation";
-import NavLink from "@/components/NavLink";
-import NavFolder from "@/components/NavFolder";
+import { getAllPages, readIcon, ICON_COLORS } from "@/navigation/content";
+import { buildNavTree } from "@/navigation/tree";
+import type { NavNode, ContentFile } from "@/navigation/tree";
+import Link from "@/navigation/Link";
+import Folder from "@/navigation/Folder";
 
 function primaryExt(files: ContentFile[]): string {
   return files[0]?.name.split(".").pop()?.toLowerCase() ?? "";
@@ -13,9 +14,9 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
       node.children.map((child) => renderNode(child, depth + 1, chevron))
     );
     return (
-      <NavFolder key={node.label} name={node.label} level={depth} chevron={chevron}>
+      <Folder key={node.label} name={node.label} level={depth} chevron={chevron}>
         {children}
-      </NavFolder>
+      </Folder>
     );
   }
 
@@ -23,7 +24,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
     const ext = primaryExt(node.files);
     const icon = await readIcon(ext);
     return (
-      <NavLink
+      <Link
         key={node.label}
         href={node.href}
         name={node.label}
@@ -39,9 +40,9 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
       const icon = await readIcon(ext);
       return (
-        <NavLink
+        <Link
           key={file.name}
-          href={node.href}
+          href={`${node.href}/${file.name}`}
           name={file.name}
           level={depth + 1}
           icon={icon}
@@ -52,9 +53,9 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
   );
 
   return (
-    <NavFolder key={node.label} name={node.label} level={depth} chevron={chevron}>
+    <Folder key={node.label} name={node.label} level={depth} chevron={chevron}>
       {fileLinks}
-    </NavFolder>
+    </Folder>
   );
 }
 
