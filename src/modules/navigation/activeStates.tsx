@@ -21,9 +21,11 @@ const DEFAULT_ACTIVE_CLASS = "active";
 // ==============
 
 function activateNavLinks(pathname: string) {
+  // If we type "/README.md" manually, map it to "/" so that the sidebar README.md item (which has href="/") is highlighted
+  const activePath = pathname === "/README.md" ? "/" : pathname;
   document.querySelectorAll<HTMLElement>(".nav__link").forEach((link) => {
     const href = link.getAttribute("href");
-    const isActive = !!href && (href === pathname || href === pathname + "/");
+    const isActive = !!href && (href === activePath || href === activePath + "/");
     link.classList.toggle("nav__link--active", isActive);
   });
 }

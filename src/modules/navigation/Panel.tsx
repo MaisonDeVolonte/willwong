@@ -1,8 +1,8 @@
-import { getAllPages, readIcon, ICON_COLORS } from "@/modules/navigation/content";
+import { getAllPages, readIcon, ICON_COLORS } from "@/core/services/content";
 import Link from "@/modules/navigation/Link";
 import Folder from "@/modules/navigation/Folder";
 import { buildNavTree } from "@/modules/navigation/tree";
-import type { ContentFile } from "@/modules/navigation/content";
+import type { ContentFile } from "@/core/services/content";
 import type { NavNode } from "@/modules/navigation/tree";
 
 function primaryExt(files: ContentFile[]): string {
@@ -28,7 +28,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
       <Link
         key={node.label}
         href={node.href}
-        name={node.label}
+        name={node.files[0].name}
         level={depth}
         icon={icon}
         iconColor={ICON_COLORS[ext]}

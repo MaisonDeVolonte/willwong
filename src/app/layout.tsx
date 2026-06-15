@@ -20,6 +20,7 @@ import FolderStates from "@/modules/navigation/folderStates";
 
 // Controllers
 import Panels from "@/core/controllers/panels";
+import Links from "@/core/controllers/links";
 
 // Webflow styles
 import "@webflow/css/normalize.css";
@@ -59,6 +60,7 @@ export default function RootLayout({
           <ActiveStates />
           <FolderStates />
           <Panels />
+          <Links />
         </body>
       </html>
     </DevLinkProvider>

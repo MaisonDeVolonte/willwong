@@ -2,7 +2,7 @@ import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { cache } from "react";
 
-const CONTENT_DIR = path.join(process.cwd(), "src/content");
+const CONTENT_DIR = path.join(process.cwd(), "content");
 const ICONS_DIR = path.join(process.cwd(), "src/assets/icons");
 
 const LANGUAGES: Record<string, string> = {
@@ -38,7 +38,7 @@ const LANGUAGES: Record<string, string> = {
   yml: "yaml",
 };
 
-const IGNORE = new Set(["README.md", "home.md"]);
+const IGNORE = new Set(["home.md"]);
 
 export type ContentFile = {
   name: string;
@@ -67,6 +67,26 @@ export const readIcon = cache(async (name: string): Promise<string> => {
   }
 });
 
+async function readFileWithMirror(filePath: string): Promise<string> {
+  const content = await readFile(filePath, "utf-8");
+  const match = content.match(/^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/);
+  if (match) {
+    const target = match[1].replace(/\*\/$/, "").replace(/-->$/, "").trim();
+    
+    // Determine project root dynamically from the content file's path
+    let projectRoot = process.cwd();
+    const contentSegment = `${path.sep}content${path.sep}`;
+    const contentIndex = filePath.indexOf(contentSegment);
+    if (contentIndex !== -1) {
+      projectRoot = filePath.substring(0, contentIndex);
+    }
+
+    const resolvedPath = path.resolve(projectRoot, target);
+    return readFile(resolvedPath, "utf-8");
+  }
+  return content;
+}
+
 async function readContentFiles(dir: string): Promise<ContentFile[]> {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = await Promise.all(
@@ -74,7 +94,7 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
       .filter((e) => e.isFile() && !IGNORE.has(e.name))
       .map(async (e) => {
         const ext = e.name.split(".").pop()?.toLowerCase() ?? "";
-        const content = await readFile(path.join(dir, e.name), "utf-8");
+        const content = await readFileWithMirror(path.join(dir, e.name));
         const icon = await readIcon(ext);
         return { name: e.name, language: LANGUAGES[ext] ?? ext, content, icon };
       })
@@ -96,8 +116,8 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
   if (slugPath.length === 0) {
     for (const file of fileEntries) {
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-      const slug = [file.name.replace(/\.[^.]+$/, "")];
-      const content = await readFile(path.join(dir, file.name), "utf-8");
+      const slug = [file.name];
+      const content = await readFileWithMirror(path.join(dir, file.name));
       const icon = await readIcon(ext);
       pages.push({
         slug,

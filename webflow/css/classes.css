@@ -168,19 +168,19 @@
 }
 
 .nav__link.nav__link--lvl2 {
-  padding-left: 2.75em;
+  padding-left: 2.5em;
 }
 
 .nav__link.nav__link--lvl3 {
-  padding-left: 4.5em;
+  padding-left: 4em;
 }
 
 .nav__link.nav__link--lvl4 {
-  padding-left: 6.5em;
+  padding-left: 5.75em;
 }
 
 .nav__link.nav__link--lvl5 {
-  padding-left: 8em;
+  padding-left: 7.25em;
 }
 
 .nav__link.nav__link--active {
@@ -196,7 +196,7 @@
   height: 1em;
   min-height: 1em;
   min-width: 1em;
-  margin-right: 0.75em;
+  margin-right: 0.5em;
 }
 
 .nav__icon.nav__icon--open {

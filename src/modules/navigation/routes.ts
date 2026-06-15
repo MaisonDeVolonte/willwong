@@ -1,5 +1,5 @@
-import { getAllPages } from "@/modules/navigation/content";
-import type { ContentPage } from "@/modules/navigation/content";
+import { getAllPages } from "@/core/services/content";
+import type { ContentPage } from "@/core/services/content";
 
 export type ResolvedFile = {
   page: ContentPage;
