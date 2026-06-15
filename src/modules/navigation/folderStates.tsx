@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { loadOpenFolders, saveOpenFolders } from "@/utilities/localstorage";
+import { loadOpenFolders, saveOpenFolders } from "@/utilities/localStorage";
 
 // Behavior-only component: renders no DOM, owns all folder logic:
 // toggle, persistence, and opening ancestors on navigation.
@@ -43,7 +43,7 @@ function openAncestorFolders(link: HTMLElement) {
   saveOpenFolders(openFolders);
 }
 
-export default function Folders() {
+export default function FolderStates() {
   const pathname = usePathname();
 
   // toggle + persistence

@@ -1,4 +1,8 @@
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import type { NextConfig } from "next";
+
+// Enable getCloudflareContext() in `next dev`
+initOpenNextCloudflareForDev();
 
 const basePath = process.env.BASE_URL || "";
 const nextConfig: NextConfig = {
@@ -13,7 +17,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-// Enable getCloudflareContext() in `next dev`
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-initOpenNextCloudflareForDev();

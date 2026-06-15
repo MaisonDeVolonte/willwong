@@ -1,8 +1,9 @@
-import { getAllPages, readIcon, ICON_COLORS } from "@/navigation/content";
-import { buildNavTree } from "@/navigation/tree";
-import type { NavNode, ContentFile } from "@/navigation/tree";
-import Link from "@/navigation/Link";
-import Folder from "@/navigation/Folder";
+import { getAllPages, readIcon, ICON_COLORS } from "@/modules/navigation/content";
+import Link from "@/modules/navigation/Link";
+import Folder from "@/modules/navigation/Folder";
+import { buildNavTree } from "@/modules/navigation/tree";
+import type { ContentFile } from "@/modules/navigation/content";
+import type { NavNode } from "@/modules/navigation/tree";
 
 function primaryExt(files: ContentFile[]): string {
   return files[0]?.name.split(".").pop()?.toLowerCase() ?? "";
@@ -59,7 +60,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
   );
 }
 
-export default async function NavLinks() {
+export default async function Panel() {
   const [pages, chevron] = await Promise.all([getAllPages(), readIcon("chevron")]);
   const tree = buildNavTree(pages);
   const nodes = await Promise.all(tree.map((node) => renderNode(node, 1, chevron)));

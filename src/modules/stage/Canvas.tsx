@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { ContentPage } from "@/navigation/content";
-import Refractor from "@/features/refractor";
-import "@/features/refractor.css";
-import "@/features/canvas.css";
+import Refractor from "@/modules/stage/Refractor";
+import type { ContentPage } from "@/modules/navigation/content";
+import "@/modules/stage/Refractor.css";
+import "@/modules/stage/Canvas.css";
 
 type CanvasProps = {
   page: ContentPage;

@@ -5,10 +5,23 @@ export const metadata: Metadata = {
   description: "Portfolio of William Wong",
 };
 
-// Providers
+// Webflow Components
 import { DevLinkProvider } from "@webflow/DevLinkProvider";
+import { Header } from "@webflow/interface/Header";
+import { Footer } from "@webflow/interface/Footer";
+import { Nav } from "@webflow/panels/Nav";
+import { Chat } from "@webflow/panels/Chat";
+import { Test } from "@webflow/panels/Test";
 
-// Webflow
+// Navigation
+import Panel from "@/modules/navigation/Panel";
+import ActiveStates from "@/modules/navigation/activeStates";
+import FolderStates from "@/modules/navigation/folderStates";
+
+// Controllers
+import Panels from "@/core/controllers/panels";
+
+// Webflow styles
 import "@webflow/css/normalize.css";
 import "@webflow/css/fonts.css";
 import "@webflow/css/variables.css";
@@ -19,22 +32,9 @@ import "@webflow/css/global.css";
 
 // Overrides
 import "@/app/custom.css";
-import "@/features/panels.css";
+import "@/core/controllers/panels.css";
 
-// Webflow panels + interface
-import { Header } from "@webflow/interface/Header";
-import { Footer } from "@webflow/interface/Footer";
-import { Nav } from "@webflow/panels/Nav";
-import { Chat } from "@webflow/panels/Chat";
-import { Test } from "@webflow/panels/Test";
 
-// Navigation
-import NavLinks from "@/navigation/Panel";
-import Active from "@/navigation/activeStates";
-import Folders from "@/navigation/folderStates";
-
-// Features
-import Panels from "@/features/panels";
 
 // Render
 export default function RootLayout({
@@ -49,15 +49,15 @@ export default function RootLayout({
           <div className="shell">
             <Header />
             <div className="stage">
-              <Nav slot={<NavLinks />} />
+              <Nav slot={<Panel />} />
               <main className="canvas">{children}</main>
               <Test />
               <Chat />
             </div>
             <Footer />
           </div>
-          <Active />
-          <Folders />
+          <ActiveStates />
+          <FolderStates />
           <Panels />
         </body>
       </html>

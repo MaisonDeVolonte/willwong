@@ -1,4 +1,4 @@
-import type { ContentPage, ContentFile } from "@/navigation/content";
+import type { ContentPage, ContentFile } from "@/modules/navigation/content";
 
 export type NavLeaf = {
   kind: "leaf";

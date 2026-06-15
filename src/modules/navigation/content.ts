@@ -3,7 +3,7 @@ import path from "path";
 import { cache } from "react";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content");
-const ICONS_DIR = path.join(process.cwd(), "src/icons");
+const ICONS_DIR = path.join(process.cwd(), "src/assets/icons");
 
 const LANGUAGES: Record<string, string> = {
   bash: "bash",

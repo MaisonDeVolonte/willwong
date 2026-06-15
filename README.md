@@ -28,41 +28,49 @@ Next.js app deployed to Webflow Cloud via Cloudflare Workers.
 ## Structure
 
 ```
-src/                  # Application codebase
- ├── app/             # Structural skeleton and page routing
- │    ├── [...slug]   # Route entry points (dynamic slug)
- │    ├── custom.css  # Custom styles and overrides
- │    ├── layout.tsx  # Imports styles and mounts features
- │    └── page.tsx    # Route entry points
- ├── content/         # Raw content files (never imported as modules)
- │    ├── folder/     # Content folder 
- │    ├── page.md     # Page content
- │    └── home.md     # Home content
- ├── features/        # Behavior-only components 
- │    ├── feature.tsx # Behavior layers
- │    └── feature.css # Feature-specific styles
- ├── utilities/       # Utility functions and helpers
- └── types.d.ts       # TypeScript type definitions
+src/
+ ├── app/                             # Routing and page definitions
+ │    ├── [...slug]                   # Catch-all dynamic page routes
+ │    ├── custom.css                  # Custom styles and overrides
+ │    ├── layout.tsx                  # Root layout wrapper
+ │    └── page.tsx                    # Home page entry point
+ ├── assets/                          # Raw static files
+ ├── content/                         # Static CMS powered by Refractor
+ │    ├── [folder]/
+ │    └── [page].ext
+ ├── core/
+ │    └── controllers/                # Behavior-only controller components
+ │         ├── [ControllerName].tsx
+ │         └── [ControllerName].css
+ ├── modules/
+ │    ├── navigation/                 # Primary navigation components
+ │    │    ├── [ComponentName].tsx
+ │    │    └── [ComponentName].css
+ │    └── stage/                      # Presentational UI stage components
+ │         ├── [ComponentName].tsx
+ │         └── [ComponentName].css
+ └── utilities/                       # Utility functions and helpers
+      └── utilityName.ts
 
-webflow/              # Devlink components
- ├── components/      # Presentational UI components
- ├── css/             # Layout and utility styles
- └── webflow_modules  # Devlink internal integration files
+webflow/                              # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
+ ├── [components]/                    # Presentational UI components
+ ├── css/                             # Layout and utility styles
+ └── webflow_modules                  # Devlink internal integration files
 ```
 
 ## Patterns
 
 **Visuals (HTML/CSS)** — Managed in `design.webflow.com` and exported via DevLink to the `@webflow/` path alias.
 
-**Behavior (JS/TS)** — Managed in `src/features/` and attaches logic via vanilla JS, `useEffect` hooks, and DOM event delegation.
+**Behavior (JS/TS)** — Managed in `src/core/controllers/` and attaches logic via vanilla JS, `useEffect` hooks, and DOM event delegation.
 
-**Webflow IX3 (GSAP)** — Temporarily managed in `src/features/` until Webflow Devlink supports interactions.
+**Webflow IX3 (GSAP)** — Temporarily managed in `src/core/controllers/` until Webflow Devlink supports interactions.
 
-**Content Management** — Managed in `src/content/` and `src/features/refractor.tsx` automatically parses code files as html.
+**Content Management** — Managed in `src/content/` and `src/modules/stage/Refractor.tsx` automatically parses code files as html.
 
-**Content Routing** — Managed in `src/utilities/navigation.ts` and automatically walks `src/content/` to build page routes and construct the nav tree.
+**Content Routing** — Managed in `src/modules/navigation/` and automatically walks `src/content/` to build page routes and construct the nav tree.
 
-**Active States** — Managed in `src/features/active.tsx` and declaratively controls all nav/ui active states.
+**Active States** — Managed in `src/modules/navigation/activeStates.tsx` and declaratively controls all nav/ui active states.
 
 **Code Formatting** — Managed in `.zed/settings.json` and uses the built-in language server formatter, disabled on save.
 

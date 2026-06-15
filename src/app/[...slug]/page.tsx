@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getAllFileParams, getFile } from "@/navigation/routes";
-import Canvas from "@/features/canvas";
+import { getAllFileParams, getFile } from "@/modules/navigation/routes";
+import Canvas from "@/modules/stage/Canvas";
 
 export async function generateStaticParams() {
   return getAllFileParams();

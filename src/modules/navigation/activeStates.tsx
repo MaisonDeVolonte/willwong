@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import "@/navigation/activeStates.css";
+import "@/modules/navigation/activeStates.css";
 
 // ==============
 // ACTIVE RULES
@@ -32,7 +32,7 @@ function activateNavLinks(pathname: string) {
 // COMPONENT
 // ==============
 
-export default function Active() {
+export default function ActiveStates() {
   const pathname = usePathname();
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { readFile } from "fs/promises";
 import path from "path";
-import Canvas from "@/features/canvas";
-import { readIcon } from "@/navigation/content";
+import { readIcon } from "@/modules/navigation/content";
+import Canvas from "@/modules/stage/Canvas";
 
 export default async function Home() {
   const [content, icon] = await Promise.all([
