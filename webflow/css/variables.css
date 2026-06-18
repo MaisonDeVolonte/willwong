@@ -11,6 +11,9 @@
   --icon-md: hsla(204.15584415584416, 100%, 68.67%, 1);
   --icon-tsx: #00a6ff;
   --icon-ts: #00a6ff;
+  --icon-js: #ffed06;
+  --icon-html: #d97b50;
+  --icon-diff: #37ff46;
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
   --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);
@@ -30,6 +33,5 @@
   --instagram33: #dd2a7b;
   --instagram66: #8134af;
   --instagram100: #515bd4;
-  --icon-js: #ffed06;
   --radius-lg: 1em;
 }

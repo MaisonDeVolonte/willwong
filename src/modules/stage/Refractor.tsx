@@ -29,18 +29,33 @@ function renderNode(node: RootContent): React.ReactNode {
   return null;
 }
 
-function splitIntoLines(nodes: RootContent[]): React.ReactNode[][] {
-  const lines: React.ReactNode[][] = [[]];
+function splitIntoLines(nodes: RootContent[]): RootContent[][] {
+  const lines: RootContent[][] = [[]];
 
   for (const node of nodes) {
     if (node.type === "text") {
       const parts = (node as Text).value.split("\n");
       parts.forEach((part, i) => {
         if (i > 0) lines.push([]);
-        if (part) lines[lines.length - 1].push(part);
+        if (part) {
+          lines[lines.length - 1].push({
+            type: "text",
+            value: part,
+          } as Text);
+        }
+      });
+    } else if (node.type === "element") {
+      const el = node as Element;
+      const childLines = splitIntoLines(el.children);
+      childLines.forEach((childLine, i) => {
+        if (i > 0) lines.push([]);
+        lines[lines.length - 1].push({
+          ...el,
+          children: childLine as Element["children"],
+        });
       });
     } else {
-      lines[lines.length - 1].push(renderNode(node));
+      lines[lines.length - 1].push(node);
     }
   }
 
@@ -56,8 +71,8 @@ export default function Refractor({ code, language }: RefractorProps) {
     <pre className={`language-${language}`}>
       <code className={`language-${language}`}>
         {lines.map((lineNodes, i) => (
-          <span key={i} className="line">
-            {lineNodes}
+          <span key={i} className="code-line">
+            {lineNodes.map(renderNode)}
           </span>
         ))}
       </code>

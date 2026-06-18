@@ -16,6 +16,9 @@ body {
   --icon-md: hsla(204.15584415584416, 100%, 68.67%, 1);
   --icon-tsx: #00a6ff;
   --icon-ts: #00a6ff;
+  --icon-js: #ffed06;
+  --icon-html: #d97b50;
+  --icon-diff: #37ff46;
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
   --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);
@@ -35,10 +38,7 @@ body {
   --instagram33: #dd2a7b;
   --instagram66: #8134af;
   --instagram100: #515bd4;
-  --icon-js: #ffed06;
   --radius-lg: 1em;
-  ---mode--collection-20d2bbb2-a440-44b1-58c0-3aeb42ed92a3: base;
-  ---mode--collection-440cce0d-a5be-88a9-a4f0-e22f237d9a6b: base;
 }
 
 h1 {
@@ -148,6 +148,9 @@ blockquote {
     --icon-md: hsla(204.15584415584416, 100%, 68.67%, 1);
     --icon-tsx: #00a6ff;
     --icon-ts: #00a6ff;
+    --icon-js: #ffed06;
+    --icon-html: #d97b50;
+    --icon-diff: #37ff46;
     --chat-width: 100%;
     --transparent: hsla(0, 0%, 100%, 0);
     --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);
@@ -167,7 +170,6 @@ blockquote {
     --instagram33: #dd2a7b;
     --instagram66: #8134af;
     --instagram100: #515bd4;
-    --icon-js: #ffed06;
     --radius-lg: 1em;
     ---mode--collection-440cce0d-a5be-88a9-a4f0-e22f237d9a6b: mode-85ade385-18e8-f8d1-94e6-320e9a9ca43b;
   }

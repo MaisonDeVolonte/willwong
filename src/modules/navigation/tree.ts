@@ -27,7 +27,6 @@ export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
       const file = page.files[0];
       const fileNameWithoutExt = file?.name.replace(/\.[^.]+$/, "");
       const shouldCollapse =
-        depth === 0 ||
         !file ||
         label.toLowerCase() === fileNameWithoutExt.toLowerCase() ||
         label.toLowerCase() === file.name.toLowerCase();

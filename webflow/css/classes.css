@@ -219,6 +219,18 @@
   color: var(--icon-ts);
 }
 
+.nav__icon.nav__icon--js {
+  color: var(--icon-js);
+}
+
+.nav__icon.nav__icon--html {
+  color: var(--icon-html);
+}
+
+.nav__icon.nav__icon--diff {
+  color: var(--icon-diff);
+}
+
 .nav__list {
   position: relative;
   overflow: hidden;

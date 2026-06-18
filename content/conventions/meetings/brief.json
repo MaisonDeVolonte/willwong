@@ -1,0 +1,7 @@
+json
+  {
+    "projectName": "canvas-refactor",
+    "inputs": ["figma-tokens", "client-copy"],
+    "constraints": { "deadline": "2-weeks", "browserSupport": ">=safari-15" },
+    "successMetrics": { "pagespeedScore": ">95" }
+  }

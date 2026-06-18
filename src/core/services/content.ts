@@ -1,6 +1,7 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { cache } from "react";
+import diff from "refractor/diff";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const ICONS_DIR = path.join(process.cwd(), "src/assets/icons");
@@ -11,6 +12,7 @@ const LANGUAGES: Record<string, string> = {
   cpp: "cpp",
   cs: "csharp",
   css: "css",
+  diff: "diff",
   go: "go",
   graphql: "graphql",
   html: "html",
@@ -57,6 +59,12 @@ export const ICON_COLORS: Record<string, string> = {
   md:  "var(--icon-md)",
   ts:  "var(--icon-ts)",
   tsx: "var(--icon-tsx)",
+  html: "var(--icon-html)",
+  js: "var(--icon-js)",
+  jsx: "var(--icon-jsx)",
+  json: "var(--icon-json)",
+  svg: "var(--icon-svg)",
+  diff: "var(--icon-diff)",
 };
 
 export const readIcon = cache(async (name: string): Promise<string> => {
@@ -72,7 +80,7 @@ async function readFileWithMirror(filePath: string): Promise<string> {
   const match = content.match(/^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/);
   if (match) {
     const target = match[1].replace(/\*\/$/, "").replace(/-->$/, "").trim();
-    
+
     // Determine project root dynamically from the content file's path
     let projectRoot = process.cwd();
     const contentSegment = `${path.sep}content${path.sep}`;

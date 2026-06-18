@@ -1,0 +1,7 @@
+[baseline_metrics]
+user_retention_target = 0.92
+max_page_load_ms = 250
+
+[developer_habits]
+code_review_turnaround_hours = 4
+human_burnout_guard = true
