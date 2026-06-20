@@ -25,7 +25,7 @@
           - `misc:` any work outside the above scopes
   5. `git commit` execution (continue with the exact user confirmed command)
   6. `git push`
-  7. repeat from step 1
+  7. repeat from step 1 until workspace is clean
 
 ## Webflow
 
