@@ -6,7 +6,7 @@
   1. `git status` (inspect workspace to group files)
   2. `git diff <files>` (review line-by-line to verify correctness)
   3. `git add <files>` (stage only current atomic scope)
-  4. `git commit` (title: `-m "add x/fix y/refactor z"`; body: `-m "- hyphen-delimited bullets \n passed as a single multiline string"`; past-tense, clear, concise, and casual)
+  4. `git commit` (title: `-m "e.g. add x/fix y/refactor z"`; body: `-m "- hyphen-delimited bullets \n passed as a single multiline string"`; past-tense, clear, concise, and casual)
   5. `git push`
 
 ## Webflow
