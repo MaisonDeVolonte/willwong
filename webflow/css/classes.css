@@ -231,6 +231,14 @@
   color: var(--icon-diff);
 }
 
+.nav__icon.nav__icon--site {
+  color: var(--icon-site);
+}
+
+.nav__icon.nav__icon--svg {
+  color: var(--icon-svg);
+}
+
 .nav__list {
   position: relative;
   overflow: hidden;
@@ -555,6 +563,10 @@
 @media screen and (max-width: 479px) {
   .brand {
     justify-content: center;
+  }
+
+  .canvas {
+    font-size: 0.85em;
   }
 
   .nav {

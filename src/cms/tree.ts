@@ -15,6 +15,27 @@ export type NavFolder = {
 
 export type NavNode = NavLeaf | NavFolder;
 
+function isVisualFolder(node: NavNode): boolean {
+  return node.kind === "folder" || node.files.length > 1;
+}
+
+function sortNavNodes(nodes: NavNode[]): NavNode[] {
+  return [...nodes].sort((a, b) => {
+    const aIsFolder = isVisualFolder(a);
+    const bIsFolder = isVisualFolder(b);
+
+    if (aIsFolder && !bIsFolder) return -1;
+    if (!aIsFolder && bIsFolder) return 1;
+
+    const aIsReadme = a.label.toUpperCase() === "README.MD";
+    const bIsReadme = b.label.toUpperCase() === "README.MD";
+    if (aIsReadme && !bIsReadme) return -1;
+    if (!aIsReadme && bIsReadme) return 1;
+
+    return a.label.localeCompare(b.label);
+  });
+}
+
 export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
   const leaves: NavLeaf[] = [];
   const folders = new Map<string, ContentPage[]>();
@@ -82,15 +103,9 @@ export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
     return {
       kind: "folder",
       label,
-      children: childNodes,
+      children: sortNavNodes(childNodes),
     };
   });
 
-  // Sort directories (folders) alphabetically by their label
-  folderNodes.sort((a, b) => a.label.localeCompare(b.label));
-
-  // Sort files (leaves) alphabetically by their label
-  leaves.sort((a, b) => a.label.localeCompare(b.label));
-
-  return [...folderNodes, ...leaves];
+  return sortNavNodes([...folderNodes, ...leaves]);
 }

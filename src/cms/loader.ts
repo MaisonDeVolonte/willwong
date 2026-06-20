@@ -49,6 +49,7 @@ export type ContentFile = {
   language: string;
   content: string;
   icon: string;
+  iconName: string;
   title: string;
   description: string;
   externalUrl?: string;
@@ -73,6 +74,7 @@ export const ICON_COLORS: Record<string, string> = {
   diff: "var(--icon-diff)",
   link: "var(--icon-link)",
   url: "var(--icon-link)",
+  site: "var(--icon-site)",
 };
 
 export const readIcon = cache(async (name: string): Promise<string> => {
@@ -109,26 +111,29 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
         const filePath = path.join(dir, e.name);
         const rawContent = await readFile(filePath, "utf-8");
         const content = await processMirror(filePath, rawContent);
-        const { externalUrl } = processExternal(content);
+        const { externalUrl, iconName: externalIcon } = processExternal(content);
         const { title, description } = getFileMetadata(e.name, content);
         
-        const iconName = externalUrl ? "link" : ext;
+        const iconName = externalIcon ?? (externalUrl ? "link" : ext);
         const icon = await readIcon(iconName);
         return {
           name: e.name,
           language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
           content,
           icon,
+          iconName,
           title,
           description,
           ...(externalUrl ? { externalUrl } : {}),
         };
       })
   );
-  // .md first (explainer), then alphabetically
+  // README.md first, then alphabetically
   files.sort((a, b) => {
-    if (a.name.endsWith(".md") && !b.name.endsWith(".md")) return -1;
-    if (!a.name.endsWith(".md") && b.name.endsWith(".md")) return 1;
+    const aIsReadme = a.name.toUpperCase() === "README.MD";
+    const bIsReadme = b.name.toUpperCase() === "README.MD";
+    if (aIsReadme && !bIsReadme) return -1;
+    if (!aIsReadme && bIsReadme) return 1;
     return a.name.localeCompare(b.name);
   });
   return files;
@@ -146,10 +151,10 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
       const filePath = path.join(dir, file.name);
       const rawContent = await readFile(filePath, "utf-8");
       const content = await processMirror(filePath, rawContent);
-      const { externalUrl } = processExternal(content);
+      const { externalUrl, iconName: externalIcon } = processExternal(content);
       const { title, description } = getFileMetadata(file.name, content);
       
-      const iconName = externalUrl ? "link" : ext;
+      const iconName = externalIcon ?? (externalUrl ? "link" : ext);
       const icon = await readIcon(iconName);
       pages.push({
         slug,
@@ -159,6 +164,7 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
             language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
             content,
             icon,
+            iconName,
             title,
             description,
             ...(externalUrl ? { externalUrl } : {}),

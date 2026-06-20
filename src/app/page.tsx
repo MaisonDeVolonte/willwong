@@ -33,6 +33,7 @@ export default async function Home() {
               language: "markdown",
               content,
               icon,
+              iconName: "md",
               title: siteConfig.name,
               description: siteConfig.description,
             },

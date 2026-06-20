@@ -14,6 +14,8 @@
   --icon-js: #ffed06;
   --icon-html: #d97b50;
   --icon-diff: #37ff46;
+  --icon-site: #ff4222;
+  --icon-svg: hsla(166, 100%, 74.67%, 1);
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
   --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);
@@ -21,6 +23,7 @@
   --canvas-hover: hsla(222, 13.92%, 26.92%, 1);
   --radius-md: 0.5em;
   --agents: "IBM Plex Mono", sans-serif;
+  --radius-lg: 1em;
   --tripadvisor: #00af87;
   --facebook: #3b5997;
   --linkedin: #0072b1;
@@ -33,5 +36,4 @@
   --instagram33: #dd2a7b;
   --instagram66: #8134af;
   --instagram100: #515bd4;
-  --radius-lg: 1em;
 }

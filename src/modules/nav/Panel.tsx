@@ -2,12 +2,9 @@ import { getAllPages, readIcon, ICON_COLORS } from "@/cms/loader";
 import Link from "@/modules/nav/Link";
 import Folder from "@/modules/nav/Folder";
 import { buildNavTree } from "@/cms/tree";
-import type { ContentFile } from "@/cms/loader";
 import type { NavNode } from "@/cms/tree";
 
-function primaryExt(files: ContentFile[]): string {
-  return files[0]?.name.split(".").pop()?.toLowerCase() ?? "";
-}
+
 
 async function renderNode(node: NavNode, depth: number, chevron: string): Promise<React.ReactNode> {
   if (node.kind === "folder") {
@@ -24,7 +21,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
   if (node.files.length === 1) {
     const file = node.files[0];
     const externalUrl = file.externalUrl;
-    const ext = externalUrl ? "link" : primaryExt(node.files);
+    const ext = file.iconName;
     const displayName = externalUrl
       ? file.name.replace(/\.(link|url|md|txt)$/i, "")
       : file.name;
@@ -43,7 +40,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
   const fileLinks = await Promise.all(
     node.files.map(async (file) => {
       const externalUrl = file.externalUrl;
-      const ext = externalUrl ? "link" : (file.name.split(".").pop()?.toLowerCase() ?? "");
+      const ext = file.iconName;
       const displayName = externalUrl
         ? file.name.replace(/\.(link|url|md|txt)$/i, "")
         : file.name;
