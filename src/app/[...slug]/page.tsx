@@ -1,55 +1,61 @@
-import { notFound } from "next/navigation";
-import {
-  personSchema,
-  websiteSchema,
-  profilePageSchema,
-  buildArticle,
-  buildBreadcrumbs,
-  SchemaTags,
-} from "@/core/services/schema";
-import { getAllFileParams, getFile } from "@/modules/navigation/routes";
-import Canvas from "@/modules/stage/Canvas";
+import type { Metadata } from "next";
+import * as schema from "@/meta/schema";
 
-export async function generateStaticParams() {
-  return getAllFileParams();
-}
+import { notFound, redirect } from "next/navigation";
+import { getAllFileParams, getFile } from "@/cms/routes";
+
+import Canvas from "@/modules/stage/Canvas";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
+
+// Metadata
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const resolved = await getFile(slug);
+  if (!resolved) return {};
+
+  const file = resolved.page.files[resolved.fileIndex];
+  return {
+    title: file.title,
+    description: file.description,
+  };
+}
+
+export async function generateStaticParams() {
+  return getAllFileParams();
+}
 
 export default async function DynamicPage({ params }: Props) {
   const { slug } = await params;
   const resolved = await getFile(slug);
   if (!resolved) notFound();
 
+  const file = resolved.page.files[resolved.fileIndex];
+  if (file.externalUrl) {
+    redirect(file.externalUrl);
+  }
+
   const isAboutPage = slug.length === 1 && (slug[0] === "about.md" || slug[0] === "about");
   const isNotesPage = slug.length > 0 && slug[0] === "notes";
 
-  const schemas: Record<string, unknown>[] = [websiteSchema, personSchema];
+  const schemas: Record<string, unknown>[] = [schema.websiteSchema, schema.personSchema];
 
   // Add breadcrumbs for all dynamic pages
-  schemas.push(buildBreadcrumbs(slug));
+  schemas.push(schema.buildBreadcrumbs(slug));
 
   if (isAboutPage) {
-    schemas.push(profilePageSchema);
+    schemas.push(schema.profilePageSchema);
   } else if (isNotesPage) {
-    schemas.push(profilePageSchema);
+    schemas.push(schema.profilePageSchema);
 
-    // Build article schema dynamically from the resolved file content
+    // Build article schema dynamically from the preloaded file metadata
     const file = resolved.page.files[resolved.fileIndex];
-    const titleMatch = file.content.match(/^#\s+(.+)$/m);
-    const title = titleMatch ? titleMatch[1].trim() : file.name;
 
-    const paragraphs = file.content
-      .split("\n")
-      .map((p) => p.trim())
-      .filter((p) => p && !p.startsWith("#") && !p.startsWith("<!--") && !p.startsWith("//"));
-    const description = paragraphs[0] ? paragraphs[0].slice(0, 160) : undefined;
-
-    const articleSchema = buildArticle({
-      title,
-      description,
+    const articleSchema = schema.buildArticle({
+      title: file.title,
+      description: file.description,
       slug,
       content: file.content,
     });
@@ -58,7 +64,7 @@ export default async function DynamicPage({ params }: Props) {
 
   return (
     <>
-      <SchemaTags data={schemas} />
+      <schema.Schema data={schemas} />
       <Canvas page={resolved.page} activeIndex={resolved.fileIndex} />
     </>
   );

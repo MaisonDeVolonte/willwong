@@ -1,5 +1,5 @@
-import { getAllPages } from "@/core/services/content";
-import type { ContentPage } from "@/core/services/content";
+import { getAllPages } from "@/cms/loader";
+import type { ContentPage } from "@/cms/loader";
 
 export type ResolvedFile = {
   page: ContentPage;

@@ -1,8 +1,20 @@
-import { readFile } from "fs/promises";
+import type { Metadata } from "next";
+import { siteConfig } from "@/meta/config/site";
+import { personSchema, websiteSchema, Schema } from "@/meta/schema";
+
 import path from "path";
-import { readIcon } from "@/core/services/content";
-import { personSchema, websiteSchema, SchemaTags } from "@/core/services/schema";
+import { readFile } from "fs/promises";
+import { readIcon } from "@/cms/loader";
+
 import Canvas from "@/modules/stage/Canvas";
+
+// Metadata
+export const metadata: Metadata = {
+  title: {
+    absolute: siteConfig.name,
+  },
+  description: siteConfig.description,
+};
 
 export default async function Home() {
   const [content, icon] = await Promise.all([
@@ -11,11 +23,20 @@ export default async function Home() {
   ]);
   return (
     <>
-      <SchemaTags data={[websiteSchema, personSchema]} />
+      <Schema data={[websiteSchema, personSchema]} />
       <Canvas
         page={{
           slug: [],
-          files: [{ name: "README.md", language: "markdown", content, icon }],
+          files: [
+            {
+              name: "README.md",
+              language: "markdown",
+              content,
+              icon,
+              title: siteConfig.name,
+              description: siteConfig.description,
+            },
+          ],
         }}
       />
     </>

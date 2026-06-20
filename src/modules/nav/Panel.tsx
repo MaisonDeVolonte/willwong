@@ -1,9 +1,9 @@
-import { getAllPages, readIcon, ICON_COLORS } from "@/core/services/content";
-import Link from "@/modules/navigation/Link";
-import Folder from "@/modules/navigation/Folder";
-import { buildNavTree } from "@/modules/navigation/tree";
-import type { ContentFile } from "@/core/services/content";
-import type { NavNode } from "@/modules/navigation/tree";
+import { getAllPages, readIcon, ICON_COLORS } from "@/cms/loader";
+import Link from "@/modules/nav/Link";
+import Folder from "@/modules/nav/Folder";
+import { buildNavTree } from "@/cms/tree";
+import type { ContentFile } from "@/cms/loader";
+import type { NavNode } from "@/cms/tree";
 
 function primaryExt(files: ContentFile[]): string {
   return files[0]?.name.split(".").pop()?.toLowerCase() ?? "";
@@ -22,15 +22,19 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
   }
 
   if (node.files.length === 1) {
-    const ext = primaryExt(node.files);
-    const icon = await readIcon(ext);
+    const file = node.files[0];
+    const externalUrl = file.externalUrl;
+    const ext = externalUrl ? "link" : primaryExt(node.files);
+    const displayName = externalUrl
+      ? file.name.replace(/\.(link|url|md|txt)$/i, "")
+      : file.name;
     return (
       <Link
         key={node.label}
-        href={node.href}
-        name={node.files[0].name}
+        href={externalUrl ?? node.href}
+        name={displayName}
         level={depth}
-        icon={icon}
+        icon={file.icon}
         iconColor={ICON_COLORS[ext]}
       />
     );
@@ -38,15 +42,18 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
 
   const fileLinks = await Promise.all(
     node.files.map(async (file) => {
-      const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-      const icon = await readIcon(ext);
+      const externalUrl = file.externalUrl;
+      const ext = externalUrl ? "link" : (file.name.split(".").pop()?.toLowerCase() ?? "");
+      const displayName = externalUrl
+        ? file.name.replace(/\.(link|url|md|txt)$/i, "")
+        : file.name;
       return (
         <Link
           key={file.name}
-          href={`${node.href}/${file.name}`}
-          name={file.name}
+          href={externalUrl ?? `${node.href}/${file.name}`}
+          name={displayName}
           level={depth + 1}
-          icon={icon}
+          icon={file.icon}
           iconColor={ICON_COLORS[ext]}
         />
       );

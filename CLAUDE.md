@@ -18,9 +18,12 @@ Files here are raw content ingested as plain text strings — never executed or 
 
 ## Imports
 
-- Always use the `@/` alias, even for same-folder files (e.g. `import "@/core/controllers/active.css"`). Never use `./`.
-- Import order: (1) Node built-ins, (2) external packages (`react`, `next/*`, `@webflow/*`), (3) internal modules (`@/` — utilities before core controllers/components). Within each group, value imports before `type` imports.
-- **Exception — `page.tsx` / `layout.tsx`:** `import type { Metadata }` goes first, immediately followed by the `export const metadata` block. This is intentional visual wayfinding, not a mistake.
+- Always use the `@/` alias, even for same-folder files (e.g. `import "@/modules/nav/Link"`). Never use `./`.
+- Group imports logically by **functional domain and intent** rather than package origin alone:
+  1. **Data Loaders & File Handlers**: Node built-ins (like `fs`, `path`) co-located with corresponding custom loader/utility modules (like `@/cms/loader`).
+  2. **Configurations & Schema Definitions**: Centralized configurations, metadata, and schemas (like `@/meta/...`).
+  3. **UI Presenters**: React rendering components (like `@/modules/stage/Canvas` or `@webflow/*`). UI components and core layout modules should always go last.
+- Within each functional group, value imports go before type imports.
 - CSS side-effect imports go last, after all JS/TS imports, in cascade order (order is semantically meaningful for specificity).
 
 ## CSS

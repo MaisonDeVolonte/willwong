@@ -1,9 +1,6 @@
 // Metadata
 import type { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "William Wong",
-  description: "Portfolio of William Wong",
-};
+import { siteConfig } from "@/meta/config/site";
 
 // Webflow Components
 import { DevLinkProvider } from "@webflow/DevLinkProvider";
@@ -14,9 +11,9 @@ import { Chat } from "@webflow/panels/Chat";
 import { Test } from "@webflow/panels/Test";
 
 // Navigation
-import Panel from "@/modules/navigation/Panel";
-import ActiveStates from "@/modules/navigation/activeStates";
-import FolderStates from "@/modules/navigation/folderStates";
+import Panel from "@/modules/nav/Panel";
+import ActiveStates from "@/modules/nav/activeStates";
+import FolderStates from "@/modules/nav/folderStates";
 
 // Controllers
 import Panels from "@/core/controllers/panels";
@@ -35,7 +32,21 @@ import "@webflow/css/global.css";
 import "@/app/custom.css";
 import "@/core/controllers/panels.css";
 
-
+// Metadata
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    images: [{ url: siteConfig.ogImage }],
+  },
+};
 
 // Render
 export default function RootLayout({

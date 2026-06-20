@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import "@/modules/navigation/activeStates.css";
+import "@/modules/nav/activeStates.css";
 
 // ==============
 // ACTIVE RULES

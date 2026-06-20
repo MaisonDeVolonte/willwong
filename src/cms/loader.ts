@@ -1,7 +1,9 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
 import { cache } from "react";
-import diff from "refractor/diff";
+import { processMirror } from "./mirror";
+import { processExternal } from "./external";
+import { parseMetadata } from "./metadata";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const ICONS_DIR = path.join(process.cwd(), "src/assets/icons");
@@ -47,11 +49,15 @@ export type ContentFile = {
   language: string;
   content: string;
   icon: string;
+  title: string;
+  description: string;
+  externalUrl?: string;
 };
 
 export type ContentPage = {
   slug: string[];
   files: ContentFile[];
+  externalUrl?: string;
 };
 
 export const ICON_COLORS: Record<string, string> = {
@@ -65,6 +71,8 @@ export const ICON_COLORS: Record<string, string> = {
   json: "var(--icon-json)",
   svg: "var(--icon-svg)",
   diff: "var(--icon-diff)",
+  link: "var(--icon-link)",
+  url: "var(--icon-link)",
 };
 
 export const readIcon = cache(async (name: string): Promise<string> => {
@@ -75,24 +83,20 @@ export const readIcon = cache(async (name: string): Promise<string> => {
   }
 });
 
-async function readFileWithMirror(filePath: string): Promise<string> {
-  const content = await readFile(filePath, "utf-8");
-  const match = content.match(/^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/);
-  if (match) {
-    const target = match[1].replace(/\*\/$/, "").replace(/-->$/, "").trim();
+function getFileMetadata(fileName: string, content: string) {
+  const { title: customTitle, description: customDescription } = parseMetadata(content);
 
-    // Determine project root dynamically from the content file's path
-    let projectRoot = process.cwd();
-    const contentSegment = `${path.sep}content${path.sep}`;
-    const contentIndex = filePath.indexOf(contentSegment);
-    if (contentIndex !== -1) {
-      projectRoot = filePath.substring(0, contentIndex);
-    }
+  // Default clean title from filename: e.g. "my-note.md" -> "My Note"
+  const rawTitle = fileName.replace(/\.[^.]+$/, "");
+  const formattedTitle = rawTitle
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
-    const resolvedPath = path.resolve(projectRoot, target);
-    return readFile(resolvedPath, "utf-8");
-  }
-  return content;
+  return {
+    title: customTitle ?? formattedTitle,
+    description: customDescription ?? `View ${customTitle ?? formattedTitle} on William Wong's portfolio.`,
+  };
 }
 
 async function readContentFiles(dir: string): Promise<ContentFile[]> {
@@ -102,9 +106,23 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
       .filter((e) => e.isFile() && !IGNORE.has(e.name))
       .map(async (e) => {
         const ext = e.name.split(".").pop()?.toLowerCase() ?? "";
-        const content = await readFileWithMirror(path.join(dir, e.name));
-        const icon = await readIcon(ext);
-        return { name: e.name, language: LANGUAGES[ext] ?? ext, content, icon };
+        const filePath = path.join(dir, e.name);
+        const rawContent = await readFile(filePath, "utf-8");
+        const content = await processMirror(filePath, rawContent);
+        const { externalUrl } = processExternal(content);
+        const { title, description } = getFileMetadata(e.name, content);
+        
+        const iconName = externalUrl ? "link" : ext;
+        const icon = await readIcon(iconName);
+        return {
+          name: e.name,
+          language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
+          content,
+          icon,
+          title,
+          description,
+          ...(externalUrl ? { externalUrl } : {}),
+        };
       })
   );
   // .md first (explainer), then alphabetically
@@ -125,15 +143,38 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
     for (const file of fileEntries) {
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
       const slug = [file.name];
-      const content = await readFileWithMirror(path.join(dir, file.name));
-      const icon = await readIcon(ext);
+      const filePath = path.join(dir, file.name);
+      const rawContent = await readFile(filePath, "utf-8");
+      const content = await processMirror(filePath, rawContent);
+      const { externalUrl } = processExternal(content);
+      const { title, description } = getFileMetadata(file.name, content);
+      
+      const iconName = externalUrl ? "link" : ext;
+      const icon = await readIcon(iconName);
       pages.push({
         slug,
-        files: [{ name: file.name, language: LANGUAGES[ext] ?? ext, content, icon }],
+        files: [
+          {
+            name: file.name,
+            language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
+            content,
+            icon,
+            title,
+            description,
+            ...(externalUrl ? { externalUrl } : {}),
+          },
+        ],
+        ...(externalUrl ? { externalUrl } : {}),
       });
     }
   } else if (fileEntries.length > 0) {
-    pages.push({ slug: slugPath, files: await readContentFiles(dir) });
+    const files = await readContentFiles(dir);
+    const firstExternalUrl = files[0]?.externalUrl;
+    pages.push({
+      slug: slugPath,
+      files,
+      ...(firstExternalUrl ? { externalUrl: firstExternalUrl } : {}),
+    });
   }
 
   for (const d of dirEntries) {

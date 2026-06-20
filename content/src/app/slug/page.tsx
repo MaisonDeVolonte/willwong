@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAllFileParams, getFile } from "@/modules/navigation/routes";
+import { getAllFileParams, getFile } from "@/cms/routes";
 import Canvas from "@/modules/stage/Canvas";
 
 export async function generateStaticParams() {

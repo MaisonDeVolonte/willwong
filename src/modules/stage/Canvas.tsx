@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Refractor from "@/modules/stage/Refractor";
-import type { ContentPage } from "@/core/services/content";
+import type { ContentPage } from "@/cms/loader";
 import "@/modules/stage/Refractor.css";
 import "@/modules/stage/Canvas.css";
 
