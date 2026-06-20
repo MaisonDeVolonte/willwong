@@ -23,9 +23,9 @@
           - `config:` global project configuration
           - `deps:` package updates, additions, or removals
           - `misc:` any work outside the above scopes
-  5. `git commit` execution (continue with the user confirmed command)
+  5. `git commit` execution (continue with the exact user confirmed command)
   6. `git push`
-  7. `git status`
+  7. repeat from step 1
 
 ## Webflow
 
