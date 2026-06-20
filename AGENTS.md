@@ -2,13 +2,30 @@
 
 ## Git
 
-- **@gitdance:** Process logical changes atomically. For each scope, execute in order:
+**@gitdance:** Run ONLY on explicit `@gitdance` command
+- Process atomic changes sequentially:
   1. `git status` (inspect workspace to group files)
   2. `git diff <files>` (review line-by-line to verify correctness)
   3. `git add <files>` (stage only current atomic scope)
-  4. `git commit` (title: `-m "e.g. add x/fix y/refactor z"`; body: `-m "- hyphen-delimited bullets \n passed as a single multiline string"`; clear, concise, casual language)
-  5. `git push`
-  6. `git status`
+  4. `git commit` draft (stop and wait for user confirmation or edits)
+       - Title: `-m "prefix: description"`
+       - Body: `-m "- hyphen-delimited bullets \n as a single multiline string"`
+       - Prefixes:
+          - `content:` any work inside `/content/` 
+          - `app:` any work inside `src/app/`
+          - `assets:` any work inside `src/assets/`
+          - `cms:` any work inside `src/cms/`
+          - `core:` any work inside `src/core/`
+          - `meta:` any work inside `src/meta/`
+          - `modules:` any work inside `src/modules/`
+          - `utilities:` any work inside `src/utilities/`
+          - `agents:` any work inside `AGENTS.md`
+          - `config:` global project configuration
+          - `deps:` package updates, additions, or removals
+          - `misc:` any work outside the above scopes
+  5. `git commit` execution (continue with the user confirmed command)
+  6. `git push`
+  7. `git status`
 
 ## Webflow
 
