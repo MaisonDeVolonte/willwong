@@ -1,4 +1,4 @@
-import { getAllPages } from "@/cms/loader";
+import { getAllPages, populatePageContent } from "@/cms/loader";
 import type { ContentPage } from "@/cms/loader";
 
 export type ResolvedFile = {
@@ -10,7 +10,10 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
   const pages = await getAllPages();
 
   const direct = pages.find((p) => p.slug.join("/") === slug.join("/"));
-  if (direct) return { page: direct, fileIndex: 0 };
+  if (direct) {
+    await populatePageContent(direct);
+    return { page: direct, fileIndex: 0 };
+  }
 
   if (slug.length > 1) {
     const pageSlugs = slug.slice(0, -1);
@@ -18,7 +21,10 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
     const page = pages.find((p) => p.slug.join("/") === pageSlugs.join("/"));
     if (page) {
       const fileIndex = page.files.findIndex((f) => f.name === filename);
-      if (fileIndex !== -1) return { page, fileIndex };
+      if (fileIndex !== -1) {
+        await populatePageContent(page);
+        return { page, fileIndex };
+      }
     }
   }
 

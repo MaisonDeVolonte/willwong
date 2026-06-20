@@ -53,6 +53,7 @@ export type ContentFile = {
   title: string;
   description: string;
   externalUrl?: string;
+  filePath?: string;
 };
 
 export type ContentPage = {
@@ -77,12 +78,31 @@ export const ICON_COLORS: Record<string, string> = {
   site: "var(--icon-site)",
 };
 
-export const readIcon = cache(async (name: string): Promise<string> => {
+const iconCache = new Map<string, string>();
+let iconsLoaded = false;
+
+async function preloadIcons() {
+  if (iconsLoaded) return;
   try {
-    return await readFile(path.join(ICONS_DIR, `${name}.svg`), "utf-8");
-  } catch {
-    return readFile(path.join(ICONS_DIR, "fallback.svg"), "utf-8");
+    const entries = await readdir(ICONS_DIR, { withFileTypes: true });
+    await Promise.all(
+      entries
+        .filter((e) => e.isFile() && e.name.endsWith(".svg"))
+        .map(async (e) => {
+          const name = e.name.replace(/\.svg$/i, "");
+          const content = await readFile(path.join(ICONS_DIR, e.name), "utf-8");
+          iconCache.set(name, content);
+        })
+    );
+    iconsLoaded = true;
+  } catch (err) {
+    console.error("Failed to preload icons:", err);
   }
+}
+
+export const readIcon = cache(async (name: string): Promise<string> => {
+  await preloadIcons();
+  return iconCache.get(name) ?? iconCache.get("fallback") ?? "";
 });
 
 function getFileMetadata(fileName: string, content: string) {
@@ -110,20 +130,20 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
         const ext = e.name.split(".").pop()?.toLowerCase() ?? "";
         const filePath = path.join(dir, e.name);
         const rawContent = await readFile(filePath, "utf-8");
-        const content = await processMirror(filePath, rawContent);
-        const { externalUrl, iconName: externalIcon } = processExternal(content);
-        const { title, description } = getFileMetadata(e.name, content);
+        const { externalUrl, iconName: externalIcon } = processExternal(rawContent);
+        const { title, description } = getFileMetadata(e.name, rawContent);
         
         const iconName = externalIcon ?? (externalUrl ? "link" : ext);
         const icon = await readIcon(iconName);
         return {
           name: e.name,
           language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
-          content,
+          content: "",
           icon,
           iconName,
           title,
           description,
+          filePath,
           ...(externalUrl ? { externalUrl } : {}),
         };
       })
@@ -150,9 +170,8 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
       const slug = [file.name];
       const filePath = path.join(dir, file.name);
       const rawContent = await readFile(filePath, "utf-8");
-      const content = await processMirror(filePath, rawContent);
-      const { externalUrl, iconName: externalIcon } = processExternal(content);
-      const { title, description } = getFileMetadata(file.name, content);
+      const { externalUrl, iconName: externalIcon } = processExternal(rawContent);
+      const { title, description } = getFileMetadata(file.name, rawContent);
       
       const iconName = externalIcon ?? (externalUrl ? "link" : ext);
       const icon = await readIcon(iconName);
@@ -162,11 +181,12 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
           {
             name: file.name,
             language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
-            content,
+            content: "",
             icon,
             iconName,
             title,
             description,
+            filePath,
             ...(externalUrl ? { externalUrl } : {}),
           },
         ],
@@ -192,4 +212,15 @@ export async function getAllPages(): Promise<ContentPage[]> {
   const pages: ContentPage[] = [];
   await walk(CONTENT_DIR, [], pages);
   return pages;
+}
+
+export async function populatePageContent(page: ContentPage): Promise<void> {
+  await Promise.all(
+    page.files.map(async (file) => {
+      if (file.filePath && !file.content) {
+        const rawContent = await readFile(file.filePath, "utf-8");
+        file.content = await processMirror(file.filePath, rawContent);
+      }
+    })
+  );
 }
