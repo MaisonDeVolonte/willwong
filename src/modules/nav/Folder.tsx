@@ -12,7 +12,7 @@ export default function Folder({ name, level, chevron, children }: FolderProps) 
         <span className="nav__icon" dangerouslySetInnerHTML={{ __html: chevron }} />
         <div className="nav__text">{name}</div>
       </a>
-      <div className="nav__list">{children}</div>
+      <div className="nav__list" data-folder-key={name}>{children}</div>
     </div>
   );
 }

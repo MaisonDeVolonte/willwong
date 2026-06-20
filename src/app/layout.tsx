@@ -12,8 +12,7 @@ import { Test } from "@webflow/panels/Test";
 
 // Navigation
 import Panel from "@/modules/nav/Panel";
-import ActiveStates from "@/modules/nav/activeStates";
-import FolderStates from "@/modules/nav/folderStates";
+import States from "@/modules/nav/states";
 
 // Controllers
 import Panels from "@/core/controllers/panels";
@@ -68,8 +67,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </div>
-          <ActiveStates />
-          <FolderStates />
+          <States />
           <Panels />
           <Links />
         </body>

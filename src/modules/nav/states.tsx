@@ -3,14 +3,23 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { loadOpenFolders, saveOpenFolders } from "@/utilities/localStorage";
+import "@/modules/nav/states.css";
 
-// Behavior-only component: renders no DOM, owns all folder logic:
-// toggle, persistence, and opening ancestors on navigation.
-// Mount once in layout.tsx.
+// ==============
+// ACTIVE RULES
+// ==============
+const ACTIVE_RULES = [
+  { selector: ".nav__title", href: "/", activeClass: "nav__title--active" },
+];
+
+const DEFAULT_ACTIVE_CLASS = "active";
+
+// ==============
+// HELPER FUNCTIONS
+// ==============
 
 function getFolderKey(navList: HTMLElement): string | null {
-  const trigger = navList.previousElementSibling as HTMLElement | null;
-  return trigger?.querySelector(".nav__text")?.textContent ?? null;
+  return navList.getAttribute("data-folder-key");
 }
 
 function openFolder(navList: HTMLElement, navIcon: HTMLElement | null) {
@@ -23,6 +32,15 @@ function closeFolder(navList: HTMLElement, navIcon: HTMLElement | null) {
   if (navIcon) navIcon.classList.remove("nav__icon--open");
 }
 
+function getNavList(link: HTMLElement): HTMLElement | null {
+  const next = link.nextElementSibling as HTMLElement | null;
+  return next?.classList.contains("nav__list") ? next : null;
+}
+
+function isFolderOpen(navList: HTMLElement): boolean {
+  return navList.classList.contains("nav__list--open");
+}
+
 function openAncestorFolders(link: HTMLElement) {
   const openFolders = loadOpenFolders();
   let current: HTMLElement = link;
@@ -30,12 +48,14 @@ function openAncestorFolders(link: HTMLElement) {
   while (true) {
     const parentList = current.closest<HTMLElement>(".nav__list");
     if (!parentList) break;
+    
     const folderLink = parentList.previousElementSibling as HTMLElement | null;
     if (folderLink?.classList.contains("nav__link")) {
       openFolder(parentList, folderLink.querySelector<HTMLElement>(".nav__icon"));
       const key = getFolderKey(parentList);
       if (key) openFolders.add(key);
     }
+    
     current = parentList.parentElement as HTMLElement;
     if (!current) break;
   }
@@ -43,23 +63,29 @@ function openAncestorFolders(link: HTMLElement) {
   saveOpenFolders(openFolders);
 }
 
-export default function FolderStates() {
+function activateNavLinks(pathname: string) {
+  // Map "/README.md" manually to "/" so that the sidebar README.md item is highlighted
+  const activePath = pathname === "/README.md" ? "/" : pathname;
+  
+  document.querySelectorAll<HTMLElement>(".nav__link").forEach((link) => {
+    const href = link.getAttribute("href");
+    const isActive = !!href && (href === activePath || href === activePath + "/");
+    link.classList.toggle("nav__link--active", isActive);
+  });
+}
+
+// ==============
+// COMPONENT
+// ==============
+
+export default function States() {
   const pathname = usePathname();
 
-  // toggle + persistence
+  // 1. One-time setup on mount: Restore persisted folders, add click listener for toggling folders
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const openFolders = loadOpenFolders();
-
-    function getNavList(link: HTMLElement) {
-      const next = link.nextElementSibling as HTMLElement | null;
-      return next?.classList.contains("nav__list") ? next : null;
-    }
-
-    function isFolderOpen(navList: HTMLElement) {
-      return navList.classList.contains("nav__list--open");
-    }
 
     function toggleFolder(event: MouseEvent) {
       const link = (event.target as HTMLElement).closest<HTMLElement>(".nav__link");
@@ -83,7 +109,7 @@ export default function FolderStates() {
       saveOpenFolders(openFolders);
     }
 
-    // restore persisted folder state on mount
+    // Restore persisted folder states
     document.querySelectorAll<HTMLElement>(".nav__list").forEach((navList) => {
       const key = getFolderKey(navList);
       if (key && openFolders.has(key)) {
@@ -99,10 +125,25 @@ export default function FolderStates() {
     };
   }, []);
 
-  // open ancestor folders on navigation
+  // 2. Route transitions: update active link styles and auto-open ancestor folders of active link
   useEffect(() => {
+    // Apply static active rules
+    ACTIVE_RULES.forEach(({ selector, href, activeClass }) => {
+      const cls = activeClass ?? DEFAULT_ACTIVE_CLASS;
+      const isActive = pathname === href || pathname === href + "/";
+      document.querySelectorAll(selector).forEach((el) => {
+        el.classList.toggle(cls, isActive);
+      });
+    });
+
+    // Highlight active link
+    activateNavLinks(pathname);
+
+    // Expand ancestor folders for the currently active link
     const activeLink = document.querySelector<HTMLElement>(".nav__link--active");
-    if (activeLink) openAncestorFolders(activeLink);
+    if (activeLink) {
+      openAncestorFolders(activeLink);
+    }
   }, [pathname]);
 
   return null;
