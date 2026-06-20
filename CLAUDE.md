@@ -2,6 +2,13 @@
 
 ## Git Commits
 
+- **Atomic Commits:** Always prefer small, single-purpose, atomic commits. Do not combine multiple unrelated logical changes (e.g., configuration/rules updates and UI logic changes) into a single commit. Stage and commit them separately.
+- **Workflow (@gitdance):** When committing and pushing changes (or triggered by `@gitdance`), always execute the following loop in order for each distinct logical change:
+  1. `git status` — inspect the working directory to group modifications into distinct logical scopes
+  2. `git diff <files>` — review the target files line-by-line to verify correctness and check for leftover debug code or formatting issues
+  3. `git add <files>` — stage only the files belonging to the current atomic scope
+  4. `git commit` — commit the changes following the title and body formatting rules below
+  5. `git push` — push the commit to the remote repository
 - **Title:** imperative, lowercase, no period — "add x", "fix y", "refactor z"
 - **Body:** hyphen-delimited bullets, past tense verbs, one line per logical change — no fluff, no nested bullets
 - Keep it natural — write like a developer, not a changelog generator
