@@ -1,5 +1,3 @@
-"use client";
-
 import { refractor } from "refractor/all";
 import type { Element, Text, RootContent } from "hast";
 
@@ -8,9 +6,7 @@ type RefractorProps = {
   language: string;
 };
 
-let nodeKey = 0;
-
-function renderNode(node: RootContent): React.ReactNode {
+function renderNode(node: RootContent, key: number): React.ReactNode {
   if (node.type === "text") {
     return (node as Text).value;
   }
@@ -21,8 +17,8 @@ function renderNode(node: RootContent): React.ReactNode {
       ? el.properties.className.join(" ")
       : undefined;
     return (
-      <Tag key={nodeKey++} className={className}>
-        {el.children.map(renderNode)}
+      <Tag key={key} className={className}>
+        {el.children.map((child, i) => renderNode(child, i))}
       </Tag>
     );
   }
@@ -63,7 +59,6 @@ function splitIntoLines(nodes: RootContent[]): RootContent[][] {
 }
 
 export default function Refractor({ code, language }: RefractorProps) {
-  nodeKey = 0;
   const tree = refractor.highlight(code, language);
   const lines = splitIntoLines(tree.children);
 
@@ -72,7 +67,7 @@ export default function Refractor({ code, language }: RefractorProps) {
       <code className={`language-${language}`}>
         {lines.map((lineNodes, i) => (
           <span key={i} className="code-line">
-            {lineNodes.map(renderNode)}
+            {lineNodes.map((node, j) => renderNode(node, j))}
           </span>
         ))}
       </code>
