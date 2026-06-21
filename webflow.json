@@ -1,7 +1,8 @@
 {
   "cloud": {
     "framework": "nextjs",
-    "workspace_id": "632debe2b88d7fb98886297b"
+    "workspace_id": "632debe2b88d7fb98886297b",
+    "app_id": "8d337521-aff7-431b-8410-c815784470af"
   },
   "telemetry": {
     "global": {
