@@ -1,1 +1,1 @@
-// @mirror src/modules/stage/chat.tsx
+// @mirror src/modules/stage/Chat.tsx
