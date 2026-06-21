@@ -3,6 +3,8 @@
 ## Git
 
 **@gitdance:** Run ONLY on explicit `@gitdance` command
+- `main` is protected: never commit or push to it directly. Every change reaches `main` through a pull request whose `build` check passes.
+- Before the loop: if currently on `main`, branch first — `git switch -c <prefix>/<short-topic>`.
 - Process atomic changes sequentially:
   1. `git status` (inspect workspace to group files)
   2. `git diff <files>` (review line-by-line to verify correctness)
@@ -24,8 +26,11 @@
           - `deps:` package updates, additions, or removals
           - `misc:` any work outside the above scopes
   5. `git commit` execution (continue with the exact user confirmed command)
-  6. `git push`
+  6. `git push -u origin HEAD` (push the working branch — never `main`)
   7. repeat from step 1 until workspace is clean
+- After the workspace is clean, open/update the PR:
+  8. `gh pr create --base main --fill` (or reuse the branch's open PR)
+  9. wait for the `build` check to pass, then `gh pr merge --rebase --delete-branch` (preserves the atomic commits on `main`)
 
 ## Webflow
 
