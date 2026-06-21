@@ -1,8 +1,8 @@
-import { getAllPages, readIcon, ICON_COLORS } from "@/cms/loader";
+import { getAllPages, readIcon, ICON_COLORS } from "@/cms/pages";
 import Link from "@/modules/nav/Link";
 import Folder from "@/modules/nav/Folder";
-import { buildNavTree } from "@/cms/tree";
-import type { NavNode } from "@/cms/tree";
+import { buildNavTree } from "@/cms/folders";
+import type { NavNode } from "@/cms/folders";
 
 
 

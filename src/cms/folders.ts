@@ -1,4 +1,4 @@
-import type { ContentPage, ContentFile } from "@/cms/loader";
+import type { ContentPage, ContentFile } from "@/cms/pages";
 
 export type NavLeaf = {
   kind: "leaf";
