@@ -3,6 +3,7 @@ import * as schema from "@/meta/schema";
 
 import { notFound, redirect } from "next/navigation";
 import { getAllFileParams, getFile } from "@/cms/routes";
+import { populatePageContent } from "@/cms/loader";
 
 import Canvas from "@/modules/stage/Canvas";
 
@@ -36,6 +37,9 @@ export default async function DynamicPage({ params }: Props) {
   if (file.externalUrl) {
     redirect(file.externalUrl);
   }
+
+  // Read the body for this page only (other pages never touch disk here)
+  await populatePageContent(resolved.page);
 
   const isAboutPage = slug.length === 1 && (slug[0] === "about.md" || slug[0] === "about");
   const isNotesPage = slug.length > 0 && slug[0] === "notes";
