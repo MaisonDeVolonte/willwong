@@ -2,36 +2,38 @@
 
 ## Git
 
-**@gitdance:** Run ONLY on explicit `@gitdance` command
-- `main` is protected: never commit or push to it directly. Every change reaches `main` through a pull request whose `build` check passes.
-- Before the loop: if currently on `main`, branch first — `git switch -c <prefix>/<short-topic>`.
-- Process atomic changes sequentially:
-  1. `git status` (inspect workspace to group files)
-  2. `git diff <files>` (review line-by-line to verify correctness)
-  3. `git add <files>` (stage only current atomic scope)
-  4. `git commit` draft (stop and wait for user confirmation or edits)
-       - Title: `-m "prefix: description"`
-       - Body: `-m "- hyphen-delimited bullets \n as a single multiline string"`
-       - Prefixes:
-          - `content:` any work inside `/content/` 
-          - `app:` any work inside `src/app/`
-          - `assets:` any work inside `src/assets/`
-          - `cms:` any work inside `src/cms/`
-          - `core:` any work inside `src/core/`
-          - `meta:` any work inside `src/meta/`
-          - `modules:` any work inside `src/modules/`
-          - `utilities:` any work inside `src/utilities/`
-          - `agents:` any work inside `AGENTS.md`
-          - `webflow:` any changes found in `webflow/`
-          - `config:` global project configuration
-          - `deps:` package updates, additions, or removals
-          - `misc:` any work outside the above scopes
-  5. `git commit` execution (continue with the exact user confirmed command)
-  6. `git push -u origin HEAD` (push the working branch — never `main`)
-  7. repeat from step 1 until workspace is clean
-- After the workspace is clean, open/update the PR:
-  8. `gh pr create --base main --fill` (or reuse the branch's open PR)
-  9. wait for the `build` check to pass, then `gh pr merge --rebase --delete-branch` (preserves the atomic commits on `main`)
+**@gitdance:** 
+- Run ONLY on explicit `@gitdance` command
+- Before the loop: 
+  1. `git switch -c temp/gitdance` (create a temporary branch for gitdance work)
+  2. `git restore --staged :/` (clear staged changes across entire repo)
+- Begin the loop:
+  3. `git status` (group changes into `type(scope)` buckets)
+      - Types (derived from the following, in order):
+          - `new:` changes create first-time features, functions, etc
+          - `improve:` changes genuinely enhance existing features, functions, etc
+          - `fix:` changes resolve layout/logic defects, bugs, broken code, etc
+          - `update:` changes generally modify content, text, properties, values, comments etc
+          - `test:` changes add automated test suites, mock assertions, verification checks, etc
+          - `investigate:` changes add console logs, debug instrumentation, profiling scripts, etc
+      - Scopes (derived from the following, in order): 
+          - if changes are from a single file, use the file's name
+          - if changes are from multiple files, use the files' parent folder name
+          - if changes are from multiple folders, use the most logical domain name
+          - if changes are from multiple domains, use the most dominant domain name
+          - if changes are from multiple unrelated domains, use `misc`
+  4. `git add <files>` (stage only files belonging to the current atomic group of changes)
+  5. `git diff --staged` (review line-by-line to verify correctness)
+  6. `git commit` draft (stop and wait for user confirmation or edits)
+      - Title: `-m "type(scope): short description"`
+      - Body: `-m "- hyphen-delimited bullets \n as a single multiline string"`
+  7. `git commit` execution (continue with the exact user confirmed command)
+  8. repeat the loop from step 3 until workspace is clean
+- After the loop:
+  9. `git branch -m <dominant-type>/<description-of-scopes>` (rename the working branch, kebab-case)
+  10. `git push -u origin HEAD` (push the working branch)
+  11. `gh pr view --json url -q .url 2>/dev/null || gh pr create --base main --fill` (create the pr)
+  12. `gh pr checks --watch` (if checks pass, print the pr url; if checks fail, stop and report)
 
 ## Webflow
 
@@ -59,7 +61,7 @@ All files (with the exception of @mirror and @external) inside `content/` must f
 
 - Always use the `@/` alias, even for same-folder files (e.g. `import "@/modules/nav/Link"`). Never use `./`.
 - Group imports logically by **functional domain and intent** rather than package origin alone:
-  1. **Data Loaders & File Handlers**: Node built-ins (like `fs`, `path`) co-located with corresponding custom loader/utility modules (like `@/cms/loader`).
+  1. **Data Loaders & File Handlers**: Node built-ins (like `fs`, `path`) co-located with corresponding custom loader/utility modules (like `@/cms/pages`).
   2. **Configurations & Schema Definitions**: Centralized configurations, metadata, and schemas (like `@/meta/...`).
   3. **UI Presenters**: React rendering components (like `@/modules/stage/Canvas` or `@webflow/*`). UI components and core layout modules should always go last.
 - Within each functional group, value imports go before type imports.
