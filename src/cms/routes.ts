@@ -1,4 +1,4 @@
-import { getAllPages, populatePageContent } from "@/cms/loader";
+import { getAllPages } from "@/cms/loader";
 import type { ContentPage } from "@/cms/loader";
 
 export type ResolvedFile = {
@@ -6,12 +6,14 @@ export type ResolvedFile = {
   fileIndex: number;
 };
 
+// Resolves a slug to a page + file index using the cached, in-memory page list.
+// No file bodies are read here — call populatePageContent on the resolved page
+// only when the body is actually needed (e.g. to render it).
 export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
   const pages = await getAllPages();
 
   const direct = pages.find((p) => p.slug.join("/") === slug.join("/"));
   if (direct) {
-    await populatePageContent(direct);
     return { page: direct, fileIndex: 0 };
   }
 
@@ -22,7 +24,6 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
     if (page) {
       const fileIndex = page.files.findIndex((f) => f.name === filename);
       if (fileIndex !== -1) {
-        await populatePageContent(page);
         return { page, fileIndex };
       }
     }

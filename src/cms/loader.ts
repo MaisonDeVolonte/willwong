@@ -1,4 +1,4 @@
-import { readdir, readFile } from "fs/promises";
+import { open, readdir, readFile } from "fs/promises";
 import path from "path";
 import { cache } from "react";
 import { processMirror } from "./mirror";
@@ -105,6 +105,44 @@ export const readIcon = cache(async (name: string): Promise<string> => {
   return iconCache.get(name) ?? iconCache.get("fallback") ?? "";
 });
 
+// Directives (@title, @description, @external, @icon) live in the file header by
+// convention, so we only read the head — never the full body — to build the tree.
+// This keeps the walk cost flat as individual files grow.
+const HEAD_BYTES = 8192;
+
+async function readFileHead(filePath: string): Promise<string> {
+  const fd = await open(filePath, "r");
+  try {
+    const buf = Buffer.alloc(HEAD_BYTES);
+    const { bytesRead } = await fd.read(buf, 0, HEAD_BYTES, 0);
+    return buf.toString("utf-8", 0, bytesRead);
+  } finally {
+    await fd.close();
+  }
+}
+
+async function buildContentFile(dir: string, fileName: string): Promise<ContentFile> {
+  const ext = fileName.split(".").pop()?.toLowerCase() ?? "";
+  const filePath = path.join(dir, fileName);
+  const head = await readFileHead(filePath);
+  const { externalUrl, iconName: externalIcon } = processExternal(head);
+  const { title, description } = getFileMetadata(fileName, head);
+
+  const iconName = externalIcon ?? (externalUrl ? "link" : ext);
+  const icon = await readIcon(iconName);
+  return {
+    name: fileName,
+    language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
+    content: "",
+    icon,
+    iconName,
+    title,
+    description,
+    filePath,
+    ...(externalUrl ? { externalUrl } : {}),
+  };
+}
+
 function getFileMetadata(fileName: string, content: string) {
   const { title: customTitle, description: customDescription } = parseMetadata(content);
 
@@ -126,27 +164,7 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
   const files = await Promise.all(
     entries
       .filter((e) => e.isFile() && !IGNORE.has(e.name))
-      .map(async (e) => {
-        const ext = e.name.split(".").pop()?.toLowerCase() ?? "";
-        const filePath = path.join(dir, e.name);
-        const rawContent = await readFile(filePath, "utf-8");
-        const { externalUrl, iconName: externalIcon } = processExternal(rawContent);
-        const { title, description } = getFileMetadata(e.name, rawContent);
-        
-        const iconName = externalIcon ?? (externalUrl ? "link" : ext);
-        const icon = await readIcon(iconName);
-        return {
-          name: e.name,
-          language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
-          content: "",
-          icon,
-          iconName,
-          title,
-          description,
-          filePath,
-          ...(externalUrl ? { externalUrl } : {}),
-        };
-      })
+      .map((e) => buildContentFile(dir, e.name))
   );
   // README.md first, then alphabetically
   files.sort((a, b) => {
@@ -166,31 +184,11 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
 
   if (slugPath.length === 0) {
     for (const file of fileEntries) {
-      const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-      const slug = [file.name];
-      const filePath = path.join(dir, file.name);
-      const rawContent = await readFile(filePath, "utf-8");
-      const { externalUrl, iconName: externalIcon } = processExternal(rawContent);
-      const { title, description } = getFileMetadata(file.name, rawContent);
-      
-      const iconName = externalIcon ?? (externalUrl ? "link" : ext);
-      const icon = await readIcon(iconName);
+      const contentFile = await buildContentFile(dir, file.name);
       pages.push({
-        slug,
-        files: [
-          {
-            name: file.name,
-            language: externalUrl ? "markdown" : (LANGUAGES[ext] ?? ext),
-            content: "",
-            icon,
-            iconName,
-            title,
-            description,
-            filePath,
-            ...(externalUrl ? { externalUrl } : {}),
-          },
-        ],
-        ...(externalUrl ? { externalUrl } : {}),
+        slug: [file.name],
+        files: [contentFile],
+        ...(contentFile.externalUrl ? { externalUrl: contentFile.externalUrl } : {}),
       });
     }
   } else if (fileEntries.length > 0) {
@@ -208,11 +206,14 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
   }
 }
 
-export async function getAllPages(): Promise<ContentPage[]> {
+// Memoized per request (React cache): generateMetadata, the page, and the layout's
+// Nav panel all share a single walk within one render. Not persisted across requests,
+// so content edits in dev are reflected immediately on the next navigation.
+export const getAllPages = cache(async (): Promise<ContentPage[]> => {
   const pages: ContentPage[] = [];
   await walk(CONTENT_DIR, [], pages);
   return pages;
-}
+});
 
 export async function populatePageContent(page: ContentPage): Promise<void> {
   await Promise.all(
