@@ -1,25 +1,17 @@
-import { readFile } from "fs/promises";
-import path from "path";
+import { MIRRORS } from "@/cms/content.generated";
+
+const MIRROR_RE = /^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/;
 
 /**
- * Checks if the file contains a @mirror directive, and if so,
- * resolves and returns the contents of the mirrored file. Otherwise, returns the original content.
+ * If the content begins with a @mirror directive, returns the mirrored file's
+ * contents (resolved at build into the bundle). Otherwise returns the content
+ * unchanged.
  */
-export async function processMirror(filePath: string, content: string): Promise<string> {
-  const match = content.match(/^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/);
+export function processMirror(content: string): string {
+  const match = content.match(MIRROR_RE);
   if (match) {
     const target = match[1].replace(/\*\/$/, "").replace(/-->$/, "").trim();
-
-    // Determine project root dynamically from the content file's path
-    let projectRoot = process.cwd();
-    const contentSegment = `${path.sep}content${path.sep}`;
-    const contentIndex = filePath.indexOf(contentSegment);
-    if (contentIndex !== -1) {
-      projectRoot = filePath.substring(0, contentIndex);
-    }
-
-    const resolvedPath = path.resolve(projectRoot, target);
-    return readFile(resolvedPath, "utf-8");
+    return MIRRORS[target] ?? content;
   }
   return content;
 }
