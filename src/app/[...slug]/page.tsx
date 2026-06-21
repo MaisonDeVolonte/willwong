@@ -24,11 +24,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// All content is known at build time. Disallow on-demand rendering of unknown
-// paths so they 404 instead of running the filesystem reads at request time
-// (workerd has no fs — that render would throw a 500).
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return getAllFileParams();
 }

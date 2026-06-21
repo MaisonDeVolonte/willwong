@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/meta/config/site";
 import { personSchema, websiteSchema, Schema } from "@/meta/schema";
 
-import path from "path";
-import { readFile } from "fs/promises";
-import { readIcon } from "@/cms/loader";
+import { getContent, readIcon } from "@/cms/loader";
 
 import Canvas from "@/modules/stage/Canvas";
 
@@ -17,10 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [content, icon] = await Promise.all([
-    readFile(path.join(process.cwd(), "content/README.md"), "utf-8"),
-    readIcon("md"),
-  ]);
+  const content = getContent("README.md");
+  const icon = await readIcon("md");
   return (
     <>
       <Schema data={[websiteSchema, personSchema]} />
