@@ -22,6 +22,7 @@
           - `modules:` any work inside `src/modules/`
           - `utilities:` any work inside `src/utilities/`
           - `agents:` any work inside `AGENTS.md`
+          - `webflow:` any changes found in `webflow/`
           - `config:` global project configuration
           - `deps:` package updates, additions, or removals
           - `misc:` any work outside the above scopes
