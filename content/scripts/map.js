@@ -42,7 +42,7 @@ const debugEnabled = localStorage && (localStorage.getItem("reach.debug.map") ==
 // Set these variables during migration to hhc.ooo
     const geocoderContainerId = 'Search-Map-Form';
     const mapContainerId = 'map';
-    const mapboxAccessToken = 'pk.eyJ1IjoiY2hvb3NlcmVhY2giLCJhIjoiY2tzMmZwaXRoMDB3czJxcDlpbTgyY2I3MiJ9.lG3fr5o7dEr-9Cj3C4dgbg';
+    const mapboxAccessToken = 'pk...';
     const mapboxStyle = 'mapbox://styles/choosereach/ckrjazfmp4px617p0h6oyj9dd';
     // Coordinates that cover the lower continental United States
     const unitedStatesBounds = [-126, 18.5, -65, 50]
