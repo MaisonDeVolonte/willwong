@@ -22,6 +22,9 @@ jobs:
 
       - run: npm ci
 
+      # Generate build metadata (version.generated.ts) the app imports.
+      - run: node scripts/version.mjs
+
       # Fast gate: catches casing + type errors in seconds.
       - run: npx tsc --noEmit
 
