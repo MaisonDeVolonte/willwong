@@ -15,14 +15,39 @@ import Link from "../webflow_modules/Basic/components/Link";
 /**
  * Props for {@link Header}
  */
-export type HeaderProps = {};
+export type HeaderProps = {
+  hashLink?: {
+    href: string;
+    preload?: "prerender" | "prefetch" | "none";
+    target?: "_self" | "_blank";
+  };
+  hashText?: React.ReactNode;
+  versionLink?: {
+    href: string;
+    preload?: "prerender" | "prefetch" | "none";
+    target?: "_self" | "_blank";
+  };
+  versionText?: React.ReactNode;
+};
 
 /**
  * Header
  *
  * @see {@link https://willwong.design.webflow.com | Source site in Webflow}
  */
-export function Header({}: HeaderProps) {
+export function Header({
+  hashLink = {
+    href: "#",
+  },
+
+  hashText = "a1b2c3d",
+
+  versionLink = {
+    href: "#",
+  },
+
+  versionText = "v0.0.0",
+}: HeaderProps) {
   return (
     <Block className={"header"} tag={"header"}>
       <Block className={"nav__root"} tag={"div"}>
@@ -54,6 +79,26 @@ export function Header({}: HeaderProps) {
           }}
         >
           <Block tag={"div"}>{"William Wong"}</Block>
+        </Link>
+      </Block>
+      <Block className={"flex-expand"} tag={"div"} />
+      <Block className={"nav__version"} tag={"div"}>
+        <Link
+          button={false}
+          className={"nav__version--link"}
+          options={versionLink}
+        >
+          {versionText}
+        </Link>
+        <Block className={"nav__version--dot"} tag={"div"}>
+          {"•"}
+        </Block>
+        <Link
+          button={false}
+          className={"nav__version--link"}
+          options={hashLink}
+        >
+          {hashText}
         </Link>
       </Block>
     </Block>
