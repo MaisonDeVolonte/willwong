@@ -1,8 +1,6 @@
 import { cache } from "react";
 import { CONTENT, ICONS } from "@/cms/content.generated";
-import { processMirror } from "@/cms/mirror";
-import { processExternal } from "@/cms/external";
-import { parseMetadata } from "@/cms/metadata";
+import { processMirror, processExternal, parseMetadata } from "@/cms/directives";
 
 const LANGUAGES: Record<string, string> = {
   bash: "bash",

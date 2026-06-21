@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import * as schema from "@/meta/schema";
 
 import { notFound, redirect } from "next/navigation";
-import { getAllFileParams, getFile } from "@/cms/routes";
-import { populatePageContent } from "@/cms/loader";
+import { getAllFileParams, getFile } from "@/cms/slugs";
+import { populatePageContent } from "@/cms/pages";
 
 import Canvas from "@/modules/stage/Canvas";
 

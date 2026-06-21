@@ -1,4 +1,4 @@
-import { ICON_COLORS, type ContentPage } from "@/cms/loader";
+import { ICON_COLORS, type ContentPage } from "@/cms/pages";
 
 import Link from "next/link";
 import Refractor from "@/modules/stage/Refractor";
