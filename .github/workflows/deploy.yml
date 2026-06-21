@@ -1,0 +1,31 @@
+name: Deploy
+
+# CI is the sole deployer (Webflow's git auto-deploy is disabled). Building here
+# means git — and therefore the real commit hash — is available, unlike Webflow's
+# own build environment which has no .git. The generator bakes that SHA into the app.
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx webflow cloud deploy --no-input --site-id ${{ vars.WEBFLOW_SITE_ID }}
+        env:
+          WEBFLOW_API_TOKEN: ${{ secrets.WEBFLOW_API_TOKEN }}
