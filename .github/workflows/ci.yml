@@ -1,0 +1,29 @@
+name: CI
+
+# Runs on GitHub's case-sensitive Linux runners, which reproduces build
+# failures that a case-insensitive macOS filesystem hides locally (e.g. a
+# file tracked as `localstorage.ts` but imported as `localStorage`).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fast gate: catches casing + type errors in seconds.
+      - run: npx tsc --noEmit
+
+      # High-fidelity gate: the exact command Webflow Cloud runs.
+      - run: npm run build
