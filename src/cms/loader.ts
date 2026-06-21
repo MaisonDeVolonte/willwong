@@ -1,12 +1,8 @@
-import { open, readdir, readFile } from "fs/promises";
-import path from "path";
 import { cache } from "react";
-import { processMirror } from "./mirror";
-import { processExternal } from "./external";
-import { parseMetadata } from "./metadata";
-
-const CONTENT_DIR = path.join(process.cwd(), "content");
-const ICONS_DIR = path.join(process.cwd(), "src/assets/icons");
+import { CONTENT, ICONS } from "@/cms/content.generated";
+import { processMirror } from "@/cms/mirror";
+import { processExternal } from "@/cms/external";
+import { parseMetadata } from "@/cms/metadata";
 
 const LANGUAGES: Record<string, string> = {
   bash: "bash",
@@ -78,53 +74,43 @@ export const ICON_COLORS: Record<string, string> = {
   site: "var(--icon-site)",
 };
 
-const iconCache = new Map<string, string>();
-let iconsLoaded = false;
-
-async function preloadIcons() {
-  if (iconsLoaded) return;
-  try {
-    const entries = await readdir(ICONS_DIR, { withFileTypes: true });
-    await Promise.all(
-      entries
-        .filter((e) => e.isFile() && e.name.endsWith(".svg"))
-        .map(async (e) => {
-          const name = e.name.replace(/\.svg$/i, "");
-          const content = await readFile(path.join(ICONS_DIR, e.name), "utf-8");
-          iconCache.set(name, content);
-        })
-    );
-    iconsLoaded = true;
-  } catch (err) {
-    console.error("Failed to preload icons:", err);
-  }
-}
-
 export const readIcon = cache(async (name: string): Promise<string> => {
-  await preloadIcons();
-  return iconCache.get(name) ?? iconCache.get("fallback") ?? "";
+  return ICONS[name] ?? ICONS["fallback"] ?? "";
 });
 
 // Directives (@title, @description, @external, @icon) live in the file header by
-// convention, so we only read the head — never the full body — to build the tree.
-// This keeps the walk cost flat as individual files grow.
+// convention, so we only read the head to build the tree.
 const HEAD_BYTES = 8192;
 
-async function readFileHead(filePath: string): Promise<string> {
-  const fd = await open(filePath, "r");
-  try {
-    const buf = Buffer.alloc(HEAD_BYTES);
-    const { bytesRead } = await fd.read(buf, 0, HEAD_BYTES, 0);
-    return buf.toString("utf-8", 0, bytesRead);
-  } finally {
-    await fd.close();
-  }
+function readHead(rel: string): string {
+  return (CONTENT[rel] ?? "").slice(0, HEAD_BYTES);
 }
 
-async function buildContentFile(dir: string, fileName: string): Promise<ContentFile> {
+type DirEntry = { name: string; isFile: boolean; isDirectory: boolean };
+
+// Reconstructs an immediate directory listing from the flat CONTENT key set,
+// replacing fs.readdir({ withFileTypes: true }). `rel` is "" for the root.
+function listDir(rel: string): DirEntry[] {
+  const prefix = rel ? `${rel}/` : "";
+  const seen = new Map<string, boolean>(); // name -> isFile
+  for (const key of Object.keys(CONTENT)) {
+    if (prefix && !key.startsWith(prefix)) continue;
+    const rest = key.slice(prefix.length);
+    const slash = rest.indexOf("/");
+    if (slash === -1) {
+      seen.set(rest, true);
+    } else {
+      const name = rest.slice(0, slash);
+      if (!seen.has(name)) seen.set(name, false);
+    }
+  }
+  return [...seen].map(([name, isFile]) => ({ name, isFile, isDirectory: !isFile }));
+}
+
+async function buildContentFile(dirRel: string, fileName: string): Promise<ContentFile> {
   const ext = fileName.split(".").pop()?.toLowerCase() ?? "";
-  const filePath = path.join(dir, fileName);
-  const head = await readFileHead(filePath);
+  const rel = dirRel ? `${dirRel}/${fileName}` : fileName;
+  const head = readHead(rel);
   const { externalUrl, iconName: externalIcon } = processExternal(head);
   const { title, description } = getFileMetadata(fileName, head);
 
@@ -138,7 +124,7 @@ async function buildContentFile(dir: string, fileName: string): Promise<ContentF
     iconName,
     title,
     description,
-    filePath,
+    filePath: rel,
     ...(externalUrl ? { externalUrl } : {}),
   };
 }
@@ -159,12 +145,12 @@ function getFileMetadata(fileName: string, content: string) {
   };
 }
 
-async function readContentFiles(dir: string): Promise<ContentFile[]> {
-  const entries = await readdir(dir, { withFileTypes: true });
+async function readContentFiles(dirRel: string): Promise<ContentFile[]> {
+  const entries = listDir(dirRel);
   const files = await Promise.all(
     entries
-      .filter((e) => e.isFile() && !IGNORE.has(e.name))
-      .map((e) => buildContentFile(dir, e.name))
+      .filter((e) => e.isFile && !IGNORE.has(e.name))
+      .map((e) => buildContentFile(dirRel, e.name))
   );
   // README.md first, then alphabetically
   files.sort((a, b) => {
@@ -177,14 +163,14 @@ async function readContentFiles(dir: string): Promise<ContentFile[]> {
   return files;
 }
 
-async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  const fileEntries = entries.filter((e) => e.isFile() && !IGNORE.has(e.name));
-  const dirEntries = entries.filter((e) => e.isDirectory());
+async function walk(dirRel: string, slugPath: string[], pages: ContentPage[]) {
+  const entries = listDir(dirRel);
+  const fileEntries = entries.filter((e) => e.isFile && !IGNORE.has(e.name));
+  const dirEntries = entries.filter((e) => e.isDirectory);
 
   if (slugPath.length === 0) {
     for (const file of fileEntries) {
-      const contentFile = await buildContentFile(dir, file.name);
+      const contentFile = await buildContentFile(dirRel, file.name);
       pages.push({
         slug: [file.name],
         files: [contentFile],
@@ -192,7 +178,7 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
       });
     }
   } else if (fileEntries.length > 0) {
-    const files = await readContentFiles(dir);
+    const files = await readContentFiles(dirRel);
     const firstExternalUrl = files[0]?.externalUrl;
     pages.push({
       slug: slugPath,
@@ -202,26 +188,28 @@ async function walk(dir: string, slugPath: string[], pages: ContentPage[]) {
   }
 
   for (const d of dirEntries) {
-    await walk(path.join(dir, d.name), [...slugPath, d.name], pages);
+    await walk(dirRel ? `${dirRel}/${d.name}` : d.name, [...slugPath, d.name], pages);
   }
 }
 
 // Memoized per request (React cache): generateMetadata, the page, and the layout's
-// Nav panel all share a single walk within one render. Not persisted across requests,
-// so content edits in dev are reflected immediately on the next navigation.
+// Nav panel all share a single walk within one render.
 export const getAllPages = cache(async (): Promise<ContentPage[]> => {
   const pages: ContentPage[] = [];
-  await walk(CONTENT_DIR, [], pages);
+  await walk("", [], pages);
   return pages;
 });
 
 export async function populatePageContent(page: ContentPage): Promise<void> {
-  await Promise.all(
-    page.files.map(async (file) => {
-      if (file.filePath && !file.content) {
-        const rawContent = await readFile(file.filePath, "utf-8");
-        file.content = await processMirror(file.filePath, rawContent);
-      }
-    })
-  );
+  for (const file of page.files) {
+    if (file.filePath && !file.content) {
+      file.content = processMirror(CONTENT[file.filePath] ?? "");
+    }
+  }
+}
+
+// Reads a single content file (with @mirror resolved) by its path relative to
+// content/ — used by the home page for content/README.md.
+export function getContent(rel: string): string {
+  return processMirror(CONTENT[rel] ?? "");
 }
