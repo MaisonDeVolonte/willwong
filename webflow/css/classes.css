@@ -560,6 +560,19 @@
   height: 100%;
 }
 
+.nav__version {
+  display: flex;
+  padding-right: 1em;
+  padding-left: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__version--dot {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
 @media screen and (max-width: 479px) {
   .brand {
     justify-content: center;
