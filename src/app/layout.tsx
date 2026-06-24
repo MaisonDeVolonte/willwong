@@ -32,7 +32,7 @@ import "@webflow/css/global.css";
 // Overrides
 import "@/app/custom.css";
 import "@/core/controllers/panels.css";
-import { isHmrRefresh } from "next/dist/server/app-render/work-unit-async-storage.external";
+import "@/modules/stage/Chat.css";
 
 // Metadata
 export const metadata: Metadata = {
