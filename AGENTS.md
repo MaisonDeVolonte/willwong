@@ -2,7 +2,12 @@
 
 ## Custom Triggers
 Follow the usage guidelines in each agent's documentation page below:
-- @gitdance: [./AGENTS/gitdance.md](AGENTS/gitdance.md)
+- [@gitaudit](AGENTS/gitaudit.md): read-only diagnostics, triage, report, summary, and tasks
+- [@gitbegin](AGENTS/gitbegin.md): step off of main and into a fresh `temp/branch`
+- [@gitcontinue](AGENTS/gitcontinue.md): continue work on an `existing/branch`
+- [@gitdeliver](AGENTS/gitdeliver.md): looping atomic commits, branching, push, pr, build, and check
+- [@gitempty](AGENTS/gitempty.md): destructive; stash, sync, delete, prune, restore
+- [@gitfresh](AGENTS/gitfresh.md): nuke everything and start entirely fresh
 
 ## Webflow
 
