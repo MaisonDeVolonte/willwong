@@ -2,7 +2,7 @@
 commit.md: my programmatic, truly atomic commit generation system
 =================================================================
 - adapt: convention to what the project uses, but the default:
-- [@gitdance](/agents/gitdance.md): because agentic, obviously
+- [@gitdeliver](/agents/gitdeliver.md): because agentic, obviously
   - stage: only the files belonging to the current atomic group
   - diff: review line-by-line to verify correctness
   - commit: names follow `type(scope): description`
