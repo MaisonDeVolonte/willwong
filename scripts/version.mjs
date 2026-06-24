@@ -11,7 +11,10 @@ const git = (cmd) => {
 
 // Webflow's builder has no .git but injects COMMIT_HASH; local/CI have git but no COMMIT_HASH.
 const hash = (process.env.COMMIT_HASH || git("git rev-parse HEAD") || "0000000").slice(0, 7);
-const count = git("git rev-list --count HEAD") || "0";
+
+// Try to get commit count since last tag, fallback to total commit count
+const describe = git("git describe --tags --long") || "";
+const count = describe ? describe.split("-").slice(-2, -1)[0] : git("git rev-list --count HEAD") || "0";
 
 writeFileSync(
   new URL("../src/meta/config/version.generated.ts", import.meta.url),
