@@ -6,6 +6,6 @@ branch.md: my automated, agentic branch smart-naming protocol
 - sync: latest `main` and cut a `temp/gitdance` branch
 - work: naturally, trusting the process...
 - adapt: convention to what the project uses, but the default:
-- [@gitdance](/agents/gitdance.md): because agentic, obviously
+- [@gitdeliver](/agents/gitdeliver.md): because agentic, obviously
   - commit: atomic changes into `type(scope)` buckets
   - rename: branch to most impactful work via `<type>/<scopes>`
