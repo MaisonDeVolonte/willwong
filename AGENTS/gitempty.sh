@@ -15,7 +15,7 @@ DELETED_BRANCHES=""
 PRESERVED_BRANCHES=""
 
 # drop tracking refs for branches deleted on remote and mark their local upstream 'gone'
-git fetch --prune >/dev/null
+git fetch --prune origin >/dev/null
 # check that the local default branch is an ancestor of the remote default branch
 git merge-base --is-ancestor "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH" \
   || { echo "can't run @gitempty with diverged $DEFAULT_BRANCH"; exit 1; }
