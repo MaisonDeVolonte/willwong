@@ -1,7 +1,11 @@
-**@gitbegin:** Run ONLY on explicit `@gitbegin` command — get onto `temp/branch`, ready for @gitdeliver.
-- If already on a branch other than `main` (and not detached)
-    → report "on `<branch>`, ready for @gitdeliver" and stop.
-- Otherwise (on `main` or detached HEAD), move onto `temp/branch`, carrying any uncommitted changes:
-    - `temp/branch` exists → `git switch temp/branch`
-    - else                  → `git switch -c temp/branch`
-- Report "on `temp/branch` — ready for @gitdeliver".
+**@gitbegin:** Run ONLY on explicit `@gitbegin` command
+1. `git rev-parse --is-inside-work-tree`
+   - fail → abort and report: "not a git repository"
+2. `git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'` 
+   - save → `<defaultBranch>`
+3. `git switch <defaultBranch>`
+   - fail → abort and report: "conflict with `<defaultBranch>`, stash first"
+4. `git pull --ff-only`
+   - fail → continue and report: "diverged from `origin/<defaultBranch>`, rebase first"
+5. `git switch -m temp/branch 2>/dev/null || git switch -c temp/branch`
+   - success → report: "moved to `<temp/branch>`, free to continue working"
