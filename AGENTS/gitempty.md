@@ -9,7 +9,7 @@
 - puts you back on your starting branch or a freshly synced default (if deleted)
 
 1. `git rev-parse --is-inside-work-tree`
-  - make sure current directory is valid git repository
+  - fail → abort and report: "not a git repository"
 2. run the native shell command exactly as specified
   ```bash
   AGENTS/gitempty.sh

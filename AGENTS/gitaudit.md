@@ -54,4 +54,4 @@ pass the generated report through the following priority matrix:
   - Building: unpushed commits, incoming commits, work in progress
   - Backlog: assigned issues, icebox items, housekeeping
 
-output: a 1-sentence analytical summary of where i stand and 3 potential tasks i can work on next
+output: a 1-sentence analytical summary and 3 potential tasks to work on next, favoring `Agent Triggers` when applicable
