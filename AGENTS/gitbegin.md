@@ -1,11 +1,12 @@
 **@gitbegin:** Run ONLY on explicit `@gitbegin` command
-1. `git rev-parse --is-inside-work-tree`
-   - fail → abort and report: "not a git repository"
-2. `git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'` 
-   - save → `<defaultBranch>`
-3. `git switch <defaultBranch>`
-   - fail → abort and report: "conflict with `<defaultBranch>`, stash first"
-4. `git pull --ff-only`
-   - fail → continue and report: "diverged from `origin/<defaultBranch>`, rebase first"
-5. `git switch -m temp/branch 2>/dev/null || git switch -c temp/branch`
-   - success → report: "moved to `<temp/branch>`, free to continue working"
+- run at the start of a new atomic unit of work
+- asserts a clean working tree; aborts (never discards) if you have uncommitted work
+- switches to the trunk and fast-forwards it to origin; divergence defers to @gitfresh
+- leaves you on a clean, synced trunk — your working surface, no feature branch
+
+1. run the native shell command exactly as specified
+  ```bash
+  AGENTS/gitbegin.sh
+  ```
+  - fail (exit code > 0) → abort and report: "<raw terminal error>"
+  - success (exit code = 0) → continue and report: "@gitbegin telemetry"
