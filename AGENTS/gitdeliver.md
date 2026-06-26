@@ -1,6 +1,6 @@
 **@gitdeliver:** Run ONLY on explicit `@gitdeliver` command
 - floats uncommitted changes onto the trunk, then drains them one atomic bucket at a time
-- each atomic bucket: branch → commit → push → PR, then back to the trunk for the next
+- each atomic bucket: branch → commit → push → PR → auto-merge on green, then back to the trunk for the next
 - leaves you on the trunk, not a feature branch — the trunk is your working surface
 - every change is either uncommitted on the trunk or committed on a pushed branch
 - re-run anytime to resume; git status drives the loop, so it picks up whatever's left
@@ -48,6 +48,7 @@ git add $ATOMIC_FILES
 git commit -m "$ATOMIC_COMMIT" -m "$ATOMIC_DESCRIPTION"
 git push -u origin "$ATOMIC_BRANCH"
 gh pr create --base "$DEFAULT_BRANCH" --fill
+gh pr merge --auto --rebase
 git switch "$DEFAULT_BRANCH"
 ```
 - ask: "continue or make edits? (continue/edit)"
