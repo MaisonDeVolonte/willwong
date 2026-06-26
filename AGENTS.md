@@ -1,7 +1,8 @@
 # Agent Rules
 
 ## Logs
-- BEGIN every task by scanning recent memory log files in `AGENTS/logs/`
+- agent logs are LOCAL-ONLY working memory: `AGENTS/logs/` is gitignored and never committed
+- BEGIN every task by scanning recent memory log files in `AGENTS/logs/` (create the folder if missing)
 - END every task by creating a new memory log file named `YYYY-MM-DD_HH-MM-SS_<agent-name>_<short-task-name>.md`
 - INCLUDE the following sections in your memory log files:
   - Context: what was worked on and why
