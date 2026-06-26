@@ -18,7 +18,7 @@
   - success (exit code = 0): ask the user to confirm any branch cleanup actions:
 
     ```text
-    - ignored: you are safely on `current_branch`
+    - ignored: `main` and `production` are never deleted
   
     - skipped: unmerged branches that are not eligible for deletion
       - `branch_name`
