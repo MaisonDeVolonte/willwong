@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]                        # Integration gate for the main trunk line
   pull_request:                             # Evaluation gate for all atomic PRs
+  merge_group:                              # Queue gate: runs checks on the merge-queue branch
 
 jobs:
   build:
