@@ -1,32 +1,20 @@
 name: CI
-
-# Runs on GitHub's case-sensitive Linux runners, which reproduces build
-# failures that a case-insensitive macOS filesystem hides locally (e.g. a
-# file tracked as `localstorage.ts` but imported as `localStorage`).
-
 on:
   push:
-    branches: [main]
-  pull_request:
+    branches: [main]                        # Integration gate for the main trunk line
+  pull_request:                             # Evaluation gate for all atomic PRs
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest                  # Case-sensitive runner; catches file path bugs macOS hides
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4           # Pulls repository source code into runner environment
+      - uses: actions/setup-node@v4         # Configures Node runtime environment
         with:
           node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      # Generate build metadata (version + bundled content) the app imports.
-      - run: npm run generate
-
-      # Fast gate: catches casing + type errors in seconds.
-      - run: npx tsc --noEmit
-
-      # High-fidelity gate: the exact command Webflow Cloud runs.
-      - run: npm run build
+          cache: npm                        # Speed optimization: reuses dependencies across runs
+      - run: npm ci                         # Immutable dependency install; strict lockfile enforcement
+      - run: npm run generate               # Generate build metadata the app imports
+      - run: npx tsc --noEmit               # Gate 1 (Types): Compiles types to catch logic drift
+      - run: npx eslint . --max-warnings 0  # Gate 2 (Quality): ESLint, zero-tolerance (errors + warnings)
+      - run: npm run build                  # Gate 3 (Fidelity): The exact command Webflow Cloud runs

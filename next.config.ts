@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
     config.module.rules.push({ test: /\.md$/, type: "asset/source" });
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true, // lint runs as a dedicated CI gate, not during build
+  },
 };
 
 export default nextConfig;
