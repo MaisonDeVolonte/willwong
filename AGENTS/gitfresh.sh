@@ -17,9 +17,9 @@ DELETED_BRANCHES_COUNT=0
 DELETED_BRANCHES_NAMES=""
 ALL_LOCAL_BRANCHES=$(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -vx "$DEFAULT_BRANCH" || true)
 
-# stash everything to a backup
+# stash tracked and untracked as a backup
 if [ -n "$(git status --porcelain)" ]; then
-  git stash push -u -m "$STASH_NAME" >/dev/null 2>&1
+git stash push -a -m "$STASH_NAME" >/dev/null 2>&1
 else STASH_NAME="none"; fi
 
 # abort any broken in-progress operations
@@ -30,7 +30,7 @@ git cherry-pick --abort >/dev/null 2>&1 || true
 # get onto default, fetch pristine state, wipe, and hard-reset
 git switch "$DEFAULT_BRANCH" >/dev/null 2>&1 || git switch -f "$DEFAULT_BRANCH" >/dev/null 2>&1
 git fetch --prune --all >/dev/null 2>&1
-git clean -fdx >/dev/null 2>&1
+git clean -fd >/dev/null 2>&1
 git reset --hard "origin/$DEFAULT_BRANCH" >/dev/null 2>&1
 
 # delete every other local branch
