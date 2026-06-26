@@ -53,3 +53,6 @@ next-env.d.ts
 # generated build metadata
 src/meta/config/version.generated.ts
 src/cms/content.generated.ts
+
+# agent memory logs (local-only)
+AGENTS/logs/
