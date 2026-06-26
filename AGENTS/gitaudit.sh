@@ -22,6 +22,7 @@ echo "untracked_files: $(git ls-files --others --exclude-standard | wc -l | tr -
 echo "hidden_stashes: $(git stash list | wc -l | tr -d ' ')"
 echo "index_locked: $([ -f .git/index.lock ] && echo yes || echo no)"
 echo "is_detached: $(git symbolic-ref -q HEAD >/dev/null && echo no || echo yes)"
+echo "local_branches: $(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -vx "$DEFAULT_BRANCH" | paste -sd, - | sed 's/,/, /g' || echo none)"
 
 # origin: default branch ahead/behind, unpushed/incoming commits, conflict risk files
 echo "--- origin ---"
@@ -47,16 +48,17 @@ if gh auth status >/dev/null 2>&1; then
   echo "assigned_issues: $(gh issue list --assignee '@me' 2>/dev/null | wc -l | tr -d ' ')"
 else echo "github: gh unavailable (team probes skipped)"; fi
 
-# branches: last commit, ahead/behind, upstream tracking, merged status
+# branches: last commit, ahead/behind, upstream tracking, reachable, remote, merged status
 echo "--- branches ---"
 for branch in $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | grep -vx "$DEFAULT_BRANCH"); do
   B_LAST=$(git log -1 --format='%cr' "$branch" 2>/dev/null || echo n/a)
   B_AHEAD=$(git rev-list --count "$DEFAULT_BRANCH..$branch" 2>/dev/null || echo '?')
   B_TRACK=$(git for-each-ref --format='%(upstream:track,nobracket)' "refs/heads/$branch")
   B_BEHIND=$(git rev-list --count "$branch..$DEFAULT_BRANCH" 2>/dev/null || echo '?')
-  # merged? by PATCH-identity (survives rebase/squash): cherry prints '+' for any UNmerged commit
+  if git merge-base --is-ancestor "$branch" "$DEFAULT_BRANCH" 2>/dev/null; then B_REACHABLE=yes; else B_REACHABLE=no; fi
+  if git rev-parse --verify --quiet "refs/remotes/origin/$branch" >/dev/null; then B_REMOTE=yes; else B_REMOTE=no; fi
   if git cherry "$DEFAULT_BRANCH" "$branch" 2>/dev/null | grep -q '^+'; then B_MERGED=no; else B_MERGED=yes; fi
-  echo "branch: $branch | last: $B_LAST | ahead: $B_AHEAD | upstream: ${B_TRACK:-none} | merged: $B_MERGED | last_commit: $(git log -1 --format='%s' "$branch" 2>/dev/null)"
+  echo "branch: $branch | last: $B_LAST | ahead: $B_AHEAD | upstream: ${B_TRACK:-none} | reachable: $B_REACHABLE | remote: $B_REMOTE | merged: $B_MERGED | last_commit: $(git log -1 --format='%s' "$branch" 2>/dev/null)"
 done
 
 echo "--- end ---"

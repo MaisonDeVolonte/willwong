@@ -1,37 +1,37 @@
 **@gitempty:** Run ONLY on explicit `@gitempty` command
-- run this command to restore order to your local git repository
-- typically post-merge but safe to run anytime
-- prunes dead remote tracking references
-- automatically stashes and restores uncommitted local changes
-- fast-forwards default branch to latest upstream
-- preserves local branches with unmerged commits
-- destroys merged branches whose upstreams are gone (regular and rebase)
-- puts you back on your starting branch or a freshly synced default (if deleted)
+- typically ran post-merge but safe to run anytime
+- stashes work, prunes dead remotes, fast-forwards trunk, and returns you to starting branch
+- preserves unmerged branches and identifies merged branches eligible for deletion (local, remote, ghost, and zombie)
 
-1. `git rev-parse --is-inside-work-tree`
-  - fail → abort and report: "not a git repository"
-2. run the native shell command exactly as specified
+1. run the native shell command exactly as specified
   ```bash
   AGENTS/gitempty.sh
   ```
-3. IF SUCCESS (exit code 0): parse the `stdout` of the shell command and output the results:
-  ```text
-  - shell command status: succeeded
-  - initiated script on: $STARTING_BRANCH
-  - total changes stashed: $STASHED_CHANGES
-  - total fast-forwarded commits: $FAST_FORWARDED
-  - total branches deleted: $DELETED_BRANCHES_COUNT
-  - deleted branch names: ${DELETED_BRANCHES:-none}
-  - total branches preserved: $PRESERVED_BRANCHES_COUNT
-  - preserved branch names: ${PRESERVED_BRANCHES:-none}
-  - starting branch status: $STARTING_BRANCH_STATUS
-  - stash restored status: $STASH_RESTORED_STATUS
+  - fail (exit code > 0) → abort and report: "<raw terminal error>"
+  - success (exit code = 0) → continue and report: "@gitempty telemetry"
 
-  > generate a 1-sentence summary of what happened and any potential tasks i should consider
+2. run the native shell command exactly as specified
+  ```bash
+  AGENTS/gitaudit.sh
   ```
-4. IF FAILURE: parse the raw terminal error message and output the results:
-  ```text
-  - shell command status: failed
+  - fail (exit code > 0) → abort and report: "<raw terminal error>"
+  - success (exit code = 0): ask the user to confirm any branch cleanup actions:
 
-  > generate a 1-sentence summary of what went wrong and any potential fixes i should consider
-  ```
+    ```text
+    - ignored: you are safely on `current_branch`
+  
+    - skipped: unmerged branches that are not eligible for deletion
+      - `branch_name`
+  
+    - local only deletions: merged = yes, reachable = yes, and remote = no
+      - `branch_name` → `git branch -d branch_name`
+
+    - local & remote deletions: merged = yes, reachable = yes, and remote = yes
+      - `branch_name` → `git push origin --delete branch_name && git branch -d branch_name`
+  
+    - ghost deletions: merged = yes (squash/rebase), reachable = no, and remote = no
+      - `branch_name` → `git branch -D branch_name`
+
+    - zombie deletions: merged = yes (squash/rebase), reachable = no, and remote = yes (still on GitHub)
+      - `branch_name` → `git push origin --delete branch_name && git branch -D branch_name`
+    ```
