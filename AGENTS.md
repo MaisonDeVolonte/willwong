@@ -1,16 +1,12 @@
 # Agent Rules
 
 ## Logs
-- agent logs are LOCAL-ONLY working memory: `AGENTS/logs/` is gitignored and never committed
-- BEGIN every task by scanning recent memory log files in `AGENTS/logs/` (create the folder if missing)
-- END every task by creating a new memory log file named `YYYY-MM-DD_HH-MM-SS_<agent-name>_<short-task-name>.md`
-- INCLUDE the following sections in your memory log files:
-  - Context: what was worked on and why
-  - Changes: file modifications and why
-  - Gotchas: unusual events, bugs, architecture, etc
-  - Insights: key takeaways. discoveries, lessons, etc
-  - Advice: what should the next agent be aware of or do next
-
+- LOGS are formatted as outlined in `AGENTS/_logs.md`
+- BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
+- END every interaction by either:
+  - APPENDING your logs to the bottom of the current day's existing memory log
+  - CREATING a new log file for the current day named `YYYY-MM-DD.md`
+  
 ## Triggers
 Follow the usage guidelines in each agent's documentation page below:
 - [@gitaudit](AGENTS/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
