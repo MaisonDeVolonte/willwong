@@ -1,9 +1,8 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
 
-// Prerendered pages are served from R2 (binding NEXT_INC_CACHE_R2_BUCKET) so the
-// worker never re-renders them at runtime — workerd has no filesystem for the
-// content reads the render performs.
+// Deploy bulk-uploads cache to R2 (NEXT_INC_CACHE_R2_BUCKET) for fast edge serving
+// Cache-misses trigger runtime re-rendering using the in-memory content bundle
 export default defineCloudflareConfig({
   incrementalCache: r2IncrementalCache,
 });
