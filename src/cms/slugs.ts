@@ -6,13 +6,18 @@ export type ResolvedFile = {
   fileIndex: number;
 };
 
+export function slugify(name: string): string {
+  return name.replace(/^\./, "").replace(/[\s.]+/g, "-").toLowerCase();
+}
+
 // Resolves a slug to a page + file index using the cached, in-memory page list.
 // No file bodies are read here — call populatePageContent on the resolved page
 // only when the body is actually needed (e.g. to render it).
 export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
   const pages = await getAllPages();
+  const targetUrl = slug.join("/");
 
-  const direct = pages.find((p) => p.slug.join("/") === slug.join("/"));
+  const direct = pages.find((p) => p.slug.map(slugify).join("/") === targetUrl);
   if (direct) {
     return { page: direct, fileIndex: 0 };
   }
@@ -20,9 +25,9 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
   if (slug.length > 1) {
     const pageSlugs = slug.slice(0, -1);
     const filename = slug[slug.length - 1];
-    const page = pages.find((p) => p.slug.join("/") === pageSlugs.join("/"));
+    const page = pages.find((p) => p.slug.map(slugify).join("/") === pageSlugs.join("/"));
     if (page) {
-      const fileIndex = page.files.findIndex((f) => f.name === filename);
+      const fileIndex = page.files.findIndex((f) => slugify(f.name) === filename);
       if (fileIndex !== -1) {
         return { page, fileIndex };
       }
@@ -34,9 +39,10 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
 
 export async function getAllFileParams(): Promise<{ slug: string[] }[]> {
   const pages = await getAllPages();
-  return pages.flatMap((p) =>
-    p.files.length === 1
-      ? [{ slug: p.slug }]
-      : p.files.map((f) => ({ slug: [...p.slug, f.name] }))
-  );
+  return pages.flatMap((p) => {
+    const urlSlugPath = p.slug.map(slugify);
+    return p.files.length === 1
+      ? [{ slug: urlSlugPath }]
+      : p.files.map((f) => ({ slug: [...urlSlugPath, slugify(f.name)] }));
+  });
 }
