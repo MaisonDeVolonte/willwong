@@ -6,6 +6,9 @@
 - re-run anytime to resume; git status drives the loop, so it picks up whatever's left
 - recover a failed `git switch -c` with `git switch "$DEFAULT_BRANCH"`, then `git branch -D "$ATOMIC_BRANCH"` (add `git push origin --delete "$ATOMIC_BRANCH"` if pushed)
 
+**FLAGS:**
+- `--first`: stops the process immediately after the FIRST pull request
+
 1. run the native shell command exactly as specified
   ```bash
   AGENTS/gitdeliver.sh
@@ -13,7 +16,7 @@
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → capture $DEFAULT_BRANCH from output
 
-2. `git status -s` (analyze all changes and group them into `type(scope)` buckets):
+2. `git status -s` and `git diff` (analyze changes and group into `type(scope)` buckets):
 - types (derived from the following, in order of precedence):
   - `new:` first-time features, functions
   - `improve:` existing features, functions
@@ -56,4 +59,6 @@ git switch "$DEFAULT_BRANCH"
   - continue: execute the draft pr commands
   - edit: execute the exact user confirmed commands
 
-5. repeat from step 2 until workspace is clean
+5. check conditions before continuing:
+- IF `--first` → STOP here and report completion
+- ELSE repeat from step 2 until workspace is clean
