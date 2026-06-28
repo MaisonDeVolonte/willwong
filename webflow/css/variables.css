@@ -16,6 +16,9 @@
   --icon-diff: #37ff46;
   --icon-site: #ff4222;
   --icon-svg: hsla(166, 100%, 74.67%, 1);
+  --icon-mjs: var(--icon-js);
+  --icon-eslint: hsla(255, 100%, 70.44%, 1);
+  --icon-yml: var(--text-light);
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);
   --text-message: hsla(222.2222222222222, 18.65%, 67.55%, 1);

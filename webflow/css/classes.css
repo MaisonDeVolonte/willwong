@@ -176,15 +176,19 @@
 }
 
 .nav__link.nav__link--lvl4 {
-  padding-left: 5.75em;
+  padding-left: 5.5em;
 }
 
 .nav__link.nav__link--lvl5 {
-  padding-left: 7.25em;
+  padding-left: 7em;
 }
 
 .nav__link.nav__link--active {
   color: var(--text-active);
+}
+
+.nav__link.nav__link--lvl6 {
+  padding-left: 8.5em;
 }
 
 .nav__text {
@@ -237,6 +241,18 @@
 
 .nav__icon.nav__icon--svg {
   color: var(--icon-svg);
+}
+
+.nav__icon.nav__icon--mjs {
+  color: var(--icon-mjs);
+}
+
+.nav__icon.nav__icon--eslint {
+  color: var(--icon-eslint);
+}
+
+.nav__icon.nav__icon--yml {
+  color: var(--icon-yml);
 }
 
 .nav__list {
