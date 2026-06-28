@@ -118,6 +118,24 @@ export function NavFolder({}: NavFolderProps) {
             {"name.fallback"}
           </Block>
         </Link>
+        <Link
+          block={"inline"}
+          button={false}
+          className={"nav__link nav__link--lvl6"}
+          options={{
+            href: "#",
+          }}
+        >
+          <HtmlEmbed
+            className={"nav__icon"}
+            content={
+              '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576.05 512.11"><path d="M360.77 1.25c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0v-.1zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-95.99 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-73.4-73.3 73.3-73.4c12.5-12.5 12.5-32.8 0-45.3h.1z"/></svg>'
+            }
+          />
+          <Block className={"nav__text"} tag={"div"}>
+            {"name.fallback"}
+          </Block>
+        </Link>
       </Block>
     </Block>
   );
