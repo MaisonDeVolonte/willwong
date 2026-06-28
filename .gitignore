@@ -59,3 +59,4 @@ src/cms/content.generated.ts
 
 # agent memory logs (local-only)
 AGENTS/logs/
+AGENTS/_logs.md
