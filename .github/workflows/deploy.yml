@@ -1,33 +1,32 @@
 name: Deploy
-
-# CI is the sole deployer (Webflow's git auto-deploy is disabled). Building here
-# means git — and therefore the real commit hash — is available, unlike Webflow's
-# own build environment which has no .git. The generator bakes that SHA into the app.
+# building with github actions let's us bake commit hashes directly into the app for version tracking
+# generated at `src/meta/config/version.generated.ts`
+# rendered via `src/meta/config/version.ts`
+#
+# docs: https://developers.webflow.com/cli/command-reference
+# fetch: the webflow cli @webflow/webflow-cli@2.1.0 explicitly
+# flags: bypass npx install prompt, user input, site selection, and authentication
 
 on:
-  push:
-    branches: [production]
+  push:                                # runs on 'push'
+    branches: [production]             # deploys to production branch
   workflow_dispatch:
 
 concurrency:
-  group: deploy-production
+  group: deploy-production             # runs only one deploy at a time
   cancel-in-progress: true
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest             # runs on ubuntu virtual machine
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4      # clones repo into runner
+      - uses: actions/setup-node@v4    # installs node.js and npm caching
         with:
           node-version: 22
           cache: npm
+      - run: npm ci                    # installs dependencies from package-lock.json
 
-      - run: npm ci
-
-      # The Webflow CLI isn't a project dep (it's global on dev machines), so
-      # fetch it explicitly here. -y skips the npx install prompt.
       - run: npx -y @webflow/webflow-cli@2.1.0 cloud deploy --no-input --site-id ${{ vars.WEBFLOW_SITE_ID }}
         env:
           WEBFLOW_API_TOKEN: ${{ secrets.WEBFLOW_API_TOKEN }}
