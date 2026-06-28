@@ -11,7 +11,7 @@
 Follow the usage guidelines in each agent's documentation page below:
 - [@gitaudit](AGENTS/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
 - [@gitbegin](AGENTS/gitbegin.md): SAFE; ensures a clean, synced main to start a new atomic unit of work
-- [@gitcontinue](AGENTS/gitcontinue.md): SAFE: continue work on an `existing/branch`
+- [@gitcontinue](AGENTS/gitcontinue.md): SAFE: safely pauses work, syncs trunk, and restores state on main
 - [@gitdeliver](AGENTS/gitdeliver.md): ATOMIC LOOP: stage, commit, branch, push, pr, build, and check
 - [@gitempty](AGENTS/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and user-gated branch deletion
 - [@gitfresh](AGENTS/gitfresh.md): DESTRUCTIVE; aborts broken processes, nukes everything, and starts fresh
