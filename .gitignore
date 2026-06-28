@@ -8,6 +8,9 @@
 
 # testing
 /coverage
+/tests/report/
+/tests/results/
+/tests/blob-report/
 
 # next.js
 /.next/
