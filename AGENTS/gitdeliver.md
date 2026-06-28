@@ -35,8 +35,9 @@
 $ATOMIC_FILES # space-delimited list of files to commit
 $ATOMIC_TYPE # new, improve, fix, update, test, debug
 $ATOMIC_SCOPE # FullName.ext, folder, domain, misc, content
-$ATOMIC_BRANCH # atomic-type/atomic-scope/atomic-title
 $ATOMIC_TITLE # very short title
+$ATOMIC_TITLE_SLUG # very-short-title
+$ATOMIC_BRANCH # atomic-type/atomic-scope/atomic-title-slug
 $ATOMIC_DESCRIPTION # multiline string of hyphen-delimited bullets
 $ATOMIC_COMMIT # $ATOMIC_TYPE($ATOMIC_SCOPE): $ATOMIC_TITLE
 ```
