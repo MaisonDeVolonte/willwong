@@ -1,8 +1,4 @@
 name: Deploy
-# building with github actions let's us bake commit hashes directly into the app for version tracking
-# generated at `src/meta/config/version.generated.ts`
-# rendered via `src/meta/config/version.ts`
-#
 # docs: https://developers.webflow.com/cli/command-reference
 # fetch: the webflow cli @webflow/webflow-cli@2.1.0 explicitly
 # flags: bypass npx install prompt, user input, site selection, and authentication
