@@ -10,8 +10,8 @@ Strict, atomic, continuously integrated, trunk-based development: fast review, t
 [@gitdeliver → atomic (branch/commit/pr) → checks (tsc/lint/next) → main (trunk)] ──➔ [release pr → production → deploy (GHA) → willwong.me]
 ```
 
-- `main` is the long-lived integration trunk; constantly synced, releasable at all times, and gated by `.github/workflows/ci.yml`
-- `production` is the deploy branch; a release pointer whose push triggers `.github/workflows/deploy.yml`
+- `main` is the long-lived integration trunk; constantly synced and releasable at all times
+- `production` is the deploy branch; a release pointer that triggers production deployments
 - Conflicts are resolved locally before `branching` and prs are protected by CI checks before `merging`
 - Every change ships as an `atomic, single-concern pr` off a short-lived branch that's pruned right after merge
 - Branches are 99% `independent`, 1% `stacked`; cross-cutting is minimized as much as possible
@@ -28,14 +28,51 @@ Strict, atomic, continuously integrated, trunk-based development: fast review, t
 - PRs are back-filled via their commit title and body descriptions
 
 **Caveats**
-- CI gates every PR with `tsc --noEmit`, `eslint . --max-warnings 0`, and `next build`; the Linux runner catches case-sensitivity issues that macOS hides
 - Unfinished features are integrated via runtime feature flags, not long-lived branches
 
-**Config**
-- `WEBFLOW_API_TOKEN` (Actions secret)
-- `WEBFLOW_SITE_ID` (Actions variable)
-- `cloud.app_id` in `webflow.json`
-- `NEXT_INC_CACHE_R2_BUCKET` in `wrangler.json`
+## CI/CD
+
+Ensures `main` is always deployable and the `production` edge environment remains stable.
+
+**Continuous Integration:** (`ci.yml`)
+- Runs on every pr pushing to `main`
+- Uses `ubuntu-latest` runner to catch case-sensitive errors macOS hides
+- Gate 1: TypeScript `tsc --noEmit` enforces strict type safety
+- Gate 2: ESLint `eslint . --max-warnings 0` enforces strict code style
+- Gate 3: Next.js `next build` ensures static generation and asset optimization succeed before merging
+- Gate 4: Playwright `npm run test:e2e` ensures end-to-end functionality is working
+
+**Continuous Deployment:** (`deploy.yml`)
+- Runs on every push to `production`, decoupled from `main` for release management
+- Bundles and deploys optimized app to Webflow Cloud / Cloudflare Workers
+
+**Version Tracking:**
+- `package.json` uses a prebuild hook (`npm run generate`)
+- `scripts/version.mjs` checks .git history and grabs version information
+- `src/meta/config/version.generated.ts` stores the version information
+- `next build` bakes the version information into the static html/js bundle
+
+**Configuration:**
+- `wrangler.json` requires `NEXT_INC_CACHE_R2_BUCKET`
+- `webflow.json` requires `cloud.app_id`
+- `deploy.yml` requires `WEBFLOW_API_TOKEN` and `WEBFLOW_SITE_ID`
+
+## Content
+
+Because Cloudflare Workers (`workerd`) do not have a runtime filesystem (`fs`), the app uses a hybrid bundling and caching strategy to serve content at the edge:
+
+```text
+[content/*] → (build) → [content.generated.ts] → (prerender) → [.open-next/cache]
+                                  ↓                                    ↓
+                        (cache miss fallback)               (bulk upload on deploy)
+                                  ↓                                    ↓
+ [browser]  ← (serves) ← [cloudflare worker]  ←  (reads)  ←  [R2 incremental cache]
+```
+
+- **Build-Time Bundling:** `scripts/content.mjs` compiles all raw content into a single in-memory typescript object
+- **Pre-rendering:** next.js uses the ts object to generate static html/json payloads during `next build`
+- **Edge Caching:** `opennextjs-cloudflare` uploads these payloads to `willwong-cache` R2 bucket on deploy
+- **Runtime Fallback:** the worker serves from R2 but on a cache miss, it renders using the `content.generated.ts` bundle, bypassing the need for `fs.readFile`
 
 ## Commands
 
@@ -74,10 +111,9 @@ content/                             # Build-time content source
  ├── [folder]/
  └── [page].ext
 
-scripts/                             # Build-time generators (Node.js; never bundled)
+scripts/                             # Build-time generators (Node.js only, generated files are gitignored)
  ├── content.mjs                     # Compiles content json → src/cms/content.generated.ts
  └── version.mjs                     # Injects build data → src/meta/config/version.generated.ts
-                                     # Note: `.generated.ts` are gitignored and rebuilt before dev/build
 
 src/
  ├── app/                            # Routing and page definitions
@@ -121,8 +157,6 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 
 **Behavior (JS/TS)** — Managed in `src/core/controllers/` and attaches logic via vanilla JS, `useEffect` hooks, and DOM event delegation.
 
-**Webflow IX3 (GSAP)** — Temporarily managed in `src/core/controllers/` until Webflow Devlink supports interactions.
-
 **Content (`@mirror`)** — `content/` holds the CMS source; files mirror real source via `@mirror` comments. `scripts/content.mjs` resolves those (and icons) at build into `src/cms/content.generated.ts`, and `src/cms/` reads that bundle. `src/modules/stage/Refractor.tsx` renders code as highlighted HTML.
 
 **Content Routing** — `src/cms/` walks the bundled content to build page routes and the `src/modules/nav/` tree.
@@ -137,10 +171,4 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 
 **Webflow DevLink only exports component styles.** CSS classes applied exclusively to page-level elements (not inside a DevLink component) are silently omitted from the export. If styles are missing from `webflow/css/` after a sync, check whether the class is used on a component or only on a page. Fix: apply the class to an element inside a component, or use a dedicated style-carrier component.
 
-**No filesystem at runtime.** Cloudflare Workers (`workerd`) don't implement `fs.readFile`/`readdir` — they throw at request time. All content is bundled at build (`scripts/content.mjs`) and read from the bundle, never via `fs`.
-
-**Filenames are case-sensitive in production.** macOS is case-insensitive, so an import resolving to a differently-cased file works locally but fails the Linux build. Keep co-located CSS casing identical to its component, and let the CI build check catch drift.
-
-**R2 incremental cache isn't populated by Webflow's deploy.** Prerendered pages self-populate R2 on first successful render, so renders must work *without* the cache (another reason there's no runtime `fs`). Bucket declared in `wrangler.json`; enabled via `r2IncrementalCache` in `open-next.config.ts`.
-
-**The commit hash needs a CI deploy.** Webflow's build has no `.git` and exposes no commit env var, so the real hash only resolves when CI runs the build + deploy.
+**No filesystem at runtime.** Cloudflare Workers (`workerd`) don't implement `fs.readFile`/`readdir` — they throw at request time. This is why content is bundled in-memory (see Architecture & Delivery).
