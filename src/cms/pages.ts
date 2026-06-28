@@ -18,6 +18,7 @@ const LANGUAGES: Record<string, string> = {
   jsx: "jsx",
   kt: "kotlin",
   md: "markdown",
+  mjs: "javascript",
   php: "php",
   py: "python",
   r: "r",

@@ -1,0 +1,1 @@
+// @mirror next.config.ts

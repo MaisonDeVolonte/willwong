@@ -1,0 +1,1 @@
+// @mirror eslint.config.mjs
