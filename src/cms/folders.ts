@@ -1,4 +1,5 @@
 import type { ContentPage, ContentFile } from "@/cms/pages";
+import { slugify } from "@/cms/slugs";
 
 export type NavLeaf = {
   kind: "leaf";
@@ -53,8 +54,8 @@ export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
         label.toLowerCase() === file.name.toLowerCase();
 
       if (shouldCollapse) {
-        const rawHref = `/${page.slug.join("/")}`;
-        const href = rawHref === "/README.md" ? "/" : rawHref;
+        const rawHref = `/${page.slug.map(slugify).join("/")}`;
+        const href = rawHref === `/${slugify("README.md")}` ? "/" : rawHref;
         leaves.push({
           kind: "leaf",
           label,
@@ -93,7 +94,7 @@ export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
       const fileLeaves: NavLeaf[] = matchingLeaf.files.map((file) => ({
         kind: "leaf",
         label: file.name,
-        href: matchingLeaf.files.length === 1 ? matchingLeaf.href : `${matchingLeaf.href}/${file.name}`,
+        href: matchingLeaf.files.length === 1 ? matchingLeaf.href : `${matchingLeaf.href}/${slugify(file.name)}`,
         files: [file],
       }));
 

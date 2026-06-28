@@ -41,7 +41,7 @@ export default async function DynamicPage({ params }: Props) {
   // Read the body for this page only (other pages never touch disk here)
   await populatePageContent(resolved.page);
 
-  const isAboutPage = slug.length === 1 && (slug[0] === "about.md" || slug[0] === "about");
+  const isAboutPage = slug.length === 1 && (slug[0] === "about-md" || slug[0] === "about");
   const isNotesPage = slug.length > 0 && slug[0] === "notes";
 
   const schemas: Record<string, unknown>[] = [schema.websiteSchema, schema.personSchema];

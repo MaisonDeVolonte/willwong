@@ -37,7 +37,7 @@ export default async function DynamicPage({ params }: Props) {
     redirect(file.externalUrl);
   }
 
-  const isAboutPage = slug.length === 1 && (slug[0] === "about.md" || slug[0] === "about");
+  const isAboutPage = slug.length === 1 && (slug[0] === "about-md" || slug[0] === "about");
   const isNotesPage = slug.length > 0 && slug[0] === "notes";
 
   const schemas: Record<string, unknown>[] = [schema.websiteSchema, schema.personSchema];

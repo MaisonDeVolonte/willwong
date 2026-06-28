@@ -2,6 +2,7 @@ import { ICON_COLORS, type ContentPage } from "@/cms/pages";
 
 import Link from "next/link";
 import Refractor from "@/modules/stage/Refractor";
+import { slugify } from "@/cms/slugs";
 
 import "@/modules/stage/Refractor.css";
 import "@/modules/stage/Canvas.css";
@@ -13,10 +14,10 @@ type CanvasProps = {
 
 export default function Canvas({ page, activeIndex = 0 }: CanvasProps) {
   const active = page.files[activeIndex];
-  const basePath = `/${page.slug.join("/")}`;
+  const basePath = `/${page.slug.map(slugify).join("/")}`;
 
   function tabHref(filename: string) {
-    return page.files.length === 1 ? basePath : `${basePath}/${filename}`;
+    return page.files.length === 1 ? basePath : `${basePath === "/" ? "" : basePath}/${slugify(filename)}`;
   }
 
   return (
