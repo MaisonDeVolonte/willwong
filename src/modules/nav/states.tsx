@@ -118,6 +118,9 @@ export default function States() {
       }
     });
 
+    // Remove the blocking `<style>` tag injected by layout.tsx now that React has taken over
+    document.getElementById("injected-folder-states")?.remove();
+
     document.addEventListener("click", toggleFolder);
 
     return () => {

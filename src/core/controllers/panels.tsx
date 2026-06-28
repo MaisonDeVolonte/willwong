@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { savePanelWidth } from "@/utilities/localStorage";
 
 // Behavior-only component: renders no DOM, wires panel toggling + resizing
 // onto the DevLink-exported markup via document-level delegation.
@@ -156,6 +157,14 @@ export default function Panels() {
 
     // tear down drag tracking on release
     function stopResize() {
+      if (activePanel) {
+        const cssVarName = `--${activePanel.dataset.panel}-width`;
+        const finalWidth = document.body.style.getPropertyValue(cssVarName);
+        if (finalWidth) {
+          savePanelWidth(activePanel.dataset.panel!, finalWidth);
+        }
+      }
+
       isDragging = false;
       activePanel = null;
 
