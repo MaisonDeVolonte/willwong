@@ -59,7 +59,47 @@ export default function RootLayout({
   return (
     <DevLinkProvider>
       <html lang="en">
-        <body>
+        <body suppressHydrationWarning>
+          <script
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{
+              __html: `
+                try {
+                  const state = JSON.parse(localStorage.getItem('app-state') || '{}');
+                  
+                  // Panel widths
+                  if (state.panelWidths) {
+                    for (const [panel, width] of Object.entries(state.panelWidths)) {
+                      document.body.style.setProperty('--' + panel + '-width', width);
+                    }
+                  }
+
+                  // Initial styling (Folders & Active Links)
+                  let css = '';
+
+                  // 1. Active Link State
+                  const currentPath = window.location.pathname;
+                  const activePath = currentPath === "/README.md" ? "/" : currentPath;
+                  css += '.nav__link[href="' + activePath + '"], .nav__link[href="' + activePath + '/"] { color: var(--text-active) !important; } ';
+
+                  // 2. Folder states
+                  if (state.openFolders && state.openFolders.length > 0) {
+                    for (const key of state.openFolders) {
+                      css += '.nav__list[data-folder-key="' + key + '"] { height: auto !important; max-height: none !important; } ';
+                      css += '.nav__link:has(+ .nav__list[data-folder-key="' + key + '"]) .nav__icon { transform: rotate(90deg) !important; } ';
+                    }
+                  }
+                  
+                  if (css) {
+                    const style = document.createElement('style');
+                    style.id = 'injected-folder-states';
+                    style.textContent = css;
+                    document.head.appendChild(style);
+                  }
+                } catch (e) {}
+              `,
+            }}
+          />
           <div className="shell">
             <Header
               versionText={versionText}

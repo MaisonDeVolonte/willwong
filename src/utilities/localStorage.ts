@@ -2,6 +2,7 @@ const STORAGE_KEY = "app-state";
 
 interface AppState {
   openFolders?: string[];
+  panelWidths?: Record<string, string>;
 }
 
 function loadState(): AppState {
@@ -25,4 +26,11 @@ export function loadOpenFolders(): Set<string> {
 
 export function saveOpenFolders(open: Set<string>) {
   saveState({ openFolders: [...open] });
+}
+
+export function savePanelWidth(panelName: string, width: string) {
+  const state = loadState();
+  const panelWidths = state.panelWidths || {};
+  panelWidths[panelName] = width;
+  saveState({ panelWidths });
 }
