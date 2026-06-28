@@ -58,19 +58,22 @@ export type ContentPage = {
 };
 
 export const ICON_COLORS: Record<string, string> = {
-  css: "var(--icon-css)",
-  md:  "var(--icon-md)",
-  ts:  "var(--icon-ts)",
-  tsx: "var(--icon-tsx)",
-  html: "var(--icon-html)",
-  js: "var(--icon-js)",
-  jsx: "var(--icon-jsx)",
-  json: "var(--icon-json)",
-  svg: "var(--icon-svg)",
-  diff: "var(--icon-diff)",
-  link: "var(--icon-link)",
-  url: "var(--icon-link)",
-  site: "var(--icon-site)",
+  css:    "var(--icon-css)",
+  diff:   "var(--icon-diff)",
+  eslint: "var(--icon-eslint)",
+  html:   "var(--icon-html)",
+  js:     "var(--icon-js)",
+  json:   "var(--icon-json)",
+  jsx:    "var(--icon-jsx)",
+  link:   "var(--icon-link)",
+  md:     "var(--icon-md)",
+  mjs:    "var(--icon-mjs)",
+  site:   "var(--icon-site)",
+  svg:    "var(--icon-svg)",
+  ts:     "var(--icon-ts)",
+  tsx:    "var(--icon-tsx)",
+  url:    "var(--icon-link)",
+  yml:    "var(--icon-yml)",
 };
 
 export const readIcon = cache(async (name: string): Promise<string> => {
