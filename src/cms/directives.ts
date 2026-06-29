@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file directives.ts - parses and strips structural metadata from content files
+ * ========================================================================================
+ * @description
+ * - handles custom @tags (like @mirror, @external, @title) inside markdown files
+ * - acts as the bridge for file-duplication bypassing Next.js static routing limitations
+ * @see /src/cms/pages.ts/
+ */
+
 import { MIRRORS } from "@/cms/content.generated";
 
 /**

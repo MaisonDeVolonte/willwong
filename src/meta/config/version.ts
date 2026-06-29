@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file version.ts - exposes git versioning constants to the frontend
+ * ========================================================================================
+ * @description
+ * - imports the generated build-time script data and formats it into ui-ready strings
+ * - allows footer to display the active commit hash without fs access
+ * @see /scripts/version.mjs/
+ */
+
 import pkg from "@/../package.json";
 import { COMMIT_HASH, COMMIT_COUNT } from "@/meta/config/version.generated";
 

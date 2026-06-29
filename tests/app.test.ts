@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file app.test.ts - core playwright end-to-end testing suite
+ * ========================================================================================
+ * @description
+ * - verifies foundational layout wrappers and basic navigation stability
+ * - ensures the root canvas and devlink structure loads successfully
+ * @see /playwright.config.ts/
+ */
+
 import { test, expect } from '@playwright/test';
 
 test.describe('layout', () => {
