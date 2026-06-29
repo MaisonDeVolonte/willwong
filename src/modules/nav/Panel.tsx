@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file Panel.tsx - server component that renders the full sidebar navigation tree
+ * ========================================================================================
+ * @description
+ * - fetches all parsed cms pages and transforms them into a nested visual folder tree
+ * - recursively walks the tree to render Folder and Link ui components
+ * @see /src/cms/folders.ts/, /src/app/layout.tsx/
+ */
+
 import { getAllPages, readIcon, ICON_COLORS } from "@/cms/pages";
 import Link from "@/modules/nav/Link";
 import Folder from "@/modules/nav/Folder";

@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file pages.ts - primary interface for fetching and parsing in-memory content
+ * ========================================================================================
+ * @description
+ * - abstracts the raw typescript bundle and queries it as a simulated filesystem
+ * - handles language matching, icon color mapping, and structural caching
+ * @see /src/cms/content.generated.ts/, /scripts/content.mjs/
+ */
+
 import { cache } from "react";
 import { CONTENT, ICONS } from "@/cms/content.generated";
 import { processMirror, processExternal, parseMetadata } from "@/cms/directives";

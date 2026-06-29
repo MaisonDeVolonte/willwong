@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file article.ts - schema.org structured data builder for individual articles
+ * ========================================================================================
+ * @description
+ * - formats page metadata and body content into a valid ld+json article schema
+ * - references the root person entity to establish authorship
+ * @see /src/meta/schema/Schema.tsx/, /src/meta/schema/person.ts/
+ */
+
 import { PERSON_ID } from "./person";
 
 export interface Note {

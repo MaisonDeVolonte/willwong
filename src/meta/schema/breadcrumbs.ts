@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file breadcrumbs.ts - schema.org structured data builder for breadcrumb lists
+ * ========================================================================================
+ * @description
+ * - dynamically builds breadcrumb trails based on internal next.js path segments
+ * - serializes data into ld+json for seo optimization
+ * @see /src/meta/schema/Schema.tsx/
+ */
+
 export interface BreadcrumbItem {
   name: string;
   item: string;
