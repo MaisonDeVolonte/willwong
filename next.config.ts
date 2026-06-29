@@ -1,3 +1,14 @@
+/**
+ * ========================================================================================
+ * @file next.config.ts - next.js build and runtime configuration
+ * ========================================================================================
+ * @description
+ * - initializes open-next cloudflare adapter for local development environments
+ * - configures webpack to import .md files as raw strings for content ingestion
+ * - disables eslint during build step (linting is enforced as a separate ci gate)
+ * @see /open-next.config.ts/, /src/app/
+ */
+
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import type { NextConfig } from "next";
 
