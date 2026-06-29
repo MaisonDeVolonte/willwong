@@ -4,5 +4,21 @@
     "TypeScript": { "formatter": "language_server" },
     "TSX": { "formatter": "language_server" },
     "CSS": { "formatter": "language_server" }
+  },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "rulesCustomizations": [
+          { "rule": "*", "severity": "downgrade" }
+        ],
+        "nodePath": ".vscode/eslint",
+        "workingDirectory": {
+          "mode": "auto"
+        },
+        "options": {
+          "warnIgnored": false
+        }
+      }
+    }
   }
 }
