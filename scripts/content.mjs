@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file content.mjs - build-time script that bundles raw markdown into an in-memory module
+ * ========================================================================================
+ * @description
+ * - cloudflare workers have no filesystem access, so content must be bundled at build time
+ * - recursively walks /content/ and exports a static typescript object for runtime querying
+ * @see /src/cms/pages.ts/, /package.json/
+ */
+
 import { readdir, readFile } from "node:fs/promises";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";

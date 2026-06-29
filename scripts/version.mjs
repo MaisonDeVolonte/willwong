@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file version.mjs - build-time script that extracts git hash and commit history
+ * ========================================================================================
+ * @description
+ * - grabs the latest git metadata (since webflow builder lacks `.git`)
+ * - writes constants into a `.generated.ts` file so the app can render current versioning
+ * @see /src/meta/config/version.ts/
+ */
+
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 
