@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file panels.tsx - client-side controller that manages panel toggling and resize logic
+ * ========================================================================================
+ * @description
+ * - behavior-only component that renders no dom of its own
+ * - maps interactive state back to the static html exported by webflow devlink
+ * @see /src/app/layout.tsx/, /webflow/
+ */
+
 "use client";
 
 import { useEffect } from "react";

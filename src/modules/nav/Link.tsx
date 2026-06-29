@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file Link.tsx - ui component for terminal-style navigation links
+ * ========================================================================================
+ * @description
+ * - renders individual file links within the sidebar navigation tree
+ * - dynamically sets indentation levels and icon colors based on file metadata
+ * @see /src/modules/nav/Panel.tsx/
+ */
+
 import NextLink from "next/link";
 
 type LinkProps = {

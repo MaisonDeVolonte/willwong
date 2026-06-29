@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file website.ts - schema.org structured data template for the root website
+ * ========================================================================================
+ * @description
+ * - defines the global website entity for seo
+ * - links publisher metadata to the root person entity
+ * @see /src/meta/schema/Schema.tsx/, /src/meta/schema/person.ts/
+ */
+
 import { PERSON_ID } from "./person";
 
 export const WEBSITE_ID = "https://willwong.me/#website";

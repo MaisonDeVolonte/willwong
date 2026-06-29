@@ -1,20 +1,114 @@
+```javascript
+/**
+ * ==============================================
+ * @file AGENTS.md - wayfinding header guidelines
+ * ==============================================
+ * @description
+ * - add this exact jsdoc comment block to all executable files not ignored by eslint.config.mjs
+ * - update the @description and @see tags to accurately reflect the file's contents, purpose, and dependencies
+ * - read this block to understand the file's context and boundaries before modifying it
+ * - write in maximally concise, shorthand, lowercase english, favoring legibility over completeness
+ * @see /AGENTS/, /.claude/, /eslint.config.mjs/
+ */
+```
+
 # Agent Rules
+- DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, and plan
+- DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
+- EXCEPTIONS: context gathering, writing to agent logs, @customtrigger automations, etc
 
 ## Logs
 - LOGS are formatted as outlined in `AGENTS/_logs.md`
 - BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
-- END every interaction by either:
+- END every task/project/thread by either:
   - APPENDING your logs to the bottom of the current day's existing memory log
   - CREATING a new log file for the current day named `YYYY-MM-DD.md`
   
 ## Triggers
-Follow the usage guidelines in each agent's documentation page below:
+follow the usage guidelines in each agent's documentation page below:
 - [@gitaudit](AGENTS/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
 - [@gitbegin](AGENTS/gitbegin.md): SAFE; ensures a clean, synced main to start a new atomic unit of work
 - [@gitcontinue](AGENTS/gitcontinue.md): SAFE: safely pauses work, syncs trunk, and restores state on main
 - [@gitdeliver](AGENTS/gitdeliver.md): ATOMIC LOOP: stage, commit, branch, push, pr, build, and check
-- [@gitempty](AGENTS/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and user-gated branch deletion
+- [@gitempty](AGENTS/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and gated branch deletion
 - [@gitfresh](AGENTS/gitfresh.md): DESTRUCTIVE; aborts broken processes, nukes everything, and starts fresh
+
+## Comments
+- write comments sparingly and with intention, focusing on `why` code exists vs `how` it works
+- refactoring code to be more intuitively legible is favorable over superfluous commenting
+- use primarily inline comments written in maximally concise, clear, shorthand lowercase english
+- including type hints at the end of `// comments — boolean` is helpful
+- if a file is really long, consider adding header comments to break it up into sections:
+  `// ==============`
+  `// SECTION TITLE `
+  `// ==============`
+
+## Code
+- write code for humans, specifically jr-engineers who do everything the long, extremely boring way
+- favor flat, beginner-level simplicity over advanced, deeply nested, or overly efficient abstractions
+- if a file or function does more than one thing, consider splitting it
+- structure logic from top to bottom in order of state, definitions, guards, then execution
+- name things using clear, concise, intuitively understood language
+- single line statements are a vibe, nesting for no valid justification is not a vibe
+- use empty lines sparingly, primarily to visually separate distinct conceptual blocks
+- at the end of the day, just stick to coding first-principles such as DRY, SoC, POLA, etc
+
+*example:*
+```typescript
+export function writeCode(requirements: Context, request: string) {
+  // 1. hoisted state
+  const isAgent = true;
+  const isClever = false;
+  let finalSolution = "";
+
+  // 2. defined helpers
+  function keepItSimple(rawCode: string, logic: string) {
+    if (isClever) return false;
+    if (rawCode.includes("?")) {
+      const ternaryCount = (rawCode.match(/\?/g) || []).length;
+      if (ternaryCount > 1) throw new Error("use an if-statement");
+    }
+    if (rawCode.includes(".reduce(")) {throw new Error("use a for/forEach loop");}
+    if (rawCode.includes("\n\n\n")) {throw new Error("use empty lines sparingly");}
+    if (logic.nestingDepth > 2) throw new Error("are you building a pyramid?");
+
+    return true;
+  }
+
+  function respectFirstPrinciples(code: string) {
+    if (code.isDuplicated) throw new Error("extract to a helper");
+    if (code.doesMultipleThings) throw new Error("split to separate function");
+    if (code.isSurprising) throw new Error("make it boring and obvious");
+  }
+
+  function punishAgent(behavior: string, variables: string[]) {
+    if (["e", "idx", "el", "cb"].includes(behavior)) {
+      throw new Error("i get it, just spell it out please");
+    }
+
+    // variable names should be helpful, intuitive, and highly legible
+    variables.forEach(variableName => {
+      const variableChars = variableName.length;
+      const variableWords = variableName.split(/(?=[A-Z])/).length;
+      if (variableChars > 25 || variableWords > 4) {
+        throw new Error(`'${variableName}' is not very helpful`);
+      }
+    });
+  }
+
+  // 3. main logic & execution
+  if (!request) return finalSolution;
+
+  requirements.forEach(requirement => {
+    punishAgent(requirement.badHabits);
+    respectFirstPrinciples(requirement.architecture);
+
+    if (keepItSimple(requirement.logic)) { finalSolution += requirement.lines; }
+  });
+
+  return finalSolution;
+}
+```
 
 ## Webflow
 Everything under `webflow/` is generated by Webflow DevLink and must **never** be manually edited — including `webflow/css/`. All files here are overwritten on every DevLink sync. To change anything in this directory, make the change upstream in Webflow and re-sync.
@@ -26,14 +120,6 @@ Files in /content/ are raw content ingested as plain text strings — never exec
 
 - **Duplication & Mirroring:** Do not duplicate code files into `content/src/`. Always use a `@mirror` comment referencing the source file (e.g., `// @mirror src/app/layout.tsx`).
 - **Mirroring Exception:** `content/src/app/slug/page.tsx` is an exception that is intentionally copy-pasted and not mirrored due to dynamic routing conflicts. Do not duplicate this pattern elsewhere.
-
-### Comments
-All files (with the exception of @mirror and @external) inside `content/` must follow the following comment format:
-- **Header:** Bound by equal-length double-bar lines (`===`)
-  - Format: `<filename>: <tongue-in-cheek heading>`
-- **Body:** list of single-line bullets
-  - Pattern: `- bullet description`).
-  - Style: all lowercase, no trailing punctuation
 
 ## Imports
 - Always use the `@/` alias, even for same-folder files (e.g. `import "@/modules/nav/Link"`). Never use `./`.

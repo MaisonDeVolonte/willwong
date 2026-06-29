@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file states.tsx - client-side controller managing folder toggles and active styling
+ * ========================================================================================
+ * @description
+ * - handles folder expand/collapse logic and persists state to local storage
+ * - observes url changes and maps 'active' css classes to the current route's link
+ * @see /src/utilities/localStorage.ts/, /src/app/layout.tsx/
+ */
+
 "use client";
 
 import { useEffect } from "react";

@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file links.tsx - client-side controller that intercepts native anchor clicks
+ * ========================================================================================
+ * @description
+ * - intercepts standard <a> tag interactions inside static devlink markup
+ * - routes internal clicks through the next.js router to prevent hard page reloads
+ * @see /src/app/layout.tsx/, /webflow/
+ */
+
 "use client";
 
 import { useEffect } from "react";

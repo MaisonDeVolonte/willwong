@@ -1,3 +1,13 @@
+/**
+ * ========================================================================================
+ * @file folders.ts - utility that transforms flat file lists into nested structures
+ * ========================================================================================
+ * @description
+ * - groups files dynamically by their path segments to build the navigation hierarchy
+ * - enforces alphabetical sorting, with standard directories hoisting above files
+ * @see /src/modules/nav/Panel.tsx/
+ */
+
 import type { ContentPage, ContentFile } from "@/cms/pages";
 import { slugify } from "@/cms/slugs";
 
