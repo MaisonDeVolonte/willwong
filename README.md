@@ -32,9 +32,9 @@ Strict, atomic, continuously integrated, trunk-based development: fast review, t
 
 ## CI/CD
 
-Ensures `main` is always deployable and the `production` edge environment remains stable.
+Ensures `main` is always deployable and the `production` edge environment remains stable
 
-**Continuous Integration:** (`ci.yml`)
+**Continuous Integration:** (`ci.yml`) *see @gitdeliver*
 - Runs on every pr pushing to `main`
 - Uses `ubuntu-latest` runner to catch case-sensitive errors macOS hides
 - Gate 1: TypeScript `tsc --noEmit` enforces strict type safety
@@ -42,13 +42,13 @@ Ensures `main` is always deployable and the `production` edge environment remain
 - Gate 3: Next.js `next build` ensures static generation and asset optimization succeed before merging
 - Gate 4: Playwright `npm run test:e2e` ensures end-to-end functionality is working
 
-**Continuous Deployment:** (`deploy.yml`)
+**Continuous Deployment:** (`deploy.yml`) *see @githappy*
 - Runs on every push to `production`, decoupled from `main` for release management
 - Bundles and deploys optimized app to Webflow Cloud / Cloudflare Workers
 
 **Version Tracking:**
 - `package.json` uses a prebuild hook (`npm run generate`)
-- `scripts/version.mjs` checks .git history and grabs version information
+- `scripts/version.mjs` checks .git history, counts commits since last tag, and grabs commit hash
 - `src/meta/config/version.generated.ts` stores the version information
 - `next build` bakes the version information into the static html/js bundle
 
