@@ -19,6 +19,7 @@ code[class*="language-"] {
 }
 
 /* Wrap text for markdown and text documents */
+/* Disabled for now - infrastructure kept for future wrapping toggle */
 pre.language-markdown,
 code.language-markdown,
 pre.language-md,
@@ -27,8 +28,8 @@ pre.language-text,
 code.language-text,
 pre.language-plaintext,
 code.language-plaintext {
-    white-space: pre-wrap;
-    word-break: break-word;
+    /* white-space: pre-wrap; */
+    /* word-break: break-word; */
 }
 
 pre[class*="language-"] {
