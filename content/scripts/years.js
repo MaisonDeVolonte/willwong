@@ -16,17 +16,20 @@ years.js: automatically calculate time periods so i don't have to
     if (startingYears.length === 0) {return;}
 
     startingYears.forEach(element => {
-      const startingYear = parseInt(element.getAttribute('data-starting-year'), 10);
+      const attr = element.getAttribute('data-starting-year');
+      if (!attr) { return; }
+
+      const startingYear = parseInt(attr, 10);
       if (isNaN(startingYear)) {return;}
       if (startingYear > currentYear) { return; }
 
-      element.textContent = currentYear - startingYear;
+      element.textContent = (currentYear - startingYear).toString();
     });
   }
 
   function copyright() {
     const copyrightYear = document.querySelector('[data-copyright-year]');
-    if (copyrightYear) {copyrightYear.textContent = currentYear}
+    if (copyrightYear) { copyrightYear.textContent = currentYear.toString(); }
   }
 
   years();
