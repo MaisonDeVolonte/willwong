@@ -1,22 +1,22 @@
 name: CI
 on:
   push:
-    branches: [main]                        # Integration gate for the main trunk line
-  pull_request:                             # Evaluation gate for all atomic PRs
+    branches: [main]                              # Integration gate for the main trunk line
+  pull_request:                                   # Evaluation gate for all atomic PRs
 
 jobs:
   build:
-    runs-on: ubuntu-latest                  # Case-sensitive runner; catches file path bugs macOS hides
+    runs-on: ubuntu-latest                        # Case-sensitive runner; catches file path bugs macOS hides
     steps:
-      - uses: actions/checkout@v4           # Pulls repository source code into runner environment
-      - uses: actions/setup-node@v4         # Configures Node runtime environment
+      - uses: actions/checkout@v4                 # Pulls repository source code into runner environment
+      - uses: actions/setup-node@v4               # Configures Node runtime environment
         with:
           node-version: 22
-          cache: npm                        # Speed optimization: reuses dependencies across runs
-      - run: npm ci                         # Immutable dependency install; strict lockfile enforcement
-      - run: npx playwright install --with-deps # Install browsers for E2E testing
-      - run: npm run generate               # Generate build metadata the app imports
-      - run: npx tsc --noEmit               # Gate 1 (Types): Compiles types to catch logic drift
-      - run: npx eslint . --max-warnings 0  # Gate 2 (Quality): ESLint, zero-tolerance (errors + warnings)
-      - run: npm run build                  # Gate 3 (Fidelity): The exact command Webflow Cloud runs
-      - run: npm run test:e2e               # Gate 4 (Behavior): Playwright E2E tests
+          cache: npm                              # Speed optimization: reuses dependencies across runs
+      - run: npm ci                               # Immutable dependency install; strict lockfile enforcement
+      - run: npx playwright install --with-deps   # Install browsers for E2E testing
+      - run: npm run generate                     # Generate build metadata the app imports
+      - run: npx tsc --noEmit                     # Gate 1 (Types): Compiles types to catch logic drift
+      - run: npx eslint . --max-warnings 0        # Gate 2 (Quality): ESLint, zero-tolerance (errors + warnings)
+      - run: npm run build                        # Gate 3 (Fidelity): The exact command Webflow Cloud runs
+      - run: npm run test:e2e                     # Gate 4 (Behavior): Playwright E2E tests
