@@ -16,7 +16,9 @@
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → capture $DEFAULT_BRANCH from output
 
-2. `git status -s` and `git diff` (analyze changes and group into `type(scope)` buckets):
+2. `git status -s` and `git diff`
+- analyze changes and group into self-contained atomic `type(scope)` buckets
+- interdependent files should be grouped together OR sequentially
 - types (derived from the following, in order of precedence):
   - `new:` first-time features, functions
   - `improve:` existing features, functions
