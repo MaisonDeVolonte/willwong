@@ -35,7 +35,14 @@ echo "incoming_commits: $(git rev-list --count 'HEAD..@{u}' 2>/dev/null || echo 
 echo "dependency_changes: $(git diff --name-only "origin/$DEFAULT_BRANCH...HEAD" -- package.json package-lock.json yarn.lock pnpm-lock.yaml bun.lockb 2>/dev/null | wc -l | tr -d ' ')"
 FORK=$(git merge-base HEAD "origin/$DEFAULT_BRANCH" 2>/dev/null)
 if [ -n "$FORK" ]; then
-  COUNT=$(comm -12 <(git diff --name-only "$FORK" HEAD 2>/dev/null | sort) <(git diff --name-only "$FORK" "origin/$DEFAULT_BRANCH" 2>/dev/null | sort) | wc -l | tr -d ' ')
+  DIFF_HEAD=$(git diff --name-only "$FORK" HEAD 2>/dev/null)
+  DIFF_ORIGIN=$(git diff --name-only "$FORK" "origin/$DEFAULT_BRANCH" 2>/dev/null)
+  
+  if [ -n "$DIFF_HEAD" ] && [ -n "$DIFF_ORIGIN" ]; then
+    COUNT=$(echo "$DIFF_HEAD" | grep -F -x "$DIFF_ORIGIN" | wc -l | tr -d ' ')
+  else
+    COUNT=0
+  fi
   echo "conflict_risk_files: $COUNT"
 else echo "conflict_risk_files: n/a"; fi
 
