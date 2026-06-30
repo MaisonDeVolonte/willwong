@@ -31,7 +31,7 @@ export default function Canvas({ page, activeIndex = 0 }: CanvasProps) {
   }
 
   return (
-    <div className="canvas">
+    <div className="canvas__wrapper">
       <div className="canvas__bar">
         {page.files.map((file, i) => {
           const isActive = i === activeIndex;
