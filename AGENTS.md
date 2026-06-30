@@ -19,7 +19,7 @@
 
 ## Logs
 - BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
-- AFTER completing any meaningful unit of work, autonomously:
+- AFTER reading, learning, or completing anything meaningful, autonomously:
   - APPEND your notes to the bottom of the current day's existing memory log OR
   - CREATE a new log file for the current day named `YYYY-MM-DD.md`
 - FORMAT logs using the shape defined in `AGENTS/_logs.md`
