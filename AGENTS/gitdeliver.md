@@ -18,7 +18,7 @@
 
 2. `git status -s` and `git diff`
 - analyze changes and group into self-contained atomic `type(scope)` buckets
-- interdependent files should be grouped together OR sequentially
+- interdependent files needed to pass CI should be grouped together
 - types (derived from the following, in order of precedence):
   - `new:` first-time features, functions
   - `improve:` existing features, functions
@@ -35,7 +35,11 @@
   - exceptions: 
     - any work in `/content/` → `content`
 
-3. pick the first logical atomic bucket of changes and populate the following variables:
+3. prepare atomic buckets for delivery
+- sort the atomic buckets by dependency
+- prioritize foundational changes
+- choose the first atomic bucket
+- populate the following variables:
 ```
 $ATOMIC_FILES # space-delimited list of files to commit
 $ATOMIC_TYPE # new, improve, fix, update, test, debug
@@ -47,7 +51,7 @@ $ATOMIC_DESCRIPTION # multiline string of hyphen-delimited bullets
 $ATOMIC_COMMIT # $ATOMIC_TYPE($ATOMIC_SCOPE): $ATOMIC_TITLE
 ```
 
-4. present the following draft pr commands and wait for confirmation:
+4. present the following draft command and wait for confirmation:
 ```bash
 git switch -c "$ATOMIC_BRANCH" "$DEFAULT_BRANCH"
 git add $ATOMIC_FILES
