@@ -13,7 +13,6 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/meta/config/site";
 import { versionText, versionLink, hashText, hashLink } from "@/meta/config/version";
 
-
 // Webflow Components
 import { DevLinkProvider } from "@webflow/DevLinkProvider";
 import { Header } from "@webflow/interface/Header";
@@ -76,7 +75,7 @@ export default function RootLayout({
               __html: `
                 try {
                   const state = JSON.parse(localStorage.getItem('app-state') || '{}');
-                  
+
                   // Panel widths
                   if (state.panelWidths) {
                     for (const [panel, width] of Object.entries(state.panelWidths)) {
@@ -99,7 +98,7 @@ export default function RootLayout({
                       css += '.nav__link:has(+ .nav__list[data-folder-key="' + key + '"]) .nav__icon { transform: rotate(90deg) !important; } ';
                     }
                   }
-                  
+
                   if (css) {
                     const style = document.createElement('style');
                     style.id = 'injected-folder-states';
