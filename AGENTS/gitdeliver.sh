@@ -47,7 +47,12 @@ REMOTE_COMMIT=$(git rev-parse "origin/$DEFAULT_BRANCH")
 
 if [ "$LOCAL_COMMIT" != "$REMOTE_COMMIT" ]; then
   if ! git merge --ff-only "origin/$DEFAULT_BRANCH" >/dev/null 2>&1; then
-  echo "fatal: could not fast-forward $DEFAULT_BRANCH (local commits exist)" >&2; exit 1; fi
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+      echo "fatal: could not fast-forward $DEFAULT_BRANCH (uncommitted changes conflict with remote updates – stash, fast-forward, pop, and resolve conflicts locally)" >&2; exit 1;
+    else
+      echo "fatal: could not fast-forward $DEFAULT_BRANCH (committed changes conflict with remote updates – rebase and resolve conflicts locally)" >&2; exit 1;
+    fi
+  fi
 fi
 
 # unstage all files to give the agent a clean slate for atomic commits

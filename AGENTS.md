@@ -8,21 +8,21 @@
  * - update the @description and @see tags to accurately reflect the file's contents, purpose, and dependencies
  * - read this block to understand the file's context and boundaries before modifying it
  * - write in maximally concise, shorthand, lowercase english, favoring legibility over completeness
- * @see /AGENTS/, /.claude/, /eslint.config.mjs/
+ * @see /AGENTS/, /.claude/, /eslint.config.mjs
  */
 ```
 
 # Agent Rules
-- DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, and plan
-- BEGIN every interaction by reading `README.md` and the latest log file in `AGENTS/logs/`
+- DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, plan, etc
 - DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
 - EXCEPTIONS: context gathering, writing to agent logs, @customtrigger automations, etc
 
 ## Logs
-- LOGS are formatted as outlined in `AGENTS/_logs.md`
-- END every task/project/thread by either:
-  - APPENDING your notes to the bottom of the current day's existing memory log OR
-  - CREATING a new log file for the current day named `YYYY-MM-DD.md`
+- BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
+- AFTER completing any meaningful unit of work, autonomously:
+  - APPEND your notes to the bottom of the current day's existing memory log OR
+  - CREATE a new log file for the current day named `YYYY-MM-DD.md`
+- FORMAT logs using the shape defined in `AGENTS/_logs.md`
   
 ## Triggers
 follow the usage guidelines in each agent's documentation page below:
