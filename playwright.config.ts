@@ -24,12 +24,16 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'desktop',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'mobile',
+      use: { ...devices['iPhone 13'] },
     },
   ],
   webServer: {
-    command: 'npm run dev',
+    command: process.env.CI ? 'npm run start -- -p 3001' : 'npm run dev',
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
   },
