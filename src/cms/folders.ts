@@ -57,11 +57,9 @@ export function buildNavTree(pages: ContentPage[], depth = 0): NavNode[] {
     if (isLeaf) {
       const label = page.slug[depth];
       const file = page.files[0];
-      const fileNameWithoutExt = file?.name.replace(/\.[^.]+$/, "");
       const shouldCollapse =
         !file ||
-        label.toLowerCase() === fileNameWithoutExt.toLowerCase() ||
-        label.toLowerCase() === file.name.toLowerCase();
+        slugify(label) === slugify(file.name);
 
       if (shouldCollapse) {
         const rawHref = `/${page.slug.map(slugify).join("/")}`;

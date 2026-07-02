@@ -17,7 +17,8 @@ export type ResolvedFile = {
 };
 
 export function slugify(name: string): string {
-  return name.replace(/^\./, "").replace(/[\s.]+/g, "-").toLowerCase();
+  const base = name.toLowerCase().endsWith(".md") ? name.slice(0, -3) : name;
+  return base.replace(/^[@.]+/, "").replace(/[\s.]+/g, "-").toLowerCase();
 }
 
 // Resolves a slug to a page + file index using the cached, in-memory page list.
