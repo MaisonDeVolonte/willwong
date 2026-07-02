@@ -49,53 +49,54 @@ export function Header({
   versionText = "v0.0.0",
 }: HeaderProps) {
   return (
-    <Block className={"header"} tag={"header"}>
-      <Block className={"nav__root"} tag={"div"}>
-        <Link
-          aria-controls={"NavPanel"}
-          block={"inline"}
-          button={false}
-          className={"nav__trigger"}
-          data-desktop={"active"}
-          data-trigger={"nav"}
-          id={"NavTrigger"}
-          options={{
-            href: "#",
-          }}
-        >
-          <HtmlEmbed
-            className={"icon icon--drawer"}
-            content={
-              '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512.1"><path d="M48 24.1c0-13.3-10.7-24-24-24S0 10.8 0 24.1v368c0 30.9 25.1 56 56 56h184v-48H56c-4.4 0-8-3.6-8-8v-232h192v-48H48v-88zm288 200h192c26.5 0 48-21.5 48-48v-96c0-26.5-21.5-48-48-48h-82.7c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1L336 .1c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48zm0 288h192c26.5 0 48-21.5 48-48v-96c0-26.5-21.5-48-48-48h-82.7c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1l-44.2.1c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48z"/></svg>'
-            }
-          />
-        </Link>
-        <Link
-          block={"inline"}
-          button={false}
-          className={"nav__title"}
-          options={{
-            href: "/",
-          }}
-        >
-          <Block tag={"div"}>{"William Wong"}</Block>
-        </Link>
-      </Block>
+    <Block className={"header"} id={"Header"} tag={"header"}>
+      <Link
+        aria-controls={"NavPanel"}
+        block={"inline"}
+        button={false}
+        className={"nav__trigger"}
+        data-desktop={"active"}
+        data-trigger={"nav"}
+        id={"NavTrigger"}
+        options={{
+          href: "#",
+        }}
+      >
+        <HtmlEmbed
+          className={"icon icon--drawer"}
+          content={
+            '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512.1"><path d="M48 24.1c0-13.3-10.7-24-24-24S0 10.8 0 24.1v368c0 30.9 25.1 56 56 56h184v-48H56c-4.4 0-8-3.6-8-8v-232h192v-48H48v-88zm288 200h192c26.5 0 48-21.5 48-48v-96c0-26.5-21.5-48-48-48h-82.7c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1L336 .1c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48zm0 288h192c26.5 0 48-21.5 48-48v-96c0-26.5-21.5-48-48-48h-82.7c-8.5 0-16.6-3.4-22.6-9.4l-8.6-8.6c-9-9-21.2-14.1-33.9-14.1l-44.2.1c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48z"/></svg>'
+          }
+        />
+      </Link>
+      <Link
+        block={"inline"}
+        button={false}
+        className={"nav__root"}
+        id={"NavRoot"}
+        options={{
+          href: "/",
+        }}
+      >
+        <Block tag={"div"}>{"William Wong"}</Block>
+      </Link>
       <Block className={"flex-expand"} tag={"div"} />
-      <Block className={"nav__version"} tag={"div"}>
+      <Block className={"version"} id={"VersionInfo"} tag={"div"}>
         <Link
           button={false}
-          className={"nav__version--link"}
+          className={"version__link"}
+          id={"VersionNumber"}
           options={versionLink}
         >
           {versionText}
         </Link>
-        <Block className={"nav__version--dot"} tag={"div"}>
+        <Block className={"version__dot"} tag={"div"}>
           {"•"}
         </Block>
         <Link
           button={false}
-          className={"nav__version--link"}
+          className={"version__link"}
+          id={"CommitHash"}
           options={hashLink}
         >
           {hashText}

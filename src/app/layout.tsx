@@ -109,16 +109,16 @@ export default function RootLayout({
               `,
             }}
           />
-          <div className="shell">
+          <div id="Shell" className="shell">
             <Header
               versionText={versionText}
               versionLink={versionLink}
               hashText={hashText}
               hashLink={hashLink}
             />
-            <div className="stage">
+            <div id="Stage" className="stage">
               <Nav slot={<Panel />} />
-              <main className="canvas">{children}</main>
+              <main id="Canvas" className="canvas">{children}</main>
               <Test />
               <Chat />
             </div>
