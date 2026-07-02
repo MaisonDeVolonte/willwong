@@ -25,19 +25,105 @@ import { test, expect } from '@playwright/test';
 
 test.describe('layout', () => {
   test('initialization', async ({ page, isMobile }) => {
-    await page.goto('/');
-    const components = [
-      '.shell',
-        '.header',
-        '.stage',
-          '.canvas',
-        '.footer',
-
-      ...(isMobile ? [] : [
-        '.chat',
-        '.nav',
-      ]),
+    let components = [
+      '#Shell',
+      '#Header',
+      '#Stage',
+      '#NavPanel',
+      '#Canvas',
+      '#ChatPanel',
+      '#Footer',
     ];
+    if (isMobile) {components = [
+      '#Shell',
+      '#Header',
+      '#Stage',
+      '#Canvas',
+      '#Footer',
+    ];}
+
+    await page.goto('/');
     for (const selector of components) { await expect(page.locator(selector)).toBeVisible(); }
+  });
+});
+
+test.describe('Header', () => {
+  test('initialization', async ({ page, isMobile }) => {
+    let elements = [
+      '#NavTrigger',
+      '#NavRoot',
+      '#VersionInfo',
+    ];
+    if (isMobile) {elements = [
+      '#NavTrigger',
+      '#NavRoot',
+    ];}
+
+    await page.goto('/');
+    for (const selector of elements) { await expect(page.locator(selector)).toBeVisible(); }
+  });
+
+  test('NavTrigger', async ({ page, isMobile }) => {
+    const navTrigger = page.locator('#NavTrigger');
+    const nav = page.locator('#NavPanel');
+
+    await page.goto('/');
+    if (!isMobile) {
+      await navTrigger.click();
+      await expect(nav).not.toBeVisible();
+      await navTrigger.click();
+      await expect(nav).toBeVisible();
+    } else {
+      await navTrigger.click();
+      await expect(nav).toBeVisible();
+      await navTrigger.click();
+      await expect(nav).not.toBeVisible();
+    }
+  });
+
+  test('NavRoot', async ({ page }) => {
+    const navRoot = page.locator('#NavRoot');
+
+    await page.goto('/about');
+    await expect(navRoot).toHaveAttribute('href', '/');
+    await expect(navRoot).not.toHaveClass(/nav__root--active/);
+
+    await navRoot.click();
+    await expect(page).toHaveURL(/.*\/$/);
+    await expect(navRoot).toHaveClass(/nav__root--active/);
+  });
+
+  test('VersionInfo', async ({ page, context, isMobile }) => {
+    const versionInfo = page.locator('#VersionInfo');
+    const versionLink = page.locator('#VersionNumber');
+    const commitLink = page.locator('#CommitHash');
+
+    await page.goto('/');
+
+    if (!isMobile) {
+      await expect(versionInfo).toBeVisible();
+
+      await expect(versionLink).toHaveText(/^v\d+\.\d+\.\d+$/);
+      await expect(versionLink).toHaveAttribute('href', /github\.com.*\/releases/);
+      await expect(versionLink).toHaveAttribute('target', '_blank');
+      const [versionLinkDestination] = await Promise.all([
+        context.waitForEvent('page'),
+        versionLink.click(),
+      ]);
+      await expect(versionLinkDestination).toHaveURL(/github\.com.*\/releases/);
+      await versionLinkDestination.close();
+
+      await expect(commitLink).toHaveText(/^[a-f0-9]{7}$/);
+      await expect(commitLink).toHaveAttribute('href', /github\.com.*\/commit\/[a-f0-9]{7}/);
+      await expect(commitLink).toHaveAttribute('target', '_blank');
+      const [commitLinkDestination] = await Promise.all([
+        context.waitForEvent('page'),
+        commitLink.click(),
+      ]);
+      await expect(commitLinkDestination).toHaveURL(/github\.com.*\/commit\/[a-f0-9]{7}/);
+      await commitLinkDestination.close();
+    } else {
+      await expect(versionInfo).not.toBeVisible();
+    }
   });
 });

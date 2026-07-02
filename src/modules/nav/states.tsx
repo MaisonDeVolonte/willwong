@@ -19,7 +19,7 @@ import "@/modules/nav/states.css";
 // ACTIVE RULES
 // ==============
 const ACTIVE_RULES = [
-  { selector: ".nav__title", href: "/", activeClass: "nav__title--active" },
+  { selector: ".nav__root", href: "/", activeClass: "nav__root--active" },
 ];
 
 const DEFAULT_ACTIVE_CLASS = "active";
