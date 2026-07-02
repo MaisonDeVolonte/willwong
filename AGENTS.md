@@ -32,8 +32,9 @@ follow the usage guidelines in each agent's documentation page below:
 - [@gitdeliver](AGENTS/gitdeliver.md): ATOMIC LOOP; stage, commit, branch, push, pr, build, and check
 - [@gitempty](AGENTS/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and gated branch deletion
 - [@gitfresh](AGENTS/gitfresh.md): DESTRUCTIVE; aborts broken processes, nukes everything, and starts fresh
-- [@gitgather](AGENTS/gitgather.md): READ-ONLY; scans logs, finds opportunities, and outputs urgent/important matrix
-- [@githappy](AGENTS/githappy.md): RELEASE; bumps version, tags, merges to production, and auto-generates release notes
+- [@gitgud](AGENTS/gitgud.md): REDELIVER; re-fires a stale pr so ci re-runs against the current trunk
+- [@githappy](AGENTS/githappy.md): RELEASE; bumps version, tags, merges to production, and generates release notes
+- [@gitinsights](AGENTS/gitinsights.md): READ-ONLY; scans logs, finds opportunities, and outputs urgent/important matrix
 
 ## Automations
 @gitautomations adhere to the following shapes:

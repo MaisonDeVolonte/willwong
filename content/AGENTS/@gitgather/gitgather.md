@@ -1,1 +1,0 @@
-// @mirror AGENTS/gitgather.md
