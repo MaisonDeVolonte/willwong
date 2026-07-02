@@ -1,4 +1,4 @@
-**@gitgather:** Run ONLY on explicit `@gitgather` command
+**@gitinsights:** Run ONLY on explicit `@gitinsights` command
 - generates a report of work opportunities based on the 5 most recent agent memory log files
 - includes tasks or projects covering strategic opportunities, unfinished tasks, recurring friction, technical debt, etc
 - categorizes opportunities using an urgent/important matrix
@@ -13,7 +13,7 @@
 
 4. generate the final report:
   ```markdown
-  # @gitgather report
+  # @gitinsights report
   *synthesized from the last 5 agent memory logs (YYYY-MM-DD to YYYY-MM-DD)*
   
   ## observations
