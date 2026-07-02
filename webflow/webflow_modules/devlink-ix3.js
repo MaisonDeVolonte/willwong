@@ -6,99 +6,102 @@
  *   Webflow.push(readyFunction);
  */
 
-var vo = Object.create;
-var rt = Object.defineProperty;
-var bo = Object.getOwnPropertyDescriptor;
-var To = Object.getOwnPropertyNames;
-var wo = Object.getPrototypeOf,
-  Co = Object.prototype.hasOwnProperty;
-var So = (n, e, t) =>
+var _o = Object.create;
+var at = Object.defineProperty;
+var Io = Object.getOwnPropertyDescriptor;
+var Ro = Object.getOwnPropertyNames;
+var Po = Object.getPrototypeOf,
+  xo = Object.prototype.hasOwnProperty;
+var ko = (n, e, t) =>
   e in n
-    ? rt(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t })
+    ? at(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t })
     : (n[e] = t);
 var m = (n, e) => () => (e || n((e = { exports: {} }).exports, e), e.exports);
-var Eo = (n, e, t, r) => {
+var No = (n, e, t, r) => {
   if ((e && typeof e == "object") || typeof e == "function")
-    for (let o of To(e))
-      !Co.call(n, o) &&
+    for (let o of Ro(e))
+      !xo.call(n, o) &&
         o !== t &&
-        rt(n, o, {
+        at(n, o, {
           get: () => e[o],
-          enumerable: !(r = bo(e, o)) || r.enumerable,
+          enumerable: !(r = Io(e, o)) || r.enumerable,
         });
   return n;
 };
-var tr = (n, e, t) => (
-  (t = n != null ? vo(wo(n)) : {}),
-  Eo(
+var ar = (n, e, t) => (
+  (t = n != null ? _o(Po(n)) : {}),
+  No(
     e || !n || !n.__esModule
-      ? rt(t, "default", { value: n, enumerable: !0 })
+      ? at(t, "default", { value: n, enumerable: !0 })
       : t,
     n
   )
 );
-var fe = (n, e, t) => (So(n, typeof e != "symbol" ? e + "" : e, t), t);
-var rr = m((lt) => {
+var pe = (n, e, t) => (ko(n, typeof e != "symbol" ? e + "" : e, t), t);
+var cr = m((pt) => {
   "use strict";
-  Object.defineProperty(lt, "__esModule", { value: !0 });
-  function Mo(n, e) {
+  Object.defineProperty(pt, "__esModule", { value: !0 });
+  function Fo(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Mo(lt, {
+  Fo(pt, {
     CORE_OPERATORS: function () {
-      return st;
+      return ut;
     },
     DEFAULTS: function () {
-      return at;
+      return dt;
     },
     DEFAULT_CUSTOM_EASE: function () {
-      return Io;
+      return Vo;
     },
     EASE_DEFAULTS: function () {
-      return nr;
+      return lr;
+    },
+    PERCENT_CANVAS_DURATION_S: function () {
+      return jo;
     },
     RELATIONSHIP_TYPES: function () {
-      return ct;
+      return ft;
     },
     STANDARD_TRIGGER_ALLOWED_CONTROLS: function () {
-      return Ro;
+      return Uo;
     },
     TimelineControlType: function () {
-      return it;
+      return lt;
     },
     TweenType: function () {
-      return ot;
+      return ct;
     },
     isValidControlType: function () {
-      return Ao;
+      return Lo;
     },
     tweenTypeFromName: function () {
-      return Oo;
+      return Do;
     },
     tweenTypeToName: function () {
-      return _o;
+      return Bo;
     },
   });
-  var it;
+  var lt;
   (function (n) {
     (n.STANDARD = "standard"),
       (n.SCROLL = "scroll"),
       (n.LOAD = "load"),
       (n.CONTINUOUS = "continuous");
-  })(it || (it = {}));
-  function Ao(n) {
+  })(lt || (lt = {}));
+  function Lo(n) {
     return (
       n === "standard" || n === "scroll" || n === "load" || n === "continuous"
     );
   }
-  var ot;
+  var ct;
   (function (n) {
     (n[(n.To = 0)] = "To"),
       (n[(n.From = 1)] = "From"),
       (n[(n.FromTo = 2)] = "FromTo"),
       (n[(n.Set = 3)] = "Set");
-  })(ot || (ot = {}));
-  function Oo(n) {
+  })(ct || (ct = {}));
+  function Do(n) {
     switch (n) {
       case "to":
         return 0;
@@ -110,7 +113,7 @@ var rr = m((lt) => {
         return 3;
     }
   }
-  function _o(n) {
+  function Bo(n) {
     switch (n) {
       case 0:
         return "to";
@@ -124,15 +127,16 @@ var rr = m((lt) => {
         return null;
     }
   }
-  var st;
+  var ut;
   (function (n) {
     (n.AND = "wf:and"), (n.OR = "wf:or");
-  })(st || (st = {}));
-  var at;
+  })(ut || (ut = {}));
+  var dt;
   (function (n) {
     n[(n.DURATION = 0.5)] = "DURATION";
-  })(at || (at = {}));
-  var ct;
+  })(dt || (dt = {}));
+  var jo = 1,
+    ft;
   (function (n) {
     (n.NONE = "none"),
       (n.WITHIN = "within"),
@@ -142,8 +146,8 @@ var rr = m((lt) => {
       (n.NEXT_TO = "next-to"),
       (n.NEXT_SIBLING_OF = "next-sibling-of"),
       (n.PREV_SIBLING_OF = "prev-sibling-of");
-  })(ct || (ct = {}));
-  var nr = {
+  })(ft || (ft = {}));
+  var lr = {
       back: { type: "back", curve: "out", power: 1.7 },
       elastic: { type: "elastic", curve: "out", amplitude: 1, period: 0.3 },
       steps: { type: "steps", stepCount: 6 },
@@ -179,8 +183,8 @@ var rr = m((lt) => {
         bezierCurve: "M0,160 C40,160 24,96 80,96 136,96 120,0 160,0",
       },
     },
-    Io = nr.back,
-    Ro = [
+    Vo = lr.back,
+    Uo = [
       "restart",
       "play",
       "reverse",
@@ -188,20 +192,21 @@ var rr = m((lt) => {
       "pause",
       "resume",
       "togglePlayReverse",
+      "togglePlayReverseFlipEase",
       "stop",
       "none",
     ];
 });
-var ir = m((ut) => {
+var ur = m((gt) => {
   "use strict";
-  Object.defineProperty(ut, "__esModule", { value: !0 });
-  Object.defineProperty(ut, "RuntimeBuilder", {
+  Object.defineProperty(gt, "__esModule", { value: !0 });
+  Object.defineProperty(gt, "RuntimeBuilder", {
     enumerable: !0,
     get: function () {
-      return xo;
+      return qo;
     },
   });
-  var xo = class {
+  var qo = class {
     baseInfo;
     extensions = [];
     lifecycle = {};
@@ -288,27 +293,27 @@ var ir = m((ut) => {
     }
   };
 });
-var cr = m((dt) => {
+var gr = m((ht) => {
   "use strict";
-  Object.defineProperty(dt, "__esModule", { value: !0 });
-  function Po(n, e) {
+  Object.defineProperty(ht, "__esModule", { value: !0 });
+  function $o(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Po(dt, {
+  $o(ht, {
     ConditionCategoryBuilder: function () {
-      return ar;
+      return pr;
     },
     DesignBuilder: function () {
-      return Fo;
+      return zo;
     },
     TargetCategoryBuilder: function () {
-      return or;
+      return dr;
     },
     TriggerCategoryBuilder: function () {
-      return sr;
+      return fr;
     },
   });
-  var ko = class {
+  var Ho = class {
       categoryBuilder;
       groupConfig;
       properties;
@@ -340,7 +345,7 @@ var cr = m((dt) => {
         return { ...this.groupConfig, properties: this.properties };
       }
     },
-    No = class {
+    Go = class {
       categoryId;
       config;
       displayGroups;
@@ -355,7 +360,7 @@ var cr = m((dt) => {
         return (
           this.currentGroupBuilder &&
             this.finalizeGroup(this.currentGroupBuilder.getGroupData()),
-          (this.currentGroupBuilder = new ko(this, e)),
+          (this.currentGroupBuilder = new Ho(this, e)),
           this.currentGroupBuilder
         );
       }
@@ -378,7 +383,7 @@ var cr = m((dt) => {
         };
       }
     },
-    or = class {
+    dr = class {
       categoryId;
       config;
       targets;
@@ -397,7 +402,7 @@ var cr = m((dt) => {
         };
       }
     },
-    sr = class {
+    fr = class {
       categoryId;
       config;
       triggers;
@@ -416,7 +421,7 @@ var cr = m((dt) => {
         };
       }
     },
-    ar = class {
+    pr = class {
       categoryId;
       config;
       conditions;
@@ -435,7 +440,7 @@ var cr = m((dt) => {
         };
       }
     },
-    Fo = class {
+    zo = class {
       baseInfo;
       categories = new Map();
       targetCategories = new Map();
@@ -447,19 +452,19 @@ var cr = m((dt) => {
         this.baseInfo = e;
       }
       addCategory(e, t = {}) {
-        let r = new No(e, t);
+        let r = new Go(e, t);
         return this.categories.set(e, r), r;
       }
       addTargetCategory(e, t) {
-        let r = new or(e, t);
+        let r = new dr(e, t);
         return this.targetCategories.set(e, r), r;
       }
       addTriggerCategory(e, t) {
-        let r = new sr(e, t);
+        let r = new fr(e, t);
         return this.triggerCategories.set(e, r), r;
       }
       addConditionCategory(e, t) {
-        let r = new ar(e, t);
+        let r = new pr(e, t);
         return this.conditionCategories.set(e, r), r;
       }
       addActionPreset(e, t) {
@@ -513,16 +518,16 @@ var cr = m((dt) => {
       }
     };
 });
-var lr = m((ft) => {
+var hr = m((mt) => {
   "use strict";
-  Object.defineProperty(ft, "__esModule", { value: !0 });
-  Object.defineProperty(ft, "TransformBuilder", {
+  Object.defineProperty(mt, "__esModule", { value: !0 });
+  Object.defineProperty(mt, "TransformBuilder", {
     enumerable: !0,
     get: function () {
-      return Lo;
+      return Wo;
     },
   });
-  var Lo = class {
+  var Wo = class {
     baseInfo;
     triggerTransforms = new Map();
     targetTransforms = new Map();
@@ -593,57 +598,60 @@ var lr = m((ft) => {
     }
   };
 });
-var dr = m((ur) => {
+var yr = m((mr) => {
   "use strict";
-  Object.defineProperty(ur, "__esModule", { value: !0 });
+  Object.defineProperty(mr, "__esModule", { value: !0 });
 });
-var X = m((ie) => {
+var Z = m((oe) => {
   "use strict";
-  Object.defineProperty(ie, "__esModule", { value: !0 });
-  function Do(n, e) {
+  Object.defineProperty(oe, "__esModule", { value: !0 });
+  function Yo(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Do(ie, {
+  Yo(oe, {
     CORE_OPERATORS: function () {
-      return H.CORE_OPERATORS;
+      return U.CORE_OPERATORS;
     },
     DEFAULTS: function () {
-      return H.DEFAULTS;
+      return U.DEFAULTS;
     },
     DEFAULT_CUSTOM_EASE: function () {
-      return H.DEFAULT_CUSTOM_EASE;
+      return U.DEFAULT_CUSTOM_EASE;
     },
     EASE_DEFAULTS: function () {
-      return H.EASE_DEFAULTS;
+      return U.EASE_DEFAULTS;
+    },
+    PERCENT_CANVAS_DURATION_S: function () {
+      return U.PERCENT_CANVAS_DURATION_S;
     },
     RELATIONSHIP_TYPES: function () {
-      return H.RELATIONSHIP_TYPES;
+      return U.RELATIONSHIP_TYPES;
     },
     STANDARD_TRIGGER_ALLOWED_CONTROLS: function () {
-      return H.STANDARD_TRIGGER_ALLOWED_CONTROLS;
+      return U.STANDARD_TRIGGER_ALLOWED_CONTROLS;
     },
     TimelineControlType: function () {
-      return H.TimelineControlType;
+      return U.TimelineControlType;
     },
     TweenType: function () {
-      return H.TweenType;
+      return U.TweenType;
     },
     isValidControlType: function () {
-      return H.isValidControlType;
+      return U.isValidControlType;
     },
     tweenTypeFromName: function () {
-      return H.tweenTypeFromName;
+      return U.tweenTypeFromName;
     },
     tweenTypeToName: function () {
-      return H.tweenTypeToName;
+      return U.tweenTypeToName;
     },
   });
-  var H = rr();
-  ke(ir(), ie);
-  ke(cr(), ie);
-  ke(lr(), ie);
-  ke(dr(), ie);
-  function ke(n, e) {
+  var U = cr();
+  Ne(ur(), oe);
+  Ne(gr(), oe);
+  Ne(hr(), oe);
+  Ne(yr(), oe);
+  function Ne(n, e) {
     return (
       Object.keys(n).forEach(function (t) {
         t !== "default" &&
@@ -659,54 +667,54 @@ var X = m((ie) => {
     );
   }
 });
-var pe = m((pt) => {
+var ge = m((yt) => {
   "use strict";
-  Object.defineProperty(pt, "__esModule", { value: !0 });
-  function Bo(n, e) {
+  Object.defineProperty(yt, "__esModule", { value: !0 });
+  function Xo(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Bo(pt, {
+  Xo(yt, {
     EASING_NAMES: function () {
-      return zo;
+      return rs;
     },
     buildCustomEaseId: function () {
-      return Go;
+      return ns;
     },
     buildEaseContextId: function () {
-      return Ho;
+      return ts;
     },
     debounce: function () {
-      return qo;
+      return Jo;
     },
     defaultSplitClass: function () {
-      return Uo;
+      return Ko;
     },
     isValidControlType: function () {
-      return jo;
+      return Zo;
     },
     throttle: function () {
-      return $o;
+      return es;
     },
     toSeconds: function () {
-      return Vo;
+      return Qo;
     },
   });
-  var Ne = X();
-  function jo(n) {
+  var Fe = Z();
+  function Zo(n) {
     return (
-      n === Ne.TimelineControlType.STANDARD ||
-      n === Ne.TimelineControlType.SCROLL ||
-      n === Ne.TimelineControlType.LOAD ||
-      n === Ne.TimelineControlType.CONTINUOUS
+      n === Fe.TimelineControlType.STANDARD ||
+      n === Fe.TimelineControlType.SCROLL ||
+      n === Fe.TimelineControlType.LOAD ||
+      n === Fe.TimelineControlType.CONTINUOUS
     );
   }
-  function Vo(n) {
+  function Qo(n) {
     return typeof n == "string" ? parseFloat(n) / 1e3 : n;
   }
-  function Uo(n) {
+  function Ko(n) {
     return `gsap_split_${n}++`;
   }
-  var qo = (
+  var Jo = (
       n,
       e = 0,
       { leading: t = !1, trailing: r = !0, maxWait: o } = {}
@@ -714,18 +722,18 @@ var pe = m((pt) => {
       let i,
         s = 0,
         a,
-        c,
-        l = () => {
-          (s = 0), (i = void 0), r && n.apply(a, c);
+        l,
+        c = () => {
+          (s = 0), (i = void 0), r && n.apply(a, l);
         };
       function u(...d) {
-        (a = this), (c = d), s || ((s = performance.now()), t && n.apply(a, c));
+        (a = this), (l = d), s || ((s = performance.now()), t && n.apply(a, l));
         let f = performance.now() - s;
         if (o && f >= o) {
-          clearTimeout(i), l();
+          clearTimeout(i), c();
           return;
         }
-        clearTimeout(i), (i = setTimeout(l, e));
+        clearTimeout(i), (i = setTimeout(c, e));
       }
       return (
         (u.cancel = () => {
@@ -734,23 +742,23 @@ var pe = m((pt) => {
         u
       );
     },
-    $o = (n, e = 0, { leading: t = !0, trailing: r = !0, maxWait: o } = {}) => {
+    es = (n, e = 0, { leading: t = !0, trailing: r = !0, maxWait: o } = {}) => {
       let i = 0,
         s,
         a,
-        c,
-        l = (d) => {
-          (i = d), (s = void 0), n.apply(a, c);
+        l,
+        c = (d) => {
+          (i = d), (s = void 0), n.apply(a, l);
         };
       function u(...d) {
         let f = performance.now();
         !i && !t && (i = f);
-        let p = e - (f - i);
+        let g = e - (f - i);
         (a = this),
-          (c = d),
-          p <= 0 || (o && f - i >= o)
-            ? (s && (clearTimeout(s), (s = void 0)), l(f))
-            : r && !s && (s = setTimeout(() => l(performance.now()), p));
+          (l = d),
+          g <= 0 || (o && f - i >= o)
+            ? (s && (clearTimeout(s), (s = void 0)), c(f))
+            : r && !s && (s = setTimeout(() => c(performance.now()), g));
       }
       return (
         (u.cancel = () => {
@@ -759,13 +767,13 @@ var pe = m((pt) => {
         u
       );
     };
-  function Ho(n, e) {
+  function ts(n, e) {
     return `${n}-${e}`;
   }
-  function Go(n, e) {
+  function ns(n, e) {
     return e ? `${n}-${e}` : n;
   }
-  var zo = [
+  var rs = [
     "none",
     "power1.in",
     "power1.out",
@@ -799,19 +807,19 @@ var pe = m((pt) => {
     "sine.inOut",
   ];
 });
-var fr = m((gt) => {
+var vr = m((vt) => {
   "use strict";
-  Object.defineProperty(gt, "__esModule", { value: !0 });
-  Object.defineProperty(gt, "EventManager", {
+  Object.defineProperty(vt, "__esModule", { value: !0 });
+  Object.defineProperty(vt, "EventManager", {
     enumerable: !0,
     get: function () {
-      return Wo;
+      return is;
     },
   });
-  var we = pe(),
-    Z,
-    Wo =
-      ((Z = class {
+  var Se = ge(),
+    Q,
+    is =
+      ((Q = class {
         elementHandlers = new WeakMap();
         eventTypeHandlers = new Map();
         customEventTypes = new Map();
@@ -824,13 +832,13 @@ var fr = m((gt) => {
           console.error("[EventManager] Error handling event:", e, t);
         constructor() {}
         static getInstance() {
-          return Z.instance || (Z.instance = new Z()), Z.instance;
+          return Q.instance || (Q.instance = new Q()), Q.instance;
         }
         addEventListener(e, t, r, o) {
           try {
             let i = o?.kind === "custom",
               s = {
-                ...(i ? { delegate: !1, passive: !0, batch: !1 } : Xo[t] || {}),
+                ...(i ? { delegate: !1, passive: !0, batch: !1 } : ss[t] || {}),
                 ...o,
                 errorHandler: o?.errorHandler || this.defaultErrorHandler,
               };
@@ -848,21 +856,21 @@ var fr = m((gt) => {
             if (!e || !e.addEventListener)
               throw new Error("Invalid element provided to addEventListener");
             let a = this.createWrappedHandler(r, s, e),
-              c = this.registerHandler(e, t, r, a.handler, s, i, a.cleanup);
+              l = this.registerHandler(e, t, r, a.handler, s, i, a.cleanup);
             if (i)
               return () => {
-                this.removeHandler(e, t, r, !0), c.cleanup?.();
+                this.removeHandler(e, t, r, !0), l.cleanup?.();
               };
-            let l = new AbortController();
+            let c = new AbortController();
             return (
               this.ensureDelegatedHandler(t),
               s.delegate ||
-                (Yo(s) || e).addEventListener(t, c.wrappedHandler, {
+                (os(s) || e).addEventListener(t, l.wrappedHandler, {
                   passive: s.passive,
-                  signal: l.signal,
+                  signal: c.signal,
                 }),
               () => {
-                l.abort(), this.removeHandler(e, t, r, !1);
+                c.abort(), this.removeHandler(e, t, r, !1);
               }
             );
           } catch (i) {
@@ -882,8 +890,8 @@ var fr = m((gt) => {
               if (!r || r === a.element || a.element.contains(r))
                 try {
                   a.wrappedHandler(s);
-                } catch (c) {
-                  console.error(`[EventManager] Error emitting ${e}:`, c);
+                } catch (l) {
+                  console.error(`[EventManager] Error emitting ${e}:`, l);
                 }
           } catch (i) {
             console.error(
@@ -938,19 +946,19 @@ var fr = m((gt) => {
                   ));
             };
             if (t.throttleMs && t.throttleMs > 0) {
-              let s = (0, we.throttle)(o, t.throttleMs);
+              let s = (0, Se.throttle)(o, t.throttleMs);
               return { handler: i, cleanup: s.cancel };
             }
             if (t.debounceMs && t.debounceMs > 0) {
-              let s = (0, we.debounce)(o, t.debounceMs);
+              let s = (0, Se.debounce)(o, t.debounceMs);
               return { handler: i, cleanup: s.cancel };
             }
             return { handler: i };
           }
           if (t.throttleMs && t.throttleMs > 0) {
-            let i = (0, we.throttle)(o, t.throttleMs);
+            let i = (0, Se.throttle)(o, t.throttleMs);
             if (t.debounceMs && t.debounceMs > 0) {
-              let s = (0, we.debounce)(i, t.debounceMs);
+              let s = (0, Se.debounce)(i, t.debounceMs);
               return {
                 handler: s,
                 cleanup: () => {
@@ -961,7 +969,7 @@ var fr = m((gt) => {
             return { handler: i, cleanup: i.cancel };
           }
           if (t.debounceMs && t.debounceMs > 0) {
-            let i = (0, we.debounce)(o, t.debounceMs);
+            let i = (0, Se.debounce)(o, t.debounceMs);
             return { handler: i, cleanup: i.cancel };
           }
           return { handler: o };
@@ -975,24 +983,24 @@ var fr = m((gt) => {
             if (!o?.size) continue;
             let i = r.filter((a) => e - a.timestamp < this.defaultMaxBatchAge);
             if (!i.length) continue;
-            i.sort((a, c) => a.timestamp - c.timestamp);
+            i.sort((a, l) => a.timestamp - l.timestamp);
             let s =
               i.length <= this.defaultMaxBatchSize
                 ? i
                 : i.slice(-this.defaultMaxBatchSize);
-            for (let { event: a, target: c } of s) {
-              let l = a;
-              (l.batchTimestamp = e), (l.batchSize = s.length);
+            for (let { event: a, target: l } of s) {
+              let c = a;
+              (c.batchTimestamp = e), (c.batchSize = s.length);
               for (let u of o)
                 try {
                   (u.config.delegate ||
                     u.config.target === "window" ||
                     u.config.target === "document" ||
-                    c === a.target ||
-                    c.contains(a.target)) &&
-                    u.wrappedHandler(l);
+                    l === a.target ||
+                    l.contains(a.target)) &&
+                    u.wrappedHandler(c);
                 } catch (d) {
-                  (u.config.errorHandler || this.defaultErrorHandler)(d, l);
+                  (u.config.errorHandler || this.defaultErrorHandler)(d, c);
                 }
             }
           }
@@ -1009,13 +1017,13 @@ var fr = m((gt) => {
                 : i.target
                 ? [i.target]
                 : [];
-              for (let c of a)
-                if (c instanceof Element) {
-                  for (let l of s) {
-                    if (!l.config.delegate) continue;
-                    if (l.element === c || l.element.contains(c))
+              for (let l of a)
+                if (l instanceof Element) {
+                  for (let c of s) {
+                    if (!c.config.delegate) continue;
+                    if (c.element === l || c.element.contains(l))
                       try {
-                        l.wrappedHandler(i);
+                        c.wrappedHandler(i);
                       } catch (d) {
                         console.error(`[EventDelegator] Error for ${e}:`, d);
                       }
@@ -1039,7 +1047,7 @@ var fr = m((gt) => {
             this.delegatedHandlers.set(e, { handler: r, controller: t });
         }
         registerHandler(e, t, r, o, i, s, a) {
-          let c = {
+          let l = {
             element: e,
             originalHandler: r,
             wrappedHandler: o,
@@ -1047,15 +1055,15 @@ var fr = m((gt) => {
             cleanup: a,
           };
           if (s) {
-            let l = this.customEventTypes.get(t) || new Set();
-            l.add(c), this.customEventTypes.set(t, l);
+            let c = this.customEventTypes.get(t) || new Set();
+            c.add(l), this.customEventTypes.set(t, c);
           } else {
-            let l = this.elementHandlers.get(e) || new Set();
-            l.add(c), this.elementHandlers.set(e, l);
+            let c = this.elementHandlers.get(e) || new Set();
+            c.add(l), this.elementHandlers.set(e, c);
             let u = this.eventTypeHandlers.get(t) || new Set();
-            u.add(c), this.eventTypeHandlers.set(t, u);
+            u.add(l), this.eventTypeHandlers.set(t, u);
           }
-          return c;
+          return l;
         }
         removeHandler(e, t, r, o) {
           if (o) {
@@ -1074,32 +1082,32 @@ var fr = m((gt) => {
             let s = this.elementHandlers.get(e);
             if (!s?.size) return;
             let a;
-            for (let c of s)
-              if (c.originalHandler === r) {
-                a = c;
+            for (let l of s)
+              if (l.originalHandler === r) {
+                a = l;
                 break;
               }
             if (a) {
               if ((s.delete(a), i.delete(a), !i.size)) {
                 this.eventTypeHandlers.delete(t);
-                let c = this.delegatedHandlers.get(t);
-                c && (c.controller.abort(), this.delegatedHandlers.delete(t));
+                let l = this.delegatedHandlers.get(t);
+                l && (l.controller.abort(), this.delegatedHandlers.delete(t));
               }
               a.cleanup?.();
             }
           }
         }
       }),
-      fe(Z, "instance"),
-      Z);
-  function Yo(n) {
+      pe(Q, "instance"),
+      Q);
+  function os(n) {
     return n.target === "window"
       ? window
       : n.target === "document"
       ? document
       : null;
   }
-  var Xo = {
+  var ss = {
     load: { delegate: !1, passive: !0 },
     DOMContentLoaded: { target: "document", passive: !0 },
     readystatechange: { target: "document", passive: !0 },
@@ -1180,28 +1188,28 @@ var fr = m((gt) => {
     beforeinput: { delegate: !0, passive: !1 },
   };
 });
-var mt = m((ht) => {
+var Tt = m((bt) => {
   "use strict";
-  Object.defineProperty(ht, "__esModule", { value: !0 });
-  function Zo(n, e) {
+  Object.defineProperty(bt, "__esModule", { value: !0 });
+  function as(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Zo(ht, {
+  as(bt, {
     convertEaseConfigToGSAP: function () {
-      return gr;
+      return Tr;
     },
     convertEaseConfigToLinear: function () {
-      return Ko;
+      return cs;
     },
     isAdvancedEase: function () {
-      return Jo;
+      return us;
     },
     isBasicEase: function () {
-      return es;
+      return ds;
     },
   });
-  var Ce = pe();
-  function pr() {
+  var Ce = ge();
+  function br() {
     return {
       gsap: window.gsap,
       CustomEase: window.CustomEase,
@@ -1209,14 +1217,14 @@ var mt = m((ht) => {
       CustomBounce: window.CustomBounce,
     };
   }
-  function gr(n, e = pr(), t) {
+  function Tr(n, e = br(), t) {
     return n == null
       ? "none"
       : typeof n == "number"
       ? Ce.EASING_NAMES[n] || "none"
-      : Qo(n, e, t);
+      : ls(n, e, t);
   }
-  function Qo(n, e, t) {
+  function ls(n, e, t) {
     switch (n.type) {
       case "back":
         return `back.${n.curve}(${n.power})`;
@@ -1231,9 +1239,9 @@ var mt = m((ht) => {
           strength: i,
           taper: s,
           randomizePoints: a,
-          clampPoints: c,
+          clampPoints: l,
         } = n;
-        return `rough({ template: ${r}, strength: ${i}, points: ${o}, taper: ${s}, randomize: ${a}, clamp: ${c} })`;
+        return `rough({ template: ${r}, strength: ${i}, points: ${o}, taper: ${s}, randomize: ${a}, clamp: ${l} })`;
       }
       case "slowMo":
         return `slow(${n.linearRatio}, ${n.power}, ${n.yoyoMode})`;
@@ -1272,9 +1280,9 @@ var mt = m((ht) => {
         return "none";
     }
   }
-  function Ko(n, e = pr(), t = 20) {
+  function cs(n, e = br(), t = 20) {
     if (n == null) return "linear";
-    let r = gr(n, e);
+    let r = Tr(n, e);
     if (r === null) return "linear";
     if (typeof n == "object" && n.type === "steps")
       return `steps(${n.stepCount})`;
@@ -1284,9 +1292,9 @@ var mt = m((ht) => {
     if (typeof i != "function") return "linear";
     let s = [];
     for (let a = 0; a <= t; a++) {
-      let c = a / t,
-        l = i(c);
-      s.push({ t: Number(c.toFixed(4)), value: Number(l.toFixed(4)) });
+      let l = a / t,
+        c = i(l);
+      s.push({ t: Number(l.toFixed(4)), value: Number(c.toFixed(4)) });
     }
     return (
       "linear(" +
@@ -1294,23 +1302,23 @@ var mt = m((ht) => {
       ")"
     );
   }
-  function Jo(n) {
+  function us(n) {
     return typeof n == "object" && n !== null;
   }
-  function es(n) {
+  function ds(n) {
     return typeof n == "number";
   }
 });
-var hr = m((yt) => {
+var wr = m((wt) => {
   "use strict";
-  Object.defineProperty(yt, "__esModule", { value: !0 });
-  Object.defineProperty(yt, "PluginRuntimeBridge", {
+  Object.defineProperty(wt, "__esModule", { value: !0 });
+  Object.defineProperty(wt, "PluginRuntimeBridge", {
     enumerable: !0,
     get: function () {
-      return ts;
+      return fs;
     },
   });
-  var ts = class {
+  var fs = class {
     intervalHandlers = new Map();
     channelSubscribers = new Map();
     registerIntervalHandler(e, t) {
@@ -1361,11 +1369,11 @@ var hr = m((yt) => {
         s.push(a),
         i.set(e, s),
         () => {
-          let c = this.channelSubscribers.get(t)?.get(e);
-          if (!c) return;
-          let l = c.indexOf(a);
-          l !== -1 && c.splice(l, 1),
-            c.length === 0 &&
+          let l = this.channelSubscribers.get(t)?.get(e);
+          if (!l) return;
+          let c = l.indexOf(a);
+          c !== -1 && l.splice(c, 1),
+            l.length === 0 &&
               (this.channelSubscribers.get(t)?.delete(e),
               this.channelSubscribers.get(t)?.size === 0 &&
                 this.channelSubscribers.delete(t));
@@ -1378,16 +1386,16 @@ var hr = m((yt) => {
     }
   };
 });
-var mr = m((vt) => {
+var Sr = m((St) => {
   "use strict";
-  Object.defineProperty(vt, "__esModule", { value: !0 });
-  Object.defineProperty(vt, "RuntimeMotionDriver", {
+  Object.defineProperty(St, "__esModule", { value: !0 });
+  Object.defineProperty(St, "RuntimeMotionDriver", {
     enumerable: !0,
     get: function () {
-      return ns;
+      return ps;
     },
   });
-  var ns = class {
+  var ps = class {
     env;
     constructor(e) {
       this.env = e;
@@ -1445,23 +1453,36 @@ var mr = m((vt) => {
     }
   };
 });
-var vr = m((wt) => {
+var Er = m((Mt) => {
   "use strict";
-  Object.defineProperty(wt, "__esModule", { value: !0 });
-  Object.defineProperty(wt, "AnimationCoordinator", {
+  Object.defineProperty(Mt, "__esModule", { value: !0 });
+  Object.defineProperty(Mt, "AnimationCoordinator", {
     enumerable: !0,
     get: function () {
-      return os;
+      return vs;
     },
   });
-  var bt = X(),
-    L = pe(),
-    Tt = mt(),
-    rs = hr(),
-    is = mr(),
-    oe,
-    os =
-      ((oe = class {
+  var Ct = Z(),
+    D = ge(),
+    Et = Tt(),
+    gs = wr(),
+    hs = Sr();
+  function ms(n) {
+    return (
+      typeof n == "string" &&
+      (n.startsWith("+=") || n.startsWith("-=") || n.startsWith("random("))
+    );
+  }
+  function ys(n) {
+    for (let e of [n.to, n.from])
+      if (e) {
+        for (let t in e) if (ms(e[t])) return !0;
+      }
+    return !1;
+  }
+  var se,
+    vs =
+      ((se = class {
         timelineDefs;
         getHandler;
         getTargetResolver;
@@ -1473,10 +1494,11 @@ var vr = m((wt) => {
         cleanupFns;
         scrollTriggers;
         aliases;
+        flipEaseBySource;
         pluginRuntimeBridge;
         animation;
         resolveAlias(e, t = 0) {
-          if (t > oe.MAX_ALIAS_DEPTH)
+          if (t > se.MAX_ALIAS_DEPTH)
             return (
               console.warn(
                 `IX3: Timeline alias chain exceeded max depth for "${e}". Possible circular reference.`
@@ -1487,30 +1509,70 @@ var vr = m((wt) => {
           return r ? this.resolveAlias(r, t + 1) : e;
         }
         shouldFlipEaseForTimeline(e) {
-          let t = this.resolveSourceTimelineId(e);
-          if (this.timelineUsesReverseFlipEase(t)) return !0;
-          for (let [r] of this.timelineDefs)
-            if (
-              r !== t &&
-              this.resolveSourceTimelineId(r) === t &&
-              this.timelineUsesReverseFlipEase(r)
-            )
-              return !0;
-          return !1;
-        }
-        timelineUsesReverseFlipEase(e) {
-          if (this.timelineDefs.get(e)?.settings?.control === "reverseFlipEase")
-            return !0;
-          let r = this.getInteractionForTimeline(e);
-          if (r) {
-            for (let [, o] of r.triggers)
-              if (o?.control === "reverseFlipEase") return !0;
+          let t = this.resolveSourceTimelineId(e),
+            r = [t];
+          for (let [l] of this.timelineDefs)
+            l !== t && this.resolveSourceTimelineId(l) === t && r.push(l);
+          let o = new Set(r),
+            i = !1,
+            s = (l) => {
+              if (l === "reverseFlipEase" || l === "togglePlayReverseFlipEase")
+                i = !0;
+              else if (l === "reverse" || l === "togglePlayReverse") return !0;
+              return !1;
+            },
+            a = new Map();
+          for (let l of r) {
+            let c = this.getInteractionForTimeline(l);
+            c && a.set(c.id, c);
           }
-          return !1;
+          for (let l of a.values()) {
+            let c = l.timelineIds ?? [];
+            for (let [, u] of l.triggers) {
+              let d = u?.assignedTimelineRole,
+                f =
+                  d != null
+                    ? c.filter(
+                        (p) =>
+                          this.timelineDefs.get(p)?.triggerMetadata?.role === d
+                      )
+                    : null,
+                g = (p) =>
+                  (p != null ? [p] : c).filter(
+                    (T) => (f == null || f.includes(T)) && o.has(T)
+                  ),
+                h = u?.conditionalLogic;
+              if (h) {
+                for (let p of [h.ifTrue, h.ifFalse])
+                  if (
+                    p &&
+                    g(p.targetTimelineId ?? void 0).length > 0 &&
+                    s(p.control)
+                  )
+                    return !1;
+              } else
+                for (let p of g()) {
+                  let y = this.timelineDefs.get(p),
+                    T = y?.triggerMetadata ? y.settings?.control : u?.control;
+                  if (s(T)) return !1;
+                }
+            }
+          }
+          return i;
+        }
+        recomputeFlipEaseForSource(e) {
+          let t = this.resolveSourceTimelineId(e),
+            r = this.subs.get(t);
+          if (!r) return;
+          let o = this.shouldFlipEaseForTimeline(t);
+          if (o !== this.flipEaseBySource.get(t)) {
+            this.flipEaseBySource.set(t, o);
+            for (let i of r.values()) this.scheduleRebuild(i);
+          }
         }
         resolveSourceTimelineId(e) {
           let t = e;
-          for (let r = 0; r <= oe.MAX_ALIAS_DEPTH; r++) {
+          for (let r = 0; r <= se.MAX_ALIAS_DEPTH; r++) {
             let i = this.timelineDefs.get(t)?.reuse?.sourceTimelineId;
             if (!i) return t;
             t = i;
@@ -1536,51 +1598,53 @@ var vr = m((wt) => {
             (this.cleanupFns = new Map()),
             (this.scrollTriggers = new Map()),
             (this.aliases = new Map()),
-            (this.pluginRuntimeBridge = new rs.PluginRuntimeBridge()),
+            (this.flipEaseBySource = new Map()),
+            (this.pluginRuntimeBridge = new gs.PluginRuntimeBridge()),
             (this.globalSplitRegistry = new Map()),
             (this.timelineTargetsCache = new WeakMap()),
-            (this.getStaggerConfig = (a, c) => {
+            (this.getStaggerConfig = (a, l) => {
               if (!a) return;
               let {
-                  ease: l,
+                  ease: c,
                   amount: u,
                   from: d,
                   grid: f,
-                  axis: p,
+                  axis: g,
                   each: h,
                 } = a,
-                g = {};
+                p = {};
               if (
-                (u != null && (g.amount = (0, L.toSeconds)(u)),
-                h != null && (g.each = (0, L.toSeconds)(h)),
-                d != null && (g.from = d),
-                f != null && (g.grid = f),
-                p != null && (g.axis = p),
-                l != null)
+                (u != null && (p.amount = (0, D.toSeconds)(u)),
+                h != null && (p.each = (0, D.toSeconds)(h)),
+                d != null && (p.from = d),
+                f != null && (p.grid = f),
+                g != null && (p.axis = g),
+                c != null)
               ) {
-                let y = (0, Tt.convertEaseConfigToGSAP)(l, void 0, c);
-                y != null && (g.ease = y);
+                let y = (0, Et.convertEaseConfigToGSAP)(c, void 0, l);
+                y != null && (p.ease = y);
               }
-              return g;
+              return p;
             }),
-            (this.animation = new is.RuntimeMotionDriver(s));
+            (this.animation = new hs.RuntimeMotionDriver(s));
         }
         createTimeline(e, t) {
           this.destroy(e);
           let r = this.timelineDefs.get(e);
           if (!r) return;
           if (r.reuse?.sourceTimelineId) {
-            this.aliases.set(e, r.reuse.sourceTimelineId);
+            this.aliases.set(e, r.reuse.sourceTimelineId),
+              this.recomputeFlipEaseForSource(r.reuse.sourceTimelineId);
             return;
           }
           let o = this.isDynamicTimeline(r, t);
           this.dynamicFlags.set(e, o);
           let i = new Set(),
             s = new Set();
-          for (let [, a, c] of t.triggers) {
-            if (c) for (let u of this.resolveFn(c, {}, t)) s.add(u);
-            let l = a?.controlType;
-            l && (0, L.isValidControlType)(l) && i.add(l);
+          for (let [, a, l] of t.triggers) {
+            if (l) for (let u of this.resolveFn(l, {}, t)) s.add(u);
+            let c = a?.controlType;
+            c && (0, D.isValidControlType)(c) && i.add(c);
           }
           if (!s.size || !o) {
             let a = this.buildSubTimeline(e, null, i);
@@ -1588,14 +1652,15 @@ var vr = m((wt) => {
           }
           if (s.size) {
             let a = this.ensureSubs(e);
-            for (let c of s)
-              if (!a.has(c)) {
-                let l = o
-                  ? this.buildSubTimeline(e, c, i)
+            for (let l of s)
+              if (!a.has(l)) {
+                let c = o
+                  ? this.buildSubTimeline(e, l, i)
                   : this.getSub(e, null);
-                o && l && a.set(c, l);
+                o && c && a.set(l, c);
               }
           }
+          this.flipEaseBySource.set(e, this.shouldFlipEaseForTimeline(e));
         }
         getTimeline(e, t) {
           return this.getSub(e, t)?.timeline;
@@ -1605,21 +1670,32 @@ var vr = m((wt) => {
             r = this.subs.get(t);
           return r ? Array.from(r.values()).map((o) => o.timeline) : [];
         }
+        invalidateVolatileFromStart(e, t) {
+          let r = t != null ? t === 0 : e.timeline.progress() === 0;
+          e.hasVolatileValues && r && e.timeline.invalidate();
+        }
         play(e, t, r) {
-          this.getSub(e, t)?.timeline.play(r ?? void 0);
+          let o = this.getSub(e, t);
+          o &&
+            (this.invalidateVolatileFromStart(o, r),
+            o.timeline.play(r ?? void 0));
         }
         pause(e, t, r) {
           let o = this.getSubOrNull(e, t);
           o && (r !== void 0 ? o.timeline.pause(r) : o.timeline.pause());
         }
         resume(e, t, r) {
-          this.getSubOrNull(e, t)?.timeline.resume(r);
+          let o = this.getSubOrNull(e, t);
+          o && (this.invalidateVolatileFromStart(o, r), o.timeline.resume(r));
         }
         reverse(e, t, r) {
           this.getSub(e, t)?.timeline.reverse(r);
         }
         restart(e, t) {
-          this.getSub(e, t)?.timeline.restart();
+          let r = this.getSub(e, t);
+          r &&
+            (r.hasVolatileValues && r.timeline.invalidate(),
+            r.timeline.restart());
         }
         getTriggerMetadata(e) {
           return this.timelineDefs.get(e)?.triggerMetadata ?? null;
@@ -1702,16 +1778,18 @@ var vr = m((wt) => {
           return o;
         }
         togglePlayReverse(e, t) {
-          let r = this.getSub(e, t)?.timeline;
+          let r = this.getSub(e, t);
           if (!r) return;
-          let o = r.progress();
-          o === 0
-            ? r.play()
-            : o === 1
-            ? r.reverse()
-            : r.reversed()
-            ? r.play()
-            : r.reverse();
+          let o = r.timeline,
+            i = o.progress();
+          this.invalidateVolatileFromStart(r),
+            i === 0
+              ? o.play()
+              : i === 1
+              ? o.reverse()
+              : o.reversed()
+              ? o.play()
+              : o.reverse();
         }
         seek(e, t, r) {
           this.getSubOrNull(e, r)?.timeline.seek(t);
@@ -1755,11 +1833,12 @@ var vr = m((wt) => {
           for (let r of this.cleanupFns.get(e) ?? []) r();
           this.cleanupFns.delete(e),
             this.subs.delete(e),
-            this.dynamicFlags.delete(e);
+            this.dynamicFlags.delete(e),
+            this.flipEaseBySource.delete(e);
         }
         isDynamicTimeline(e, t) {
           let r = t.triggers.some(
-            ([, i]) => i?.controlType !== bt.TimelineControlType.LOAD
+            ([, i]) => i?.controlType !== Ct.TimelineControlType.LOAD
           );
           if (t.scope?.type === "component" && r) return !0;
           let o = e.actions;
@@ -1768,21 +1847,20 @@ var vr = m((wt) => {
             for (let s of i.targets ?? []) {
               if (this.getTargetResolver(s)?.isDynamic) return !0;
               if (s.length === 3 && s[2]) {
-                let c = s[2];
+                let l = s[2];
                 if (
-                  c.filterBy &&
-                  c.relationship !== "none" &&
-                  this.getTargetResolver(c.filterBy)?.isDynamic
+                  l.filterBy &&
+                  l.relationship !== "none" &&
+                  this.getTargetResolver(l.filterBy)?.isDynamic
                 )
                   return !0;
               }
             }
-            if (r)
-              for (let s in i.properties) {
-                let a = this.getHandler(s);
-                if (a?.createCustomTween && a.requiresTriggerElementContext)
+            if (r) {
+              for (let s in i.properties)
+                if (this.getHandler(s)?.requiresTriggerElementContext)
                   return !0;
-              }
+            }
           }
           return !1;
         }
@@ -1809,13 +1887,13 @@ var vr = m((wt) => {
         }
         convertToGsapDefaults(e, t) {
           let r = {},
-            o = t ? (0, L.buildEaseContextId)(t, "defaults") : void 0,
-            i = t ? (0, L.buildEaseContextId)(t, "defaults-stagger") : void 0;
+            o = t ? (0, D.buildEaseContextId)(t, "defaults") : void 0,
+            i = t ? (0, D.buildEaseContextId)(t, "defaults-stagger") : void 0;
           if (
-            (e.duration != null && (r.duration = (0, L.toSeconds)(e.duration)),
+            (e.duration != null && (r.duration = (0, D.toSeconds)(e.duration)),
             e.ease != null)
           ) {
-            let s = (0, Tt.convertEaseConfigToGSAP)(e.ease, void 0, o);
+            let s = (0, Et.convertEaseConfigToGSAP)(e.ease, void 0, o);
             s != null && (r.ease = s);
           }
           if (
@@ -1823,10 +1901,10 @@ var vr = m((wt) => {
               (r.delay =
                 typeof e.delay == "number"
                   ? e.delay
-                  : (0, L.toSeconds)(e.delay)),
+                  : (0, D.toSeconds)(e.delay)),
             e.repeat != null && (r.repeat = e.repeat),
             e.repeatDelay != null &&
-              (r.repeatDelay = (0, L.toSeconds)(e.repeatDelay)),
+              (r.repeatDelay = (0, D.toSeconds)(e.repeatDelay)),
             e.stagger != null)
           ) {
             let s = this.getStaggerConfig(e.stagger, i);
@@ -1840,38 +1918,44 @@ var vr = m((wt) => {
             s = o?.settings,
             a = this.env.win.gsap;
           if (!a) return;
-          let c = a.timeline({
+          let l = a.timeline({
               ...this.convertToGsapDefaults(s || {}, e),
               paused: !0,
               reversed: !!o?.playInReverse,
               data: { id: e, triggerEl: t || void 0 },
             }),
-            l = o
+            c = o
               ? { ...o, actions: i || [] }
               : { id: e, pageId: "", deleted: !1, actions: [] },
             u = {
-              timeline: c,
+              timeline: l,
               timelineId: e,
               elementContext: t,
-              timelineDef: l,
+              timelineDef: c,
               rebuildState: "init",
               controlTypes: r,
             };
           if (!i?.length) return u;
           if (this.env.win.SplitText) {
             let d = this.analyzeSplitRequirements(i, t, e);
-            for (let [f, { types: p, masks: h }] of d) {
-              let g = this.getSplitTypeString(p),
+            for (let [f, { types: g, masks: h }] of d) {
+              let p = this.getSplitTypeString(g),
                 y = this.getMaskString(h);
               this.doSplitText(
-                { type: g, mask: y },
+                { type: p, mask: y },
                 [f],
                 u,
                 this.env.win.SplitText
               );
             }
           }
-          return this.buildTimeline(u), u;
+          return this.buildTimeline(u), this.padTimelineToCanvas(u), u;
+        }
+        padTimelineToCanvas(e) {
+          let { canvasDuration: t } = e.timelineDef;
+          if (t == null) return;
+          let r = e.timeline;
+          r.duration() < t && r.to({}, { duration: 0 }, t);
         }
         buildTimeline(e) {
           let t = e.timelineDef,
@@ -1880,35 +1964,35 @@ var vr = m((wt) => {
             i = e.timelineId,
             s = new Map();
           for (let a = 0; a < t.actions.length; a++) {
-            let c = t.actions[a];
-            if (!c) continue;
-            let l = JSON.stringify(c.targets),
+            let l = t.actions[a];
+            if (!l) continue;
+            let c = JSON.stringify(l.targets),
               u = !0,
-              d = yr(c),
-              f = d === "none" ? l : `${l}_split_${d}`;
-            for (let g of Object.values(c.properties ?? {})) {
+              d = Cr(l),
+              f = d === "none" ? c : `${c}_split_${d}`;
+            for (let p of Object.values(l.properties ?? {})) {
               let y = s.get(f) || new Set();
               s.set(f, y);
-              for (let E of Object.keys(g || {}))
-                y.has(E) ? (u = !1) : y.add(E);
+              for (let T of Object.keys(p || {}))
+                y.has(T) ? (u = !1) : y.add(T);
             }
-            let p = this.collectTargets(c, r, i);
-            if (!p.length) {
-              let g = !1;
-              for (let y in c.properties)
+            let g = this.collectTargets(l, r, i);
+            if (!g.length) {
+              let p = !1;
+              for (let y in l.properties)
                 if (this.getHandler(y)?.createCustomTween) {
-                  g = !0;
+                  p = !0;
                   break;
                 }
-              if (!g) continue;
+              if (!p) continue;
             }
-            let h = p;
+            let h = g;
             (d !== "none" &&
-              p.length > 0 &&
+              g.length > 0 &&
               this.env.win.SplitText &&
-              ((h = this.getSplitElements(p, d)), h.length === 0)) ||
+              ((h = this.getSplitElements(g, d)), h.length === 0)) ||
               this.buildTweensForAction(
-                c,
+                l,
                 h,
                 o,
                 i,
@@ -1930,96 +2014,105 @@ var vr = m((wt) => {
           }
           return o;
         }
-        buildTweensForAction(e, t, r, o, i, s, a, c, l, u) {
-          let d = this.shouldFlipEaseForTimeline(o);
-          for (let f in e.properties) {
-            let p = f,
-              h = this.getHandler(p);
-            if (!h) continue;
-            let g = e.properties[p] || {};
+        buildTweensForAction(e, t, r, o, i, s, a, l, c, u) {
+          let d = this.shouldFlipEaseForTimeline(o),
+            f = c?.timelineDef.canvasDuration != null;
+          for (let g in e.properties) {
+            let h = g,
+              p = this.getHandler(h);
+            if (!p) continue;
+            let y = e.properties[h] || {};
             try {
-              let y = e.timing?.position;
-              y =
-                typeof y == "string" && y.endsWith("ms")
-                  ? (0, L.toSeconds)(y)
-                  : y ?? 0;
-              let E = e.timing?.duration ?? bt.DEFAULTS.DURATION,
-                M = this.getStaggerConfig(
+              let T = e.timing?.position;
+              T =
+                typeof T == "string" && T.endsWith("ms")
+                  ? (0, D.toSeconds)(T)
+                  : T ?? 0;
+              let A = e.timing?.duration ?? Ct.DEFAULTS.DURATION,
+                C = this.getStaggerConfig(
                   e.timing?.stagger,
-                  (0, L.buildEaseContextId)(e.id, "stagger")
+                  (0, D.buildEaseContextId)(e.id, "stagger")
                 );
-              M && E === 0 && (E = 0.001);
-              let S = { id: e.id, presetId: e.presetId, color: e.color },
-                C = {
+              C && A === 0 && (A = 0.001);
+              let M = { id: e.id, presetId: e.presetId, color: e.color },
+                b = {
                   force3D: !0,
                   ...(!i && { immediateRender: i }),
-                  data: S,
-                  ...(e.tt !== 3 && { duration: (0, L.toSeconds)(E) }),
-                  ...(e.timing?.repeat != null && { repeat: e.timing.repeat }),
+                  data: M,
+                  ...(e.tt !== 3 && { duration: (0, D.toSeconds)(A) }),
+                  ...(e.timing?.repeat != null && {
+                    repeat: f && e.timing.repeat < 0 ? 0 : e.timing.repeat,
+                  }),
                   ...(e.timing?.repeatDelay != null && {
-                    repeatDelay: (0, L.toSeconds)(e.timing.repeatDelay),
+                    repeatDelay: (0, D.toSeconds)(e.timing.repeatDelay),
                   }),
                   ...(e.timing?.yoyo != null && { yoyo: e.timing.yoyo }),
-                  ...(M && { stagger: M }),
+                  ...(C && { stagger: C }),
                 };
               if (e.timing?.ease != null) {
-                let v = (0, Tt.convertEaseConfigToGSAP)(
+                let v = (0, Et.convertEaseConfigToGSAP)(
                   e.timing.ease,
                   void 0,
-                  (0, L.buildEaseContextId)(e.id, "timing")
+                  (0, D.buildEaseContextId)(e.id, "timing")
                 );
-                v != null && (C.ease = v);
+                v != null && (b.ease = v);
               }
-              if ((d && (C.easeReverse = !0), h.createTweenConfig)) {
-                let v = h.createTweenConfig(g, t);
-                s?.(p, e, v);
-                let T = Object.keys(v.from || {}).length > 0,
-                  w = Object.keys(v.to || {}).length > 0,
-                  _ = e.tt ?? 0;
-                if (_ === 0 && !w) continue;
-                if (_ === 1 && !T) continue;
-                if (_ === 2 && !T && !w) continue;
-                if (_ === 3 && !w) continue;
-                _ === 1
-                  ? r.from(t, { ...C, ...v.from }, y)
-                  : _ === 2
-                  ? r.fromTo(t, { ...v.from }, { ...C, ...v.to }, y)
-                  : _ === 3
-                  ? r.set(t, { ...C, ...v.to }, y)
-                  : r.to(t, { ...C, ...v.to }, y);
-              } else if (h.createCustomTween) {
-                let v = h.createCustomTween(r, e, g, C, t, y || 0, {
+              if ((d && (b.easeReverse = !0), p.createTweenConfig)) {
+                let v = p.createTweenConfig(y, t);
+                s?.(h, e, v),
+                  v.modifiers &&
+                    (b.modifiers = { ...b.modifiers, ...v.modifiers }),
+                  c &&
+                    !c.hasVolatileValues &&
+                    ys(v) &&
+                    (c.hasVolatileValues = !0);
+                let w = Object.keys(v.from || {}).length > 0,
+                  I = Object.keys(v.to || {}).length > 0,
+                  E = e.tt ?? 0;
+                if (E === 0 && !I) continue;
+                if (E === 1 && !w) continue;
+                if (E === 2 && !w && !I) continue;
+                if (E === 3 && !I) continue;
+                E === 1
+                  ? r.from(t, { ...b, ...v.from }, T)
+                  : E === 2
+                  ? r.fromTo(t, { ...v.from }, { ...b, ...v.to }, T)
+                  : E === 3
+                  ? r.set(t, { ...b, ...v.to }, T)
+                  : r.to(t, { ...b, ...v.to }, T);
+              } else if (p.createCustomTween) {
+                let v = p.createCustomTween(r, e, y, b, t, T || 0, {
                   triggerElement: a ?? null,
-                  timelineRole: c,
-                  subscribeChannel: (T, w) =>
-                    this.subscribeChannel(o, T, a ?? null, w),
+                  timelineRole: l,
+                  subscribeChannel: (w, I) =>
+                    this.subscribeChannel(o, w, a ?? null, I),
                   animation: this.animation,
                 });
                 if (v)
                   if (u != null) u.add(v);
-                  else if (l != null) {
-                    let T = l.cleanupFns ?? new Set();
-                    (l.cleanupFns = T), T.add(v);
+                  else if (c != null) {
+                    let w = c.cleanupFns ?? new Set();
+                    (c.cleanupFns = w), w.add(v);
                   } else {
-                    let T = this.cleanupFns.get(o) ?? new Set();
-                    this.cleanupFns.set(o, T), T.add(v);
+                    let w = this.cleanupFns.get(o) ?? new Set();
+                    this.cleanupFns.set(o, w), w.add(v);
                   }
               }
-            } catch (y) {
-              console.error("Error building tween:", y);
+            } catch (T) {
+              console.error("Error building tween:", T);
             }
           }
         }
         analyzeSplitRequirements(e, t, r) {
           let o = new Map();
           for (let i of e) {
-            let s = yr(i);
+            let s = Cr(i);
             if (s === "none") continue;
             let a = typeof i.splitText == "object" ? i.splitText.mask : void 0;
-            for (let c of this.collectTargets(i, t, r)) {
-              if (c === document.body) continue;
-              let l = o.get(c) || { types: new Set(), masks: new Set() };
-              o.set(c, l), l.types.add(s), a && l.masks.add(a);
+            for (let l of this.collectTargets(i, t, r)) {
+              if (l === document.body) continue;
+              let c = o.get(l) || { types: new Set(), masks: new Set() };
+              o.set(l, c), c.types.add(s), a && c.masks.add(a);
             }
           }
           return o;
@@ -2039,12 +2132,12 @@ var vr = m((wt) => {
         }
         doSplitText(e, t, r, o) {
           try {
-            let i = Fe(e.type);
+            let i = Le(e.type);
             for (let s of t) {
               let a = this.globalSplitRegistry.get(s);
               if (a) {
-                let d = new Set(Fe(a.splitTextConfig.type));
-                if (i.every((p) => d.has(p))) continue;
+                let d = new Set(Le(a.splitTextConfig.type));
+                if (i.every((g) => d.has(g))) continue;
                 a.splitInstance.revert(),
                   this.globalSplitRegistry.delete(s),
                   (e = {
@@ -2052,23 +2145,23 @@ var vr = m((wt) => {
                     mask: e.mask || a.splitTextConfig.mask,
                   });
               }
-              let c = { type: e.type },
-                l = Fe(e.type);
-              l.includes("lines") &&
+              let l = { type: e.type },
+                c = Le(e.type);
+              c.includes("lines") &&
                 ((r.timeline.data.splitLines = !0),
-                (c.linesClass = (0, L.defaultSplitClass)("line")),
-                (c.autoSplit = !0),
-                (c.onSplit = () => {
+                (l.linesClass = (0, D.defaultSplitClass)("line")),
+                (l.autoSplit = !0),
+                (l.onSplit = () => {
                   r.rebuildState !== "init"
                     ? this.scheduleRebuildForElement(s)
                     : (r.rebuildState = "idle");
                 })),
-                l.includes("words") &&
-                  (c.wordsClass = (0, L.defaultSplitClass)("word")),
-                l.includes("chars") &&
-                  (c.charsClass = (0, L.defaultSplitClass)("letter")),
-                e.mask && (c.mask = e.mask);
-              let u = new o([s], c);
+                c.includes("words") &&
+                  (l.wordsClass = (0, D.defaultSplitClass)("word")),
+                c.includes("chars") &&
+                  (l.charsClass = (0, D.defaultSplitClass)("letter")),
+                e.mask && (l.mask = e.mask);
+              let u = new o([s], l);
               this.globalSplitRegistry.set(s, {
                 splitInstance: u,
                 splitTextConfig: e,
@@ -2093,13 +2186,14 @@ var vr = m((wt) => {
         }
         rebuildTimelineOnTheFly(e) {
           let t = e.timeline.progress(),
-            r = e.controlTypes?.has(bt.TimelineControlType.LOAD) && t !== 1,
+            r = e.controlTypes?.has(Ct.TimelineControlType.LOAD) && t !== 1,
             o = e.timeline.isActive() || r;
           e.timeline.pause(), e.timeline.revert(), e.timeline.clear();
           for (let i of e.cleanupFns ?? []) i();
           if (
             (e.cleanupFns?.clear(),
             this.buildTimeline(e),
+            this.padTimelineToCanvas(e),
             e.timeline.progress(t),
             e.scrollTriggerIds && e.scrollTriggerConfigs)
           )
@@ -2107,10 +2201,10 @@ var vr = m((wt) => {
               let s = this.scrollTriggers.get(i),
                 a = e.scrollTriggerConfigs.get(i);
               if (s && a) {
-                let c = { ...a, animation: e.timeline };
+                let l = { ...a, animation: e.timeline };
                 if ((s.kill(), this.env.win.ScrollTrigger)) {
-                  let l = this.env.win.ScrollTrigger.create(c);
-                  this.scrollTriggers.set(i, l);
+                  let c = this.env.win.ScrollTrigger.create(l);
+                  this.scrollTriggers.set(i, c);
                 }
               }
             }
@@ -2124,7 +2218,7 @@ var vr = m((wt) => {
           let r = [];
           for (let o of e) {
             let i = this.globalSplitRegistry.get(o);
-            if (i && Fe(i.splitTextConfig.type).includes(t)) {
+            if (i && Le(i.splitTextConfig.type).includes(t)) {
               let a = i.splitInstance[t];
               a?.length && r.push(...a);
             }
@@ -2145,17 +2239,24 @@ var vr = m((wt) => {
             console.warn(`Timeline ${e} not found`);
             return;
           }
-          let a = cs(r, o, i, s, this.resolveFn);
+          let a = ws(
+            r,
+            o,
+            i,
+            s,
+            this.resolveFn,
+            this.getSubOrNull(e, o)?.hasVolatileValues ?? !1
+          );
           try {
-            let c = this.env.win.ScrollTrigger.create(a);
-            this.scrollTriggers.set(i, c);
-            let l = this.getSub(e, o);
-            l.scrollTriggerIds || (l.scrollTriggerIds = new Set()),
-              l.scrollTriggerConfigs || (l.scrollTriggerConfigs = new Map()),
-              l.scrollTriggerIds.add(i),
-              l.scrollTriggerConfigs.set(i, a);
-          } catch (c) {
-            console.error("Failed to create ScrollTrigger:", c);
+            let l = this.env.win.ScrollTrigger.create(a);
+            this.scrollTriggers.set(i, l);
+            let c = this.getSub(e, o);
+            c.scrollTriggerIds || (c.scrollTriggerIds = new Set()),
+              c.scrollTriggerConfigs || (c.scrollTriggerConfigs = new Map()),
+              c.scrollTriggerIds.add(i),
+              c.scrollTriggerConfigs.set(i, a);
+          } catch (l) {
+            console.error("Failed to create ScrollTrigger:", l);
           }
         }
         cleanupScrollTrigger(e) {
@@ -2184,9 +2285,9 @@ var vr = m((wt) => {
               this.getTimelineTargets(r).has(e) && this.scheduleRebuild(r);
         }
       }),
-      fe(oe, "MAX_ALIAS_DEPTH", 10),
-      oe);
-  function ss(n, e, t) {
+      pe(se, "MAX_ALIAS_DEPTH", 10),
+      se);
+  function bs(n, e, t) {
     let r = {},
       o = (i) =>
         i && (i.parentElement === document.body || i === document.body);
@@ -2206,97 +2307,97 @@ var vr = m((wt) => {
     }
     return r;
   }
-  function as(n, e) {
-    let [t, r, o, i] = n,
-      s = (c) => () => {
+  function Ts(n, e, t = !1) {
+    let [r, o, i, s] = n,
+      a = (c) => () => {
         if (c !== void 0)
           switch (c) {
             case "play":
-              e.play();
+              t && e.progress() === 0 && e.invalidate(), e.play();
               break;
             case "pause":
               e.pause();
               break;
             case "resume":
-              e.resume();
+              t && e.progress() === 0 && e.invalidate(), e.resume();
               break;
             case "reverse":
               e.reverse();
               break;
             case "restart":
-              e.restart();
+              t && e.invalidate(), e.restart();
               break;
             case "reset":
               e.pause(0);
               break;
             case "complete":
-              e.progress(1);
+              t && e.progress() === 0 && e.invalidate(), e.progress(1);
               break;
             case "none":
               break;
             default: {
-              let l = c;
+              let u = c;
               break;
             }
           }
       },
-      a = {};
+      l = {};
     return (
-      t !== "none" && (a.onEnter = s(t)),
-      r !== "none" && (a.onLeave = s(r)),
-      o !== "none" && (a.onEnterBack = s(o)),
-      i !== "none" && (a.onLeaveBack = s(i)),
-      a
+      r !== "none" && (l.onEnter = a(r)),
+      o !== "none" && (l.onLeave = a(o)),
+      i !== "none" && (l.onEnterBack = a(i)),
+      s !== "none" && (l.onLeaveBack = a(s)),
+      l
     );
   }
-  function cs(n, e, t, r, o) {
-    let i = ss(n, e, o),
-      s = [
+  function ws(n, e, t, r, o, i = !1) {
+    let s = bs(n, e, o),
+      a = [
         n.enter || "none",
         n.leave || "none",
         n.enterBack || "none",
         n.leaveBack || "none",
       ],
-      a = {
+      l = {
         trigger: e,
         markers: n.showMarkers ?? !1,
         start: n.clamp ? `clamp(${n.start})` : n.start || "top bottom",
         end: n.clamp ? `clamp(${n.end})` : n.end || "bottom top",
         scrub: n.scrub ?? !1,
         horizontal: n.horizontal || !1,
-        toggleActions: s.join(" "),
+        toggleActions: a.join(" "),
         id: t,
-        ...i,
+        ...s,
       };
-    if (a.scrub !== !1) a.animation = r;
+    if (l.scrub !== !1) l.animation = r;
     else {
-      let c = as(s, r);
-      Object.assign(a, c);
+      let c = Ts(a, r, i);
+      Object.assign(l, c);
     }
-    return a;
+    return l;
   }
-  function yr(n) {
+  function Cr(n) {
     return n.splitText
       ? typeof n.splitText == "string"
         ? n.splitText
         : n.splitText.type
       : "none";
   }
-  function Fe(n) {
+  function Le(n) {
     return n.split(", ");
   }
 });
-var br = m((Ct) => {
+var Mr = m((At) => {
   "use strict";
-  Object.defineProperty(Ct, "__esModule", { value: !0 });
-  Object.defineProperty(Ct, "ConditionEvaluator", {
+  Object.defineProperty(At, "__esModule", { value: !0 });
+  Object.defineProperty(At, "ConditionEvaluator", {
     enumerable: !0,
     get: function () {
-      return ls;
+      return Ss;
     },
   });
-  var ge = X(),
-    ls = class {
+  var he = Z(),
+    Ss = class {
       getConditionEvaluator;
       sharedObservers = new Map();
       conditionCache = new Map();
@@ -2306,9 +2407,9 @@ var br = m((Ct) => {
       }
       evaluateConditionsForTrigger = async (e, t) => {
         if (!e?.length) return !0;
-        let r = e.some(([o]) => o === ge.CORE_OPERATORS.OR);
+        let r = e.some(([o]) => o === he.CORE_OPERATORS.OR);
         return this.evaluateCondition(
-          [r ? ge.CORE_OPERATORS.OR : ge.CORE_OPERATORS.AND, { conditions: e }],
+          [r ? he.CORE_OPERATORS.OR : he.CORE_OPERATORS.AND, { conditions: e }],
           t
         );
       };
@@ -2346,7 +2447,7 @@ var br = m((Ct) => {
       };
       getEvaluator = (e) => {
         let [t] = e;
-        return t === ge.CORE_OPERATORS.AND || t === ge.CORE_OPERATORS.OR
+        return t === he.CORE_OPERATORS.AND || t === he.CORE_OPERATORS.OR
           ? this.getLogicalEvaluator(t)
           : this.getConditionEvaluator(e);
       };
@@ -2356,13 +2457,13 @@ var br = m((Ct) => {
             { conditions: s } = o || {};
           if (!Array.isArray(s)) return !1;
           if (!s.length) return !0;
-          let a = e === ge.CORE_OPERATORS.OR,
-            c = i === 1;
-          for (let l of s) {
-            let u = await this.evaluateCondition(l, r);
-            if (a ? u : !u) return a ? !c : !!c;
+          let a = e === he.CORE_OPERATORS.OR,
+            l = i === 1;
+          for (let c of s) {
+            let u = await this.evaluateCondition(c, r);
+            if (a ? u : !u) return a ? !l : !!l;
           }
-          return a ? !!c : !c;
+          return a ? !!l : !l;
         },
         observe: (t, r) => {
           let [, o] = t,
@@ -2397,8 +2498,8 @@ var br = m((Ct) => {
         let [r, o, i] = e,
           s = o ? JSON.stringify(o) : "",
           a = i ? ":negate" : "",
-          c = t ? `:ctx:${t.id}` : "";
-        return `${r}:${s}${a}${c}`;
+          l = t ? `:ctx:${t.id}` : "";
+        return `${r}:${s}${a}${l}`;
       };
       invalidateConditionCache = (e) => {
         let [t] = e,
@@ -2421,14 +2522,14 @@ var br = m((Ct) => {
           let s = new Set(),
             a = i.observe(e, async () => {
               this.invalidateConditionCache(e);
-              let c = Array.from(s, async (l) => {
+              let l = Array.from(s, async (c) => {
                 try {
-                  await l();
+                  await c();
                 } catch (u) {
                   console.error("Error in shared observer callback:", u);
                 }
               });
-              await Promise.allSettled(c);
+              await Promise.allSettled(l);
             });
           if (!a) return () => {};
           (o = { cleanup: a, refCount: 0, callbacks: s }),
@@ -2457,17 +2558,17 @@ var br = m((Ct) => {
       };
     };
 });
-var Tr = m((St) => {
+var Ar = m((Ot) => {
   "use strict";
-  Object.defineProperty(St, "__esModule", { value: !0 });
-  Object.defineProperty(St, "ConditionalPlaybackManager", {
+  Object.defineProperty(Ot, "__esModule", { value: !0 });
+  Object.defineProperty(Ot, "ConditionalPlaybackManager", {
     enumerable: !0,
     get: function () {
-      return ds;
+      return Es;
     },
   });
-  var us = X(),
-    ds = class {
+  var Cs = Z(),
+    Es = class {
       matchMediaInstances = new Map();
       setupConditionalContext = (e, t, r) => {
         let { conditionalPlayback: o, triggers: i, id: s } = e;
@@ -2482,13 +2583,13 @@ var Tr = m((St) => {
           return;
         }
         this.matchMediaInstances.set(s, a);
-        let c = !0,
-          l = i.some(
-            ([, { controlType: u }]) => u === us.TimelineControlType.LOAD
+        let l = !0,
+          c = i.some(
+            ([, { controlType: u }]) => u === Cs.TimelineControlType.LOAD
           );
         a.add(this.buildConditionsObject(o), (u) => {
-          if (l && !c) return !1;
-          c = !1;
+          if (c && !l) return !1;
+          l = !1;
           let d = this.evaluateConditions(u.conditions || {}, o);
           return (!d || d.behavior === "skip-to-end") && t(d), r;
         });
@@ -2511,7 +2612,7 @@ var Tr = m((St) => {
             }
             case "breakpoint": {
               (r.breakpoints || []).forEach((i) => {
-                let s = fs[i];
+                let s = Ms[i];
                 s && (t[`breakpoint_${i}`] = s);
               });
               break;
@@ -2528,7 +2629,7 @@ var Tr = m((St) => {
             e.prefersReduced &&
             r.push({ condition: s, type: "prefers-reduced-motion" }),
             s.type === "breakpoint" &&
-              (s.breakpoints || []).some((l) => e[`breakpoint_${l}`]) &&
+              (s.breakpoints || []).some((c) => e[`breakpoint_${c}`]) &&
               r.push({ condition: s, type: "breakpoint" });
         if (r.length === 0) return null;
         let o = r.find(({ condition: s }) => s.behavior === "dont-animate");
@@ -2550,23 +2651,23 @@ var Tr = m((St) => {
         };
       }
     },
-    fs = {
+    Ms = {
       tiny: "(max-width: 479px) and (min-width: 0px)",
       small: "(max-width: 767px) and (min-width: 480px)",
       medium: "(max-width: 991px) and (min-width: 768px)",
       main: "(min-width: 992px)",
     };
 });
-var Cr = m((Et) => {
+var _r = m((_t) => {
   "use strict";
-  Object.defineProperty(Et, "__esModule", { value: !0 });
-  Object.defineProperty(Et, "PluginRegistry", {
+  Object.defineProperty(_t, "__esModule", { value: !0 });
+  Object.defineProperty(_t, "PluginRegistry", {
     enumerable: !0,
     get: function () {
-      return ps;
+      return As;
     },
   });
-  var ps = class {
+  var As = class {
     plugins = new Map();
     extensionsByPoint = new Map();
     activePlugins = new Set();
@@ -2577,7 +2678,7 @@ var Cr = m((Et) => {
       );
     }
     async registerPlugin(e) {
-      let t = wr(e.manifest.id);
+      let t = Or(e.manifest.id);
       if (this.plugins.has(t))
         throw new Error(`Plugin ${t} is already registered`);
       let r = Object.entries(e.manifest.dependencies ?? {});
@@ -2614,7 +2715,7 @@ var Cr = m((Et) => {
       t.deactivate && (await t.deactivate()), this.activePlugins.delete(e);
     }
     async unregisterPlugin(e, t) {
-      let r = wr([e, t]),
+      let r = Or([e, t]),
         o = this.plugins.get(r);
       if (o) {
         this.activePlugins.has(r) && (await this.deactivatePlugin(r));
@@ -2652,20 +2753,20 @@ var Cr = m((Et) => {
       return this.plugins.values();
     }
   };
-  function wr(n) {
+  function Or(n) {
     return `${n[0]}:${n[1]}`;
   }
 });
-var Se = m((Mt) => {
+var Ee = m((It) => {
   "use strict";
-  Object.defineProperty(Mt, "__esModule", { value: !0 });
-  Object.defineProperty(Mt, "BaseTriggerStrategy", {
+  Object.defineProperty(It, "__esModule", { value: !0 });
+  Object.defineProperty(It, "BaseTriggerStrategy", {
     enumerable: !0,
     get: function () {
-      return gs;
+      return Os;
     },
   });
-  var gs = class {
+  var Os = class {
     runTrigger;
     runTimelineAction;
     skipToEndState;
@@ -2676,22 +2777,22 @@ var Se = m((Mt) => {
     }
   };
 });
-var Sr = m((At) => {
+var Ir = m((Rt) => {
   "use strict";
-  Object.defineProperty(At, "__esModule", { value: !0 });
-  Object.defineProperty(At, "StandardTriggerStrategy", {
+  Object.defineProperty(Rt, "__esModule", { value: !0 });
+  Object.defineProperty(Rt, "StandardTriggerStrategy", {
     enumerable: !0,
     get: function () {
-      return ys;
+      return Rs;
     },
   });
-  var hs = Se();
-  function ms(n) {
+  var _s = Ee();
+  function Is(n) {
     if (!n || typeof n != "object") return !1;
     let e = n;
     return e.type === "timeline-role" && typeof e.role == "string";
   }
-  var ys = class extends hs.BaseTriggerStrategy {
+  var Rs = class extends _s.BaseTriggerStrategy {
     getTimelineIdsForRole;
     constructor(e, t, r, o) {
       super(e, t, r), (this.getTimelineIdsForRole = o);
@@ -2702,47 +2803,57 @@ var Sr = m((At) => {
           elements: i,
           triggerHandler: s,
           eventManager: a,
-          conditionalContext: c,
-          cleanupMap: l,
+          conditionalContext: l,
+          cleanupMap: c,
           delay: u,
         } = r,
         d = e[1],
         f = d.assignedTimelineRole;
-      for (let p of i) {
-        if (!p) continue;
-        let h = l.get(p);
-        h || ((h = new Set()), l.set(p, h));
-        let g = s(e, p, a, (y) => {
-          let E = ms(y) ? y.role : f,
-            M = E ? this.getTimelineIdsForRole(t, E) : void 0;
-          if (M?.length === 0) return;
-          if (c !== null) {
-            c.behavior === "skip-to-end" && this.skipToEndState(t, null, d, M);
-            return;
-          }
-          let S = () => {
-            this.runTrigger(e, p, o, M).catch((C) =>
-              console.error("Error in trigger execution:", C)
-            );
-          };
-          d.conditionalLogic || !u ? S() : setTimeout(S, u * 1e3);
-        });
-        g && h.add(g);
+      for (let g of i) {
+        if (!g) continue;
+        let h = c.get(g);
+        h || ((h = new Set()), c.set(g, h));
+        let p = null,
+          y = s(e, g, a, (T) => {
+            let A = Is(T) ? T.role : f,
+              C = A ? this.getTimelineIdsForRole(t, A) : void 0;
+            if (C?.length === 0) return;
+            if (l !== null) {
+              l.behavior === "skip-to-end" &&
+                this.skipToEndState(t, null, d, C);
+              return;
+            }
+            let M = () => {
+              this.runTrigger(e, g, o, C).catch((b) =>
+                console.error("Error in trigger execution:", b)
+              );
+            };
+            d.conditionalLogic || !u
+              ? M()
+              : p == null &&
+                (p = setTimeout(() => {
+                  (p = null), M();
+                }, u * 1e3));
+          });
+        y && h.add(y),
+          h.add(() => {
+            p != null && (clearTimeout(p), (p = null));
+          });
       }
     }
   };
 });
-var Er = m((Ot) => {
+var Rr = m((Pt) => {
   "use strict";
-  Object.defineProperty(Ot, "__esModule", { value: !0 });
-  Object.defineProperty(Ot, "LoadTriggerStrategy", {
+  Object.defineProperty(Pt, "__esModule", { value: !0 });
+  Object.defineProperty(Pt, "LoadTriggerStrategy", {
     enumerable: !0,
     get: function () {
-      return bs;
+      return xs;
     },
   });
-  var vs = Se(),
-    bs = class extends vs.BaseTriggerStrategy {
+  var Ps = Ee(),
+    xs = class extends Ps.BaseTriggerStrategy {
       loadInteractions;
       getTimeline;
       constructor(e, t, r, o, i) {
@@ -2758,14 +2869,14 @@ var Er = m((Ot) => {
             return;
           }
           let a = () => {
-            for (let c of t.timelineIds ?? []) {
-              let l = this.getTimeline(c, null);
-              l &&
-                (l.data.splitLines
+            for (let l of t.timelineIds ?? []) {
+              let c = this.getTimeline(l, null);
+              c &&
+                (c.data.splitLines
                   ? document.fonts.ready.then(() => {
-                      this.runTimelineAction(c, s, null);
+                      this.runTimelineAction(l, s, null);
                     })
-                  : this.runTimelineAction(c, s, null));
+                  : this.runTimelineAction(l, s, null));
             }
           };
           i ? setTimeout(a, i * 1e3) : a();
@@ -2773,17 +2884,17 @@ var Er = m((Ot) => {
       }
     };
 });
-var Mr = m((_t) => {
+var Pr = m((xt) => {
   "use strict";
-  Object.defineProperty(_t, "__esModule", { value: !0 });
-  Object.defineProperty(_t, "ScrollTriggerStrategy", {
+  Object.defineProperty(xt, "__esModule", { value: !0 });
+  Object.defineProperty(xt, "ScrollTriggerStrategy", {
     enumerable: !0,
     get: function () {
-      return ws;
+      return Ns;
     },
   });
-  var Ts = Se(),
-    ws = class extends Ts.BaseTriggerStrategy {
+  var ks = Ee(),
+    Ns = class extends ks.BaseTriggerStrategy {
       setupScrollControl;
       constructor(e, t, r, o) {
         super(e, t, r), (this.setupScrollControl = o);
@@ -2792,29 +2903,29 @@ var Mr = m((_t) => {
         let { interactionId: o, elements: i, conditionalContext: s } = r,
           a = e[1].scrollTriggerConfig;
         if (a) {
-          for (let c of i)
-            if (c) {
+          for (let l of i)
+            if (l) {
               if (s !== null) {
-                s.behavior === "skip-to-end" && this.skipToEndState(t, c);
+                s.behavior === "skip-to-end" && this.skipToEndState(t, l);
                 continue;
               }
-              for (let l of t.timelineIds ?? [])
-                this.setupScrollControl(l, o, a, c);
+              for (let c of t.timelineIds ?? [])
+                this.setupScrollControl(c, o, a, l);
             }
         }
       }
     };
 });
-var Ar = m((It) => {
+var xr = m((kt) => {
   "use strict";
-  Object.defineProperty(It, "__esModule", { value: !0 });
-  Object.defineProperty(It, "ContinuousChannelManager", {
+  Object.defineProperty(kt, "__esModule", { value: !0 });
+  Object.defineProperty(kt, "ContinuousChannelManager", {
     enumerable: !0,
     get: function () {
-      return Cs;
+      return Fs;
     },
   });
-  var Cs = class {
+  var Fs = class {
       coordinator;
       resolveRole;
       channels;
@@ -2837,7 +2948,7 @@ var Ar = m((It) => {
             ),
             null
           );
-        let r = new Es(
+        let r = new Ds(
           {
             timelineId: t,
             initialValue: e.initialValue,
@@ -2873,8 +2984,8 @@ var Ar = m((It) => {
         this.channels.clear();
       }
     },
-    Ss = "power2.out",
-    Es = class {
+    Ls = "power2.out",
+    Ds = class {
       coordinator;
       proxy;
       setter;
@@ -2892,7 +3003,7 @@ var Ar = m((It) => {
           r > 0
             ? e.animation.quickTo(this.proxy, "p", {
                 duration: r,
-                ease: Ss,
+                ease: Ls,
                 onUpdate: () => this.updateTimeline(this.proxy.p),
               })
             : null),
@@ -2921,21 +3032,21 @@ var Ar = m((It) => {
       }
     };
 });
-var Or = m((Rt) => {
+var kr = m((Nt) => {
   "use strict";
-  Object.defineProperty(Rt, "__esModule", { value: !0 });
-  Object.defineProperty(Rt, "ContinuousTriggerStrategy", {
+  Object.defineProperty(Nt, "__esModule", { value: !0 });
+  Object.defineProperty(Nt, "ContinuousTriggerStrategy", {
     enumerable: !0,
     get: function () {
-      return _s;
+      return Us;
     },
   });
-  var Ms = Se(),
-    As = Ar();
-  function Os(n) {
+  var Bs = Ee(),
+    js = xr();
+  function Vs(n) {
     return n != null && "type" in n && n.type === "continuous";
   }
-  var _s = class extends Ms.BaseTriggerStrategy {
+  var Us = class extends Bs.BaseTriggerStrategy {
     continuousCleanups;
     triggerCleanupFunctions;
     coordinator;
@@ -2954,59 +3065,59 @@ var Or = m((Rt) => {
         triggerHandler: s,
         conditionalContext: a,
       } = r;
-      for (let c of i) {
-        if (!c) continue;
+      for (let l of i) {
+        if (!l) continue;
         if (a !== null) {
-          a.behavior === "skip-to-end" && this.skipToEndState(t, c);
+          a.behavior === "skip-to-end" && this.skipToEndState(t, l);
           continue;
         }
-        let l = (f) => this.getTimelineIdForRole(t, f),
-          u = new As.ContinuousChannelManager(this.coordinator, l),
-          d = s(e, c, r.eventManager, (f) => {
-            if (Os(f)) {
-              let p = f.setup(u),
+        let c = (f) => this.getTimelineIdForRole(t, f),
+          u = new js.ContinuousChannelManager(this.coordinator, c),
+          d = s(e, l, r.eventManager, (f) => {
+            if (Vs(f)) {
+              let g = f.setup(u),
                 h = this.continuousCleanups.get(o);
               h || ((h = new Map()), this.continuousCleanups.set(o, h)),
-                h.set(c, () => {
-                  p(), u.cleanup();
+                h.set(l, () => {
+                  g(), u.cleanup();
                 });
             }
           });
         if (d) {
           let f = this.triggerCleanupFunctions.get(o);
           f || ((f = new Map()), this.triggerCleanupFunctions.set(o, f));
-          let p = f.get(c);
-          p || ((p = new Set()), f.set(c, p)), p.add(d);
+          let g = f.get(l);
+          g || ((g = new Set()), f.set(l, g)), g.add(d);
         }
       }
     }
   };
 });
-var Ir = m((xt) => {
+var Fr = m((Ft) => {
   "use strict";
-  Object.defineProperty(xt, "__esModule", { value: !0 });
-  Object.defineProperty(xt, "IX3", {
+  Object.defineProperty(Ft, "__esModule", { value: !0 });
+  Object.defineProperty(Ft, "IX3", {
     enumerable: !0,
     get: function () {
-      return js;
+      return Ks;
     },
   });
-  var Ee = X(),
-    Is = fr(),
-    Rs = vr(),
-    xs = br(),
-    Ps = Tr(),
-    ks = Cr(),
-    z = pe(),
-    Ns = Sr(),
-    Fs = Er(),
-    Ls = Mr(),
-    Ds = Or(),
-    Bs = 200,
-    _r = 210,
-    he,
-    js =
-      ((he = class {
+  var Me = Z(),
+    qs = vr(),
+    $s = Er(),
+    Hs = Mr(),
+    Gs = Ar(),
+    zs = _r(),
+    W = ge(),
+    Ws = Ir(),
+    Ys = Rr(),
+    Xs = Pr(),
+    Zs = kr(),
+    Qs = 200,
+    Nr = 210,
+    me,
+    Ks =
+      ((me = class {
         env;
         pluginReg;
         timelineDefs;
@@ -3036,7 +3147,7 @@ var Ir = m((xt) => {
         conditionEval;
         constructor(e) {
           (this.env = e),
-            (this.pluginReg = new ks.PluginRegistry()),
+            (this.pluginReg = new zs.PluginRegistry()),
             (this.timelineDefs = new Map()),
             (this.interactions = new Map()),
             (this.triggeredElements = new Map()),
@@ -3045,9 +3156,9 @@ var Ir = m((xt) => {
             (this.windowSize = { w: 0, h: 0 }),
             (this.prevWindowSize = { w: 0, h: 0 }),
             (this.windowResizeSubscribers = new Set()),
-            (this.debouncedWindowResize = (0, z.debounce)(() => {
+            (this.debouncedWindowResize = (0, W.debounce)(() => {
               for (let t of this.windowResizeSubscribers) t();
-            }, Bs)),
+            }, Qs)),
             (this.bodyResizeObserver = null),
             (this.triggerObservers = new Map()),
             (this.timelineRefCounts = new Map()),
@@ -3057,7 +3168,7 @@ var Ir = m((xt) => {
             (this.pendingReactiveUpdates = new Map()),
             (this.reactiveExecutionContext = new Set()),
             (this.componentScopeSelectors = new Map()),
-            (this.eventMgr = Is.EventManager.getInstance()),
+            (this.eventMgr = qs.EventManager.getInstance()),
             (this.loadInteractions = []),
             (this.addEventListener = this.eventMgr.addEventListener.bind(
               this.eventMgr
@@ -3069,12 +3180,12 @@ var Ir = m((xt) => {
                   ? this.getComponentScopeSelector(i.componentId)
                   : null,
                 a = i?.variants?.length ? i.variants : null,
-                c = this.resolveTargetsImpl(t, r, o, s),
-                l =
+                l = this.resolveTargetsImpl(t, r, o, s),
+                c =
                   s && r.triggerElement
-                    ? this.filterByInstance(c, s, r.triggerElement)
-                    : c;
-              return a && s ? this.filterByVariant(l, s, a) : l;
+                    ? this.filterByInstance(l, s, r.triggerElement)
+                    : l;
+              return a && s ? this.filterByVariant(c, s, a) : c;
             }),
             (this.isTargetDynamic = (t) =>
               !!this.pluginReg.getTargetResolver(t)?.isDynamic),
@@ -3083,7 +3194,7 @@ var Ir = m((xt) => {
               if (r) return this.interactions.get(r);
             }),
             window.addEventListener("resize", this.debouncedWindowResize),
-            (this.coordinator = new Rs.AnimationCoordinator(
+            (this.coordinator = new $s.AnimationCoordinator(
               this.timelineDefs,
               this.pluginReg.getActionHandler.bind(this.pluginReg),
               this.pluginReg.getTargetResolver.bind(this.pluginReg),
@@ -3091,15 +3202,15 @@ var Ir = m((xt) => {
               this.getInteractionForTimeline,
               e
             )),
-            (this.conditionEval = new xs.ConditionEvaluator(
+            (this.conditionEval = new Hs.ConditionEvaluator(
               this.pluginReg.getConditionEvaluator.bind(this.pluginReg)
             )),
             (this.conditionalPlaybackManager =
-              new Ps.ConditionalPlaybackManager()),
+              new Gs.ConditionalPlaybackManager()),
             (this.triggerStrategies = new Map([
               [
-                Ee.TimelineControlType.STANDARD,
-                new Ns.StandardTriggerStrategy(
+                Me.TimelineControlType.STANDARD,
+                new Ws.StandardTriggerStrategy(
                   this.runTrigger.bind(this),
                   this.runTimelineAction.bind(this),
                   this.skipToEndState.bind(this),
@@ -3107,8 +3218,8 @@ var Ir = m((xt) => {
                 ),
               ],
               [
-                Ee.TimelineControlType.LOAD,
-                new Fs.LoadTriggerStrategy(
+                Me.TimelineControlType.LOAD,
+                new Ys.LoadTriggerStrategy(
                   this.runTrigger.bind(this),
                   this.runTimelineAction.bind(this),
                   this.skipToEndState.bind(this),
@@ -3117,8 +3228,8 @@ var Ir = m((xt) => {
                 ),
               ],
               [
-                Ee.TimelineControlType.SCROLL,
-                new Ls.ScrollTriggerStrategy(
+                Me.TimelineControlType.SCROLL,
+                new Xs.ScrollTriggerStrategy(
                   this.runTrigger.bind(this),
                   this.runTimelineAction.bind(this),
                   this.skipToEndState.bind(this),
@@ -3126,8 +3237,8 @@ var Ir = m((xt) => {
                 ),
               ],
               [
-                Ee.TimelineControlType.CONTINUOUS,
-                new Ds.ContinuousTriggerStrategy(
+                Me.TimelineControlType.CONTINUOUS,
+                new Zs.ContinuousTriggerStrategy(
                   this.runTrigger.bind(this),
                   this.runTimelineAction.bind(this),
                   this.skipToEndState.bind(this),
@@ -3138,7 +3249,7 @@ var Ir = m((xt) => {
                 ),
               ],
             ])),
-            (this.debouncedReactiveCallback = (0, z.debounce)(
+            (this.debouncedReactiveCallback = (0, W.debounce)(
               () => this.processPendingReactiveUpdates(),
               16,
               { leading: !1, trailing: !0, maxWait: 100 }
@@ -3150,7 +3261,7 @@ var Ir = m((xt) => {
         addEventListener;
         emit;
         static async init(e) {
-          return (this.instance = new he(e)), this.instance;
+          return (this.instance = new me(e)), this.instance;
         }
         async registerPlugin(e) {
           await this.pluginReg.registerPlugin(e);
@@ -3192,15 +3303,15 @@ var Ir = m((xt) => {
                 (this.windowSize.h = window.innerHeight),
                   (this.windowSize.w = window.innerWidth);
               });
-              let r = (0, z.debounce)(
+              let r = (0, W.debounce)(
                   () => {
                     (this.prevWindowSize.h = this.windowSize.h),
                       (this.prevWindowSize.w = this.windowSize.w);
                   },
-                  _r,
+                  Nr,
                   { leading: !0, trailing: !1 }
                 ),
-                o = (0, z.debounce)(() => {
+                o = (0, W.debounce)(() => {
                   if (
                     !(
                       this.windowSize.h !== this.prevWindowSize.h ||
@@ -3209,7 +3320,7 @@ var Ir = m((xt) => {
                   )
                     for (let a of this.coordinator.getScrollTriggers().values())
                       a.refresh();
-                }, _r),
+                }, Nr),
                 i = (s) => {
                   for (let a of s) a.target === document.body && (r(), o());
                 };
@@ -3265,8 +3376,14 @@ var Ir = m((xt) => {
               (o.kill(), this.coordinator.getScrollTriggers().delete(r));
         }
         cleanupUnusedTimelines(e) {
-          for (let t of e)
-            this.destroyTimelineInstance(t), this.timelineDefs.delete(t);
+          let t = new Set();
+          for (let r of e)
+            this.timelineDefs.get(r)?.reuse?.sourceTimelineId &&
+              t.add(this.coordinator.resolveSourceTimelineId(r));
+          for (let r of e)
+            this.destroyTimelineInstance(r), this.timelineDefs.delete(r);
+          for (let r of t)
+            e.has(r) || this.coordinator.recomputeFlipEaseForSource(r);
         }
         destroy() {
           let e = Array.from(this.interactions.keys());
@@ -3311,74 +3428,77 @@ var Ir = m((xt) => {
           }
           let a = this.triggerCleanupFunctions.get(o) || new Map();
           this.triggerCleanupFunctions.set(o, a);
-          let { delay: c = 0, controlType: l } = s,
-            u = (0, z.toSeconds)(c),
+          let { delay: l = 0, controlType: c } = s,
+            u = (0, W.toSeconds)(l),
             d = this.eventMgr,
             f = e[2],
-            p = [];
-          f && (p = this.resolveTargets(f, {}, t));
+            g = [];
+          f && (g = this.resolveTargets(f, {}, t));
           let h =
-              l && (0, z.isValidControlType)(l)
-                ? l
-                : Ee.TimelineControlType.STANDARD,
-            g = this.triggerStrategies.get(h);
-          g
-            ? g.bind(e, t, {
+              c && (0, W.isValidControlType)(c)
+                ? c
+                : Me.TimelineControlType.STANDARD,
+            p = this.triggerStrategies.get(h);
+          p
+            ? p.bind(e, t, {
                 interactionId: o,
-                elements: p,
+                elements: g,
                 triggerHandler: i,
                 eventManager: d,
                 conditionalContext: r,
                 cleanupMap: a,
                 delay: u || 0,
               })
-            : console.warn("No strategy found for control type:", l),
+            : console.warn("No strategy found for control type:", c),
             s.conditionalLogic && this.setupTriggerReactiveMonitoring(e, t);
         }
         setupTriggerReactiveMonitoring(e, t) {
-          let { conditionalLogic: r } = e[1];
+          let { conditionalLogic: r, assignedTimelineRole: o } = e[1];
           if (!r) return;
-          let o = `${t.id}:${t.triggers.indexOf(e)}`;
+          let i = o ? this.getTimelineIdsForRole(t, o) : void 0,
+            s = `${t.id}:${t.triggers.indexOf(e)}`;
           try {
-            let i = this.conditionEval.observeConditionsForTrigger(
+            let a = this.conditionEval.observeConditionsForTrigger(
                 r.conditions,
                 async () => {
                   await this.executeReactiveCallbackSafely(
                     t.id,
-                    o,
+                    s,
                     async () => {
-                      let c =
+                      let u =
                         (await this.conditionEval.evaluateConditionsForTrigger(
                           r.conditions,
                           t
                         ))
                           ? r.ifTrue
                           : r.ifFalse;
-                      if (c) {
-                        let l = this.triggeredElements.get(t.id);
-                        if (!l) return;
-                        let u = [];
-                        for (let d of l)
-                          for (let f of t.timelineIds ?? [])
-                            u.push({
-                              timelineId: f,
-                              element: d,
+                      if (u) {
+                        if (i?.length === 0) return;
+                        let d = this.triggeredElements.get(t.id);
+                        if (!d) return;
+                        let f = i ?? t.timelineIds ?? [],
+                          g = [];
+                        for (let h of d)
+                          for (let p of f)
+                            g.push({
+                              timelineId: p,
+                              element: h,
                               action: "pause-reset",
                             });
-                        await this.executeTimelineOperationsAsync(u),
-                          l.forEach((d) => {
-                            this.executeConditionalOutcome(c, d, t);
+                        await this.executeTimelineOperationsAsync(g),
+                          d.forEach((h) => {
+                            this.executeConditionalOutcome(u, h, t, i);
                           });
                       }
                     }
                   );
                 }
               ),
-              s = this.triggerObservers.get(t.id);
-            s || ((s = new Map()), this.triggerObservers.set(t.id, s)),
-              s.set(o, i);
-          } catch (i) {
-            console.error("Error setting up trigger reactive monitoring:", i);
+              l = this.triggerObservers.get(t.id);
+            l || ((l = new Map()), this.triggerObservers.set(t.id, l)),
+              l.set(s, a);
+          } catch (a) {
+            console.error("Error setting up trigger reactive monitoring:", a);
           }
         }
         async executeReactiveCallbackSafely(e, t, r) {
@@ -3493,7 +3613,7 @@ var Ir = m((xt) => {
           s || this.triggeredElements.set(r, (s = new Set())), s.add(t);
           let a = this.interactions.get(r);
           if (!a || !a.triggers.includes(e)) return;
-          let c = o ?? a.timelineIds ?? [];
+          let l = o ?? a.timelineIds ?? [];
           if (i.conditionalLogic)
             try {
               let u = (await this.conditionEval.evaluateConditionsForTrigger(
@@ -3502,43 +3622,44 @@ var Ir = m((xt) => {
               ))
                 ? i.conditionalLogic.ifTrue
                 : i.conditionalLogic.ifFalse;
-              u && this.executeConditionalOutcome(u, t, a, c);
-            } catch (l) {
-              console.error("Error evaluating trigger conditional logic:", l),
-                c.forEach((u) => this.runTimelineAction(u, i, t));
+              u && this.executeConditionalOutcome(u, t, a, l);
+            } catch (c) {
+              console.error("Error evaluating trigger conditional logic:", c),
+                l.forEach((u) => this.runTimelineAction(u, i, t));
             }
-          else c.forEach((l) => this.runTimelineAction(l, i, t));
+          else l.forEach((c) => this.runTimelineAction(c, i, t));
         }
         skipToEndState(e, t, r, o) {
           (o ?? e.timelineIds ?? []).forEach((s) => {
             let a = this.coordinator.getTimeline(s, t);
             if (!a) return;
-            let c = r ? this.getEffectivePlaybackConfig(s, r).control : void 0;
-            if (c === "pause" || c === "stop" || c === "none") return;
-            let l;
-            switch (c) {
+            let l = r ? this.getEffectivePlaybackConfig(s, r).control : void 0;
+            if (l === "pause" || l === "stop" || l === "none") return;
+            let c;
+            switch (l) {
               case "reverse":
               case "reverseFlipEase":
-                l = 0;
+                c = 0;
                 break;
               case "togglePlayReverse":
-                l = Math.round(1 - a.totalProgress());
+              case "togglePlayReverseFlipEase":
+                c = Math.round(1 - a.totalProgress());
                 break;
               case "resume":
-                l = a.reversed() ? 0 : 1;
+                c = a.reversed() ? 0 : 1;
                 break;
               case "play":
               case "restart":
               case void 0:
-                l = 1;
+                c = 1;
                 break;
               default: {
-                let u = c;
-                l = 1;
+                let u = l;
+                c = 1;
                 break;
               }
             }
-            this.coordinator.setTotalProgress(s, l, t ?? null);
+            this.coordinator.setTotalProgress(s, c, t ?? null);
           });
         }
         executeConditionalOutcome(e, t, r, o) {
@@ -3546,10 +3667,10 @@ var Ir = m((xt) => {
               control: i,
               targetTimelineId: s,
               speed: a,
-              jump: c,
-              delay: l = 0,
+              jump: l,
+              delay: c = 0,
             } = e,
-            u = (0, z.toSeconds)(l);
+            u = (0, W.toSeconds)(c);
           if (i === "none") return;
           let d = r.timelineIds ?? [],
             f;
@@ -3566,34 +3687,35 @@ var Ir = m((xt) => {
           } else f = d;
           if (o) {
             let h = new Set(o);
-            f = f.filter((g) => h.has(g));
+            f = f.filter((p) => h.has(p));
           }
           if (f.length === 0) return;
-          let p = () => {
+          let g = () => {
             f.forEach((h) => {
               a !== void 0 && this.coordinator.setTimeScale(h, a, t);
-              let g = (0, z.toSeconds)(c);
+              let p = (0, W.toSeconds)(l);
               switch (i) {
                 case "play":
-                  this.coordinator.play(h, t, g);
+                  this.coordinator.play(h, t, p);
                   break;
                 case "pause":
-                  this.coordinator.pause(h, t, g);
+                  this.coordinator.pause(h, t, p);
                   break;
                 case "resume":
-                  this.coordinator.resume(h, t, g);
+                  this.coordinator.resume(h, t, p);
                   break;
                 case "reverse":
                 case "reverseFlipEase":
-                  this.coordinator.reverse(h, t, g);
+                  this.coordinator.reverse(h, t, p);
                   break;
                 case "restart":
                   this.coordinator.restart(h, t);
                   break;
                 case "stop":
-                  this.coordinator.pause(h, t, g);
+                  this.coordinator.pause(h, t, p);
                   break;
                 case "togglePlayReverse":
+                case "togglePlayReverseFlipEase":
                   this.coordinator.togglePlayReverse(h, t);
                   break;
                 default: {
@@ -3606,9 +3728,9 @@ var Ir = m((xt) => {
           };
           u
             ? setTimeout(() => {
-                p();
+                g();
               }, u * 1e3)
-            : p();
+            : g();
         }
         getEffectivePlaybackConfig(e, t) {
           let r = this.timelineDefs.get(e);
@@ -3635,9 +3757,9 @@ var Ir = m((xt) => {
               jump: s,
               speed: a,
             } = this.getEffectivePlaybackConfig(e, t),
-            c = this.timelineDefs.get(e);
-          if (c?.reuse) {
-            let d = c.reuse.sourceTimelineId;
+            l = this.timelineDefs.get(e);
+          if (l?.reuse) {
+            let d = l.reuse.sourceTimelineId;
             if (!this.timelineDefs.has(d)) {
               console.warn(
                 `Timeline reuse: source '${d}' not found for '${e}'`
@@ -3646,9 +3768,9 @@ var Ir = m((xt) => {
             }
             e = d;
           }
-          let l = () => {
+          let c = () => {
               this.coordinator.setTimeScale(e, a ?? 1, r);
-              let d = (0, z.toSeconds)(s);
+              let d = (0, W.toSeconds)(s);
               switch (o) {
                 case "play":
                   this.coordinator.play(e, r, d);
@@ -3667,6 +3789,7 @@ var Ir = m((xt) => {
                   this.coordinator.restart(e, r);
                   break;
                 case "togglePlayReverse":
+                case "togglePlayReverseFlipEase":
                   this.coordinator.togglePlayReverse(e, r);
                   break;
                 case "stop":
@@ -3684,8 +3807,8 @@ var Ir = m((xt) => {
                 }
               }
             },
-            u = (0, z.toSeconds)(i);
-          u && u > 0 ? setTimeout(l, u * 1e3) : l();
+            u = (0, W.toSeconds)(i);
+          u && u > 0 ? setTimeout(c, u * 1e3) : c();
         }
         resolveTargets;
         isTargetDynamic;
@@ -3704,10 +3827,10 @@ var Ir = m((xt) => {
             let d = this.resolveUniversalSelectorOptimized(a, t, r, o);
             if (d) return d;
           }
-          let c = this.pluginReg.getTargetResolver([i, s]);
-          if (!c) return [];
-          let l = c.resolve([i, s], t),
-            u = o ? this.filterByScope(l, o) : l;
+          let l = this.pluginReg.getTargetResolver([i, s]);
+          if (!l) return [];
+          let c = l.resolve([i, s], t),
+            u = o ? this.filterByScope(c, o) : c;
           return !u.length || !a || a.relationship === "none" || !a.filterBy
             ? u
             : this.applyRelationshipFilter(
@@ -3725,88 +3848,88 @@ var Ir = m((xt) => {
           let a = !!e.firstMatchOnly;
           switch (e.relationship) {
             case "direct-child-of": {
-              let c = [];
-              for (let l = 0; l < s; l++) {
-                let u = i[l];
+              let l = [];
+              for (let c = 0; c < s; c++) {
+                let u = i[c];
                 if (!u) continue;
                 let d = u.children;
                 for (let f = 0; f < d.length; f++)
-                  if ((c.push(d[f]), a)) return c;
+                  if ((l.push(d[f]), a)) return l;
               }
-              return c;
+              return l;
             }
             case "within": {
-              let c = [];
-              for (let l = 0; l < s; l++) {
-                let u = i[l];
+              let l = [];
+              for (let c = 0; c < s; c++) {
+                let u = i[c];
                 if (!u) continue;
                 let d = u.querySelectorAll("*");
                 for (let f = 0; f < d.length; f++)
-                  if ((c.push(d[f]), a)) return c;
+                  if ((l.push(d[f]), a)) return l;
               }
-              return c;
+              return l;
             }
             case "direct-parent-of": {
-              let c = new Set(),
-                l = [];
+              let l = new Set(),
+                c = [];
               for (let u = 0; u < s; u++) {
                 let d = i[u];
                 if (!d) continue;
                 let f = d.parentElement;
-                if (f && !c.has(f) && (c.add(f), l.push(f), a)) break;
+                if (f && !l.has(f) && (l.add(f), c.push(f), a)) break;
+              }
+              return o ? this.filterByScope(c, o) : c;
+            }
+            case "next-sibling-of": {
+              let l = [];
+              for (let c = 0; c < s; c++) {
+                let u = i[c];
+                if (!u) continue;
+                let d = u.nextElementSibling;
+                if (d && (l.push(d), a)) break;
               }
               return o ? this.filterByScope(l, o) : l;
             }
-            case "next-sibling-of": {
-              let c = [];
-              for (let l = 0; l < s; l++) {
-                let u = i[l];
-                if (!u) continue;
-                let d = u.nextElementSibling;
-                if (d && (c.push(d), a)) break;
-              }
-              return o ? this.filterByScope(c, o) : c;
-            }
             case "prev-sibling-of": {
-              let c = [];
-              for (let l = 0; l < s; l++) {
-                let u = i[l];
+              let l = [];
+              for (let c = 0; c < s; c++) {
+                let u = i[c];
                 if (!u) continue;
                 let d = u.previousElementSibling;
-                if (d && (c.push(d), a)) break;
+                if (d && (l.push(d), a)) break;
               }
-              return o ? this.filterByScope(c, o) : c;
+              return o ? this.filterByScope(l, o) : l;
             }
             case "next-to": {
-              let c = new Set(),
-                l = [];
+              let l = new Set(),
+                c = [];
               for (let u = 0; u < s; u++) {
                 let d = i[u];
                 if (!d) continue;
                 let f = d.parentElement;
                 if (f) {
-                  let p = f.children;
-                  for (let h = 0; h < p.length; h++) {
-                    let g = p[h];
-                    if (g !== d && !c.has(g) && (c.add(g), l.push(g), a)) break;
+                  let g = f.children;
+                  for (let h = 0; h < g.length; h++) {
+                    let p = g[h];
+                    if (p !== d && !l.has(p) && (l.add(p), c.push(p), a)) break;
                   }
-                  if (a && l.length) break;
+                  if (a && c.length) break;
                 }
               }
-              return o ? this.filterByScope(l, o) : l;
+              return o ? this.filterByScope(c, o) : c;
             }
             case "contains": {
-              let c = new Set(),
-                l = [];
+              let l = new Set(),
+                c = [];
               for (let u = 0; u < s; u++) {
                 let d = i[u];
                 if (!d) continue;
                 let f = d.parentElement;
-                for (; f && !(c.has(f) || (c.add(f), l.push(f), a)); )
+                for (; f && !(l.has(f) || (l.add(f), c.push(f), a)); )
                   f = f.parentElement;
-                if (a && l.length) break;
+                if (a && c.length) break;
               }
-              return o ? this.filterByScope(l, o) : l;
+              return o ? this.filterByScope(c, o) : c;
             }
             default:
               return null;
@@ -3820,13 +3943,13 @@ var Ir = m((xt) => {
           switch (t) {
             case "direct-child-of": {
               let a = new Set(r);
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
                 if (
-                  !s.has(l) &&
-                  l.parentElement &&
-                  a.has(l.parentElement) &&
-                  (s.add(l), i.push(l), o)
+                  !s.has(c) &&
+                  c.parentElement &&
+                  a.has(c.parentElement) &&
+                  (s.add(c), i.push(c), o)
                 )
                   return i;
               }
@@ -3834,47 +3957,47 @@ var Ir = m((xt) => {
             }
             case "direct-parent-of": {
               let a = new Set();
-              for (let c = 0; c < r.length; c++) {
-                let l = r[c].parentElement;
-                l && a.add(l);
+              for (let l = 0; l < r.length; l++) {
+                let c = r[l].parentElement;
+                c && a.add(c);
               }
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
-                if (!s.has(l) && a.has(l) && (s.add(l), i.push(l), o)) return i;
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
+                if (!s.has(c) && a.has(c) && (s.add(c), i.push(c), o)) return i;
               }
               return i;
             }
             case "next-sibling-of": {
               let a = new Set(r);
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
-                if (s.has(l)) continue;
-                let u = l.previousElementSibling;
-                if (u && a.has(u) && (s.add(l), i.push(l), o)) return i;
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
+                if (s.has(c)) continue;
+                let u = c.previousElementSibling;
+                if (u && a.has(u) && (s.add(c), i.push(c), o)) return i;
               }
               return i;
             }
             case "prev-sibling-of": {
               let a = new Set(r);
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
-                if (s.has(l)) continue;
-                let u = l.nextElementSibling;
-                if (u && a.has(u) && (s.add(l), i.push(l), o)) return i;
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
+                if (s.has(c)) continue;
+                let u = c.nextElementSibling;
+                if (u && a.has(u) && (s.add(c), i.push(c), o)) return i;
               }
               return i;
             }
             case "next-to": {
               let a = new Set(r),
-                c = new Map();
-              for (let l = 0; l < r.length; l++) {
-                let u = r[l].parentElement;
-                u && c.set(u, (c.get(u) ?? 0) + 1);
+                l = new Map();
+              for (let c = 0; c < r.length; c++) {
+                let u = r[c].parentElement;
+                u && l.set(u, (l.get(u) ?? 0) + 1);
               }
-              for (let l = 0; l < e.length; l++) {
-                let u = e[l];
+              for (let c = 0; c < e.length; c++) {
+                let u = e[c];
                 if (s.has(u) || !u.parentElement) continue;
-                let d = c.get(u.parentElement);
+                let d = l.get(u.parentElement);
                 if (d && !(a.has(u) && d <= 1) && (s.add(u), i.push(u), o))
                   return i;
               }
@@ -3882,13 +4005,13 @@ var Ir = m((xt) => {
             }
             case "within": {
               let a = new Set(r);
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
-                if (s.has(l)) continue;
-                let u = l.parentElement;
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
+                if (s.has(c)) continue;
+                let u = c.parentElement;
                 for (; u; ) {
                   if (a.has(u)) {
-                    if ((s.add(l), i.push(l), o)) return i;
+                    if ((s.add(c), i.push(c), o)) return i;
                     break;
                   }
                   u = u.parentElement;
@@ -3898,13 +4021,13 @@ var Ir = m((xt) => {
             }
             case "contains": {
               let a = new Set();
-              for (let c = 0; c < r.length; c++) {
-                let l = r[c].parentElement;
-                for (; l && !a.has(l); ) a.add(l), (l = l.parentElement);
+              for (let l = 0; l < r.length; l++) {
+                let c = r[l].parentElement;
+                for (; c && !a.has(c); ) a.add(c), (c = c.parentElement);
               }
-              for (let c = 0; c < e.length; c++) {
-                let l = e[c];
-                if (!s.has(l) && a.has(l) && (s.add(l), i.push(l), o)) return i;
+              for (let l = 0; l < e.length; l++) {
+                let c = e[l];
+                if (!s.has(c) && a.has(c) && (s.add(c), i.push(c), o)) return i;
               }
               return i;
             }
@@ -3925,8 +4048,8 @@ var Ir = m((xt) => {
           if (i === -1) return e;
           let s = e.slice(0, i);
           for (let a = i + 1; a < e.length; a++) {
-            let c = e[a];
-            c?.closest(t) === o && s.push(c);
+            let l = e[a];
+            l?.closest(t) === o && s.push(l);
           }
           return s;
         }
@@ -3949,15 +4072,15 @@ var Ir = m((xt) => {
         filterByVariant(e, t, r) {
           if (!e.length) return e;
           let o = (a) => {
-              let c = a.closest(t);
-              if (!c) return !1;
-              let l = c.getAttribute("data-wf-variant-state");
-              return l != null && r.includes(l);
+              let l = a.closest(t);
+              if (!l) return !1;
+              let c = l.getAttribute("data-wf-variant-state");
+              return c != null && r.includes(c);
             },
             i = -1;
           for (let a = 0; a < e.length; a++) {
-            let c = e[a];
-            if (!c || !o(c)) {
+            let l = e[a];
+            if (!l || !o(l)) {
               i = a;
               break;
             }
@@ -3965,8 +4088,8 @@ var Ir = m((xt) => {
           if (i === -1) return e;
           let s = e.slice(0, i);
           for (let a = i + 1; a < e.length; a++) {
-            let c = e[a];
-            c && o(c) && s.push(c);
+            let l = e[a];
+            l && o(l) && s.push(l);
           }
           return s;
         }
@@ -4049,148 +4172,148 @@ var Ir = m((xt) => {
           this.triggeredElements.delete(e);
         }
       }),
-      fe(he, "instance"),
-      he);
+      pe(me, "instance"),
+      me);
 });
-var xr = m((Pt) => {
+var Dr = m((Lt) => {
   "use strict";
-  Object.defineProperty(Pt, "__esModule", { value: !0 });
-  function Vs(n, e) {
+  Object.defineProperty(Lt, "__esModule", { value: !0 });
+  function Js(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Vs(Pt, {
+  Js(Lt, {
     EASING_NAMES: function () {
-      return qs.EASING_NAMES;
+      return ta.EASING_NAMES;
     },
     IX3: function () {
-      return Us.IX3;
+      return ea.IX3;
     },
     convertEaseConfigToGSAP: function () {
-      return Rr.convertEaseConfigToGSAP;
+      return Lr.convertEaseConfigToGSAP;
     },
     convertEaseConfigToLinear: function () {
-      return Rr.convertEaseConfigToLinear;
+      return Lr.convertEaseConfigToLinear;
     },
   });
-  var Us = Ir(),
-    qs = pe(),
-    Rr = mt();
+  var ea = Fr(),
+    ta = ge(),
+    Lr = Tt();
 });
-var Me = m((Nt) => {
+var Ae = m((Bt) => {
   "use strict";
-  Object.defineProperty(Nt, "__esModule", { value: !0 });
-  function $s(n, e) {
+  Object.defineProperty(Bt, "__esModule", { value: !0 });
+  function na(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  $s(Nt, {
+  na(Bt, {
     getScrollY: function () {
-      return zs;
+      return oa;
     },
     initScrollCache: function () {
-      return Gs;
+      return ia;
     },
     noop: function () {
-      return Hs;
+      return ra;
     },
   });
-  var Hs = () => {},
-    kt = 0,
-    Le = 0,
-    me = null;
-  function Gs() {
-    (Le += 1),
-      me ||
-        ((me = () => {
-          kt = window.scrollY;
+  var ra = () => {},
+    Dt = 0,
+    De = 0,
+    ye = null;
+  function ia() {
+    (De += 1),
+      ye ||
+        ((ye = () => {
+          Dt = window.scrollY;
         }),
-        (kt = window.scrollY),
-        window.addEventListener("scroll", me, { passive: !0 }));
+        (Dt = window.scrollY),
+        window.addEventListener("scroll", ye, { passive: !0 }));
     let n = !1;
     return () => {
       n ||
         ((n = !0),
-        (Le = Math.max(0, Le - 1)),
-        Le === 0 &&
-          me &&
-          (window.removeEventListener("scroll", me), (me = null)));
+        (De = Math.max(0, De - 1)),
+        De === 0 &&
+          ye &&
+          (window.removeEventListener("scroll", ye), (ye = null)));
     };
   }
-  function zs() {
-    return kt;
+  function oa() {
+    return Dt;
   }
 });
-var Bt = m((Dt) => {
+var qt = m((Ut) => {
   "use strict";
-  Object.defineProperty(Dt, "__esModule", { value: !0 });
-  function Ws(n, e) {
+  Object.defineProperty(Ut, "__esModule", { value: !0 });
+  function sa(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Ws(Dt, {
+  sa(Ut, {
     COMPONENT_TIMELINE_ROLES: function () {
-      return la;
+      return Sa;
     },
     DEFAULT_MOUSE_FOLLOW_ANCHOR: function () {
-      return Qs;
+      return ua;
     },
     DEFAULT_MOUSE_MOVE_INTERVAL_DISTANCE: function () {
-      return Ks;
+      return da;
     },
     IX3_WF_EXTENSION_KEYS: function () {
-      return Ft;
+      return jt;
     },
     MOUSE_MOVE_CHANNELS: function () {
-      return aa;
+      return Ta;
     },
     MOUSE_MOVE_TIMELINE_ROLES: function () {
-      return Js;
+      return fa;
     },
     TIMELINE_ROLE_NAMES: function () {
-      return B;
+      return j;
     },
     TargetScope: function () {
-      return Lt;
+      return Vt;
     },
     VELOCITY_CAPABLE_PROPS: function () {
-      return Pr;
+      return Br;
     },
     canUseVelocityInfluenceProperty: function () {
-      return ta;
+      return ga;
     },
     getEffectiveFollowMode: function () {
-      return Xs;
+      return la;
     },
     getMouseFollowConfig: function () {
-      return Ys;
+      return aa;
     },
     getMouseMoveTimelineContext: function () {
-      return De;
+      return Be;
     },
     getOppositeMouseFollowAxis: function () {
-      return ia;
+      return ya;
     },
     getSingleAxisMouseFollowMode: function () {
-      return Zs;
-    },
-    isMouseMoveIntervalRole: function () {
-      return na;
-    },
-    isVelocityInfluenceEnabled: function () {
-      return ea;
-    },
-    mouseFollowAxisToRole: function () {
-      return oa;
-    },
-    mouseFollowRoleToAxis: function () {
-      return ra;
-    },
-    mouseFollowRoleToSiblingRole: function () {
-      return sa;
-    },
-    narrowMouseMoveIntervalPayload: function () {
       return ca;
     },
+    isMouseMoveIntervalRole: function () {
+      return ha;
+    },
+    isVelocityInfluenceEnabled: function () {
+      return pa;
+    },
+    mouseFollowAxisToRole: function () {
+      return va;
+    },
+    mouseFollowRoleToAxis: function () {
+      return ma;
+    },
+    mouseFollowRoleToSiblingRole: function () {
+      return ba;
+    },
+    narrowMouseMoveIntervalPayload: function () {
+      return wa;
+    },
   });
-  var Ft;
+  var jt;
   (function (n) {
     (n.CLASS = "wf:class"),
       (n.BODY = "wf:body"),
@@ -4228,8 +4351,8 @@ var Bt = m((Dt) => {
       (n.ELEMENT_DATA_ATTRIBUTE = "wf:elementDataAttribute"),
       (n.CURRENT_TIME = "wf:currentTime"),
       (n.ELEMENT_STATE = "wf:elementState");
-  })(Ft || (Ft = {}));
-  var Lt;
+  })(jt || (jt = {}));
+  var Vt;
   (function (n) {
     (n.ALL = "all"),
       (n.PARENT = "parent"),
@@ -4241,41 +4364,41 @@ var Bt = m((Dt) => {
       (n.FIRST_DESCENDANT = "first-descendant"),
       (n.DESCENDANTS = "descendants"),
       (n.ANCESTORS = "ancestors");
-  })(Lt || (Lt = {}));
-  function Ys(n) {
+  })(Vt || (Vt = {}));
+  function aa(n) {
     let e = n?.properties?.["wf:mouse-follow"];
     if (!(typeof e != "object" || e === null || Array.isArray(e))) return e;
   }
-  function Xs(n) {
+  function la(n) {
     return n?.followMode ?? "full";
   }
-  function Zs(n) {
+  function ca(n) {
     return n === "x" ? "x-only" : "y-only";
   }
-  var Qs = "50% 50%",
-    Ks = 100,
-    B = {
+  var ua = "50% 50%",
+    da = 100,
+    j = {
       MOUSE_X: "mouseX",
       MOUSE_Y: "mouseY",
       INTERVAL: "interval",
       OPEN: "open",
       CLOSE: "close",
     };
-  function De(n) {
-    return n === B.MOUSE_X
-      ? { kind: "mouse-x", role: n, axis: "x", siblingRole: B.MOUSE_Y }
-      : n === B.MOUSE_Y
-      ? { kind: "mouse-y", role: n, axis: "y", siblingRole: B.MOUSE_X }
-      : n === B.INTERVAL
+  function Be(n) {
+    return n === j.MOUSE_X
+      ? { kind: "mouse-x", role: n, axis: "x", siblingRole: j.MOUSE_Y }
+      : n === j.MOUSE_Y
+      ? { kind: "mouse-y", role: n, axis: "y", siblingRole: j.MOUSE_X }
+      : n === j.INTERVAL
       ? { kind: "interval", role: n }
       : { kind: "other", role: n ?? void 0 };
   }
-  var Js = {
-      MOUSE_X: { role: B.MOUSE_X, label: "Mouse X" },
-      MOUSE_Y: { role: B.MOUSE_Y, label: "Mouse Y" },
-      INTERVAL: { role: B.INTERVAL, label: "Interval" },
+  var fa = {
+      MOUSE_X: { role: j.MOUSE_X, label: "Mouse X", usePercentCanvas: !0 },
+      MOUSE_Y: { role: j.MOUSE_Y, label: "Mouse Y", usePercentCanvas: !0 },
+      INTERVAL: { role: j.INTERVAL, label: "Interval" },
     },
-    Pr = new Set([
+    Br = new Set([
       "x",
       "y",
       "scale",
@@ -4286,34 +4409,34 @@ var Bt = m((Dt) => {
       "skewY",
       "opacity",
     ]);
-  function ea(n) {
+  function pa(n) {
     return (
       n?.pluginConfig?.type === "mouseMove" &&
       !!n.pluginConfig.velocityInfluence
     );
   }
-  function ta(n) {
-    return Pr.has(n);
+  function ga(n) {
+    return Br.has(n);
   }
-  function na(n) {
-    return De(n).kind === "interval";
+  function ha(n) {
+    return Be(n).kind === "interval";
   }
-  function ra(n) {
-    let e = De(n);
+  function ma(n) {
+    let e = Be(n);
     return e.kind === "mouse-x" || e.kind === "mouse-y" ? e.axis : null;
   }
-  function ia(n) {
+  function ya(n) {
     return n === "x" ? "y" : "x";
   }
-  function oa(n) {
-    return n === "x" ? B.MOUSE_X : B.MOUSE_Y;
+  function va(n) {
+    return n === "x" ? j.MOUSE_X : j.MOUSE_Y;
   }
-  function sa(n) {
-    let e = De(n);
+  function ba(n) {
+    let e = Be(n);
     return e.kind === "mouse-x" || e.kind === "mouse-y" ? e.siblingRole : null;
   }
-  var aa = { POSITION: "wf:mouse-move:position", LEAVE: "wf:mouse-move:leave" };
-  function ca(n) {
+  var Ta = { POSITION: "wf:mouse-move:position", LEAVE: "wf:mouse-move:leave" };
+  function wa(n) {
     if (typeof n != "object" || n === null) return {};
     let e = n,
       t = {},
@@ -4331,88 +4454,88 @@ var Bt = m((Dt) => {
       t
     );
   }
-  var la = {
+  var Sa = {
     OPEN: {
-      role: B.OPEN,
+      role: j.OPEN,
       label: "Open",
       allowedControls: ["play", "restart"],
       defaultControl: "play",
     },
     CLOSE: {
-      role: B.CLOSE,
+      role: j.CLOSE,
       label: "Close",
       allowedControls: ["play", "restart", "reverse", "reverseFlipEase"],
       allowedControlsWhenReusing: ["reverse", "reverseFlipEase"],
       defaultControl: "play",
       defaultControlWhenReusing: "reverseFlipEase",
-      autoReusesRole: B.OPEN,
+      autoReusesRole: j.OPEN,
     },
   };
 });
-var Dr = m((Ut) => {
+var $r = m((Gt) => {
   "use strict";
-  Object.defineProperty(Ut, "__esModule", { value: !0 });
-  function ua(n, e) {
+  Object.defineProperty(Gt, "__esModule", { value: !0 });
+  function Ca(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  ua(Ut, {
+  Ca(Gt, {
     createLoadedMouseFollowActionNormalizer: function () {
-      return va;
+      return Pa;
     },
     forTestSuite: function () {
-      return ba;
+      return xa;
     },
     getGroupedMouseFollowConfig: function () {
-      return Vt;
+      return Ht;
     },
     getUnpairedMouseFollowAction: function () {
-      return pa;
+      return Aa;
     },
     getUnpairedMouseFollowConfig: function () {
-      return kr;
+      return jr;
     },
     remapMouseFollowActionGroupsInTimelines: function () {
-      return ya;
+      return Ra;
     },
     setGroupedMouseFollowActionConfig: function () {
-      return fa;
+      return Ma;
     },
     setMouseFollowActionConfig: function () {
-      return Nr;
+      return Vr;
     },
     stripMouseFollowActionInstanceIds: function () {
-      return ga;
+      return Oa;
     },
     stripMouseFollowConfigInstanceIds: function () {
-      return jt;
+      return $t;
     },
   });
-  var Be = Bt();
-  function jt(n) {
+  var je = qt();
+  function $t(n) {
     let { groupId: e, syncedActionId: t, ...r } = n;
     return r;
   }
-  function da(n, e) {
-    return { ...jt(n), groupId: e };
+  function Ea(n, e) {
+    return { ...$t(n), groupId: e };
   }
-  function Vt(n, e, t) {
-    let r = da(n, e);
+  function Ht(n, e, t) {
+    let r = Ea(n, e);
     return (
       t?.axis !== void 0 && (r.axis = t.axis),
       t?.followMode !== void 0 && (r.followMode = t.followMode),
       r
     );
   }
-  function kr(n, e = n.axis) {
+  function jr(n, e = n.axis) {
     let { syncedActionId: t, ...r } = n,
       o =
         r.followMode === "full" && e
-          ? (0, Be.getSingleAxisMouseFollowMode)(e)
+          ? (0, je.getSingleAxisMouseFollowMode)(e)
           : r.followMode;
     return { ...r, ...(o !== void 0 ? { followMode: o } : {}) };
   }
-  function je(n, e) {
-    let t = (0, Be.getMouseFollowConfig)(n);
+  function Ve(n, e) {
+    let t = (0, je.getMouseFollowConfig)(n);
     if (!t) return n;
     let r = e(t);
     return r === t
@@ -4421,111 +4544,111 @@ var Dr = m((Ut) => {
           ...n,
           properties: {
             ...n.properties,
-            [Be.IX3_WF_EXTENSION_KEYS.MOUSE_FOLLOW]: r,
+            [je.IX3_WF_EXTENSION_KEYS.MOUSE_FOLLOW]: r,
           },
         };
   }
-  function Nr(n, e) {
+  function Vr(n, e) {
     return {
       ...n,
       properties: {
         ...n.properties,
-        [Be.IX3_WF_EXTENSION_KEYS.MOUSE_FOLLOW]: e,
+        [je.IX3_WF_EXTENSION_KEYS.MOUSE_FOLLOW]: e,
       },
     };
   }
-  function fa(n, e, t, r) {
-    return Nr(n, Vt(e, t, r));
+  function Ma(n, e, t, r) {
+    return Vr(n, Ht(e, t, r));
   }
-  function pa(n, e) {
-    return je(n, (t) => kr(t, e));
+  function Aa(n, e) {
+    return Ve(n, (t) => jr(t, e));
   }
-  function ga(n) {
-    return je(n, jt);
+  function Oa(n) {
+    return Ve(n, $t);
   }
-  function ha(n, e, t) {
+  function _a(n, e, t) {
     return t[e] ? [n, e].sort().join(":") : `single:${n}`;
   }
-  function ma(n, e, t) {
+  function Ia(n, e, t) {
     return (
       e.groupId ??
-      (e.syncedActionId ? ha(n, e.syncedActionId, t) : `single:${n}`)
+      (e.syncedActionId ? _a(n, e.syncedActionId, t) : `single:${n}`)
     );
   }
-  function Fr(n, e) {
+  function Ur(n, e) {
     let t = {};
     return (r, o = r.id) =>
-      je(r, (i) => {
-        let s = ma(o, i, e),
+      Ve(r, (i) => {
+        let s = Ia(o, i, e),
           a = t[s] ?? n(s);
-        return (t[s] = a), Vt(i, a);
+        return (t[s] = a), Ht(i, a);
       });
   }
-  function Lr(n, e, t) {
+  function qr(n, e, t) {
     let r = t ?? Object.fromEntries(n.map((i) => [i.id, i.id])),
-      o = Fr(() => e(), r);
+      o = Ur(() => e(), r);
     return (i, s) => o(i, s ?? i.id);
   }
-  function ya(
+  function Ra(
     n,
     { generateGroupId: e, actionIdMap: t, mapAction: r = (o) => o }
   ) {
-    let o = Lr(
+    let o = qr(
       n.flatMap((i) => i.actions ?? []),
       e,
       t
     );
     return n.map((i) => {
       let s = !1,
-        a = i.actions?.map((c) => {
-          let l = c.id,
-            u = r(c),
-            d = o(u, l);
-          return (s = s || d !== c), d;
+        a = i.actions?.map((l) => {
+          let c = l.id,
+            u = r(l),
+            d = o(u, c);
+          return (s = s || d !== l), d;
         });
       return s && a ? { ...i, actions: a } : i;
     });
   }
-  function va(n) {
+  function Pa(n) {
     let e = Object.fromEntries(n.map((r) => [r.id, r.id])),
-      t = Fr((r) => r, e);
+      t = Ur((r) => r, e);
     return (r, o) => {
       let i = t(r);
-      return o ? je(i, (s) => (s.axis ? s : { ...s, axis: o })) : i;
+      return o ? Ve(i, (s) => (s.axis ? s : { ...s, axis: o })) : i;
     };
   }
-  var ba = { createMouseFollowActionGroupRemapper: Lr };
+  var xa = { createMouseFollowActionGroupRemapper: qr };
 });
-var jr = m((qt) => {
+var Gr = m((zt) => {
   "use strict";
-  Object.defineProperty(qt, "__esModule", { value: !0 });
-  function Ta(n, e) {
+  Object.defineProperty(zt, "__esModule", { value: !0 });
+  function ka(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Ta(qt, {
+  ka(zt, {
     TRANSIENT_IX3_CLONE_ATTR: function () {
-      return Br;
+      return Hr;
     },
     isTransientIX3Clone: function () {
-      return wa;
+      return Na;
     },
   });
-  var Br = "data-ix3-clone",
-    wa = (n) => !!n.closest?.(`[${Br}]`);
+  var Hr = "data-ix3-clone",
+    Na = (n) => !!n.closest?.(`[${Hr}]`);
 });
-var te = m((ye) => {
+var ne = m((ve) => {
   "use strict";
-  Object.defineProperty(ye, "__esModule", { value: !0 });
-  Object.defineProperty(ye, "CORE_PLUGIN_INFO", {
+  Object.defineProperty(ve, "__esModule", { value: !0 });
+  Object.defineProperty(ve, "CORE_PLUGIN_INFO", {
     enumerable: !0,
     get: function () {
-      return Ca;
+      return Fa;
     },
   });
-  $t(Bt(), ye);
-  $t(Dr(), ye);
-  $t(jr(), ye);
-  function $t(n, e) {
+  Wt(qt(), ve);
+  Wt($r(), ve);
+  Wt(Gr(), ve);
+  function Wt(n, e) {
     return (
       Object.keys(n).forEach(function (t) {
         t !== "default" &&
@@ -4540,19 +4663,19 @@ var te = m((ye) => {
       n
     );
   }
-  var Ca = { namespace: "wf", pluginId: "core", version: "1.0.0" };
+  var Fa = { namespace: "wf", pluginId: "core", version: "1.0.0" };
 });
-var Ur = m((Ht) => {
+var Wr = m((Yt) => {
   "use strict";
-  Object.defineProperty(Ht, "__esModule", { value: !0 });
-  Object.defineProperty(Ht, "TouchScrollGuard", {
+  Object.defineProperty(Yt, "__esModule", { value: !0 });
+  Object.defineProperty(Yt, "TouchScrollGuard", {
     enumerable: !0,
     get: function () {
-      return Ea;
+      return Da;
     },
   });
-  var Vr = Me();
-  function Sa(n) {
+  var zr = Ae();
+  function La(n) {
     let e = n;
     for (; e && e !== document.body && e !== document.documentElement; ) {
       if (e instanceof HTMLElement) {
@@ -4567,7 +4690,7 @@ var Ur = m((Ht) => {
     }
     return null;
   }
-  var Ea = class {
+  var Da = class {
     isScrolling = !1;
     toleranceDeg;
     refX = 0;
@@ -4579,45 +4702,45 @@ var Ur = m((Ht) => {
     maxScroll = 0;
     constructor(e, t, r) {
       this.toleranceDeg = r?.tolerance ?? 18;
-      let o = (0, Vr.initScrollCache)();
+      let o = (0, zr.initScrollCache)();
       t.addEventListener("abort", o);
-      let i = (c) => {
-          let l = c.touches[0];
-          l &&
-            ((this.refX = l.clientX),
-            (this.refY = l.clientY),
-            (this.lastY = l.clientY),
+      let i = (l) => {
+          let c = l.touches[0];
+          c &&
+            ((this.refX = c.clientX),
+            (this.refY = c.clientY),
+            (this.lastY = c.clientY),
             (this.locked = null),
             (this.effectFromBoundary = !1),
             (this.isScrolling = !1),
-            (this.scroller = Sa(c.target ?? e)),
+            (this.scroller = La(l.target ?? e)),
             (this.maxScroll = this.scroller
               ? this.scroller.scrollHeight - this.scroller.clientHeight
               : document.documentElement.scrollHeight - window.innerHeight));
         },
-        s = (c) => {
-          let l = c.touches[0];
-          if (!l) return;
-          let u = l.clientY,
-            d = l.clientX - this.refX,
+        s = (l) => {
+          let c = l.touches[0];
+          if (!c) return;
+          let u = c.clientY,
+            d = c.clientX - this.refX,
             f = u - this.refY,
-            p = u > this.lastY,
+            g = u > this.lastY,
             h = u < this.lastY,
-            g = this.scroller ? this.scroller.scrollTop : (0, Vr.getScrollY)(),
+            p = this.scroller ? this.scroller.scrollTop : (0, zr.getScrollY)(),
             y = this.maxScroll,
-            E = g <= 1 && p,
-            M = y > 0 && g >= y - 1 && h;
-          this.locked === null && this.decide(d, f, E || M),
+            T = p <= 1 && g,
+            A = y > 0 && p >= y - 1 && h;
+          this.locked === null && this.decide(d, f, T || A),
             this.locked === "scroll" &&
-              (E || M) &&
-              ((this.refX = l.clientX),
+              (T || A) &&
+              ((this.refX = c.clientX),
               (this.refY = u),
               (this.locked = "effect"),
               (this.effectFromBoundary = !0)),
             this.locked === "effect" &&
               this.effectFromBoundary &&
-              !(E || M) &&
-              ((this.refX = l.clientX),
+              !(T || A) &&
+              ((this.refX = c.clientX),
               (this.refY = u),
               (this.locked = null),
               (this.effectFromBoundary = !1)),
@@ -4625,8 +4748,8 @@ var Ur = m((Ht) => {
             (this.isScrolling =
               this.locked === "scroll" ||
               this.locked === null ||
-              (this.locked === "effect" && !c.cancelable && !(E || M))),
-            this.locked === "effect" && c.cancelable && c.preventDefault();
+              (this.locked === "effect" && !l.cancelable && !(T || A))),
+            this.locked === "effect" && l.cancelable && l.preventDefault();
         },
         a = () => {
           (this.locked = null), (this.isScrolling = !1);
@@ -4646,46 +4769,46 @@ var Ur = m((Ht) => {
     }
   };
 });
-var qr = m((Gt) => {
+var Yr = m((Xt) => {
   "use strict";
-  Object.defineProperty(Gt, "__esModule", { value: !0 });
-  Object.defineProperty(Gt, "VelocityController", {
+  Object.defineProperty(Xt, "__esModule", { value: !0 });
+  Object.defineProperty(Xt, "VelocityController", {
     enumerable: !0,
     get: function () {
-      return Ia;
+      return qa;
     },
   });
-  var Ma = {
+  var Ba = {
     adaptiveMax: 2800,
     adaptAlpha: 0.05,
     adaptDecay: 0.99,
     hardMin: 600,
     hardMax: 4e3,
   };
-  function Aa(n, e) {
+  function ja(n, e) {
     let t = Math.max(e.hardMin, Math.min(e.hardMax, n));
     (e.adaptiveMax = Math.max(t, e.adaptiveMax * e.adaptDecay)),
       (e.adaptiveMax += (t - e.adaptiveMax) * e.adaptAlpha),
       (e.adaptiveMax = Math.max(e.hardMin, Math.min(e.hardMax, e.adaptiveMax)));
   }
-  var Oa = (n) => n * n;
-  function _a(n, e, t, r) {
+  var Va = (n) => n * n;
+  function Ua(n, e, t, r) {
     let o = Math.hypot(n, e);
-    Aa(o, t);
+    ja(o, t);
     let i = Math.max(1, t.adaptiveMax),
-      s = Oa(Math.min(1, o / i)),
+      s = Va(Math.min(1, o / i)),
       a = 0,
-      c = 0;
+      l = 0;
     return (
       r.x && r.y
-        ? o > 0 && ((a = n / o), (c = e / o))
+        ? o > 0 && ((a = n / o), (l = e / o))
         : r.x
         ? n !== 0 && (a = Math.sign(n))
-        : r.y && e !== 0 && (c = Math.sign(e)),
-      { n: s, dirX: a, dirY: c }
+        : r.y && e !== 0 && (l = Math.sign(e)),
+      { n: s, dirX: a, dirY: l }
     );
   }
-  var Ia = class {
+  var qa = class {
     config;
     velState;
     lastDirX;
@@ -4699,7 +4822,7 @@ var qr = m((Gt) => {
     }
     constructor(e) {
       (this.config = e),
-        (this.velState = { ...Ma }),
+        (this.velState = { ...Ba }),
         (this.lastDirX = 0),
         (this.lastDirY = 0),
         (this.lastNormVelocity = 0);
@@ -4709,7 +4832,7 @@ var qr = m((Gt) => {
         n: r,
         dirX: o,
         dirY: i,
-      } = _a(e, t, this.velState, this.config.axes);
+      } = Ua(e, t, this.velState, this.config.axes);
       (this.lastNormVelocity = r), (this.lastDirX = o), (this.lastDirY = i);
     }
     reset() {
@@ -4720,18 +4843,18 @@ var qr = m((Gt) => {
     }
   };
 });
-var $r = m((zt) => {
+var Xr = m((Zt) => {
   "use strict";
-  Object.defineProperty(zt, "__esModule", { value: !0 });
-  Object.defineProperty(zt, "IntervalController", {
+  Object.defineProperty(Zt, "__esModule", { value: !0 });
+  Object.defineProperty(Zt, "IntervalController", {
     enumerable: !0,
     get: function () {
-      return Pa;
+      return Ga;
     },
   });
-  var Ra = te(),
-    xa = 16,
-    Pa = class {
+  var $a = ne(),
+    Ha = 16,
+    Ga = class {
       config;
       accum;
       lastX;
@@ -4766,16 +4889,16 @@ var $r = m((zt) => {
           return;
         }
         let a = t - this.lastX,
-          c = r - this.lastY;
+          l = r - this.lastY;
         (this.lastX = t), (this.lastY = r);
-        let { axes: l, distance: u } = this.config;
-        l.x && l.y
-          ? (this.accum += Math.hypot(a, c))
-          : l.x
+        let { axes: c, distance: u } = this.config;
+        c.x && c.y
+          ? (this.accum += Math.hypot(a, l))
+          : c.x
           ? (this.accum += Math.abs(a))
-          : l.y && (this.accum += Math.abs(c));
+          : c.y && (this.accum += Math.abs(l));
         let d = 0;
-        for (; this.accum >= u && d < xa; ) {
+        for (; this.accum >= u && d < Ha; ) {
           this.accum -= u;
           let f = {
             cursorPos: { x: t, y: r },
@@ -4784,7 +4907,7 @@ var $r = m((zt) => {
             dirY: s,
           };
           this.config.channelManager.fireInterval?.(
-            Ra.TIMELINE_ROLE_NAMES.INTERVAL,
+            $a.TIMELINE_ROLE_NAMES.INTERVAL,
             {
               targetIndex: this.cycleIndex++,
               element: this.config.element,
@@ -4803,39 +4926,39 @@ var $r = m((zt) => {
       }
     };
 });
-var Ve = m((Wt) => {
+var Ue = m((Qt) => {
   "use strict";
-  Object.defineProperty(Wt, "__esModule", { value: !0 });
-  function ka(n, e) {
+  Object.defineProperty(Qt, "__esModule", { value: !0 });
+  function za(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  ka(Wt, {
+  za(Qt, {
     TRANSIENT_IX3_CLONE_ATTR: function () {
-      return Hr.TRANSIENT_IX3_CLONE_ATTR;
+      return Zr.TRANSIENT_IX3_CLONE_ATTR;
     },
     isTransientIX3Clone: function () {
-      return Hr.isTransientIX3Clone;
+      return Zr.isTransientIX3Clone;
     },
   });
-  var Hr = te();
+  var Zr = ne();
 });
-var Kr = m((Xt) => {
+var ii = m((Jt) => {
   "use strict";
-  Object.defineProperty(Xt, "__esModule", { value: !0 });
-  Object.defineProperty(Xt, "fireMouseMoveInterval", {
+  Object.defineProperty(Jt, "__esModule", { value: !0 });
+  Object.defineProperty(Jt, "fireMouseMoveInterval", {
     enumerable: !0,
     get: function () {
-      return Ha;
+      return sl;
     },
   });
-  var Na = te(),
-    Qr = Ve(),
-    Yt = new Set(["x", "y"]),
-    Fa = new Set(["scale", "scaleX", "scaleY"]),
-    Gr = new WeakMap(),
-    zr = new WeakMap();
-  function La(n) {
-    let e = Gr.get(n);
+  var Wa = ne(),
+    ri = Ue(),
+    Kt = new Set(["x", "y"]),
+    Ya = new Set(["scale", "scaleX", "scaleY"]),
+    Qr = new WeakMap(),
+    Kr = new WeakMap();
+  function Xa(n) {
+    let e = Qr.get(n);
     return (
       e ||
         ((e = {
@@ -4843,13 +4966,13 @@ var Kr = m((Xt) => {
           intervalClones: new Set(),
           baselineValues: new Map(),
         }),
-        Gr.set(n, e)),
+        Qr.set(n, e)),
       e
     );
   }
-  function Da(n, e, t, r) {
-    let o = zr.get(n);
-    o || ((o = new Set()), zr.set(n, o)),
+  function Za(n, e, t, r) {
+    let o = Kr.get(n);
+    o || ((o = new Set()), Kr.set(n, o)),
       !o.has(t) &&
         (o.add(t),
         r(() => {
@@ -4863,35 +4986,72 @@ var Kr = m((Xt) => {
             o.delete(t);
         }));
   }
-  function Wr(n) {
+  function Jr(n) {
     if (n)
       for (let e in n) {
-        if (!Yt.has(e)) continue;
+        if (!Kt.has(e)) continue;
         let t = n[e];
-        (typeof t == "number" || typeof t == "string") && (n[e] = `+=${t}`);
+        (typeof t == "string" && (t.startsWith("+=") || t.startsWith("-="))) ||
+          ((typeof t == "number" || typeof t == "string") && (n[e] = `+=${t}`));
       }
   }
-  function Yr(n, e, t, r) {
+  var Qa = /^random\((.*)\)([a-z%]*)$/i,
+    Ka = /^-?\d*\.?\d+$/;
+  function Ja(n, e) {
+    let t = Qa.exec(n);
+    if (!t) return null;
+    let r = t[1] ?? "",
+      o = t[2] ?? "",
+      i = r.startsWith("[") && r.endsWith("]"),
+      a = (i ? r.slice(1, -1) : r).split(",").map((c) => c.trim());
+    if (!a.every((c) => Ka.test(c))) return null;
+    let l = a
+      .map((c, u) => {
+        let d = Number(c);
+        return !i && u >= 2 ? Math.abs(e(d) - e(0)) : e(d);
+      })
+      .join(", ");
+    return `random(${i ? `[${l}]` : l})${o}`;
+  }
+  function ei(n, e, t, r) {
     if (n)
       for (let o in n) {
-        let i = n[o],
-          s,
-          a = "";
-        if (typeof i == "number") s = i;
-        else if (typeof i == "string") {
-          if (((s = parseFloat(i)), isNaN(s))) continue;
-          a = i.replace(/^-?[\d.]+/, "");
-        } else continue;
-        if (Yt.has(o)) {
-          let c = o === "y" ? r : t;
-          n[o] = `+=${s * e * c}${a}`;
+        let i = n[o];
+        if (typeof i != "number" && typeof i != "string") continue;
+        let s = !1,
+          a = typeof i == "string" ? i : "";
+        typeof i == "string" &&
+          (i.startsWith("+=") || i.startsWith("-=")) &&
+          ((s = !0), (a = (i.startsWith("-=") ? "-" : "") + i.slice(2)));
+        let l, c;
+        if (Kt.has(o)) {
+          let g = o === "y" ? r : t;
+          (l = (h) => h * e * g), (c = !0);
         } else if (o === "rotation") {
-          let c = Math.abs(t) >= Math.abs(r) ? t : -r;
-          n[o] = s * e * c;
-        } else Fa.has(o) ? (n[o] = 1 + (s - 1) * e) : (n[o] = s * e);
+          let g = Math.abs(t) >= Math.abs(r) ? t : -r;
+          (l = (h) => h * e * g), (c = s);
+        } else
+          Ya.has(o)
+            ? ((l = s ? (g) => g * e : (g) => 1 + (g - 1) * e), (c = s))
+            : ((l = (g) => g * e), (c = s));
+        if (typeof i == "string" && a.startsWith("random(")) {
+          let g = Ja(a, l);
+          if (g == null) continue;
+          n[o] = c ? `+=${g}` : g;
+          continue;
+        }
+        let u,
+          d = "";
+        if (typeof i == "number") u = i;
+        else {
+          if (((u = parseFloat(a)), isNaN(u))) continue;
+          d = a.replace(/^-?[\d.]+/, "");
+        }
+        let f = l(u);
+        n[o] = c ? `+=${f}${d}` : f;
       }
   }
-  function Ba(n, e) {
+  function el(n, e) {
     let t = n.getOneShotTimelineContext(e),
       r = t?.timelineDef;
     if (!t || !r?.actions?.length) return null;
@@ -4905,12 +5065,12 @@ var Kr = m((Xt) => {
           axes: o?.axes,
         };
   }
-  function ja(n, e, t, r, o) {
+  function tl(n, e, t, r, o) {
     let i = n.cloneNode(!0);
     i.removeAttribute("style"),
       i.removeAttribute("id"),
       i.removeAttribute("data-w-id"),
-      i.setAttribute(Qr.TRANSIENT_IX3_CLONE_ATTR, "true"),
+      i.setAttribute(ri.TRANSIENT_IX3_CLONE_ATTR, "true"),
       (i.style.position = "absolute"),
       (i.style.margin = "0"),
       (i.style.pointerEvents = "none"),
@@ -4918,7 +5078,7 @@ var Kr = m((Xt) => {
     let s = e.baselineValues.get(o)?.get(n);
     return s && r.set(i, { ...s }), e.intervalClones.add(i), t.add(i), i;
   }
-  function Va(n, e) {
+  function nl(n, e) {
     let t = [],
       r = new Set();
     for (let o of n.timelineDef.actions)
@@ -4927,59 +5087,59 @@ var Kr = m((Xt) => {
         if (s) {
           for (let a of [s.to, s.from])
             if (a)
-              for (let c of Object.keys(a)) Yt.has(c) ? t.push(c) : r.add(c);
+              for (let l of Object.keys(a)) Kt.has(l) ? t.push(l) : r.add(l);
         }
       }
     return { clearProps: t, baselineProps: r };
   }
-  function Ua(n, e, t, r, o) {
-    let { clearProps: i, baselineProps: s } = Va(n, t);
+  function rl(n, e, t, r, o) {
+    let { clearProps: i, baselineProps: s } = nl(n, t);
     if (s.size > 0) {
       let a = {};
-      for (let l of s) a[l] = e.getProperty(t, l);
-      let c = r.baselineValues.get(o);
-      c || ((c = new WeakMap()), r.baselineValues.set(o, c)), c.set(t, a);
+      for (let c of s) a[c] = e.getProperty(t, c);
+      let l = r.baselineValues.get(o);
+      l || ((l = new WeakMap()), r.baselineValues.set(o, l)), l.set(t, a);
     }
     i.length !== 0 && e.set(t, { clearProps: i.join(",") });
   }
-  function qa(n, e, t) {
+  function il(n, e, t) {
     return (r, o, i) => {
       (
         o.pluginConfig?.type === "mouseMove"
           ? o.pluginConfig.velocityInfluence
           : !1
       )
-        ? n != null && (Yr(i.to, n, e, t), i.from && Yr(i.from, n, e, t))
-        : (Wr(i.to), i.from && Wr(i.from));
+        ? n != null && (ei(i.to, n, e, t), i.from && ei(i.from, n, e, t))
+        : (Jr(i.to), i.from && Jr(i.from));
     };
   }
-  function $a(n, e, t, r, o, i, s, a) {
-    let [c] = t;
-    if (c && (n.set(c, { zIndex: r + 1 + o }, 0), !(!i || (!s && !a))))
-      for (let l of t) {
-        let u = l.getBoundingClientRect(),
+  function ol(n, e, t, r, o, i, s, a) {
+    let [l] = t;
+    if (l && (n.set(l, { zIndex: r + 1 + o }, 0), !(!i || (!s && !a))))
+      for (let c of t) {
+        let u = c.getBoundingClientRect(),
           d = {};
         if (s) {
-          let f = Number(e.getProperty(l, "x")) || 0;
+          let f = Number(e.getProperty(c, "x")) || 0;
           d.x = i.x - (u.left + u.width / 2 - f);
         }
         if (a) {
-          let f = Number(e.getProperty(l, "y")) || 0;
+          let f = Number(e.getProperty(c, "y")) || 0;
           d.y = i.y - (u.top + u.height / 2 - f);
         }
-        n.set(l, d, 0);
+        n.set(c, d, 0);
       }
   }
-  function Xr(n) {
+  function ti(n) {
     for (let e of n) e();
     n.clear();
   }
-  function Zr(n, e, t) {
+  function ni(n, e, t) {
     n.activeIntervalEls.get(e)?.delete(t),
       n.intervalClones.has(t) &&
         (t.isConnected && t.remove(), n.intervalClones.delete(t));
   }
-  var Ha = ({
+  var sl = ({
     coordinator: n,
     timelineId: e,
     element: t,
@@ -4989,106 +5149,106 @@ var Kr = m((Xt) => {
     if (!o.hasGsap()) return;
     let i = r.targetIndex;
     if (i == null) return;
-    let s = Ba(n, e);
+    let s = el(n, e);
     if (!s) return;
-    let { oneShot: a, mouseMoveMeta: c, axes: l } = s,
-      u = La(n),
+    let { oneShot: a, mouseMoveMeta: l, axes: c } = s,
+      u = Xa(n),
       d = a
         .getFirstActionTargets(t)
-        .filter((j) => !(0, Qr.isTransientIX3Clone)(j));
+        .filter((V) => !(0, ri.isTransientIX3Clone)(V));
     if (!d.length) return;
     let f = [d[i % d.length]],
-      p = f,
+      g = f,
       h = f[0],
-      g = u.activeIntervalEls.get(e);
-    g || ((g = new Set()), u.activeIntervalEls.set(e, g)),
-      g.has(h) ? (p = [ja(h, u, g, o, e)]) : (Ua(a, o, h, u, e), g.add(h));
-    let y = p[0],
-      E = l?.x === !1 && l?.y === !1,
-      M = E || (l?.x ?? c?.setMouseX ?? !0),
-      S = E || (l?.y ?? c?.setMouseY ?? !0),
-      C = (0, Na.narrowMouseMoveIntervalPayload)(r.pluginPayload),
-      v = C.cursorPos,
-      T = C.velocityFactor,
-      w = C.dirX ?? 0,
-      _ = C.dirY ?? 0,
-      I = new Set(),
-      x = a.buildActionTimeline({
-        targets: p,
-        cleanupBucket: I,
-        varsTransform: qa(T, w, _),
-        beforeTweens: (j) => {
-          $a(j, o, p, d.length, i, v, M, S);
+      p = u.activeIntervalEls.get(e);
+    p || ((p = new Set()), u.activeIntervalEls.set(e, p)),
+      p.has(h) ? (g = [tl(h, u, p, o, e)]) : (rl(a, o, h, u, e), p.add(h));
+    let y = g[0],
+      T = c?.x === !1 && c?.y === !1,
+      A = T || (c?.x ?? l?.setMouseX ?? !0),
+      C = T || (c?.y ?? l?.setMouseY ?? !0),
+      M = (0, Wa.narrowMouseMoveIntervalPayload)(r.pluginPayload),
+      b = M.cursorPos,
+      v = M.velocityFactor,
+      w = M.dirX ?? 0,
+      I = M.dirY ?? 0,
+      E = new Set(),
+      P = a.buildActionTimeline({
+        targets: g,
+        cleanupBucket: E,
+        varsTransform: il(v, w, I),
+        beforeTweens: (V) => {
+          ol(V, o, g, d.length, i, b, A, C);
         },
       });
-    if (!x) {
-      Xr(I), Zr(u, e, y);
+    if (!P) {
+      ti(E), ni(u, e, y);
       return;
     }
-    let G = null,
+    let z = null,
       R = !1,
-      A = (j) => {
-        R || ((R = !0), G?.(), j && x.kill(), Xr(I), Zr(u, e, y));
+      O = (V) => {
+        R || ((R = !0), z?.(), V && P.kill(), ti(E), ni(u, e, y));
       };
-    (G = a.registerCleanup(() => A(!0))),
-      x.eventCallback("onComplete", () => {
-        A(!1);
+    (z = a.registerCleanup(() => O(!0))),
+      P.eventCallback("onComplete", () => {
+        O(!1);
       }),
-      Da(n, u, e, a.registerCleanup);
+      Za(n, u, e, a.registerCleanup);
   };
 });
-var ii = m((Kt) => {
+var ui = m((nn) => {
   "use strict";
-  Object.defineProperty(Kt, "__esModule", { value: !0 });
-  Object.defineProperty(Kt, "buildMouseMove", {
+  Object.defineProperty(nn, "__esModule", { value: !0 });
+  Object.defineProperty(nn, "buildMouseMove", {
     enumerable: !0,
     get: function () {
-      return ec;
+      return ml;
     },
   });
-  var ne = te(),
-    Ae = Me(),
-    Ga = Ur(),
-    za = qr(),
-    Wa = $r(),
-    Ya = Kr(),
-    Xa = 50,
-    Jr = 50,
-    Zt = null;
-  function Za() {
+  var re = ne(),
+    Oe = Ae(),
+    al = Wr(),
+    ll = Yr(),
+    cl = Xr(),
+    ul = ii(),
+    dl = 50,
+    oi = 50,
+    en = null;
+  function fl() {
     return (
-      Zt === null &&
-        (Zt = "ontouchstart" in window || navigator.maxTouchPoints > 0),
-      Zt
+      en === null &&
+        (en = "ontouchstart" in window || navigator.maxTouchPoints > 0),
+      en
     );
   }
-  var ni = 0,
-    ri = 0,
-    Ue = 0,
-    se = null;
-  function Qa() {
-    (Ue += 1),
-      se ||
-        ((se = () => {
-          (ni = window.innerWidth), (ri = window.innerHeight);
+  var li = 0,
+    ci = 0,
+    qe = 0,
+    ae = null;
+  function pl() {
+    (qe += 1),
+      ae ||
+        ((ae = () => {
+          (li = window.innerWidth), (ci = window.innerHeight);
         }),
-        se(),
-        window.addEventListener("resize", se));
+        ae(),
+        window.addEventListener("resize", ae));
     let n = !1;
     return () => {
       n ||
         ((n = !0),
-        (Ue = Math.max(0, Ue - 1)),
-        Ue === 0 &&
-          se &&
-          (window.removeEventListener("resize", se), (se = null)));
+        (qe = Math.max(0, qe - 1)),
+        qe === 0 &&
+          ae &&
+          (window.removeEventListener("resize", ae), (ae = null)));
     };
   }
-  var qe = (n) => Math.max(0, Math.min(1, n));
-  function Ka(n, e, t) {
+  var $e = (n) => Math.max(0, Math.min(1, n));
+  function gl(n, e, t) {
     return e === t || n === t || (n < t && e > t) || (n > t && e < t);
   }
-  function Oe(n, e, t) {
+  function _e(n, e, t) {
     let r = n.tween;
     (n.tween = null),
       (n.takeoverTarget = null),
@@ -5097,16 +5257,16 @@ var ii = m((Kt) => {
       n.channel?.setProgress(e),
       t && r?.kill();
   }
-  function ei(n, e) {
+  function si(n, e) {
     if (n.tween) {
       if (n.proxy.value === e) {
-        Oe(n, e, !0);
+        _e(n, e, !0);
         return;
       }
       let t = n.tweenTarget - n.proxy.value,
         r = e - n.proxy.value;
       if (t * r < 0) {
-        Oe(n, e, !0);
+        _e(n, e, !0);
         return;
       }
       n.takeoverTarget = e;
@@ -5114,12 +5274,12 @@ var ii = m((Kt) => {
     }
     (n.proxy.value = e), (n.lastValue = e), n.channel?.setProgress(e);
   }
-  function Qt(n) {
+  function tn(n) {
     let e = n.tween;
     (n.tween = null), (n.takeoverTarget = null), e?.kill();
   }
-  function ti(n, e, t, r) {
-    Qt(e), (e.lastValue = e.proxy.value), (e.tweenTarget = t);
+  function ai(n, e, t, r) {
+    tn(e), (e.lastValue = e.proxy.value), (e.tweenTarget = t);
     let o = n.to(e.proxy, {
       value: t,
       duration: r,
@@ -5127,86 +5287,86 @@ var ii = m((Kt) => {
       onUpdate: () => {
         let i = e.proxy.value,
           s = e.takeoverTarget;
-        if (s != null && Ka(e.lastValue, i, s)) {
-          Oe(e, s, !0);
+        if (s != null && gl(e.lastValue, i, s)) {
+          _e(e, s, !0);
           return;
         }
         (e.lastValue = i), e.channel?.setImmediate(i);
       },
       onComplete: () => {
         let i = e.takeoverTarget;
-        (e.tween = null), (e.takeoverTarget = null), i != null && Oe(e, i, !1);
+        (e.tween = null), (e.takeoverTarget = null), i != null && _e(e, i, !1);
       },
     });
     if (!o) {
-      Oe(e, t, !1);
+      _e(e, t, !1);
       return;
     }
     e.tween = o;
   }
-  function Ja(n, e, t, r) {
+  function hl(n, e, t, r) {
     let o = Math.abs(t - n),
       i = Math.abs(r - e),
       s = Math.max(o, i);
     return 0.1 + Math.min(s / 0.5, 1) * 0.5;
   }
-  function ec(n) {
+  function ml(n) {
     n.addTrigger("mouse-move", (e, t, r, o) => {
       let i = e[1].pluginConfig,
-        s = e[2]?.[0] === ne.IX3_WF_EXTENSION_KEYS.VIEWPORT;
+        s = e[2]?.[0] === re.IX3_WF_EXTENSION_KEYS.VIEWPORT;
       return (
         o({
           type: "continuous",
           setup: (a) => {
-            let { animation: c } = a;
-            if (!c.hasGsap() || !c.hasObserver()) return Ae.noop;
-            let l = s ? Qa() : Ae.noop;
+            let { animation: l } = a;
+            if (!l.hasGsap() || !l.hasObserver()) return Oe.noop;
+            let c = s ? pl() : Oe.noop;
             a.registerIntervalHandler(
-              ne.IX3_WF_EXTENSION_KEYS.MOUSE_MOVE,
-              Ya.fireMouseMoveInterval
+              re.IX3_WF_EXTENSION_KEYS.MOUSE_MOVE,
+              ul.fireMouseMoveInterval
             );
-            let u = i?.smoothness ?? Xa,
-              d = (i?.restingState?.x ?? Jr) / 100,
-              f = (i?.restingState?.y ?? Jr) / 100,
-              p = a.registerChannel({
-                role: ne.TIMELINE_ROLE_NAMES.MOUSE_X,
+            let u = i?.smoothness ?? dl,
+              d = (i?.restingState?.x ?? oi) / 100,
+              f = (i?.restingState?.y ?? oi) / 100,
+              g = a.registerChannel({
+                role: re.TIMELINE_ROLE_NAMES.MOUSE_X,
                 initialValue: d,
                 element: t,
                 smoothing: u,
               }),
               h = a.registerChannel({
-                role: ne.TIMELINE_ROLE_NAMES.MOUSE_Y,
+                role: re.TIMELINE_ROLE_NAMES.MOUSE_Y,
                 initialValue: f,
                 element: t,
                 smoothing: u,
               }),
-              g = new AbortController(),
-              { signal: y } = g,
-              E = a.getMetadata(ne.TIMELINE_ROLE_NAMES.INTERVAL),
-              M = {
-                x: E?.axes?.x !== !1 || E?.axes?.y === !1,
-                y: E?.axes?.y !== !1 || E?.axes?.x === !1,
+              p = new AbortController(),
+              { signal: y } = p,
+              T = a.getMetadata(re.TIMELINE_ROLE_NAMES.INTERVAL),
+              A = {
+                x: T?.axes?.x !== !1 || T?.axes?.y === !1,
+                y: T?.axes?.y !== !1 || T?.axes?.x === !1,
               },
-              S = E
-                ? new Wa.IntervalController({
+              C = T
+                ? new cl.IntervalController({
                     distance:
-                      E.distance ?? ne.DEFAULT_MOUSE_MOVE_INTERVAL_DISTANCE,
-                    axes: M,
+                      T.distance ?? re.DEFAULT_MOUSE_MOVE_INTERVAL_DISTANCE,
+                    axes: A,
                     channelManager: a,
                     element: t,
                     signal: y,
                   })
                 : null,
-              C = S ? new za.VelocityController({ axes: M }) : null,
-              v = {
+              M = C ? new ll.VelocityController({ axes: A }) : null,
+              b = {
                 proxy: { value: d },
-                channel: p,
+                channel: g,
                 tween: null,
                 takeoverTarget: null,
                 lastValue: d,
                 tweenTarget: d,
               },
-              T = {
+              v = {
                 proxy: { value: f },
                 channel: h,
                 tween: null,
@@ -5215,126 +5375,126 @@ var ii = m((Kt) => {
                 tweenTarget: f,
               },
               w = !1,
-              _ = (k, U) => {
-                let q = Ja(v.proxy.value, T.proxy.value, k, U);
-                ti(c, v, k, q), ti(c, T, U, q);
+              I = (N, $) => {
+                let H = hl(b.proxy.value, v.proxy.value, N, $);
+                ai(l, b, N, H), ai(l, v, $, H);
               },
-              I = Za(),
-              x = s ? document.documentElement : t,
-              G = null;
-            I && (G = new Ga.TouchScrollGuard(x, y));
+              E = fl(),
+              P = s ? document.documentElement : t,
+              z = null;
+            E && (z = new al.TouchScrollGuard(P, y));
             let R = null,
-              A = () => {
+              O = () => {
                 R = null;
               },
-              j = () => (R || (R = t.getBoundingClientRect()), R);
+              V = () => (R || (R = t.getBoundingClientRect()), R);
             if (!s) {
-              let k = new ResizeObserver(A);
-              k.observe(t),
-                y.addEventListener("abort", () => k.disconnect()),
-                window.addEventListener("scroll", A, {
+              let N = new ResizeObserver(O);
+              N.observe(t),
+                y.addEventListener("abort", () => N.disconnect()),
+                window.addEventListener("scroll", O, {
                   passive: !0,
                   capture: !0,
                   signal: y,
                 }),
                 window.visualViewport &&
-                  window.visualViewport.addEventListener("resize", A, {
+                  window.visualViewport.addEventListener("resize", O, {
                     signal: y,
                   });
             }
-            let J;
+            let ee;
             try {
               if (
-                ((J = c.createObserver({
-                  target: x,
-                  type: I ? "pointer,touch" : "pointer",
+                ((ee = l.createObserver({
+                  target: P,
+                  type: E ? "pointer,touch" : "pointer",
                   tolerance: 0,
-                  onMove: (k) => {
-                    if (G?.isScrolling || !a.isPreviewEnabled()) return;
-                    let U = k.x ?? 0,
-                      q = k.y ?? 0,
-                      $,
-                      ue;
+                  onMove: (N) => {
+                    if (z?.isScrolling || !a.isPreviewEnabled()) return;
+                    let $ = N.x ?? 0,
+                      H = N.y ?? 0,
+                      G,
+                      de;
                     if (s)
-                      ($ = qe(U / Math.max(1, ni))),
-                        (ue = qe(q / Math.max(1, ri)));
+                      (G = $e($ / Math.max(1, li))),
+                        (de = $e(H / Math.max(1, ci)));
                     else {
-                      let Y = j();
-                      ($ = qe((U - Y.left) / Math.max(1, Y.width))),
-                        (ue = qe((q - Y.top) / Math.max(1, Y.height)));
+                      let X = V();
+                      (G = $e(($ - X.left) / Math.max(1, X.width))),
+                        (de = $e((H - X.top) / Math.max(1, X.height)));
                     }
-                    w ? (ei(v, $), ei(T, ue)) : ((w = !0), _($, ue)),
+                    w ? (si(b, G), si(v, de)) : ((w = !0), I(G, de)),
                       a.publishChannel(
-                        ne.MOUSE_MOVE_CHANNELS.POSITION,
-                        { x: U, y: q, triggerEl: t, isViewport: s },
+                        re.MOUSE_MOVE_CHANNELS.POSITION,
+                        { x: $, y: H, triggerEl: t, isViewport: s },
                         t
                       ),
-                      C &&
-                        (C.update(k.velocityX, k.velocityY),
-                        S.update({
-                          x: U,
-                          y: q,
-                          velocityFactor: C.lastNormVelocity,
-                          dirX: C.dirX,
-                          dirY: C.dirY,
+                      M &&
+                        (M.update(N.velocityX, N.velocityY),
+                        C.update({
+                          x: $,
+                          y: H,
+                          velocityFactor: M.lastNormVelocity,
+                          dirX: M.dirX,
+                          dirY: M.dirY,
                         }));
                   },
                 })),
-                !J)
+                !ee)
               )
-                return S?.destroy(), C?.destroy(), g.abort(), l(), Ae.noop;
+                return C?.destroy(), M?.destroy(), p.abort(), c(), Oe.noop;
             } catch {
-              return S?.destroy(), C?.destroy(), g.abort(), l(), Ae.noop;
+              return C?.destroy(), M?.destroy(), p.abort(), c(), Oe.noop;
             }
-            let V = () => {
+            let q = () => {
               a.isPreviewEnabled() &&
                 ((w = !1),
-                _(d, f),
-                C?.reset(),
-                a.publishChannel(ne.MOUSE_MOVE_CHANNELS.LEAVE, void 0, t),
-                S?.reset());
+                I(d, f),
+                M?.reset(),
+                a.publishChannel(re.MOUSE_MOVE_CHANNELS.LEAVE, void 0, t),
+                C?.reset());
             };
             return (
               s
-                ? (x.addEventListener("mouseleave", V, { signal: y }),
-                  window.addEventListener("blur", V, { signal: y }))
-                : t.addEventListener("mouseleave", V, { signal: y }),
-              x.addEventListener("touchend", V, { signal: y, passive: !0 }),
-              x.addEventListener("touchcancel", V, { signal: y, passive: !0 }),
+                ? (P.addEventListener("mouseleave", q, { signal: y }),
+                  window.addEventListener("blur", q, { signal: y }))
+                : t.addEventListener("mouseleave", q, { signal: y }),
+              P.addEventListener("touchend", q, { signal: y, passive: !0 }),
+              P.addEventListener("touchcancel", q, { signal: y, passive: !0 }),
               () => {
-                J.kill(),
-                  g.abort(),
-                  Qt(v),
-                  Qt(T),
-                  S?.destroy(),
+                ee.kill(),
+                  p.abort(),
+                  tn(b),
+                  tn(v),
                   C?.destroy(),
-                  l();
+                  M?.destroy(),
+                  c();
               }
             );
           },
         }),
-        Ae.noop
+        Oe.noop
       );
     });
   }
 });
-var si = m((Jt) => {
+var fi = m((rn) => {
   "use strict";
-  Object.defineProperty(Jt, "__esModule", { value: !0 });
-  Object.defineProperty(Jt, "build", {
+  Object.defineProperty(rn, "__esModule", { value: !0 });
+  Object.defineProperty(rn, "build", {
     enumerable: !0,
     get: function () {
-      return nc;
+      return vl;
     },
   });
-  var _e = Me(),
-    tc = ii();
-  function nc(n) {
-    rc(n),
-      ic(n),
-      (0, tc.buildMouseMove)(n),
-      oc(n),
-      sc(n),
+  var Ie = Ae(),
+    yl = ui();
+  function vl(n) {
+    bl(n),
+      Tl(n),
+      (0, yl.buildMouseMove)(n),
+      wl(n),
+      Sl(n),
       n.addTrigger("load", (e, t, r, o) => {
         let i = e[1],
           s = !1,
@@ -5343,16 +5503,16 @@ var si = m((Jt) => {
           };
         switch (i.pluginConfig?.triggerPoint) {
           case "immediate":
-            return a(), _e.noop;
+            return a(), Ie.noop;
           case "fullyLoaded":
             return document.readyState === "complete"
-              ? (a(), _e.noop)
+              ? (a(), Ie.noop)
               : r.addEventListener(window, "load", a);
           case "DOMContentLoaded":
           default:
             return document.readyState === "complete" ||
               document.readyState === "interactive"
-              ? (a(), _e.noop)
+              ? (a(), Ie.noop)
               : r.addEventListener(document, "DOMContentLoaded", a);
         }
       }),
@@ -5374,57 +5534,57 @@ var si = m((Jt) => {
           { delegate: !i.pluginConfig?.useFocusWithin }
         );
       }),
-      n.addTrigger("scroll", (e, t, r, o) => (o({ target: t }), _e.noop)),
+      n.addTrigger("scroll", (e, t, r, o) => (o({ target: t }), Ie.noop)),
       n.addTrigger("custom", (e, t, r, o) => {
         let s = e[1].pluginConfig?.eventName;
         return s
           ? r.addEventListener(t, s, o, { delegate: !1, kind: "custom" })
-          : _e.noop;
+          : Ie.noop;
       }),
       n.addTrigger("change", (e, t, r, o) =>
         r.addEventListener(t, "change", o)
       );
   }
-  function rc(n) {
+  function bl(n) {
     let e = new WeakMap();
     n.addTrigger("click", (t, r, o, i) => {
       let [, s] = t,
         a = o.addEventListener(
           r,
           "click",
-          (c) => {
-            let l = s.pluginConfig?.click,
+          (l) => {
+            let c = s.pluginConfig?.click,
               u = e.get(r) || new WeakMap();
             e.set(r, u);
             let f = (u.get(t) || 0) + 1;
-            switch ((u.set(t, f), l)) {
+            switch ((u.set(t, f), c)) {
               case "each": {
-                i(c);
+                i(l);
                 break;
               }
               case "first": {
-                f === 1 && i(c);
+                f === 1 && i(l);
                 break;
               }
               case "second": {
-                f === 2 && i(c);
+                f === 2 && i(l);
                 break;
               }
               case "odd": {
-                f % 2 === 1 && i(c);
+                f % 2 === 1 && i(l);
                 break;
               }
               case "even": {
-                f % 2 === 0 && i(c);
+                f % 2 === 0 && i(l);
                 break;
               }
               case "custom": {
-                let p = s.pluginConfig?.custom;
-                p && f === p && i(c);
+                let g = s.pluginConfig?.custom;
+                g && f === g && i(l);
                 break;
               }
               default:
-                i(c);
+                i(l);
             }
           },
           { delegate: !0 }
@@ -5434,77 +5594,77 @@ var si = m((Jt) => {
       };
     });
   }
-  function ic(n) {
+  function Tl(n) {
     let e = new WeakMap();
     n.addTrigger("hover", (t, r, o, i) => {
       let [, s] = t,
         a = [],
-        c = (l, u) => {
+        l = (c, u) => {
           if ((s.pluginConfig?.type ?? "mouseenter") !== u) return;
           let f = s.pluginConfig?.hover || "each",
-            p = e.get(r) || new Map();
-          e.set(r, p);
-          let g = (p.get(u) || 0) + 1;
-          switch ((p.set(u, g), f)) {
+            g = e.get(r) || new Map();
+          e.set(r, g);
+          let p = (g.get(u) || 0) + 1;
+          switch ((g.set(u, p), f)) {
             case "each": {
-              i(l);
+              i(c);
               break;
             }
             case "first": {
-              g === 1 && i(l);
+              p === 1 && i(c);
               break;
             }
             case "second": {
-              g === 2 && i(l);
+              p === 2 && i(c);
               break;
             }
             case "odd": {
-              g % 2 === 1 && i(l);
+              p % 2 === 1 && i(c);
               break;
             }
             case "even": {
-              g % 2 === 0 && i(l);
+              p % 2 === 0 && i(c);
               break;
             }
             case "custom": {
               let y = s.pluginConfig?.custom;
-              y && g === y && i(l);
+              y && p === y && i(c);
               break;
             }
             default:
-              i(l);
+              i(c);
           }
         };
       return (
         a.push(
-          o.addEventListener(r, "mouseenter", (l) => {
-            c(l, "mouseenter");
+          o.addEventListener(r, "mouseenter", (c) => {
+            l(c, "mouseenter");
           })
         ),
         a.push(
-          o.addEventListener(r, "mouseover", (l) => {
-            c(l, "mouseover");
+          o.addEventListener(r, "mouseover", (c) => {
+            l(c, "mouseover");
           })
         ),
         a.push(
-          o.addEventListener(r, "mouseleave", (l) => {
-            c(l, "mouseleave");
+          o.addEventListener(r, "mouseleave", (c) => {
+            l(c, "mouseleave");
           })
         ),
         () => {
-          a.forEach((l) => l()), (a.length = 0), e.delete(r);
+          a.forEach((c) => c()), (a.length = 0), e.delete(r);
         }
       );
     });
   }
-  function oi(n, e) {
+  function di(n, e) {
     n.addTrigger(e, (t, r, o, i) => {
       let s = t[1].pluginConfig?.event,
         a = "IX3_COMPONENT_STATE_CHANGE";
-      return o.addEventListener(r, a, (c) => {
-        let l = c.detail;
-        if (!l || typeof l != "object") return;
-        let { component: u, state: d } = l;
+      return o.addEventListener(r, a, (l) => {
+        let c = l.detail;
+        if (!c || typeof c != "object") return;
+        let { component: u, state: d } = c;
         u !== e ||
           !d ||
           (s && d !== s) ||
@@ -5512,28 +5672,28 @@ var si = m((Jt) => {
       });
     });
   }
-  function oc(n) {
-    oi(n, "navbar");
+  function wl(n) {
+    di(n, "navbar");
   }
-  function sc(n) {
-    oi(n, "dropdown");
+  function Sl(n) {
+    di(n, "dropdown");
   }
 });
-var ve = m((en) => {
+var be = m((on) => {
   "use strict";
-  Object.defineProperty(en, "__esModule", { value: !0 });
-  function ac(n, e) {
+  Object.defineProperty(on, "__esModule", { value: !0 });
+  function Cl(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  ac(en, {
+  Cl(on, {
     resolveToNumber: function () {
-      return cc;
+      return El;
     },
     resolveToString: function () {
-      return lc;
+      return Ml;
     },
   });
-  function cc(n, e) {
+  function El(n, e) {
     if (typeof n == "number") return n;
     if (typeof n == "string") {
       let t = n;
@@ -5546,7 +5706,7 @@ var ve = m((en) => {
       return isNaN(r) ? void 0 : r;
     }
   }
-  function lc(n, e) {
+  function Ml(n, e) {
     if (typeof n == "string") {
       if (n.startsWith("var(")) {
         let t = n.slice(4, -1).split(",")[0]?.trim() ?? "";
@@ -5556,31 +5716,31 @@ var ve = m((en) => {
     }
   }
 });
-var ui = m((rn) => {
+var mi = m((ln) => {
   "use strict";
-  Object.defineProperty(rn, "__esModule", { value: !0 });
-  function uc(n, e) {
+  Object.defineProperty(ln, "__esModule", { value: !0 });
+  function Al(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  uc(rn, {
+  Al(ln, {
     buildMouseFollowAction: function () {
-      return mc;
+      return xl;
     },
     forTestSuite: function () {
-      return gc;
+      return Rl;
     },
   });
-  var tn = te(),
-    $e = Me(),
-    dc = 0.5,
-    He = 50;
-  function fc(n) {
+  var sn = ne(),
+    He = Ae(),
+    Ol = 0.5,
+    Ge = 50;
+  function _l(n) {
     let e = 2166136261;
     for (let t = 0; t < n.length; t++)
       (e ^= n.charCodeAt(t)), (e = Math.imul(e, 16777619));
     return e >>> 0;
   }
-  function pc(n) {
+  function Il(n) {
     let e = n >>> 0;
     return () => {
       e = (e + 1831565813) | 0;
@@ -5591,7 +5751,7 @@ var ui = m((rn) => {
       );
     };
   }
-  function ai(n, e, t) {
+  function pi(n, e, t) {
     if (n <= 1) return [0];
     if (typeof e == "number") {
       let r = Math.max(0, Math.min(n - 1, Math.floor(e))),
@@ -5612,7 +5772,7 @@ var ui = m((rn) => {
         return r;
       }
       case "random": {
-        let r = t != null && t !== "" ? pc(fc(t)) : Math.random,
+        let r = t != null && t !== "" ? Il(_l(t)) : Math.random,
           o = Array.from({ length: n }, (i, s) => s);
         for (let i = n - 1; i > 0; i--) {
           let s = Math.floor(r() * (i + 1));
@@ -5632,12 +5792,12 @@ var ui = m((rn) => {
         return Array.from({ length: n }, (r, o) => n - 1 - o);
     }
   }
-  function nn(n) {
-    if (n == null) return He;
+  function an(n) {
+    if (n == null) return Ge;
     let e = typeof n == "number" ? n * 1e3 : parseFloat(n);
-    return Number.isFinite(e) && e >= 0 ? e : He;
+    return Number.isFinite(e) && e >= 0 ? e : Ge;
   }
-  var Ie = (n) => {
+  var Re = (n) => {
       if (typeof n != "string") return 0.5;
       let e = /^(-?\d+(?:\.\d+)?)%$/.exec(n.trim());
       if (e) return Math.max(0, Math.min(1, parseFloat(e[1]) / 100));
@@ -5648,31 +5808,31 @@ var ui = m((rn) => {
         ? 1
         : 0.5;
     },
-    ci = (n, e) => {
+    gi = (n, e) => {
       if (n?.amount != null) {
-        let t = nn(n.amount),
-          r = e > 1 ? t / (e - 1) : He;
+        let t = an(n.amount),
+          r = e > 1 ? t / (e - 1) : Ge;
         return Math.max(1, r);
       }
-      return n?.each != null ? Math.max(1, nn(n.each)) : 1;
+      return n?.each != null ? Math.max(1, an(n.each)) : 1;
     },
-    li = (n) => {
+    hi = (n) => {
       if (!n) return { x: 0.5, y: 0.5 };
       if (typeof n == "string") {
         let [e, t] = n.trim().split(/\s+/);
-        return { x: Ie(e ?? "50%"), y: Ie(t ?? "50%") };
+        return { x: Re(e ?? "50%"), y: Re(t ?? "50%") };
       }
-      return { x: Ie(n.x), y: Ie(n.y) };
+      return { x: Re(n.x), y: Re(n.y) };
     },
-    gc = {
-      DEFAULT_STAGGER_MS: He,
-      computeMouseFollowSmoothingMs: ci,
-      getChainOrder: ai,
-      parseAnchor: li,
-      parseAnchorAxis: Ie,
-      staggerEachToMs: nn,
+    Rl = {
+      DEFAULT_STAGGER_MS: Ge,
+      computeMouseFollowSmoothingMs: gi,
+      getChainOrder: pi,
+      parseAnchor: hi,
+      parseAnchorAxis: Re,
+      staggerEachToMs: an,
     };
-  function hc(n, e, t, r) {
+  function Pl(n, e, t, r) {
     if (!t.length) return;
     let o = r?.animation;
     if (!o?.hasGsap()) return;
@@ -5682,36 +5842,36 @@ var ui = m((rn) => {
         window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       s = e,
       a = s?.leaveBehavior ?? "return",
-      c = s?.onEnter ?? "animate",
-      l = r?.timelineRole,
-      u = l === "mouseX" ? "x" : l === "mouseY" ? "y" : s?.axis ?? "x",
+      l = s?.onEnter ?? "animate",
+      c = r?.timelineRole,
+      u = c === "mouseX" ? "x" : c === "mouseY" ? "y" : s?.axis ?? "x",
       d = u,
       f = s?.followMode;
     if (
       f != null &&
       f !== "full" &&
-      f !== (0, tn.getSingleAxisMouseFollowMode)(u)
+      f !== (0, sn.getSingleAxisMouseFollowMode)(u)
     )
       return;
-    let p = li(s?.anchor),
-      h = u === "x" ? p.x : p.y,
-      g = t.map((b) => o.getProperty(b, d)),
-      y = t.map((b) => o.quickSetter(b, d, "px"));
-    if (y.some((b) => b == null)) return;
-    let E = y,
-      M = (0, $e.initScrollCache)(),
-      S = t.map((b) => {
-        let O = b.getBoundingClientRect();
+    let g = hi(s?.anchor),
+      h = u === "x" ? g.x : g.y,
+      p = t.map((S) => o.getProperty(S, d)),
+      y = t.map((S) => o.quickSetter(S, d, "px"));
+    if (y.some((S) => S == null)) return;
+    let T = y,
+      A = (0, He.initScrollCache)(),
+      C = t.map((S) => {
+        let _ = S.getBoundingClientRect();
         return u === "x"
-          ? O.left + O.width * h
-          : O.top + O.height * h + (0, $e.getScrollY)();
+          ? _.left + _.width * h
+          : _.top + _.height * h + (0, He.getScrollY)();
       }),
-      C = n.timing?.stagger,
-      v = t.length,
-      T = ci(C, v),
-      w = C?.from,
-      I = ai(
-        v,
+      M = n.timing?.stagger,
+      b = t.length,
+      v = gi(M, b),
+      w = M?.from,
+      E = pi(
+        b,
         typeof w == "number" ||
           w === "start" ||
           w === "center" ||
@@ -5722,229 +5882,358 @@ var ui = m((rn) => {
           : "end",
         s?.groupId ?? s?.syncedActionId
       );
-    if (I.length === 0) return;
-    let x = new Float64Array(v),
-      G = I[0],
-      R = { value: S[G] ?? 0 },
-      A = null,
-      j = !1,
-      J = 0,
-      V = null,
-      k = !1,
-      U = null,
-      q = performance.now(),
-      $ = 0,
-      ue = () => {
-        let b = performance.now(),
-          O = Math.min(b - q, 100);
-        q = b;
-        let D = 1 - Math.exp(-O / T),
-          N = !1;
-        for (let F = 0; F < I.length; F++) {
-          let P = I[F],
-            de;
-          if (F === 0) de = R.value;
+    if (E.length === 0) return;
+    let P = new Float64Array(b),
+      z = E[0],
+      R = { value: C[z] ?? 0 },
+      O = null,
+      V = !1,
+      ee = 0,
+      q = null,
+      N = !1,
+      $ = null,
+      H = performance.now(),
+      G = 0,
+      de = () => {
+        let S = performance.now(),
+          _ = Math.min(S - H, 100);
+        H = S;
+        let B = 1 - Math.exp(-_ / v),
+          F = !1;
+        for (let L = 0; L < E.length; L++) {
+          let k = E[L],
+            fe;
+          if (L === 0) fe = R.value;
           else {
-            let er = I[F - 1];
-            de = S[er] + x[er];
+            let sr = E[L - 1];
+            fe = C[sr] + P[sr];
           }
-          let Jn = de - S[P],
-            nt = Jn - x[P];
-          Math.abs(nt) > dc
-            ? ((x[P] = x[P] + nt * D), E[P](x[P]), (N = !0))
-            : nt !== 0 && ((x[P] = Jn), E[P](x[P]));
+          let or = fe - C[k],
+            st = or - P[k];
+          Math.abs(st) > Ol
+            ? ((P[k] = P[k] + st * B), T[k](P[k]), (F = !0))
+            : st !== 0 && ((P[k] = or), T[k](P[k]));
         }
-        A?.isActive() && (N = !0), N || Y();
+        O?.isActive() && (F = !0), F || X();
       },
-      Y = () => {
-        k && (U?.(), (U = null), (k = !1));
+      X = () => {
+        N && ($?.(), ($ = null), (N = !1));
       },
-      Qn = (b) => {
-        A?.kill(), (A = null), ($ = 0), (R.value = b);
-        for (let O = 0; O < I.length; O++) {
-          let D = I[O],
-            N = b - S[D];
-          (x[D] = N), E[D](N);
+      rr = (S) => {
+        O?.kill(), (O = null), (G = 0), (R.value = S);
+        for (let _ = 0; _ < E.length; _++) {
+          let B = E[_],
+            F = S - C[B];
+          (P[B] = F), T[B](F);
         }
-        Y();
+        X();
       },
-      lo = () => {
-        A?.kill(), (A = null), ($ = 0), (R.value = S[G] ?? 0);
-        for (let b = 0; b < I.length; b++) {
-          let O = I[b];
-          (x[O] = 0), E[O](0);
+      To = () => {
+        O?.kill(), (O = null), (G = 0), (R.value = C[z] ?? 0);
+        for (let S = 0; S < E.length; S++) {
+          let _ = E[S];
+          (P[_] = 0), T[_](0);
         }
-        Y();
+        X();
       },
-      ee = () => {
-        k || ((q = performance.now()), (U = o.addTicker(ue)), (k = !0));
+      te = () => {
+        N || ((H = performance.now()), ($ = o.addTicker(de)), (N = !0));
       },
-      uo = (b, O) => {
-        (V = b),
-          (J = O
+      wo = (S, _) => {
+        (q = S),
+          (ee = _
             ? u === "x"
               ? window.innerWidth
               : window.innerHeight
             : u === "x"
-            ? b.offsetWidth
-            : b.offsetHeight);
+            ? S.offsetWidth
+            : S.offsetHeight);
       },
-      fo = (b) => {
-        V || uo(b.triggerEl, b.isViewport);
-        let O = u === "x" ? b.x : b.y + (0, $e.getScrollY)();
+      So = (S) => {
+        q || wo(S.triggerEl, S.isViewport);
+        let _ = u === "x" ? S.x : S.y + (0, He.getScrollY)();
         if (i) {
-          (j = !0), Qn(O);
+          (V = !0), rr(_);
           return;
         }
-        if (j)
-          if (A) {
-            let D = Math.max($ - performance.now(), 50);
-            A.kill();
-            let N = o.to(R, {
-              value: O,
-              duration: D / 1e3,
+        if (V)
+          if (O) {
+            let B = Math.max(G - performance.now(), 50);
+            O.kill();
+            let F = o.to(R, {
+              value: _,
+              duration: B / 1e3,
               ease: "power2.out",
-              onUpdate: ee,
+              onUpdate: te,
               onComplete: () => {
-                A === N && ((A = null), ($ = 0));
+                O === F && ((O = null), (G = 0));
               },
             });
-            if (!N) {
-              (R.value = O), ee();
+            if (!F) {
+              (R.value = _), te();
               return;
             }
-            A = N;
-          } else R.value = O;
+            O = F;
+          } else R.value = _;
         else {
-          if (((j = !0), c === "snap")) {
-            Qn(O);
+          if (((V = !0), l === "snap")) {
+            rr(_);
             return;
           }
-          let D = Math.abs(O - R.value),
-            F = 0.1 + Math.min(D / (J || 1), 1) * 0.5;
-          ($ = performance.now() + F * 1e3), A?.kill();
-          let P = o.to(R, {
-            value: O,
-            duration: F,
+          let B = Math.abs(_ - R.value),
+            L = 0.1 + Math.min(B / (ee || 1), 1) * 0.5;
+          (G = performance.now() + L * 1e3), O?.kill();
+          let k = o.to(R, {
+            value: _,
+            duration: L,
             ease: "power2.out",
-            onUpdate: ee,
+            onUpdate: te,
             onComplete: () => {
-              A === P && ((A = null), ($ = 0));
+              O === k && ((O = null), (G = 0));
             },
           });
-          if (!P) {
-            (R.value = O), ee();
+          if (!k) {
+            (R.value = _), te();
             return;
           }
-          A = P;
+          O = k;
         }
-        ee();
+        te();
       },
-      po = () => {
-        if (((j = !1), a === "stay")) {
-          ee();
+      Co = () => {
+        if (((V = !1), a === "stay")) {
+          te();
           return;
         }
         if (i) {
-          lo();
+          To();
           return;
         }
-        let b = S[G] ?? 0,
-          O = Math.abs(R.value - b),
-          N = 0.1 + Math.min(O / (J || 1), 1) * 0.5;
-        A?.kill();
-        let F = o.to(R, {
-          value: b,
-          duration: N,
+        let S = C[z] ?? 0,
+          _ = Math.abs(R.value - S),
+          F = 0.1 + Math.min(_ / (ee || 1), 1) * 0.5;
+        O?.kill();
+        let L = o.to(R, {
+          value: S,
+          duration: F,
           ease: "power2.out",
-          onUpdate: ee,
+          onUpdate: te,
           onComplete: () => {
-            A === F && (A = null);
+            O === L && (O = null);
           },
         });
-        if (!F) {
-          (R.value = b), ee();
+        if (!L) {
+          (R.value = S), te();
           return;
         }
-        A = F;
+        O = L;
       },
-      go = r?.subscribeChannel?.(tn.MOUSE_MOVE_CHANNELS.POSITION, fo),
-      ho = r?.subscribeChannel?.(tn.MOUSE_MOVE_CHANNELS.LEAVE, po),
-      Kn = new AbortController(),
-      { signal: mo } = Kn,
-      tt = 0,
-      yo = () => {
-        clearTimeout(tt),
-          (tt = window.setTimeout(() => {
-            V && (J = u === "x" ? V.offsetWidth : V.offsetHeight);
-            for (let b = 0; b < t.length; b++) {
-              let O = t[b],
-                D = o.getProperty(O, d),
-                N = typeof D == "number" ? D : parseFloat(String(D)),
-                F = Number.isFinite(N) ? N : 0,
-                P = O.getBoundingClientRect(),
-                de = u === "x" ? P.left + P.width * h : P.top + P.height * h;
-              (S[b] = u === "x" ? de - F : de - F + (0, $e.getScrollY)()),
-                (x[b] = F);
+      Eo = r?.subscribeChannel?.(sn.MOUSE_MOVE_CHANNELS.POSITION, So),
+      Mo = r?.subscribeChannel?.(sn.MOUSE_MOVE_CHANNELS.LEAVE, Co),
+      ir = new AbortController(),
+      { signal: Ao } = ir,
+      ot = 0,
+      Oo = () => {
+        clearTimeout(ot),
+          (ot = window.setTimeout(() => {
+            q && (ee = u === "x" ? q.offsetWidth : q.offsetHeight);
+            for (let S = 0; S < t.length; S++) {
+              let _ = t[S],
+                B = o.getProperty(_, d),
+                F = typeof B == "number" ? B : parseFloat(String(B)),
+                L = Number.isFinite(F) ? F : 0,
+                k = _.getBoundingClientRect(),
+                fe = u === "x" ? k.left + k.width * h : k.top + k.height * h;
+              (C[S] = u === "x" ? fe - L : fe - L + (0, He.getScrollY)()),
+                (P[S] = L);
             }
-            if (!j) {
-              let b = S[G];
-              b !== void 0 &&
-                (A?.isActive() && (A.kill(), (A = null)), (R.value = b));
+            if (!V) {
+              let S = C[z];
+              S !== void 0 &&
+                (O?.isActive() && (O.kill(), (O = null)), (R.value = S));
             }
           }, 250));
       };
     return (
-      window.addEventListener("resize", yo, { signal: mo }),
+      window.addEventListener("resize", Oo, { signal: Ao }),
       () => {
-        A?.kill(), Y(), clearTimeout(tt), Kn.abort(), go?.(), ho?.(), M();
-        for (let b = 0; b < t.length; b++) o.set(t[b], { [d]: g[b] });
+        O?.kill(), X(), clearTimeout(ot), ir.abort(), Eo?.(), Mo?.(), A();
+        for (let S = 0; S < t.length; S++) o.set(t[S], { [d]: p[S] });
       }
     );
   }
-  function mc(n) {
+  function xl(n) {
     n.addAction("mouse-follow", {
       requiresTriggerElementContext: !0,
-      createCustomTween: (e, t, r, o, i, s, a) => hc(t, r, i, a),
+      createCustomTween: (e, t, r, o, i, s, a) => Pl(t, r, i, a),
     });
   }
 });
-var fi = m((on) => {
+var vi = m((un) => {
   "use strict";
-  Object.defineProperty(on, "__esModule", { value: !0 });
-  Object.defineProperty(on, "build", {
-    enumerable: !0,
-    get: function () {
-      return vc;
+  Object.defineProperty(un, "__esModule", { value: !0 });
+  function kl(n, e) {
+    for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
+  }
+  kl(un, {
+    applyAdditive: function () {
+      return Dl;
+    },
+    formatRandom: function () {
+      return yi;
+    },
+    formatRandomArray: function () {
+      return Ll;
+    },
+    isAdditiveValue: function () {
+      return Nl;
+    },
+    isRandomArrayValue: function () {
+      return Fl;
+    },
+    isRandomValue: function () {
+      return cn;
+    },
+    makeClamp: function () {
+      return Bl;
     },
   });
-  var Re = ve(),
-    yc = ui();
-  function di(n, e) {
+  function cn(n) {
+    if (typeof n != "object" || n === null) return !1;
+    let e = n;
+    return (
+      e.type === "ix3-random" &&
+      typeof e.min == "number" &&
+      typeof e.max == "number" &&
+      (e.step === void 0 || typeof e.step == "number") &&
+      (e.unit === void 0 || typeof e.unit == "string")
+    );
+  }
+  function Nl(n) {
+    if (typeof n != "object" || n === null) return !1;
+    let e = n;
+    return (
+      e.type === "ix3-additive" &&
+      (typeof e.value == "number" || cn(e.value)) &&
+      (e.unit === void 0 || typeof e.unit == "string")
+    );
+  }
+  function Fl(n) {
+    if (typeof n != "object" || n === null) return !1;
+    let e = n;
+    return (
+      e.type === "ix3-random-array" &&
+      Array.isArray(e.values) &&
+      e.values.every((t) => typeof t == "number" || typeof t == "string") &&
+      (e.unit === void 0 || typeof e.unit == "string")
+    );
+  }
+  function yi(n, e) {
+    let t = n.unit ?? e ?? "",
+      r = n.step != null ? `, ${n.step}` : "";
+    return `random(${n.min}, ${n.max}${r})${t}`;
+  }
+  function Ll(n, e) {
+    let t = n.unit ?? e ?? "";
+    return `random([${n.values.join(", ")}])${t}`;
+  }
+  function Dl(n, e) {
+    let t = n.unit ?? e ?? "";
+    return cn(n.value) ? `+=${yi(n.value, t)}` : `+=${n.value}${t}`;
+  }
+  function Bl(n, e) {
+    let t = (r) => (r < n ? n : r > e ? e : r);
+    return (r) => {
+      if (typeof r == "number") return t(r);
+      let o = parseFloat(r);
+      if (Number.isNaN(o)) return r;
+      let i = t(o);
+      return i === o
+        ? r
+        : `${i}${r.replace(/^\s*[+-]?[\d.]+(?:e[+-]?\d+)?/i, "")}`;
+    };
+  }
+});
+var Si = m((dn) => {
+  "use strict";
+  Object.defineProperty(dn, "__esModule", { value: !0 });
+  Object.defineProperty(dn, "build", {
+    enumerable: !0,
+    get: function () {
+      return $l;
+    },
+  });
+  var Pe = be(),
+    jl = mi(),
+    x = vi();
+  function bi(n, e) {
     return e != null && typeof n == "string" && n.startsWith("var(")
-      ? (0, Re.resolveToString)(n, e) ?? n
+      ? (0, Pe.resolveToString)(n, e) ?? n
       : n;
   }
-  function vc(n) {
-    (0, yc.buildMouseFollowAction)(n),
+  var Ti = new Set(["opacity", "autoAlpha"]),
+    Vl = new Set(["scale", "scaleX", "scaleY", "z", "transformPerspective"]),
+    Ul = new Set(["xPercent", "yPercent"]),
+    wi = new Set(["width", "height"]);
+  function ze(n) {
+    return n.startsWith("+=") || n.startsWith("-=") || n.startsWith("random(");
+  }
+  function ql(n) {
+    if (Ti.has(n)) return (0, x.makeClamp)(0, 1);
+    if (Vl.has(n) || wi.has(n)) return (0, x.makeClamp)(0, Number.MAX_VALUE);
+  }
+  function We(n) {
+    return (
+      (0, x.isRandomValue)(n) ||
+      (0, x.isAdditiveValue)(n) ||
+      (0, x.isRandomArrayValue)(n)
+    );
+  }
+  function Ye(n, e) {
+    let t = Ti.has(n) ? 100 : 1,
+      r = t !== 1 || Ul.has(n),
+      o = (i) => ({
+        type: "ix3-random",
+        min: i.min / t,
+        max: i.max / t,
+        step: i.step != null ? i.step / t : void 0,
+      });
+    if ((0, x.isRandomArrayValue)(e)) {
+      let i = r
+        ? {
+            type: "ix3-random-array",
+            values: e.values.map((s) => (typeof s == "number" ? s / t : s)),
+          }
+        : e;
+      return (0, x.formatRandomArray)(i);
+    }
+    if ((0, x.isRandomValue)(e)) return (0, x.formatRandom)(r ? o(e) : e);
+    if (r) {
+      let i = (0, x.isRandomValue)(e.value) ? o(e.value) : e.value / t;
+      return (0, x.applyAdditive)({ type: "ix3-additive", value: i });
+    }
+    return (0, x.applyAdditive)(e);
+  }
+  function $l(n) {
+    (0, jl.buildMouseFollowAction)(n),
       n
         .addAction("class", {
           createCustomTween: (e, t, r, o, i, s) => {
             let a = r.class,
-              c = a?.selectors || [],
-              l = a?.operation,
-              u = c
+              l = a?.selectors || [],
+              c = a?.operation,
+              u = l
                 ? i.map((f) => ({ element: f, classList: [...f.classList] }))
                 : [],
               d = () => {
-                if (!(!l || !c))
+                if (!(!c || !l))
                   for (let f of i)
-                    l === "addClass"
-                      ? c.forEach((p) => f.classList.add(p))
-                      : l === "removeClass"
-                      ? c.forEach((p) => f.classList.remove(p))
-                      : l === "toggleClass" &&
-                        c.forEach((p) => f.classList.toggle(p));
+                    c === "addClass"
+                      ? l.forEach((g) => f.classList.add(g))
+                      : c === "removeClass"
+                      ? l.forEach((g) => f.classList.remove(g))
+                      : c === "toggleClass" &&
+                        l.forEach((g) => f.classList.toggle(g));
               };
             return (
               e.to(
@@ -5953,7 +6242,7 @@ var fi = m((on) => {
                 !s || s === 0 ? 0.001 : s
               ),
               () => {
-                if (c) {
+                if (l) {
                   for (let f of u)
                     if (
                       f.element &&
@@ -5961,7 +6250,7 @@ var fi = m((on) => {
                         (f.element.className = ""),
                       f.element.classList)
                     )
-                      for (let p of f.classList) f.element.classList.add(p);
+                      for (let g of f.classList) f.element.classList.add(g);
                 }
               }
             );
@@ -5973,9 +6262,16 @@ var fi = m((on) => {
               o = t?.[0];
             for (let i in e) {
               let s = e[i],
-                a = di(Array.isArray(s) ? s[1] : s, o),
-                c = Array.isArray(s) ? di(s[0], o) : void 0;
-              a != null && (r.to[i] = a), c != null && (r.from[i] = c);
+                a = Array.isArray(s) ? s[1] : s,
+                l = Array.isArray(s) ? s[0] : void 0,
+                c = We(a) ? Ye(i, a) : bi(a, o),
+                u = We(l) ? Ye(i, l) : l !== void 0 ? bi(l, o) : void 0;
+              c != null && (r.to[i] = c),
+                u != null && !(0, x.isAdditiveValue)(a) && (r.from[i] = u),
+                wi.has(i) &&
+                  (We(a) || We(l)) &&
+                  (r.modifiers || (r.modifiers = {}),
+                  (r.modifiers[i] = (0, x.makeClamp)(0, Number.MAX_VALUE)));
             }
             return r;
           },
@@ -5987,150 +6283,168 @@ var fi = m((on) => {
             for (let i in e) {
               let s = e[i],
                 a = Array.isArray(s) ? s[1] : s,
-                c = Array.isArray(s) ? s[0] : void 0;
+                l = Array.isArray(s) ? s[0] : void 0,
+                c = (0, x.isAdditiveValue)(a),
+                u =
+                  (0, x.isRandomValue)(a) || (0, x.isRandomArrayValue)(a) || c,
+                d =
+                  (0, x.isRandomValue)(l) ||
+                  (0, x.isRandomArrayValue)(l) ||
+                  (0, x.isAdditiveValue)(l);
+              if (u || d) {
+                let f = ql(i);
+                f &&
+                  (r.modifiers || (r.modifiers = {}),
+                  (r.modifiers[i] = f),
+                  i === "autoAlpha" && (r.modifiers.opacity = f),
+                  i === "scale" &&
+                    ((r.modifiers.scaleX = f), (r.modifiers.scaleY = f))),
+                  u && (a = Ye(i, a)),
+                  d && (l = Ye(i, l));
+              }
               switch (i) {
                 case "autoAlpha":
                 case "opacity": {
-                  if (a != null && typeof a == "string") {
-                    let l = o ? (0, Re.resolveToNumber)(a, o) : parseFloat(a);
-                    a = l !== void 0 ? l / 100 : a;
+                  if (a != null && typeof a == "string" && !ze(a)) {
+                    let f = o ? (0, Pe.resolveToNumber)(a, o) : parseFloat(a);
+                    a = f !== void 0 ? f / 100 : a;
                   }
-                  if (c != null && typeof c == "string") {
-                    let l = o ? (0, Re.resolveToNumber)(c, o) : parseFloat(c);
-                    c = l !== void 0 ? l / 100 : c;
+                  if (l != null && typeof l == "string" && !ze(l)) {
+                    let f = o ? (0, Pe.resolveToNumber)(l, o) : parseFloat(l);
+                    l = f !== void 0 ? f / 100 : l;
                   }
                   break;
                 }
                 case "transformOrigin": {
                   typeof s == "string"
-                    ? ((a = a || s), (c = a))
-                    : typeof c == "string"
-                    ? (a = c)
-                    : typeof a == "string" && (c = a);
+                    ? ((a = a || s), (l = a))
+                    : typeof l == "string"
+                    ? (a = l)
+                    : typeof a == "string" && (l = a);
                   break;
                 }
                 case "xPercent":
                 case "yPercent": {
-                  if (a != null && typeof a == "string") {
-                    let l = o ? (0, Re.resolveToNumber)(a, o) : parseFloat(a);
-                    a = l !== void 0 ? l : a;
+                  if (a != null && typeof a == "string" && !ze(a)) {
+                    let f = o ? (0, Pe.resolveToNumber)(a, o) : parseFloat(a);
+                    a = f !== void 0 ? f : a;
                   }
-                  if (c != null && typeof c == "string") {
-                    let l = o ? (0, Re.resolveToNumber)(c, o) : parseFloat(c);
-                    c = l !== void 0 ? l : c;
+                  if (l != null && typeof l == "string" && !ze(l)) {
+                    let f = o ? (0, Pe.resolveToNumber)(l, o) : parseFloat(l);
+                    l = f !== void 0 ? f : l;
                   }
                   break;
                 }
               }
-              a != null && (r.to[i] = a), c != null && (r.from[i] = c);
+              a != null && (r.to[i] = a), l != null && !c && (r.from[i] = l);
             }
             return r;
           },
         });
   }
 });
-var hi = m((sn) => {
+var Mi = m((fn) => {
   "use strict";
-  Object.defineProperty(sn, "__esModule", { value: !0 });
-  Object.defineProperty(sn, "buildLottieAction", {
+  Object.defineProperty(fn, "__esModule", { value: !0 });
+  Object.defineProperty(fn, "buildLottieAction", {
     enumerable: !0,
     get: function () {
-      return Tc;
+      return Gl;
     },
   });
-  var bc = ve();
-  function Tc(n) {
+  var Hl = be();
+  function Gl(n) {
     n.addAction("lottie", {
       createCustomTween: (e, t, r, o, i, s) => {
         let a = r.lottie;
         if (!a || !i.length || !window.Webflow) return;
-        let c = window.Webflow.require?.("lottie");
-        if (!c) return;
-        let l = [],
+        let l = window.Webflow.require?.("lottie");
+        if (!l) return;
+        let c = [],
           u = !1;
         for (let d of i) {
-          let f = gi(a.from, d, pi.FROM),
-            p = gi(a.to, d, pi.TO),
-            h = c.createInstance(d);
+          let f = Ei(a.from, d, Ci.FROM),
+            g = Ei(a.to, d, Ci.TO),
+            h = l.createInstance(d);
           if (!h) continue;
-          l.push(h);
-          let g = () => {
+          c.push(h);
+          let p = () => {
             if (u) return;
             let y = h.frames,
-              E = Math.round(f * y),
-              M = Math.round(p * y);
-            h.gsapFrame === null && (h.gsapFrame = E);
-            let S = o;
-            S.ease || (S = { ...S, ease: "none" }),
-              e.fromTo(h, { gsapFrame: E }, { gsapFrame: M, ...S }, s || 0);
+              T = Math.round(f * y),
+              A = Math.round(g * y);
+            h.gsapFrame === null && (h.gsapFrame = T);
+            let C = o;
+            C.ease || (C = { ...C, ease: "none" }),
+              e.fromTo(h, { gsapFrame: T }, { gsapFrame: A, ...C }, s || 0);
           };
-          h.isLoaded ? g() : h.onDataReady(g);
+          h.isLoaded ? p() : h.onDataReady(p);
         }
         return () => {
           u = !0;
-          for (let d of l) d.goToFrameAndStop(0), (d.gsapFrame = null);
+          for (let d of c) d.goToFrameAndStop(0), (d.gsapFrame = null);
         };
       },
     });
   }
-  var pi = { DURATION: 1, FROM: 0, TO: 1 };
-  function gi(n, e, t) {
+  var Ci = { DURATION: 1, FROM: 0, TO: 1 };
+  function Ei(n, e, t) {
     if (typeof n == "number") return n;
-    let r = (0, bc.resolveToNumber)(n, e);
+    let r = (0, Hl.resolveToNumber)(n, e);
     return r !== void 0 ? r / 100 : t;
   }
 });
-var cn = m((an) => {
+var gn = m((pn) => {
   "use strict";
-  Object.defineProperty(an, "__esModule", { value: !0 });
-  Object.defineProperty(an, "RIVE_CONSTANTS", {
+  Object.defineProperty(pn, "__esModule", { value: !0 });
+  Object.defineProperty(pn, "RIVE_CONSTANTS", {
     enumerable: !0,
     get: function () {
-      return wc;
+      return zl;
     },
   });
-  var wc = { MINIMUM_TIME: 0.001, MAX_BYTE_VALUE: 255 };
+  var zl = { MINIMUM_TIME: 0.001, MAX_BYTE_VALUE: 255 };
 });
-var dn = m((un) => {
+var yn = m((mn) => {
   "use strict";
-  Object.defineProperty(un, "__esModule", { value: !0 });
-  function Cc(n, e) {
+  Object.defineProperty(mn, "__esModule", { value: !0 });
+  function Wl(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Cc(un, {
+  Wl(mn, {
     clearSurfaceCache: function () {
-      return Sc;
+      return Yl;
     },
     surfaceCache: function () {
-      return ln;
+      return hn;
     },
   });
-  var ln = new WeakMap();
-  function Sc(n, e) {
+  var hn = new WeakMap();
+  function Yl(n, e) {
     if (!e) return;
     let t = `${e.name}:${e.instanceName ?? ""}`,
-      r = ln.get(n);
-    r && (r.delete(t), r.size === 0 && ln.delete(n));
+      r = hn.get(n);
+    r && (r.delete(t), r.size === 0 && hn.delete(n));
   }
 });
-var xe = m((fn) => {
+var xe = m((vn) => {
   "use strict";
-  Object.defineProperty(fn, "__esModule", { value: !0 });
-  function Ec(n, e) {
+  Object.defineProperty(vn, "__esModule", { value: !0 });
+  function Xl(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Ec(fn, {
+  Xl(vn, {
     parseVmKey: function () {
-      return Oc;
+      return Kl;
     },
     vmKey: function () {
-      return Mc;
+      return Zl;
     },
   });
-  function Mc(n, e, t) {
+  function Zl(n, e, t) {
     return `vm:${n}:${e}:${t}`;
   }
-  var Ac = new Set([
+  var Ql = new Set([
     "string",
     "number",
     "boolean",
@@ -6139,11 +6453,11 @@ var xe = m((fn) => {
     "trigger",
     "artboard",
   ]);
-  function Oc(n) {
+  function Kl(n) {
     if (!n.startsWith("vm:")) return null;
     let e = n.lastIndexOf(":"),
       t = n.slice(e + 1);
-    if (!Ac.has(t)) return null;
+    if (!Ql.has(t)) return null;
     let r = n.slice(3, e),
       o = r.indexOf(":");
     return o === -1
@@ -6151,28 +6465,28 @@ var xe = m((fn) => {
       : { vmName: r.slice(0, o), propName: r.slice(o + 1), propType: t };
   }
 });
-var Ge = m((pn) => {
+var Xe = m((bn) => {
   "use strict";
-  Object.defineProperty(pn, "__esModule", { value: !0 });
-  function _c(n, e) {
+  Object.defineProperty(bn, "__esModule", { value: !0 });
+  function Jl(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  _c(pn, {
+  Jl(bn, {
     getVmiProperty: function () {
-      return mi;
+      return Ai;
     },
     storeOriginalValues: function () {
-      return Rc;
+      return tc;
     },
   });
-  var Ic = xe();
-  function Rc(n, e) {
+  var ec = xe();
+  function tc(n, e) {
     let t = { viewModelProperties: {} };
-    for (let r of n) xc(e, r.propertyName, r.propertyType, t);
+    for (let r of n) nc(e, r.propertyName, r.propertyType, t);
     return t;
   }
-  function xc(n, e, t, r) {
-    let o = (0, Ic.vmKey)(n.name, e, t);
+  function nc(n, e, t, r) {
+    let o = (0, ec.vmKey)(n.name, e, t);
     if (!(o in r.viewModelProperties)) {
       if (t === "artboard") {
         let s = n.riveInstance.viewModelInstance?.artboard?.(e)?.name;
@@ -6180,12 +6494,12 @@ var Ge = m((pn) => {
         return;
       }
       let i = n.riveInstance.viewModelInstance
-        ? Pc(n.riveInstance.viewModelInstance, t, e)
+        ? rc(n.riveInstance.viewModelInstance, t, e)
         : null;
       i != null && (r.viewModelProperties[o] = i);
     }
   }
-  function mi(n, e, t) {
+  function Ai(n, e, t) {
     switch (e) {
       case "number":
         return n.number(t);
@@ -6201,29 +6515,29 @@ var Ge = m((pn) => {
         return null;
     }
   }
-  function Pc(n, e, t) {
-    let r = mi(n, e, t);
+  function rc(n, e, t) {
+    let r = Ai(n, e, t);
     return r ? r.value : void 0;
   }
 });
-var hn = m((gn) => {
+var wn = m((Tn) => {
   "use strict";
-  Object.defineProperty(gn, "__esModule", { value: !0 });
-  Object.defineProperty(gn, "parseColorToAARRGGBB", {
+  Object.defineProperty(Tn, "__esModule", { value: !0 });
+  Object.defineProperty(Tn, "parseColorToAARRGGBB", {
     enumerable: !0,
     get: function () {
-      return Nc;
+      return oc;
     },
   });
-  var kc = cn();
-  function Nc(n) {
+  var ic = gn();
+  function oc(n) {
     let e = n.trim();
     if (!e) return null;
     try {
-      let { red: t, green: r, blue: o, alpha: i } = Lc(e);
+      let { red: t, green: r, blue: o, alpha: i } = ac(e);
       return t === void 0 || r === void 0 || o === void 0
         ? null
-        : ((Math.round(i * kc.RIVE_CONSTANTS.MAX_BYTE_VALUE) << 24) |
+        : ((Math.round(i * ic.RIVE_CONSTANTS.MAX_BYTE_VALUE) << 24) |
             (t << 16) |
             (r << 8) |
             o) >>>
@@ -6232,48 +6546,48 @@ var hn = m((gn) => {
       return null;
     }
   }
-  var ae = null;
-  function Fc(n) {
-    if (!ae) {
+  var le = null;
+  function sc(n) {
+    if (!le) {
       let e = document.createElement("canvas");
-      if (((e.width = 1), (e.height = 1), (ae = e.getContext("2d")), !ae))
+      if (((e.width = 1), (e.height = 1), (le = e.getContext("2d")), !le))
         return null;
     }
     return (
-      (ae.fillStyle = "#000000"),
-      (ae.fillStyle = n),
-      ae.fillStyle === "#000000" && n.toLowerCase() !== "black"
+      (le.fillStyle = "#000000"),
+      (le.fillStyle = n),
+      le.fillStyle === "#000000" && n.toLowerCase() !== "black"
         ? null
-        : ae.fillStyle
+        : le.fillStyle
     );
   }
-  function yi(n, e, t) {
+  function Oi(n, e, t) {
     let r = (1 - Math.abs(2 * t - 1)) * e,
       o = r * (1 - Math.abs(((n / 60) % 2) - 1)),
       i = t - r / 2,
       s,
       a,
-      c;
+      l;
     return (
       n >= 0 && n < 60
-        ? ((s = r), (a = o), (c = 0))
+        ? ((s = r), (a = o), (l = 0))
         : n >= 60 && n < 120
-        ? ((s = o), (a = r), (c = 0))
+        ? ((s = o), (a = r), (l = 0))
         : n >= 120 && n < 180
-        ? ((s = 0), (a = r), (c = o))
+        ? ((s = 0), (a = r), (l = o))
         : n >= 180 && n < 240
-        ? ((s = 0), (a = o), (c = r))
+        ? ((s = 0), (a = o), (l = r))
         : n >= 240 && n < 300
-        ? ((s = o), (a = 0), (c = r))
-        : ((s = r), (a = 0), (c = o)),
+        ? ((s = o), (a = 0), (l = r))
+        : ((s = r), (a = 0), (l = o)),
       {
         red: Math.round((s + i) * 255),
         green: Math.round((a + i) * 255),
-        blue: Math.round((c + i) * 255),
+        blue: Math.round((l + i) * 255),
       }
     );
   }
-  function Lc(n) {
+  function ac(n) {
     let e,
       t,
       r,
@@ -6281,7 +6595,7 @@ var hn = m((gn) => {
       i = n.replace(/\s/g, "").toLowerCase(),
       s = i;
     if (!s.startsWith("#") && !s.startsWith("rgb") && !s.startsWith("hsl")) {
-      let a = Fc(i);
+      let a = sc(i);
       a && (s = a);
     }
     if (s.startsWith("#")) {
@@ -6309,17 +6623,17 @@ var hn = m((gn) => {
         (r = parseInt(a?.[2] ?? "", 10));
     } else if (s.startsWith("hsla")) {
       let a = s.match(/hsla\(([^)]+)\)/)?.[1]?.split(","),
-        c = parseFloat(a?.[0] ?? ""),
-        l = parseFloat(a?.[1]?.replace("%", "") ?? "") / 100,
+        l = parseFloat(a?.[0] ?? ""),
+        c = parseFloat(a?.[1]?.replace("%", "") ?? "") / 100,
         u = parseFloat(a?.[2]?.replace("%", "") ?? "") / 100;
       (o = parseFloat(a?.[3] ?? "")),
-        ({ red: e, green: t, blue: r } = yi(c, l, u));
+        ({ red: e, green: t, blue: r } = Oi(l, c, u));
     } else if (s.startsWith("hsl")) {
       let a = s.match(/hsl\(([^)]+)\)/)?.[1]?.split(","),
-        c = parseFloat(a?.[0] ?? ""),
-        l = parseFloat(a?.[1]?.replace("%", "") ?? "") / 100,
+        l = parseFloat(a?.[0] ?? ""),
+        c = parseFloat(a?.[1]?.replace("%", "") ?? "") / 100,
         u = parseFloat(a?.[2]?.replace("%", "") ?? "") / 100;
-      ({ red: e, green: t, blue: r } = yi(c, l, u));
+      ({ red: e, green: t, blue: r } = Oi(l, c, u));
     }
     if (
       Number.isNaN(e) ||
@@ -6331,19 +6645,19 @@ var hn = m((gn) => {
     return { red: e, green: t, blue: r, alpha: o };
   }
 });
-var yn = m((mn) => {
+var Cn = m((Sn) => {
   "use strict";
-  Object.defineProperty(mn, "__esModule", { value: !0 });
-  Object.defineProperty(mn, "setVmiValue", {
+  Object.defineProperty(Sn, "__esModule", { value: !0 });
+  Object.defineProperty(Sn, "setVmiValue", {
     enumerable: !0,
     get: function () {
-      return Vc;
+      return dc;
     },
   });
-  var Dc = xe(),
-    Bc = Ge(),
-    jc = hn();
-  function Vc(n, e, t, r, o, i) {
+  var lc = xe(),
+    cc = Xe(),
+    uc = wn();
+  function dc(n, e, t, r, o, i) {
     let s = n.riveInstance.viewModelInstance;
     if (e === "trigger") {
       if (i) return;
@@ -6351,30 +6665,30 @@ var yn = m((mn) => {
       return;
     }
     if (!s) return;
-    let a = (0, Bc.getVmiProperty)(s, e, t);
+    let a = (0, cc.getVmiProperty)(s, e, t);
     if (!a) return;
-    let c = o?.viewModelProperties[(0, Dc.vmKey)(n.name, t, e)],
-      l = i ? c ?? r : r,
+    let l = o?.viewModelProperties[(0, lc.vmKey)(n.name, t, e)],
+      c = i ? l ?? r : r,
       u = `${e}:${t}`;
     switch (e) {
       case "number":
-        typeof l == "number" && ((a.value = l), (n.currentValues[u] = l));
+        typeof c == "number" && ((a.value = c), (n.currentValues[u] = c));
         return;
       case "boolean":
-        typeof l == "boolean" && ((a.value = l), (n.currentValues[u] = l));
+        typeof c == "boolean" && ((a.value = c), (n.currentValues[u] = c));
         return;
       case "string":
-        typeof l == "string" && ((a.value = l), (n.currentValues[u] = l));
+        typeof c == "string" && ((a.value = c), (n.currentValues[u] = c));
         return;
       case "enum":
-        typeof l == "string" && ((a.value = l), (n.currentValues[u] = l));
+        typeof c == "string" && ((a.value = c), (n.currentValues[u] = c));
         return;
       case "color": {
         let d =
-          typeof l == "number"
-            ? l
-            : typeof l == "string"
-            ? (0, jc.parseColorToAARRGGBB)(l)
+          typeof c == "number"
+            ? c
+            : typeof c == "string"
+            ? (0, uc.parseColorToAARRGGBB)(c)
             : null;
         d != null && ((a.value = d), (n.currentValues[u] = d));
         return;
@@ -6384,79 +6698,79 @@ var yn = m((mn) => {
     }
   }
 });
-var bi = m((vn) => {
+var Ii = m((En) => {
   "use strict";
-  Object.defineProperty(vn, "__esModule", { value: !0 });
-  function Uc(n, e) {
+  Object.defineProperty(En, "__esModule", { value: !0 });
+  function fc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Uc(vn, {
+  fc(En, {
     createCleanupFunction: function () {
-      return Gc;
+      return mc;
     },
     restoreViewModelProperties: function () {
-      return vi;
+      return _i;
     },
   });
-  var qc = xe(),
-    $c = yn(),
-    Hc = dn();
-  function vi(n, e, t) {
+  var pc = xe(),
+    gc = Cn(),
+    hc = yn();
+  function _i(n, e, t) {
     let r = n.viewModelInstance ?? null;
     if (r)
       for (let [o, i] of Object.entries(t.viewModelProperties)) {
-        let s = (0, qc.parseVmKey)(o);
+        let s = (0, pc.parseVmKey)(o);
         if (!s || s.vmName !== e) continue;
         let a = { name: e, riveInstance: n, currentValues: {} };
         if (s.propType === "artboard") {
           if (typeof i != "string") continue;
-          let c = r.artboard?.(s.propName),
-            l = n.getArtboard?.(i);
-          c && l && (c.value = l);
+          let l = r.artboard?.(s.propName),
+            c = n.getArtboard?.(i);
+          l && c && (l.value = c);
           continue;
         }
-        (0, $c.setVmiValue)(a, s.propType, s.propName, i);
+        (0, gc.setVmiValue)(a, s.propType, s.propName, i);
       }
   }
-  function Gc(n, e, t) {
+  function mc(n, e, t) {
     return () => {
-      !e || !n || (vi(n, e.name, t), (0, Hc.clearSurfaceCache)(n, e));
+      !e || !n || (_i(n, e.name, t), (0, hc.clearSurfaceCache)(n, e));
     };
   }
 });
-var Ci = m((bn) => {
+var xi = m((Mn) => {
   "use strict";
-  Object.defineProperty(bn, "__esModule", { value: !0 });
-  function zc(n, e) {
+  Object.defineProperty(Mn, "__esModule", { value: !0 });
+  function yc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  zc(bn, {
+  yc(Mn, {
     interpolateAARRGGBB: function () {
-      return wi;
+      return Pi;
     },
     setupAnimateTimeline: function () {
-      return Xc;
+      return Tc;
     },
   });
-  var Wc = Ge(),
-    Yc = hn(),
-    Ti = ve();
-  function wi(n, e, t) {
+  var vc = Xe(),
+    bc = wn(),
+    Ri = be();
+  function Pi(n, e, t) {
     let r = (n >>> 24) & 255,
       o = (n >>> 16) & 255,
       i = (n >>> 8) & 255,
       s = n & 255,
       a = (e >>> 24) & 255,
-      c = (e >>> 16) & 255,
-      l = (e >>> 8) & 255,
+      l = (e >>> 16) & 255,
+      c = (e >>> 8) & 255,
       u = e & 255,
       d = Math.round(r + (a - r) * t),
-      f = Math.round(o + (c - o) * t),
-      p = Math.round(i + (l - i) * t),
+      f = Math.round(o + (l - o) * t),
+      g = Math.round(i + (c - i) * t),
       h = Math.round(s + (u - s) * t);
-    return ((d << 24) | (f << 16) | (p << 8) | h) >>> 0;
+    return ((d << 24) | (f << 16) | (g << 8) | h) >>> 0;
   }
-  function Xc(n, e, t, r, o, i) {
+  function Tc(n, e, t, r, o, i) {
     if (t.length === 0) return;
     let s = e.riveInstance.viewModelInstance;
     if (s)
@@ -6464,58 +6778,58 @@ var Ci = m((bn) => {
         if (
           a.value === null ||
           a.value === void 0 ||
-          !(0, Wc.getVmiProperty)(s, a.propertyType, a.propertyName)
+          !(0, vc.getVmiProperty)(s, a.propertyType, a.propertyName)
         )
           continue;
-        let l,
+        let c,
           u = a.value;
         if (typeof u == "string" && u.startsWith("var(")) {
           if (
             (a.propertyType === "number"
-              ? (l = (0, Ti.resolveToNumber)(u, i))
+              ? (c = (0, Ri.resolveToNumber)(u, i))
               : a.propertyType === "color" &&
-                (l = (0, Ti.resolveToString)(u, i)),
-            l === void 0)
+                (c = (0, Ri.resolveToString)(u, i)),
+            c === void 0)
           )
             continue;
-        } else l = u;
+        } else c = u;
         a.propertyType === "number"
-          ? Zc(e, n, a.propertyName, l, r, o)
-          : a.propertyType === "color" && Qc(e, n, a.propertyName, l, r, o);
+          ? wc(e, n, a.propertyName, c, r, o)
+          : a.propertyType === "color" && Sc(e, n, a.propertyName, c, r, o);
       }
   }
-  function Zc(n, e, t, r, o, i) {
+  function wc(n, e, t, r, o, i) {
     let s = n.riveInstance.viewModelInstance;
     if (!s) return;
     let a = s.number(t);
     if (!a) return;
-    let c = typeof r == "number" ? r : parseFloat(String(r));
-    if (isNaN(c)) return;
-    let l = { v: a.value };
+    let l = typeof r == "number" ? r : parseFloat(String(r));
+    if (isNaN(l)) return;
+    let c = { v: a.value };
     e.to(
-      l,
+      c,
       {
         ...o,
-        v: c,
+        v: l,
         onStart() {
           let u = n.currentValues[`number:${t}`];
-          (l.v = typeof u == "number" ? u : a.value), this.invalidate();
+          (c.v = typeof u == "number" ? u : a.value), this.invalidate();
         },
         onUpdate: () => {
-          a.value = l.v;
+          a.value = c.v;
         },
       },
       i ?? 0
     );
   }
-  function Qc(n, e, t, r, o, i) {
+  function Sc(n, e, t, r, o, i) {
     let s = n.riveInstance.viewModelInstance;
     if (!s) return;
     let a = s.color(t);
     if (!a) return;
-    let c = typeof r == "number" ? r : (0, Yc.parseColorToAARRGGBB)(String(r));
-    if (c == null) return;
-    let l = { fromPacked: a.value },
+    let l = typeof r == "number" ? r : (0, bc.parseColorToAARRGGBB)(String(r));
+    if (l == null) return;
+    let c = { fromPacked: a.value },
       u = { t: 0 };
     e.fromTo(
       u,
@@ -6525,49 +6839,49 @@ var Ci = m((bn) => {
         t: 1,
         onStart() {
           let d = n.currentValues[`color:${t}`];
-          (l.fromPacked = typeof d == "number" ? d : a.value),
+          (c.fromPacked = typeof d == "number" ? d : a.value),
             this.invalidate();
         },
         onUpdate: () => {
-          a.value = wi(l.fromPacked, c, u.t);
+          a.value = Pi(c.fromPacked, l, u.t);
         },
       },
       i ?? 0
     );
   }
 });
-var Oi = m((Cn) => {
+var Di = m((_n) => {
   "use strict";
-  Object.defineProperty(Cn, "__esModule", { value: !0 });
-  function Kc(n, e) {
+  Object.defineProperty(_n, "__esModule", { value: !0 });
+  function Cc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Kc(Cn, {
+  Cc(_n, {
     resolveSurfaceArea: function () {
-      return wn;
+      return On;
     },
     setupAnimateAnimation: function () {
-      return il;
+      return Ic;
     },
     setupAnimation: function () {
-      return rl;
+      return _c;
     },
     setupTimeline: function () {
-      return Ai;
+      return Li;
     },
   });
-  var Si = cn(),
-    Tn = dn(),
-    Ei = Ge(),
-    Mi = bi(),
-    Jc = yn(),
-    el = Ci(),
-    tl = xe(),
-    ze = ve();
-  function wn(n, e) {
+  var ki = gn(),
+    An = yn(),
+    Ni = Xe(),
+    Fi = Ii(),
+    Ec = Cn(),
+    Mc = xi(),
+    Ac = xe(),
+    Ze = be();
+  function On(n, e) {
     if (!e) return null;
     let t = `${e.name}:${e.instanceName ?? ""}`,
-      r = Tn.surfaceCache.get(n)?.get(t);
+      r = An.surfaceCache.get(n)?.get(t);
     if (r) return r;
     let i =
       (n.viewModelByName?.(e.name) ?? void 0)?.instanceByName?.(
@@ -6575,52 +6889,52 @@ var Oi = m((Cn) => {
       ) ?? null;
     n.bindViewModelInstance?.(i);
     let s = { name: e.name, riveInstance: n, currentValues: {} },
-      a = Tn.surfaceCache.get(n);
-    return a || ((a = new Map()), Tn.surfaceCache.set(n, a)), a.set(t, s), s;
+      a = An.surfaceCache.get(n);
+    return a || ((a = new Map()), An.surfaceCache.set(n, a)), a.set(t, s), s;
   }
-  function Ai(n, e, t, r, o, i) {
+  function Li(n, e, t, r, o, i) {
     if (t.length === 0) return;
-    for (let c of t) {
+    for (let l of t) {
       if (
-        c.propertyType === "trigger" ||
-        c.propertyType === "artboard" ||
-        c.value === null ||
-        c.value === void 0
+        l.propertyType === "trigger" ||
+        l.propertyType === "artboard" ||
+        l.value === null ||
+        l.value === void 0
       )
         continue;
-      let l = c.value,
+      let c = l.value,
         u;
-      typeof l == "string" && l.startsWith("var(")
+      typeof c == "string" && c.startsWith("var(")
         ? (u =
-            c.propertyType === "number"
-              ? (0, ze.resolveToNumber)(l, i)
-              : c.propertyType === "color"
-              ? (0, ze.resolveToString)(l, i)
+            l.propertyType === "number"
+              ? (0, Ze.resolveToNumber)(c, i)
+              : l.propertyType === "color"
+              ? (0, Ze.resolveToString)(c, i)
               : void 0)
-        : (u = l),
+        : (u = c),
         u !== void 0 &&
-          (e.currentValues[`${c.propertyType}:${c.propertyName}`] = u);
+          (e.currentValues[`${l.propertyType}:${l.propertyName}`] = u);
     }
-    let s = (c) => {
-        for (let l of t) {
+    let s = (l) => {
+        for (let c of t) {
           if (
-            (l.propertyType !== "trigger" && l.value === null) ||
-            l.value === void 0
+            (c.propertyType !== "trigger" && c.value === null) ||
+            c.value === void 0
           )
             continue;
           let u,
-            d = l.value;
+            d = c.value;
           if (typeof d == "string" && d.startsWith("var(")) {
             if (
-              (l.propertyType === "number"
-                ? (u = (0, ze.resolveToNumber)(d, i))
-                : l.propertyType === "color" &&
-                  (u = (0, ze.resolveToString)(d, i)),
+              (c.propertyType === "number"
+                ? (u = (0, Ze.resolveToNumber)(d, i))
+                : c.propertyType === "color" &&
+                  (u = (0, Ze.resolveToString)(d, i)),
               u === void 0)
             )
               continue;
           } else u = d;
-          nl(e, l.propertyName, l.propertyType, u, r, c);
+          Oc(e, c.propertyName, c.propertyType, u, r, l);
         }
       },
       a = { int: 0 };
@@ -6628,7 +6942,7 @@ var Oi = m((Cn) => {
       a,
       {
         int: 1,
-        duration: Si.RIVE_CONSTANTS.MINIMUM_TIME,
+        duration: ki.RIVE_CONSTANTS.MINIMUM_TIME,
         onStart: () => {
           s(!1);
         },
@@ -6636,19 +6950,19 @@ var Oi = m((Cn) => {
           s(!0);
         },
       },
-      o ?? Si.RIVE_CONSTANTS.MINIMUM_TIME
+      o ?? ki.RIVE_CONSTANTS.MINIMUM_TIME
     );
   }
-  function nl(n, e, t, r, o, i) {
+  function Oc(n, e, t, r, o, i) {
     if (t === "artboard") {
       if (typeof r != "string") return;
       let s = n.riveInstance.viewModelInstance?.artboard?.(e);
       if (!s) return;
       if (i) {
-        let c = (0, tl.vmKey)(n.name, e, t),
-          l = o?.viewModelProperties[c];
-        if (typeof l == "string") {
-          let u = n.riveInstance.getArtboard?.(l);
+        let l = (0, Ac.vmKey)(n.name, e, t),
+          c = o?.viewModelProperties[l];
+        if (typeof c == "string") {
+          let u = n.riveInstance.getArtboard?.(c);
           u && (s.value = u);
         }
         return;
@@ -6658,46 +6972,46 @@ var Oi = m((Cn) => {
       s.value = a;
       return;
     }
-    (0, Jc.setVmiValue)(n, t, e, r, o, i);
+    (0, Ec.setVmiValue)(n, t, e, r, o, i);
   }
-  function rl(n, e, t, r, o) {
+  function _c(n, e, t, r, o) {
     let i = e.animationSource,
-      s = wn(n, i);
+      s = On(n, i);
     if (!s) return;
     let a = e.addedProperties ?? {},
-      c = Object.values(a),
-      l = (0, Ei.storeOriginalValues)(c, s);
-    return Ai(t, s, c, l, r, o), (0, Mi.createCleanupFunction)(n, i, l);
+      l = Object.values(a),
+      c = (0, Ni.storeOriginalValues)(l, s);
+    return Li(t, s, l, c, r, o), (0, Fi.createCleanupFunction)(n, i, c);
   }
-  function il(n, e, t, r, o, i) {
+  function Ic(n, e, t, r, o, i) {
     let s = e.animationSource,
-      a = wn(n, s);
+      a = On(n, s);
     if (!a) return;
-    let c = e.addedProperties ?? {},
-      l = Object.values(c),
-      u = (0, Ei.storeOriginalValues)(l, a);
+    let l = e.addedProperties ?? {},
+      c = Object.values(l),
+      u = (0, Ni.storeOriginalValues)(c, a);
     return (
-      (0, el.setupAnimateTimeline)(t, a, l, r, o, i),
-      (0, Mi.createCleanupFunction)(n, s, u)
+      (0, Mc.setupAnimateTimeline)(t, a, c, r, o, i),
+      (0, Fi.createCleanupFunction)(n, s, u)
     );
   }
 });
-var ki = m((Sn) => {
+var $i = m((In) => {
   "use strict";
-  Object.defineProperty(Sn, "__esModule", { value: !0 });
-  function ol(n, e) {
+  Object.defineProperty(In, "__esModule", { value: !0 });
+  function Rc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  ol(Sn, {
+  Rc(In, {
     buildAnimateRiveAction: function () {
-      return cl;
+      return kc;
     },
     buildRiveAction: function () {
-      return al;
+      return xc;
     },
   });
-  var Ri = Oi();
-  function _i(n) {
+  var Vi = Di();
+  function Bi(n) {
     return (
       typeof n == "object" &&
       n !== null &&
@@ -6705,33 +7019,33 @@ var ki = m((Sn) => {
       typeof n.loaded == "boolean"
     );
   }
-  function Ii(n) {
+  function ji(n) {
     !n.isPlaying && n.play && n.play();
   }
-  function sl(n, e, t) {
+  function Pc(n, e, t) {
     let o = e.getInstance(n)?.rive,
-      i = _i(o) ? o : null;
-    if (i?.loaded) return Ii(i), t(i, n);
+      i = Bi(o) ? o : null;
+    if (i?.loaded) return ji(i), t(i, n);
     let s,
       a = !1,
-      c = () => {
+      l = () => {
         if (a || !n.isConnected) return;
         let u = e.getInstance(n)?.rive,
-          d = _i(u) ? u : null;
-        d?.loaded && (Ii(d), (s = t(d, n))),
-          n.removeEventListener("w-rive-load", c);
+          d = Bi(u) ? u : null;
+        d?.loaded && (ji(d), (s = t(d, n))),
+          n.removeEventListener("w-rive-load", l);
       };
     return (
-      n.addEventListener("w-rive-load", c),
+      n.addEventListener("w-rive-load", l),
       () => {
-        (a = !0), n.removeEventListener("w-rive-load", c), s?.();
+        (a = !0), n.removeEventListener("w-rive-load", l), s?.();
       }
     );
   }
-  function xi(n, e, t) {
+  function Ui(n, e, t) {
     let r = [];
     for (let o of n) {
-      let i = sl(o, e, t);
+      let i = Pc(o, e, t);
       i && r.push(i);
     }
     if (r.length !== 0)
@@ -6739,101 +7053,101 @@ var ki = m((Sn) => {
         for (let o of r) o();
       };
   }
-  function Pi() {
+  function qi() {
     return window.Webflow ? window.Webflow.require?.("rive") ?? null : null;
   }
-  function al(n) {
+  function xc(n) {
     n.addAction("rive", {
       createCustomTween: (e, t, r, o, i, s) => {
         let a = r.rive;
         if (!a || !i.length) return;
-        let c = Pi();
-        if (c) return xi(i, c, (l, u) => (0, Ri.setupAnimation)(l, a, e, s, u));
+        let l = qi();
+        if (l) return Ui(i, l, (c, u) => (0, Vi.setupAnimation)(c, a, e, s, u));
       },
     });
   }
-  function cl(n) {
+  function kc(n) {
     n.addAction("animate-rive", {
       createCustomTween: (e, t, r, o, i, s) => {
         let a = r.rive;
         if (!a || !i.length) return;
-        let c = Pi();
-        if (c)
-          return xi(i, c, (l, u) =>
-            (0, Ri.setupAnimateAnimation)(l, a, e, o, s, u)
+        let l = qi();
+        if (l)
+          return Ui(i, l, (c, u) =>
+            (0, Vi.setupAnimateAnimation)(c, a, e, o, s, u)
           );
       },
     });
   }
 });
-var ce = m((En) => {
+var ce = m((Rn) => {
   "use strict";
-  Object.defineProperty(En, "__esModule", { value: !0 });
-  function ll(n, e) {
+  Object.defineProperty(Rn, "__esModule", { value: !0 });
+  function Nc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  ll(En, {
+  Nc(Rn, {
     checkTt: function () {
-      return gl;
+      return jc;
     },
     hasBBoxUpdate: function () {
-      return fl;
+      return Dc;
     },
     hasIntensity: function () {
-      return ul;
+      return Fc;
     },
     hasMatrixUpdate: function () {
-      return pl;
+      return Bc;
     },
     hasRenderOrder: function () {
-      return dl;
+      return Lc;
     },
   });
-  var We = X(),
-    ul = (n) => "intensity" in n,
-    dl = (n) => "renderOrder" in n,
-    fl = (n) => "singleBBoxNeedsUpdate" in n && "recursiveBBoxNeedsUpdate" in n,
-    pl = (n) => "updateMatrix" in n && "updateMatrixWorld" in n,
-    gl = (n, e) =>
+  var Qe = Z(),
+    Fc = (n) => "intensity" in n,
+    Lc = (n) => "renderOrder" in n,
+    Dc = (n) => "singleBBoxNeedsUpdate" in n && "recursiveBBoxNeedsUpdate" in n,
+    Bc = (n) => "updateMatrix" in n && "updateMatrixWorld" in n,
+    jc = (n, e) =>
       e === "from"
-        ? n === We.TweenType.From || n === We.TweenType.FromTo
-        : n === We.TweenType.To || n === We.TweenType.FromTo;
+        ? n === Qe.TweenType.From || n === Qe.TweenType.FromTo
+        : n === Qe.TweenType.To || n === Qe.TweenType.FromTo;
 });
-var An = m((Mn) => {
+var xn = m((Pn) => {
   "use strict";
-  Object.defineProperty(Mn, "__esModule", { value: !0 });
-  Object.defineProperty(Mn, "colorDataToCss", {
+  Object.defineProperty(Pn, "__esModule", { value: !0 });
+  Object.defineProperty(Pn, "colorDataToCss", {
     enumerable: !0,
     get: function () {
-      return hl;
+      return Vc;
     },
   });
-  var hl = ({ r: n, g: e, b: t, a: r }) => {
-    let o = (l) => Math.round(Math.min(1, Math.max(0, l)) * 255),
+  var Vc = ({ r: n, g: e, b: t, a: r }) => {
+    let o = (c) => Math.round(Math.min(1, Math.max(0, c)) * 255),
       i = o(n),
       s = o(e),
       a = o(t);
     if (r === void 0 || r >= 1) return `rgba(${i}, ${s}, ${a}, 1)`;
-    let c = Math.min(1, Math.max(0, r));
-    return `rgba(${i}, ${s}, ${a}, ${c})`;
+    let l = Math.min(1, Math.max(0, r));
+    return `rgba(${i}, ${s}, ${a}, ${l})`;
   };
 });
-var Ni = m((On) => {
+var Hi = m((kn) => {
   "use strict";
-  Object.defineProperty(On, "__esModule", { value: !0 });
-  Object.defineProperty(On, "storeOriginalState", {
+  Object.defineProperty(kn, "__esModule", { value: !0 });
+  Object.defineProperty(kn, "storeOriginalState", {
     enumerable: !0,
     get: function () {
-      return vl;
+      return $c;
     },
   });
-  var ml = ce(),
-    yl = An(),
-    vl = (n, e, t) => {
+  var Uc = ce(),
+    qc = xn(),
+    $c = (n, e, t) => {
       let r = n.material,
         o = Array.isArray(r) ? r : r ? [r] : [],
         i = e.spline._scene.entityByUuid[t]?.color,
-        s = i ? (0, yl.colorDataToCss)(i) : void 0,
+        s = i ? (0, qc.colorDataToCss)(i) : void 0,
         a = n.rotation;
       return {
         position: { ...n.position },
@@ -6841,32 +7155,32 @@ var Ni = m((On) => {
         scale: { ...n.scale },
         ...(s ? { color: s } : {}),
         intensity: n.intensity,
-        renderOrder: (0, ml.hasRenderOrder)(n) ? n.renderOrder : void 0,
-        materials: o?.map((c) => ({
-          transparent: c.transparent,
-          depthWrite: c.depthWrite,
-          alpha: c.alpha,
-          layers: (c.layers ?? []).map((l) => ({
-            visible: l.visible,
-            alpha: l.alpha,
-            alphaOverride: l.alphaOverride,
-            ior: l.ior,
-            thickness: l.thickness,
+        renderOrder: (0, Uc.hasRenderOrder)(n) ? n.renderOrder : void 0,
+        materials: o?.map((l) => ({
+          transparent: l.transparent,
+          depthWrite: l.depthWrite,
+          alpha: l.alpha,
+          layers: (l.layers ?? []).map((c) => ({
+            visible: c.visible,
+            alpha: c.alpha,
+            alphaOverride: c.alphaOverride,
+            ior: c.ior,
+            thickness: c.thickness,
           })),
         })),
       };
     };
 });
-var Pe = m((_n) => {
+var ke = m((Nn) => {
   "use strict";
-  Object.defineProperty(_n, "__esModule", { value: !0 });
-  Object.defineProperty(_n, "SPLINE_CONSTANTS", {
+  Object.defineProperty(Nn, "__esModule", { value: !0 });
+  Object.defineProperty(Nn, "SPLINE_CONSTANTS", {
     enumerable: !0,
     get: function () {
-      return bl;
+      return Hc;
     },
   });
-  var bl = {
+  var Hc = {
     OPACITY_RENDER_ORDER: 999,
     TRANSITION_END_OFFSET: 0.001,
     DEFAULT_TRANSITION_DURATION: 0.5,
@@ -6876,44 +7190,44 @@ var Pe = m((_n) => {
     MIN_ZOOM_VALUE: 1e-4,
   };
 });
-var Ye = m((In) => {
+var Ke = m((Fn) => {
   "use strict";
-  Object.defineProperty(In, "__esModule", { value: !0 });
-  function Tl(n, e) {
+  Object.defineProperty(Fn, "__esModule", { value: !0 });
+  function Gc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Tl(In, {
+  Gc(Fn, {
     getAppZoom: function () {
-      return Cl;
+      return Wc;
     },
     setAppZoom: function () {
-      return Sl;
+      return Yc;
     },
   });
-  var wl = Pe(),
-    Cl = (n) => {
+  var zc = ke(),
+    Wc = (n) => {
       let e = n._camera;
       return e._cameraType === "OrthographicCamera"
         ? e.orthoCamera.zoom
         : e.perspCamera.zoom;
     },
-    Sl = (n, e) => {
-      let t = e > 0 ? e : wl.SPLINE_CONSTANTS.MIN_ZOOM_VALUE;
+    Yc = (n, e) => {
+      let t = e > 0 ? e : zc.SPLINE_CONSTANTS.MIN_ZOOM_VALUE;
       n.setZoom?.(t);
     };
 });
-var xn = m((Rn) => {
+var Dn = m((Ln) => {
   "use strict";
-  Object.defineProperty(Rn, "__esModule", { value: !0 });
-  Object.defineProperty(Rn, "createCleanupFunction", {
+  Object.defineProperty(Ln, "__esModule", { value: !0 });
+  Object.defineProperty(Ln, "createCleanupFunction", {
     enumerable: !0,
     get: function () {
-      return Ml;
+      return Zc;
     },
   });
-  var El = Ye(),
-    Xe = ce(),
-    Ml = (n, e, t, r, o, i) => () => {
+  var Xc = Ke(),
+    Je = ce(),
+    Zc = (n, e, t, r, o, i) => () => {
       if (!(!n || !t)) {
         if (
           (i && (n.state = void 0),
@@ -6928,192 +7242,192 @@ var xn = m((Rn) => {
           r.spline?.intensity &&
             typeof r.spline.intensity == "object" &&
             t.intensity !== void 0 &&
-            (0, Xe.hasIntensity)(n) &&
+            (0, Je.hasIntensity)(n) &&
             (n.intensity = t.intensity),
           r.spline?.zoom && typeof r.spline.zoom == "object")
         ) {
           let s = e.spline;
-          typeof s?.setZoom == "function" && (0, El.setAppZoom)(s, o ?? 1);
+          typeof s?.setZoom == "function" && (0, Xc.setAppZoom)(s, o ?? 1);
         }
         if (t.materials) {
           let s = n.material,
             a = Array.isArray(s) ? s : s ? [s] : [];
-          (0, Xe.hasRenderOrder)(n) && (n.renderOrder = t.renderOrder ?? 0);
-          let c = Math.min(a.length, t.materials.length);
-          for (let l = 0; l < c; l++) {
-            let u = a[l],
-              d = t.materials[l];
+          (0, Je.hasRenderOrder)(n) && (n.renderOrder = t.renderOrder ?? 0);
+          let l = Math.min(a.length, t.materials.length);
+          for (let c = 0; c < l; c++) {
+            let u = a[c],
+              d = t.materials[c];
             if (!u || !d) continue;
             (u.transparent = d.transparent),
               (u.depthWrite = d.depthWrite),
               d.alpha !== void 0 && (u.alpha = d.alpha);
             let f = u.layers ?? [];
-            for (let p = 0; p < f.length; p++) {
-              let h = f[p],
-                g = d.layers[p];
+            for (let g = 0; g < f.length; g++) {
+              let h = f[g],
+                p = d.layers[g];
               !h ||
-                !g ||
-                ((h.visible = g.visible),
-                g.alpha !== void 0 && (h.alpha = g.alpha),
-                g.alphaOverride !== void 0 &&
-                  (h.alphaOverride = g.alphaOverride),
-                g.ior !== void 0 && (h.ior = g.ior),
-                g.thickness !== void 0 && (h.thickness = g.thickness));
+                !p ||
+                ((h.visible = p.visible),
+                p.alpha !== void 0 && (h.alpha = p.alpha),
+                p.alphaOverride !== void 0 &&
+                  (h.alphaOverride = p.alphaOverride),
+                p.ior !== void 0 && (h.ior = p.ior),
+                p.thickness !== void 0 && (h.thickness = p.thickness));
             }
           }
         }
-        (0, Xe.hasMatrixUpdate)(n) &&
+        (0, Je.hasMatrixUpdate)(n) &&
           (n.updateMatrix(), n.updateMatrixWorld(!0)),
-          (0, Xe.hasBBoxUpdate)(n) &&
+          (0, Je.hasBBoxUpdate)(n) &&
             ((n.singleBBoxNeedsUpdate = !0), (n.recursiveBBoxNeedsUpdate = !0)),
           e.spline.requestRender();
       }
     };
 });
-var Fi = m((Pn) => {
+var Gi = m((Bn) => {
   "use strict";
-  Object.defineProperty(Pn, "__esModule", { value: !0 });
-  function Al(n, e) {
+  Object.defineProperty(Bn, "__esModule", { value: !0 });
+  function Qc(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Al(Pn, {
+  Qc(Bn, {
     warnNoObjectId: function () {
-      return Ol;
+      return Kc;
     },
     warnNoObjectsFound: function () {
-      return Il;
+      return eu;
     },
     warnObjectNotFound: function () {
-      return _l;
+      return Jc;
     },
   });
-  var Ol = () => {},
-    _l = (n) => {},
-    Il = (n) => {};
+  var Kc = () => {},
+    Jc = (n) => {},
+    eu = (n) => {};
 });
-var Bi = m((kn) => {
+var Yi = m((jn) => {
   "use strict";
-  Object.defineProperty(kn, "__esModule", { value: !0 });
-  Object.defineProperty(kn, "animateStateTransitions", {
+  Object.defineProperty(jn, "__esModule", { value: !0 });
+  Object.defineProperty(jn, "animateStateTransitions", {
     enumerable: !0,
     get: function () {
-      return xl;
+      return nu;
     },
   });
-  var Li = Pe(),
-    Rl = xn(),
-    Di = ce(),
-    xl = (n, e, t, r, o, i, s, a, c, l) => {
+  var zi = ke(),
+    tu = Dn(),
+    Wi = ce(),
+    nu = (n, e, t, r, o, i, s, a, l, c) => {
       let u = [];
       n.forEach((f) => {
         if (!f.transition) {
           u.push(null);
           return;
         }
-        let p = c.duration ?? Li.SPLINE_CONSTANTS.DEFAULT_TRANSITION_DURATION,
+        let g = l.duration ?? zi.SPLINE_CONSTANTS.DEFAULT_TRANSITION_DURATION,
           h = f.transition({
             from:
-              e.stateName?.from && (0, Di.checkTt)(a, "from")
+              e.stateName?.from && (0, Wi.checkTt)(a, "from")
                 ? e.stateName.from
                 : void 0,
             to:
-              e.stateName?.to && (0, Di.checkTt)(a, "to")
+              e.stateName?.to && (0, Wi.checkTt)(a, "to")
                 ? e.stateName.to
                 : null,
             autoPlay: !1,
-            duration: p,
+            duration: g,
             delay: 0,
           });
         u.push(h);
-        let g = { time: 0 };
+        let p = { time: 0 };
         s.fromTo(
-          g,
+          p,
           { time: 0 },
           {
-            ...c,
-            time: p - Li.SPLINE_CONSTANTS.TRANSITION_END_OFFSET,
+            ...l,
+            time: g - zi.SPLINE_CONSTANTS.TRANSITION_END_OFFSET,
             onUpdate: () => {
-              h.seek(g.time);
+              h.seek(p.time);
             },
           },
-          l || 0
+          c || 0
         );
       });
-      let d = n.map((f, p) =>
-        (0, Rl.createCleanupFunction)(f, t, r[p], o, i, u[p])
+      let d = n.map((f, g) =>
+        (0, tu.createCleanupFunction)(f, t, r[g], o, i, u[g])
       );
       return () => d.forEach((f) => f?.());
     };
 });
-var Vi = m((Nn) => {
+var Zi = m((Vn) => {
   "use strict";
-  Object.defineProperty(Nn, "__esModule", { value: !0 });
-  function Pl(n, e) {
+  Object.defineProperty(Vn, "__esModule", { value: !0 });
+  function ru(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Pl(Nn, {
+  ru(Vn, {
     animateColor: function () {
-      return Ll;
+      return au;
     },
     animateIntensity: function () {
-      return Nl;
+      return ou;
     },
     animateZoom: function () {
-      return Fl;
+      return su;
     },
   });
-  var ji = Ye(),
-    kl = An(),
-    le = ce(),
-    Nl = (n, e, t, r, o, i) => {
+  var Xi = Ke(),
+    iu = xn(),
+    ue = ce(),
+    ou = (n, e, t, r, o, i) => {
       let s = e.intensity;
       if (!s || typeof s != "object") return;
       let a = n.intensity ?? 0,
-        c = s.from && (0, le.checkTt)(r, "from") ? s.from : a,
-        l = s.to && (0, le.checkTt)(r, "to") ? s.to : a,
-        u = { v: c };
+        l = s.from && (0, ue.checkTt)(r, "from") ? s.from : a,
+        c = s.to && (0, ue.checkTt)(r, "to") ? s.to : a,
+        u = { v: l };
       t.fromTo(
         u,
-        { v: c },
+        { v: l },
         {
           ...o,
-          v: l,
+          v: c,
           onUpdate: () => {
-            (0, le.hasIntensity)(n) && (n.intensity = u.v);
+            (0, ue.hasIntensity)(n) && (n.intensity = u.v);
           },
         },
         i || 0
       );
     },
-    Fl = (n, e, t, r, o, i) => {
+    su = (n, e, t, r, o, i) => {
       let s = e.zoom;
       if (!s || typeof s != "object" || typeof n.spline?.setZoom != "function")
         return;
-      let a = (0, ji.getAppZoom)(n.spline),
-        c = s.from && (0, le.checkTt)(r, "from") ? s.from : a,
-        l = s.to && (0, le.checkTt)(r, "to") ? s.to : a,
-        u = { v: c };
+      let a = (0, Xi.getAppZoom)(n.spline),
+        l = s.from && (0, ue.checkTt)(r, "from") ? s.from : a,
+        c = s.to && (0, ue.checkTt)(r, "to") ? s.to : a,
+        u = { v: l };
       t.fromTo(
         u,
-        { v: c },
+        { v: l },
         {
           ...o,
-          v: l,
+          v: c,
           onUpdate: () => {
-            (0, ji.setAppZoom)(n.spline, u.v);
+            (0, Xi.setAppZoom)(n.spline, u.v);
           },
         },
         i || 0
       );
     },
-    Ll = (n, e, t, r, o, i, s, a) => {
-      let c = e.color;
-      if (!c || typeof c != "object" || (!c.from && !c.to)) return;
-      let l = s.spline._scene.entityByUuid[a]?.color,
-        u = (0, kl.colorDataToCss)(l ?? { r: 255, g: 255, b: 255 }),
-        d = c.from && (0, le.checkTt)(r, "from") ? c.from : u,
-        f = c.to && (0, le.checkTt)(r, "to") ? c.to : u,
-        p = window.gsap.utils.interpolate(d, f),
+    au = (n, e, t, r, o, i, s, a) => {
+      let l = e.color;
+      if (!l || typeof l != "object" || (!l.from && !l.to)) return;
+      let c = s.spline._scene.entityByUuid[a]?.color,
+        u = (0, iu.colorDataToCss)(c ?? { r: 255, g: 255, b: 255 }),
+        d = l.from && (0, ue.checkTt)(r, "from") ? l.from : u,
+        f = l.to && (0, ue.checkTt)(r, "to") ? l.to : u,
+        g = window.gsap.utils.interpolate(d, f),
         h = { t: 0 };
       t.fromTo(
         h,
@@ -7122,72 +7436,72 @@ var Vi = m((Nn) => {
           ...o,
           t: 1,
           onUpdate: function () {
-            n.color = p(h.t);
+            n.color = g(h.t);
           },
         },
         i || 0
       );
     };
 });
-var qi = m((Fn) => {
+var Ki = m((Un) => {
   "use strict";
-  Object.defineProperty(Fn, "__esModule", { value: !0 });
-  function Dl(n, e) {
+  Object.defineProperty(Un, "__esModule", { value: !0 });
+  function lu(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  Dl(Fn, {
+  lu(Un, {
     createPropertyObject: function () {
-      return Ui;
+      return Qi;
     },
     createTransformTargets: function () {
-      return Bl;
+      return cu;
     },
   });
-  var Ui = (n, e, t) => {
+  var Qi = (n, e, t) => {
       let r = {},
         o = t[e];
       return (
         ["X", "Y", "Z"].forEach((i) => {
           let s = `${e}${i}`,
             a = n[s],
-            c = i.toLowerCase(),
-            l = o[c];
+            l = i.toLowerCase(),
+            c = o[l];
           a &&
             typeof a == "object" &&
-            (r[c] = { from: a.from ?? l, to: a.to ?? l });
+            (r[l] = { from: a.from ?? c, to: a.to ?? c });
         }),
         { props: r }
       );
     },
-    Bl = (n, e) => {
+    cu = (n, e) => {
       let t = ["position", "rotation", "scale"],
         r = [];
       return (
         t.forEach((o) => {
-          let { props: i } = Ui(e, o, n);
+          let { props: i } = Qi(e, o, n);
           Object.keys(i).length > 0 && r.push({ object: n[o], props: i });
         }),
         r
       );
     };
 });
-var $i = m((Dn) => {
+var Ji = m(($n) => {
   "use strict";
-  Object.defineProperty(Dn, "__esModule", { value: !0 });
-  Object.defineProperty(Dn, "fadeObject", {
+  Object.defineProperty($n, "__esModule", { value: !0 });
+  Object.defineProperty($n, "fadeObject", {
     enumerable: !0,
     get: function () {
-      return $l;
+      return gu;
     },
   });
-  var Ze = Pe(),
-    Ln = ce(),
-    jl = (n, e, t, r, o, i) => {
+  var et = ke(),
+    qn = ce(),
+    uu = (n, e, t, r, o, i) => {
       r.fromTo(n, { alpha: e }, { ...o, alpha: t }, i);
     },
-    Vl = (n, e, t, r, o, i) => {
-      let s = n.ior ?? Ze.SPLINE_CONSTANTS.DEFAULT_TRANSMISSION_IOR,
-        a = n.thickness ?? Ze.SPLINE_CONSTANTS.DEFAULT_TRANSMISSION_THICKNESS;
+    du = (n, e, t, r, o, i) => {
+      let s = n.ior ?? et.SPLINE_CONSTANTS.DEFAULT_TRANSMISSION_IOR,
+        a = n.thickness ?? et.SPLINE_CONSTANTS.DEFAULT_TRANSMISSION_THICKNESS;
       r.fromTo(
         n,
         { alpha: e, ior: s, thickness: a },
@@ -7198,154 +7512,154 @@ var $i = m((Dn) => {
           thickness: window.gsap.utils.interpolate(a, 0, 1 - t),
           onUpdate: () => {
             n.visible =
-              n.alpha > Ze.SPLINE_CONSTANTS.OPACITY_TRANSPARENCY_THRESHOLD;
+              n.alpha > et.SPLINE_CONSTANTS.OPACITY_TRANSPARENCY_THRESHOLD;
           },
         },
         i
       );
     },
-    Ul = (n, e, t, r, o, i) => {
+    fu = (n, e, t, r, o, i) => {
       n.alphaOverride !== void 0 &&
         r.fromTo(n, { alphaOverride: e }, { ...o, alphaOverride: t }, i);
     },
-    ql = (n, e, t, r, o, i) => {
+    pu = (n, e, t, r, o, i) => {
       if (!n.visible) return;
       let s = n.type;
       s === "color" || s === "depth" || s === "outline"
-        ? jl(n, e, t, r, o, i)
+        ? uu(n, e, t, r, o, i)
         : s === "transmission"
-        ? Vl(n, e, t, r, o, i)
-        : s === "light" && Ul(n, e, t, r, o, i);
+        ? du(n, e, t, r, o, i)
+        : s === "light" && fu(n, e, t, r, o, i);
     },
-    $l = (n, e, t, r, o, i) => {
+    gu = (n, e, t, r, o, i) => {
       if (!n) return;
       let s = n.material,
         a = s?.layers;
       if (a) {
         (s.transparent = !0),
-          (0, Ln.hasRenderOrder)(n) &&
-            (n.renderOrder = Ze.SPLINE_CONSTANTS.OPACITY_RENDER_ORDER);
-        for (let c of a) {
-          let l = c.type === "light" ? c.alphaOverride ?? 1 : c.alpha ?? 1,
-            u = e.from !== void 0 && (0, Ln.checkTt)(r, "from") ? e.from : l,
-            d = e.to !== void 0 && (0, Ln.checkTt)(r, "to") ? e.to : l;
-          ql(c, u, d, t, o, i);
+          (0, qn.hasRenderOrder)(n) &&
+            (n.renderOrder = et.SPLINE_CONSTANTS.OPACITY_RENDER_ORDER);
+        for (let l of a) {
+          let c = l.type === "light" ? l.alphaOverride ?? 1 : l.alpha ?? 1,
+            u = e.from !== void 0 && (0, qn.checkTt)(r, "from") ? e.from : c,
+            d = e.to !== void 0 && (0, qn.checkTt)(r, "to") ? e.to : c;
+          pu(l, u, d, t, o, i);
         }
       }
     };
 });
-var Gi = m((Vn) => {
+var to = m((zn) => {
   "use strict";
-  Object.defineProperty(Vn, "__esModule", { value: !0 });
-  Object.defineProperty(Vn, "setupAnimation", {
+  Object.defineProperty(zn, "__esModule", { value: !0 });
+  Object.defineProperty(zn, "setupAnimation", {
     enumerable: !0,
     get: function () {
-      return Zl;
+      return wu;
     },
   });
-  var Hl = Ni(),
-    Gl = xn(),
-    zl = Ye(),
-    Bn = Fi(),
-    Wl = Bi(),
-    jn = Vi(),
-    Yl = qi(),
-    Xl = $i(),
-    Qe = ce(),
-    Hi = Pe(),
-    Zl = (n, e, t, r, o, i) => {
+  var hu = Hi(),
+    mu = Dn(),
+    yu = Ke(),
+    Hn = Gi(),
+    vu = Yi(),
+    Gn = Zi(),
+    bu = Ki(),
+    Tu = Ji(),
+    tt = ce(),
+    eo = ke(),
+    wu = (n, e, t, r, o, i) => {
       t.ease || (t = { ...t, ease: "none" });
       let { force3D: s, ...a } = t;
       if (((t = { ...a }), !n.spline?.findObjectById)) return;
-      let c = e.spline,
-        l = (e.objectId || "").split(",").filter(Boolean);
-      if (l.length === 0) {
-        (0, Bn.warnNoObjectId)();
+      let l = e.spline,
+        c = (e.objectId || "").split(",").filter(Boolean);
+      if (c.length === 0) {
+        (0, Hn.warnNoObjectId)();
         return;
       }
-      let u = l.flatMap((g) => {
-        let y = n.spline.findObjectById?.(g);
-        return y || ((0, Bn.warnObjectNotFound)(g), []);
+      let u = c.flatMap((p) => {
+        let y = n.spline.findObjectById?.(p);
+        return y || ((0, Hn.warnObjectNotFound)(p), []);
       });
       if (u.length === 0) {
-        (0, Bn.warnNoObjectsFound)(l);
+        (0, Hn.warnNoObjectsFound)(c);
         return;
       }
-      let d = u.map((g) => (0, Hl.storeOriginalState)(g, n, l[0] ?? "")),
-        f = (0, zl.getAppZoom)(n.spline);
+      let d = u.map((p) => (0, hu.storeOriginalState)(p, n, c[0] ?? "")),
+        f = (0, yu.getAppZoom)(n.spline);
       if (
         e.animatingState &&
-        c?.stateName &&
-        (c.stateName.from || c.stateName.to)
+        l?.stateName &&
+        (l.stateName.from || l.stateName.to)
       )
-        return (0, Wl.animateStateTransitions)(u, c, n, d, e, f, r, o, t, i);
-      if (!c) return;
-      let p = Object.keys(c);
-      if (p.length === 0 || (p.length === 1 && p[0] === "stateName")) return;
-      u.forEach((g) => {
-        (0, jn.animateIntensity)(g, c, r, o, t, i),
-          (0, jn.animateZoom)(n, c, r, o, t, i),
-          (0, jn.animateColor)(g, c, r, o, t, i, n, l[0] ?? "");
-        let y = c.opacity && typeof c.opacity == "object" ? c.opacity : void 0;
+        return (0, vu.animateStateTransitions)(u, l, n, d, e, f, r, o, t, i);
+      if (!l) return;
+      let g = Object.keys(l);
+      if (g.length === 0 || (g.length === 1 && g[0] === "stateName")) return;
+      u.forEach((p) => {
+        (0, Gn.animateIntensity)(p, l, r, o, t, i),
+          (0, Gn.animateZoom)(n, l, r, o, t, i),
+          (0, Gn.animateColor)(p, l, r, o, t, i, n, c[0] ?? "");
+        let y = l.opacity && typeof l.opacity == "object" ? l.opacity : void 0;
         if (y !== void 0) {
-          let M = {
+          let A = {
               from: y.from !== void 0 ? y.from / 100 : void 0,
               to: y.to !== void 0 ? y.to / 100 : void 0,
             },
-            S =
+            C =
               t.immediateRender !== !1 &&
-              M.from !== void 0 &&
-              (0, Qe.checkTt)(o, "from")
-                ? M.from
+              A.from !== void 0 &&
+              (0, tt.checkTt)(o, "from")
+                ? A.from
                 : void 0;
-          if (((0, Xl.fadeObject)(g, M, r, o, t, i), S !== void 0)) {
-            let C = g.material,
-              v = Array.isArray(C) ? C : C ? [C] : [];
-            for (let T of v)
-              (T.transparent = !0),
-                (T.depthWrite =
-                  S > Hi.SPLINE_CONSTANTS.OPACITY_TRANSPARENCY_THRESHOLD);
-            (0, Qe.hasRenderOrder)(g) &&
-              (g.renderOrder = Hi.SPLINE_CONSTANTS.OPACITY_RENDER_ORDER);
+          if (((0, Tu.fadeObject)(p, A, r, o, t, i), C !== void 0)) {
+            let M = p.material,
+              b = Array.isArray(M) ? M : M ? [M] : [];
+            for (let v of b)
+              (v.transparent = !0),
+                (v.depthWrite =
+                  C > eo.SPLINE_CONSTANTS.OPACITY_TRANSPARENCY_THRESHOLD);
+            (0, tt.hasRenderOrder)(p) &&
+              (p.renderOrder = eo.SPLINE_CONSTANTS.OPACITY_RENDER_ORDER);
           }
         }
-        (0, Yl.createTransformTargets)(g, c).forEach(
-          ({ object: M, props: S }) => {
-            if (Object.keys(S).length === 0) return;
-            let C = {},
-              v = {};
-            Object.keys(S).forEach((T) => {
-              let w = S[T];
+        (0, bu.createTransformTargets)(p, l).forEach(
+          ({ object: A, props: C }) => {
+            if (Object.keys(C).length === 0) return;
+            let M = {},
+              b = {};
+            Object.keys(C).forEach((v) => {
+              let w = C[v];
               w &&
                 typeof w == "object" &&
-                ((C[T] =
-                  (0, Qe.checkTt)(o, "from") && w.from ? w.from : M[T] ?? 0),
-                (v[T] = (0, Qe.checkTt)(o, "to") && w.to ? w.to : M[T] ?? 0));
+                ((M[v] =
+                  (0, tt.checkTt)(o, "from") && w.from ? w.from : A[v] ?? 0),
+                (b[v] = (0, tt.checkTt)(o, "to") && w.to ? w.to : A[v] ?? 0));
             }),
-              !(Object.keys(C).length === 0 && Object.keys(v).length === 0) &&
-                r.fromTo(M, C, { ...t, ...v }, i || 0);
+              !(Object.keys(M).length === 0 && Object.keys(b).length === 0) &&
+                r.fromTo(A, M, { ...t, ...b }, i || 0);
           }
         );
       });
-      let h = u.map((g, y) => (0, Gl.createCleanupFunction)(g, n, d[y], e, f));
-      return () => h.forEach((g) => g?.());
+      let h = u.map((p, y) => (0, mu.createCleanupFunction)(p, n, d[y], e, f));
+      return () => h.forEach((p) => p?.());
     };
 });
-var Yi = m((Un) => {
+var io = m((Wn) => {
   "use strict";
-  Object.defineProperty(Un, "__esModule", { value: !0 });
-  Object.defineProperty(Un, "buildSplineAction", {
+  Object.defineProperty(Wn, "__esModule", { value: !0 });
+  Object.defineProperty(Wn, "buildSplineAction", {
     enumerable: !0,
     get: function () {
-      return tu;
+      return Au;
     },
   });
-  var zi = Gi(),
-    Ke = ve(),
-    Ql = new Set(["color", "stateName"]),
-    Kl = new Set(["rotationX", "rotationY", "rotationZ"]),
-    Wi = Math.PI / 180;
-  function Jl(n, e) {
+  var no = to(),
+    nt = be(),
+    Su = new Set(["color", "stateName"]),
+    Cu = new Set(["rotationX", "rotationY", "rotationZ"]),
+    ro = Math.PI / 180;
+  function Eu(n, e) {
     if (!n.spline) return n;
     let t = n.spline,
       r = {},
@@ -7356,184 +7670,184 @@ var Yi = m((Un) => {
         continue;
       }
       let a = s;
-      if (Ql.has(i)) {
-        let c = a.from !== void 0 ? (0, Ke.resolveToString)(a.from, e) : void 0,
-          l = a.to !== void 0 ? (0, Ke.resolveToString)(a.to, e) : void 0;
-        (c !== a.from || l !== a.to) && (o = !0), (r[i] = { from: c, to: l });
+      if (Su.has(i)) {
+        let l = a.from !== void 0 ? (0, nt.resolveToString)(a.from, e) : void 0,
+          c = a.to !== void 0 ? (0, nt.resolveToString)(a.to, e) : void 0;
+        (l !== a.from || c !== a.to) && (o = !0), (r[i] = { from: l, to: c });
       } else {
-        let c = a.from !== void 0 ? (0, Ke.resolveToNumber)(a.from, e) : void 0,
-          l = a.to !== void 0 ? (0, Ke.resolveToNumber)(a.to, e) : void 0,
-          u = c !== a.from,
-          d = l !== a.to;
+        let l = a.from !== void 0 ? (0, nt.resolveToNumber)(a.from, e) : void 0,
+          c = a.to !== void 0 ? (0, nt.resolveToNumber)(a.to, e) : void 0,
+          u = l !== a.from,
+          d = c !== a.to;
         (u || d) && (o = !0),
-          Kl.has(i)
+          Cu.has(i)
             ? (r[i] = {
-                from: c !== void 0 && u ? c * Wi : c,
-                to: l !== void 0 && d ? l * Wi : l,
+                from: l !== void 0 && u ? l * ro : l,
+                to: c !== void 0 && d ? c * ro : c,
               })
-            : (r[i] = { from: c, to: l });
+            : (r[i] = { from: l, to: c });
       }
     }
     return o ? { ...n, spline: r } : n;
   }
-  function eu(n, e, t, r, o, i, s) {
+  function Mu(n, e, t, r, o, i, s) {
     let a = e.getInstance(n);
-    if (a) return (0, zi.setupAnimation)(a, t, r, o, i, s);
-    let c,
-      l = () => {
+    if (a) return (0, no.setupAnimation)(a, t, r, o, i, s);
+    let l,
+      c = () => {
         let u = e.getInstance(n);
-        u && (c = (0, zi.setupAnimation)(u, t, r, o, i, s)),
-          n.removeEventListener("w-spline-load", l);
+        u && (l = (0, no.setupAnimation)(u, t, r, o, i, s)),
+          n.removeEventListener("w-spline-load", c);
       };
     return (
-      n.addEventListener("w-spline-load", l),
+      n.addEventListener("w-spline-load", c),
       () => {
-        n.removeEventListener("w-spline-load", l), c?.();
+        n.removeEventListener("w-spline-load", c), l?.();
       }
     );
   }
-  function tu(n) {
+  function Au(n) {
     n.addAction("spline", {
       createCustomTween: (e, t, r, o, i, s) => {
         let a = t.tt ?? 0;
         if (!i.length || !window.Webflow || !r.objectId) return;
-        let c = window.Webflow.require?.("spline");
-        if (!c) return;
-        let l = [];
+        let l = window.Webflow.require?.("spline");
+        if (!l) return;
+        let c = [];
         for (let u of i) {
-          let d = Jl(r, u),
-            f = eu(u, c, d, o, e, a, s);
-          f && l.push(f);
+          let d = Eu(r, u),
+            f = Mu(u, l, d, o, e, a, s);
+          f && c.push(f);
         }
-        if (l.length !== 0)
+        if (c.length !== 0)
           return () => {
-            for (let u of l) u?.();
+            for (let u of c) u?.();
           };
       },
     });
   }
 });
-var eo = m(($n) => {
+var uo = m((Xn) => {
   "use strict";
-  Object.defineProperty($n, "__esModule", { value: !0 });
-  Object.defineProperty($n, "buildVariableAction", {
+  Object.defineProperty(Xn, "__esModule", { value: !0 });
+  Object.defineProperty(Xn, "buildVariableAction", {
     enumerable: !0,
     get: function () {
-      return nu;
+      return Ou;
     },
   });
-  var qn = X();
-  function nu(n) {
+  var Yn = Z();
+  function Ou(n) {
     n.addAction("variable", {
       createCustomTween: (e, t, r, o, i, s) => {
         let a = r.variable;
         if (!a) return;
-        let c = Object.keys(a),
-          l = c.length;
-        if (l === 0) return;
+        let l = Object.keys(a),
+          c = l.length;
+        if (c === 0) return;
         let u = (t.targets?.length ?? 0) > 0;
         if (u && i.length === 0) return;
-        let d = u ? Array.from(new Set(i)) : ru(c),
+        let d = u ? Array.from(new Set(i)) : _u(l),
           f = d.length,
-          p = new Array(f),
+          g = new Array(f),
           h = new Array(f);
-        for (let v = 0; v < f; v++) {
-          let T = d[v].style;
-          p[v] = T;
-          let w = new Array(l);
-          for (let _ = 0; _ < l; _++) {
-            let I = c[_];
-            (w[_] = T.getPropertyValue(I)), T.removeProperty(I);
+        for (let b = 0; b < f; b++) {
+          let v = d[b].style;
+          g[b] = v;
+          let w = new Array(c);
+          for (let I = 0; I < c; I++) {
+            let E = l[I];
+            (w[I] = v.getPropertyValue(E)), v.removeProperty(E);
           }
-          h[v] = w;
+          h[b] = w;
         }
-        let g = t.tt ?? qn.TweenType.To,
+        let p = t.tt ?? Yn.TweenType.To,
           y = s || 0,
-          { force3D: E, ...M } = o,
-          S = c.some((v) => a[v].startsWith("var(")),
-          C = (v) => {
-            let T = {};
-            for (let w = 0; w < l; w++) {
-              let _ = c[w],
-                I = a[_];
-              T[_] =
-                (v &&
-                  I.startsWith("var(") &&
-                  v.getPropertyValue(I.slice(4, -1)).trim()) ||
-                I;
+          { force3D: T, ...A } = o,
+          C = l.some((b) => a[b].startsWith("var(")),
+          M = (b) => {
+            let v = {};
+            for (let w = 0; w < c; w++) {
+              let I = l[w],
+                E = a[I];
+              v[I] =
+                (b &&
+                  E.startsWith("var(") &&
+                  b.getPropertyValue(E.slice(4, -1)).trim()) ||
+                E;
             }
-            return T;
+            return v;
           };
         if (u)
-          for (let v = 0; v < f; v++) {
-            let T = d[v],
-              w = C(S ? getComputedStyle(T) : null);
-            Xi(e, g, T, { ...w, ...M }, y);
+          for (let b = 0; b < f; b++) {
+            let v = d[b],
+              w = M(C ? getComputedStyle(v) : null);
+            oo(e, p, v, { ...w, ...A }, y);
           }
         else {
-          let T = {
-            ...C(S ? getComputedStyle(document.documentElement) : null),
-            ...M,
+          let v = {
+            ...M(C ? getComputedStyle(document.documentElement) : null),
+            ...A,
           };
-          for (let w = 0; w < f; w++) Xi(e, g, d[w], T, y);
+          for (let w = 0; w < f; w++) oo(e, p, d[w], v, y);
         }
         return () => {
-          for (let v = 0; v < f; v++) {
-            let T = p[v],
-              w = h[v];
-            for (let _ = 0; _ < l; _++) {
-              let I = w[_];
-              I ? T.setProperty(c[_], I) : T.removeProperty(c[_]);
+          for (let b = 0; b < f; b++) {
+            let v = g[b],
+              w = h[b];
+            for (let I = 0; I < c; I++) {
+              let E = w[I];
+              E ? v.setProperty(l[I], E) : v.removeProperty(l[I]);
             }
           }
         };
       },
     });
   }
-  function ru(n) {
+  function _u(n) {
     let e = [document.documentElement];
     if (n.length === 0) return e;
-    let t = iu(n) ?? ou(n);
+    let t = Iu(n) ?? Ru(n);
     for (let r = 0; r < t.length; r++) e.push(t[r]);
     return e;
   }
-  function Xi(n, e, t, r, o) {
-    e === qn.TweenType.From
+  function oo(n, e, t, r, o) {
+    e === Yn.TweenType.From
       ? n.from(t, r, o)
-      : e === qn.TweenType.Set
+      : e === Yn.TweenType.Set
       ? n.set(t, r, o)
       : n.to(t, r, o);
   }
-  function iu(n) {
+  function Iu(n) {
     let e = new Set([document.documentElement]),
       t = [],
       r = new Map();
     try {
       let o = document.styleSheets;
-      for (let i = 0; i < o.length; i++) Qi(o[i].cssRules, n, t, e, r);
+      for (let i = 0; i < o.length; i++) ao(o[i].cssRules, n, t, e, r);
       return t;
     } catch {
       return null;
     }
   }
-  function Qi(n, e, t, r, o) {
+  function ao(n, e, t, r, o) {
     for (let i = 0; i < n.length; i++) {
       let s = n[i];
       if (s instanceof CSSMediaRule) {
-        let c = s.conditionText,
-          l = o.get(c);
-        l === void 0 && ((l = matchMedia(c).matches), o.set(c, l)),
-          l && Qi(s.cssRules, e, t, r, o);
+        let l = s.conditionText,
+          c = o.get(l);
+        c === void 0 && ((c = matchMedia(l).matches), o.set(l, c)),
+          c && ao(s.cssRules, e, t, r, o);
         continue;
       }
       if (!(s instanceof CSSStyleRule)) continue;
       let a = s.style;
-      for (let c = 0; c < e.length; c++)
-        if (a.getPropertyValue(e[c])) {
+      for (let l = 0; l < e.length; l++)
+        if (a.getPropertyValue(e[l])) {
           try {
-            let l = document.querySelectorAll(s.selectorText);
-            for (let u = 0; u < l.length; u++) {
-              let d = l[u];
+            let c = document.querySelectorAll(s.selectorText);
+            for (let u = 0; u < c.length; u++) {
+              let d = c[u];
               r.has(d) || (r.add(d), t.push(d));
             }
           } catch {}
@@ -7541,233 +7855,233 @@ var eo = m(($n) => {
         }
     }
   }
-  var Ki = "__ix3__";
-  function ou(n) {
+  var lo = "__ix3__";
+  function Ru(n) {
     let e = document.documentElement,
       t = document.body,
       r = [],
       o = n.length,
       i = [],
       s = [];
-    Ji(e, n, o, i, s), Zi(t, n, o, r, i, s);
+    co(e, n, o, i, s), so(t, n, o, r, i, s);
     let a = document.createTreeWalker(t, NodeFilter.SHOW_ELEMENT),
-      c;
-    for (; (c = a.nextNode()); ) Zi(c, n, o, r, i, s);
-    for (let l = 0; l < i.length; l++) {
-      let u = i[l].style,
-        d = s[l];
+      l;
+    for (; (l = a.nextNode()); ) so(l, n, o, r, i, s);
+    for (let c = 0; c < i.length; c++) {
+      let u = i[c].style,
+        d = s[c];
       for (let f = 0; f < o; f++) {
-        let p = d[f];
-        p ? u.setProperty(n[f], p) : u.removeProperty(n[f]);
+        let g = d[f];
+        g ? u.setProperty(n[f], g) : u.removeProperty(n[f]);
       }
     }
     return r;
   }
-  function Ji(n, e, t, r, o) {
+  function co(n, e, t, r, o) {
     let i = n.style,
       s = new Array(t);
     for (let a = 0; a < t; a++) {
-      let c = e[a];
-      (s[a] = i.getPropertyValue(c)), i.setProperty(c, Ki);
+      let l = e[a];
+      (s[a] = i.getPropertyValue(l)), i.setProperty(l, lo);
     }
     r.push(n), o.push(s);
   }
-  function Zi(n, e, t, r, o, i) {
+  function so(n, e, t, r, o, i) {
     let s = getComputedStyle(n);
     for (let a = 0; a < t; a++)
-      if (s.getPropertyValue(e[a]) !== Ki) {
-        r.push(n), Ji(n, e, t, o, i);
+      if (s.getPropertyValue(e[a]) !== lo) {
+        r.push(n), co(n, e, t, o, i);
         return;
       }
   }
 });
-var to = m((Hn) => {
+var fo = m((Zn) => {
   "use strict";
-  Object.defineProperty(Hn, "__esModule", { value: !0 });
-  function su(n, e) {
+  Object.defineProperty(Zn, "__esModule", { value: !0 });
+  function Pu(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  su(Hn, {
+  Pu(Zn, {
     getFirst: function () {
-      return au;
+      return xu;
     },
     getSecond: function () {
-      return cu;
+      return ku;
     },
     pair: function () {
-      return lu;
+      return Nu;
     },
   });
-  var au = (n) => n[0],
-    cu = (n) => n[1],
-    lu = (n, e) => [n, e];
+  var xu = (n) => n[0],
+    ku = (n) => n[1],
+    Nu = (n, e) => [n, e];
 });
-var zn = m((Gn) => {
+var Kn = m((Qn) => {
   "use strict";
-  Object.defineProperty(Gn, "__esModule", { value: !0 });
-  function uu(n, e) {
+  Object.defineProperty(Qn, "__esModule", { value: !0 });
+  function Fu(n, e) {
     for (var t in e) Object.defineProperty(n, t, { enumerable: !0, get: e[t] });
   }
-  uu(Gn, {
+  Fu(Qn, {
     elementTargetSelector: function () {
-      return mu;
+      return Uu;
     },
     safeClosest: function () {
-      return gu;
+      return ju;
     },
     safeGetElementById: function () {
-      return du;
+      return Lu;
     },
     safeMatches: function () {
-      return hu;
+      return Vu;
     },
     safeQuerySelector: function () {
-      return pu;
+      return Bu;
     },
     safeQuerySelectorAll: function () {
-      return fu;
+      return Du;
     },
   });
-  var Je = Ve(),
-    du = (n) => {
+  var rt = Ue(),
+    Lu = (n) => {
       try {
         let e = document.getElementById(n);
-        return e && !(0, Je.isTransientIX3Clone)(e) ? e : null;
+        return e && !(0, rt.isTransientIX3Clone)(e) ? e : null;
       } catch {
         return null;
       }
     },
-    fu = (n, e) => {
+    Du = (n, e) => {
       try {
         let t = e.querySelectorAll(n);
         if (t.length === 0) return [];
         let r = [];
-        for (let o of t) (0, Je.isTransientIX3Clone)(o) || r.push(o);
+        for (let o of t) (0, rt.isTransientIX3Clone)(o) || r.push(o);
         return r;
       } catch {
         return null;
       }
     },
-    pu = (n, e) => {
+    Bu = (n, e) => {
       try {
         let t = e.querySelector(n);
         if (!t) return null;
-        if (!(0, Je.isTransientIX3Clone)(t)) return t;
+        if (!(0, rt.isTransientIX3Clone)(t)) return t;
         let r = e.querySelectorAll(n);
-        for (let o of r) if (!(0, Je.isTransientIX3Clone)(o)) return o;
+        for (let o of r) if (!(0, rt.isTransientIX3Clone)(o)) return o;
         return null;
       } catch {
         return null;
       }
     },
-    gu = (n, e) => {
+    ju = (n, e) => {
       try {
         return n.closest(e);
       } catch {
         return null;
       }
     },
-    hu = (n, e) => {
+    Vu = (n, e) => {
       try {
         return n.matches(e);
       } catch {
         return null;
       }
     },
-    mu = (n) => `[data-wf-target*="${CSS.escape(`[${JSON.stringify(n)}`)}"]`;
+    Uu = (n) => `[data-wf-target*="${CSS.escape(`[${JSON.stringify(n)}`)}"]`;
 });
-var no = m((Wn) => {
+var po = m((Jn) => {
   "use strict";
-  Object.defineProperty(Wn, "__esModule", { value: !0 });
-  Object.defineProperty(Wn, "applyScope", {
+  Object.defineProperty(Jn, "__esModule", { value: !0 });
+  Object.defineProperty(Jn, "applyScope", {
     enumerable: !0,
     get: function () {
-      return vu;
+      return $u;
     },
   });
-  var Q = te(),
-    et = zn(),
-    yu = Ve(),
-    W = (n) => n.filter((e) => !(0, yu.isTransientIX3Clone)(e)),
-    vu = (n, e) => {
-      let t = W(n);
+  var K = ne(),
+    it = Kn(),
+    qu = Ue(),
+    Y = (n) => n.filter((e) => !(0, qu.isTransientIX3Clone)(e)),
+    $u = (n, e) => {
+      let t = Y(n);
       if (!e) return t;
       if (Array.isArray(e)) {
         let [r, o] = e,
           i = [];
         switch (r) {
-          case Q.TargetScope.FIRST_ANCESTOR:
+          case K.TargetScope.FIRST_ANCESTOR:
             for (let s of t) {
-              let a = o ? (0, et.safeClosest)(s, o) : null;
+              let a = o ? (0, it.safeClosest)(s, o) : null;
               a && i.push(a);
             }
-            return W(i);
-          case Q.TargetScope.FIRST_DESCENDANT:
+            return Y(i);
+          case K.TargetScope.FIRST_DESCENDANT:
             for (let s of t) {
-              let a = o ? (0, et.safeQuerySelector)(o, s) : s.firstElementChild;
+              let a = o ? (0, it.safeQuerySelector)(o, s) : s.firstElementChild;
               a && i.push(a);
             }
-            return W(i);
-          case Q.TargetScope.DESCENDANTS:
+            return Y(i);
+          case K.TargetScope.DESCENDANTS:
             for (let s of t)
-              i.push(...((0, et.safeQuerySelectorAll)(o, s) || []));
-            return W(i);
-          case Q.TargetScope.ANCESTORS:
+              i.push(...((0, it.safeQuerySelectorAll)(o, s) || []));
+            return Y(i);
+          case K.TargetScope.ANCESTORS:
             for (let s of t) {
               let a = s.parentElement;
               for (; a; )
-                (!o || (0, et.safeMatches)(a, o)) && i.push(a),
+                (!o || (0, it.safeMatches)(a, o)) && i.push(a),
                   (a = a.parentElement);
             }
-            return W(i);
+            return Y(i);
         }
       }
       switch (e) {
-        case Q.TargetScope.CHILDREN:
-          return W(t.flatMap((r) => [...r.children]));
-        case Q.TargetScope.PARENT:
-          return W(t.map((r) => r.parentElement).filter(Boolean));
-        case Q.TargetScope.SIBLINGS:
-          return W(
+        case K.TargetScope.CHILDREN:
+          return Y(t.flatMap((r) => [...r.children]));
+        case K.TargetScope.PARENT:
+          return Y(t.map((r) => r.parentElement).filter(Boolean));
+        case K.TargetScope.SIBLINGS:
+          return Y(
             t.flatMap((r) =>
               r.parentElement
                 ? [...r.parentElement.children].filter((o) => o !== r)
                 : []
             )
           );
-        case Q.TargetScope.NEXT:
-          return W(t.flatMap((r) => r.nextElementSibling || []));
-        case Q.TargetScope.PREVIOUS:
-          return W(t.flatMap((r) => r.previousElementSibling || []));
+        case K.TargetScope.NEXT:
+          return Y(t.flatMap((r) => r.nextElementSibling || []));
+        case K.TargetScope.PREVIOUS:
+          return Y(t.flatMap((r) => r.previousElementSibling || []));
         default:
           return t;
       }
     };
 });
-var ro = m((Yn) => {
+var go = m((er) => {
   "use strict";
-  Object.defineProperty(Yn, "__esModule", { value: !0 });
-  Object.defineProperty(Yn, "build", {
+  Object.defineProperty(er, "__esModule", { value: !0 });
+  Object.defineProperty(er, "build", {
     enumerable: !0,
     get: function () {
-      return bu;
+      return Hu;
     },
   });
-  var be = to(),
-    Te = zn(),
-    re = no();
-  function bu(n) {
+  var Te = fo(),
+    we = Kn(),
+    ie = po();
+  function Hu(n) {
     let e = [];
     n.addTargetResolver("id", {
       resolve: ([, t]) => {
         let [r, o] = Array.isArray(t) ? t : [t],
-          i = r ? (0, Te.safeGetElementById)(r) : null;
-        return i ? (0, re.applyScope)([i], o) : e;
+          i = r ? (0, we.safeGetElementById)(r) : null;
+        return i ? (0, ie.applyScope)([i], o) : e;
       },
     })
       .addTargetResolver("trigger-only", {
         resolve: ([, t], { triggerElement: r }) =>
-          r ? (0, re.applyScope)([r], Array.isArray(t) ? t[1] : void 0) : e,
+          r ? (0, ie.applyScope)([r], Array.isArray(t) ? t[1] : void 0) : e,
         isDynamic: !0,
       })
       .addTargetResolver("trigger-only-parent", {
@@ -7775,7 +8089,7 @@ var ro = m((Yn) => {
           if (!r) return e;
           let o = r.parentElement;
           return o instanceof HTMLElement
-            ? (0, re.applyScope)([o], Array.isArray(t) ? t[1] : void 0)
+            ? (0, ie.applyScope)([o], Array.isArray(t) ? t[1] : void 0)
             : e;
         },
         isDynamic: !0,
@@ -7785,25 +8099,25 @@ var ro = m((Yn) => {
           if (!Array.isArray(t)) return e;
           let [o, i] = t,
             s = Array.isArray(o),
-            a = s ? (0, be.pair)(o[0], o[1]) : (0, be.pair)(o, i),
-            c = (0, Te.safeQuerySelectorAll)(
-              (0, Te.elementTargetSelector)(a),
+            a = s ? (0, Te.pair)(o[0], o[1]) : (0, Te.pair)(o, i),
+            l = (0, we.safeQuerySelectorAll)(
+              (0, we.elementTargetSelector)(a),
               document
             );
-          if (!c?.length) return e;
-          let l = [...c];
-          if (!r) return (0, re.applyScope)(l, s ? i : void 0);
+          if (!l?.length) return e;
+          let c = [...l];
+          if (!r) return (0, ie.applyScope)(c, s ? i : void 0);
           let u = r.dataset.wfTarget;
-          if (!u) return l;
+          if (!u) return c;
           try {
             let d = JSON.parse(u),
-              f = (0, be.getFirst)(a),
-              p = d.find((h) => (0, be.getFirst)((0, be.getFirst)(h)) === f);
-            return p
-              ? (0, re.applyScope)(
-                  l.filter((h) =>
+              f = (0, Te.getFirst)(a),
+              g = d.find((h) => (0, Te.getFirst)((0, Te.getFirst)(h)) === f);
+            return g
+              ? (0, ie.applyScope)(
+                  c.filter((h) =>
                     (h.dataset.wfTarget || "").includes(
-                      `${JSON.stringify((0, be.getSecond)(p))}]`
+                      `${JSON.stringify((0, Te.getSecond)(g))}]`
                     )
                   ),
                   s ? i : void 0
@@ -7818,23 +8132,23 @@ var ro = m((Yn) => {
       .addTargetResolver("class", {
         resolve: ([, t]) => {
           let [r, o] = Array.isArray(t) ? t : [t],
-            i = r ? (0, Te.safeQuerySelectorAll)(`.${r}`, document) : null;
-          return i ? (0, re.applyScope)([...i], o) : e;
+            i = r ? (0, we.safeQuerySelectorAll)(`.${r}`, document) : null;
+          return i ? (0, ie.applyScope)([...i], o) : e;
         },
       })
       .addTargetResolver("selector", {
         resolve: ([, t]) => {
           let [r, o] = Array.isArray(t) ? t : [t],
-            i = r ? (0, Te.safeQuerySelectorAll)(r, document) : null;
-          return i ? (0, re.applyScope)([...i], o) : e;
+            i = r ? (0, we.safeQuerySelectorAll)(r, document) : null;
+          return i ? (0, ie.applyScope)([...i], o) : e;
         },
       })
       .addTargetResolver("body", { resolve: () => [document.body] })
       .addTargetResolver("attribute", {
         resolve: ([, t]) => {
           let [r, o] = Array.isArray(t) ? t : [t],
-            i = r ? (0, Te.safeQuerySelectorAll)(r, document) : null;
-          return i ? (0, re.applyScope)([...i], o) : e;
+            i = r ? (0, we.safeQuerySelectorAll)(r, document) : null;
+          return i ? (0, ie.applyScope)([...i], o) : e;
         },
       })
       .addTargetResolver("any-element", { resolve: () => e })
@@ -7843,58 +8157,58 @@ var ro = m((Yn) => {
       });
   }
 });
-var oo = m((Xn) => {
+var mo = m((tr) => {
   "use strict";
-  Object.defineProperty(Xn, "__esModule", { value: !0 });
-  Object.defineProperty(Xn, "plugin", {
+  Object.defineProperty(tr, "__esModule", { value: !0 });
+  Object.defineProperty(tr, "plugin", {
     enumerable: !0,
     get: function () {
-      return _u;
+      return Ju;
     },
   });
-  var Tu = si(),
-    wu = fi(),
-    Cu = hi(),
-    io = ki(),
-    Su = Yi(),
-    Eu = eo(),
-    Mu = ro(),
-    Au = X(),
-    Ou = te(),
-    K = new Au.RuntimeBuilder(Ou.CORE_PLUGIN_INFO);
-  (0, Tu.build)(K);
-  (0, wu.build)(K);
-  (0, Cu.buildLottieAction)(K);
-  (0, io.buildRiveAction)(K);
-  (0, io.buildAnimateRiveAction)(K);
-  (0, Su.buildSplineAction)(K);
-  (0, Eu.buildVariableAction)(K);
-  (0, Mu.build)(K);
-  var _u = K.buildRuntime();
+  var Gu = fi(),
+    zu = Si(),
+    Wu = Mi(),
+    ho = $i(),
+    Yu = io(),
+    Xu = uo(),
+    Zu = go(),
+    Qu = Z(),
+    Ku = ne(),
+    J = new Qu.RuntimeBuilder(Ku.CORE_PLUGIN_INFO);
+  (0, Gu.build)(J);
+  (0, zu.build)(J);
+  (0, Wu.buildLottieAction)(J);
+  (0, ho.buildRiveAction)(J);
+  (0, ho.buildAnimateRiveAction)(J);
+  (0, Yu.buildSplineAction)(J);
+  (0, Xu.buildVariableAction)(J);
+  (0, Zu.build)(J);
+  var Ju = J.buildRuntime();
 });
-var so = m((Zn) => {
+var yo = m((nr) => {
   "use strict";
-  Object.defineProperty(Zn, "__esModule", { value: !0 });
-  Object.defineProperty(Zn, "plugin", {
+  Object.defineProperty(nr, "__esModule", { value: !0 });
+  Object.defineProperty(nr, "plugin", {
     enumerable: !0,
     get: function () {
-      return Iu.plugin;
+      return ed.plugin;
     },
   });
-  var Iu = oo();
+  var ed = mo();
 });
-var ao = tr(xr()),
-  co = tr(so());
-async function Ru() {
+var vo = ar(Dr()),
+  bo = ar(yo());
+async function td() {
   try {
-    let n = await ao.IX3.init({ doc: document, win: window });
+    let n = await vo.IX3.init({ doc: document, win: window });
     return (
-      await n.registerPlugin(co.plugin),
+      await n.registerPlugin(bo.plugin),
       { register: (e, t) => n.register(e, t), destroy: () => n.destroy() }
     );
   } catch (n) {
     throw (console.error("[Devlink IX3] Engine initialization failed:", n), n);
   }
 }
-var Tf = { createIX3Engine: Ru };
-export { Ru as createIX3Engine, Tf as default };
+var zf = { createIX3Engine: td };
+export { td as createIX3Engine, zf as default };

@@ -24,7 +24,7 @@ export type FooterProps = {};
  */
 export function Footer({}: FooterProps) {
   return (
-    <Block className={"footer"} tag={"footer"}>
+    <Block className={"footer"} id={"Footer"} tag={"footer"}>
       <Block className={"flex-expand"} tag={"div"} />
       <Link
         aria-controls={"TestPanel"}
