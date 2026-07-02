@@ -13,6 +13,7 @@ import Link from "@/modules/nav/Link";
 import Folder from "@/modules/nav/Folder";
 import { buildNavTree } from "@/cms/folders";
 import type { NavNode } from "@/cms/folders";
+import { slugify } from "@/cms/slugs";
 
 
 
@@ -57,7 +58,7 @@ async function renderNode(node: NavNode, depth: number, chevron: string): Promis
       return (
         <Link
           key={file.name}
-          href={externalUrl ?? `${node.href}/${file.name}`}
+          href={externalUrl ?? `${node.href}/${slugify(file.name)}`}
           name={displayName}
           level={depth + 1}
           icon={file.icon}
