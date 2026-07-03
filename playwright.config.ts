@@ -3,7 +3,7 @@
  * @file playwright.config.ts - playwright end-to-end testing configuration
  * ========================================================================================
  * @description
- * - configures testing directories, parallel execution, and html reporters
+ * - configures testing directories, test execution, and html reporters
  * - automatically spins up a local dev server on port 3001 before running test suites
  * @see /tests/, /package.json/
  */
@@ -14,10 +14,10 @@ export default defineConfig({
   testDir: './tests',
   outputDir: './tests/results',
   reporter: [['html', { outputFolder: 'tests/report' }]],
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 1 : 0,
+  workers: 1,
   use: {
     baseURL: 'http://localhost:3001',
     trace: 'on-first-retry',

@@ -7,9 +7,9 @@
  * - runs in gitHub actions CI: `tsc`, `eslint`, `build` → `npm run test:e2e`
  * - can be run locally or with `:ui` for visual debugging
  * - CI runs tests against build server (local boots dev server)
- * - CI executes tests sequentially (local executes in parallel)
- * - CI retries tests twice before marking a test as failed (local does not retry)
+ * - CI retries a failed test once before marking it failed (local does not retry)
  * - CI automatically records a full trace (DOM, network, console, etc) during first retry
+ * - tests execute sequentially in both ci and local (workers: 1)
  * - notes:
  *   - `test.only` causes pipeline failures in CI
  *   - test.describe(): groups tests into related concepts (e.g. layout)
