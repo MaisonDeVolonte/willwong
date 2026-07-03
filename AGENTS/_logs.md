@@ -1,4 +1,5 @@
 # AGENT LOG: WEEKDAY, MONTH DAY, YEAR
+runs autonomously or via `@agentlog` command
 
 ## Thread #1: Short description of thread, task, or session
 
