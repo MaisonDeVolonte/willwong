@@ -19,13 +19,15 @@
 2. `git status -s` and `git diff`
 - analyze changes and group into self-contained atomic `type(scope)` buckets
 - interdependent files needed to pass CI should be grouped together
+- tests are grouped with code they validate, matched via imports, routes, selectors, etc
 - types (derived from the following, in order of precedence):
-  - `new:` first-time features, functions
-  - `improve:` existing features, functions
-  - `fix:` defects, bugs, broken code
-  - `update:` content, text, properties, comments, rename, remove
-  - `test:` test suites, assertions, verification checks
-  - `debug:` logs, profiling scripts, temp instrumentation
+  - `new` → first-time features, functions
+  - `improve` → existing features, functions
+  - `fix` → defects, bugs, broken code
+  - `update` → content, text, properties, comments, rename, remove
+  - `debug` → logs, profiling scripts, temp instrumentation
+  - exceptions:
+    - `test` → test changes independent of other changes (no in-tree subject)
 - scopes (derived from the following, in order of precedence): 
   - single file: file's `FullName.ext`
   - multiple files: parent folder's name
@@ -33,7 +35,7 @@
   - multiple domains: most dominant domain name
   - multiple unrelated domains: `misc`
   - exceptions: 
-    - any work in `/content/` → `content`
+    - `content` → any changes in `/content/` 
 
 3. prepare atomic buckets for delivery
 - sort the atomic buckets by dependency
