@@ -1,1 +1,0 @@
-// @mirror AGENTS/gitbegin.md

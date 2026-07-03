@@ -53,7 +53,7 @@ LOCAL_COMMIT=$(git rev-parse "$DEFAULT_BRANCH")
 REMOTE_COMMIT=$(git rev-parse "origin/$DEFAULT_BRANCH")
 
 if [ "$LOCAL_COMMIT" != "$REMOTE_COMMIT" ]; then
-  echo "fatal: local $DEFAULT_BRANCH is out of sync with origin. run @gitbegin or pull first." >&2; exit 1; fi
+  echo "fatal: local $DEFAULT_BRANCH is out of sync with origin. run @gitcontinue or pull first." >&2; exit 1; fi
 
 # execute npm version bump
 echo "=== bumping version ($TYPE) ==="
