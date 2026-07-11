@@ -10,9 +10,15 @@
 
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
+import kvTagCache from "@opennextjs/cloudflare/overrides/tag-cache/kv-next-tag-cache";
 
-// Deploys bulk-upload cache to NEXT_INC_CACHE_R2_BUCKET for fast edge serving
-// Cache-misses trigger runtime re-rendering using the in-memory content bundle
+// - incrementalCache: bulk-upload cache to NEXT_INC_CACHE_R2_BUCKET for fast edge serving;
+//   cache-misses re-render at runtime (content fetched from main — see src/cms/source.ts)
+// - tagCache: KV-backed, lets the /api/revalidate webhook bust the `content` tag on publish
+//   (KV avoids D1/Durable Objects; eventually consistent, up to ~60s — matches our timer)
+// - queue "direct": revalidate synchronously in-request, so no Durable Object queue is needed
 export default defineCloudflareConfig({
   incrementalCache: r2IncrementalCache,
+  tagCache: kvTagCache,
+  queue: "direct",
 });
