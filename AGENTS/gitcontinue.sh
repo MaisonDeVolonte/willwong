@@ -31,6 +31,18 @@ if git status --porcelain 2>/dev/null | grep -q .; then
   git stash push -u -m "auto-stash: @gitcontinue" >/dev/null 2>&1 || {
     echo "fatal: could not stash uncommitted changes" >&2; exit 2;
   }
+  # Safety net: the steps between here and the deliberate pop below (fetch/switch/ff)
+  # all exit 2 on failure, which would leave the stash orphaned and the tree deceptively
+  # clean — silently hiding the user's work. Restore it (or loudly surface it) on any such
+  # early exit. Disarmed right before the intended pop so normal success/conflict handling
+  # stays in charge.
+  restore_stash() {
+    if git stash list 2>/dev/null | grep -q "auto-stash: @gitcontinue"; then
+      git stash pop >/dev/null 2>&1 \
+        || echo "⚠️  @gitcontinue: your work is preserved in git stash — run 'git stash pop' to recover it" >&2
+    fi
+  }
+  trap restore_stash EXIT
 fi
 
 # trunk sync
@@ -56,6 +68,7 @@ fi
 # integration & replay
 CONFLICT=0
 if [ $DIRTY -eq 1 ]; then
+  trap - EXIT   # reached the deliberate pop — hand off to the success/conflict handling below
   # We use || true so the script doesn't instantly exit (set -e) if there's a conflict
   if ! git stash pop >/dev/null 2>&1; then
     CONFLICT=1
@@ -74,7 +87,7 @@ EOF
 if [ $CONFLICT -eq 1 ]; then
   cat <<EOF
 STATUS: STASH POP CONFLICT DETECTED
-ACTION: Trunk synced, but your uncommitted changes conflict. Resolve the conflicts in your editor to continue.
+ACTION: Trunk synced, but your uncommitted changes conflict. Resolve the conflicts in your editor, then run 'git stash drop' to clear the preserved copy.
 ==============================
 EOF
 else
