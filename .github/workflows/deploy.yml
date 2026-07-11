@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest             # runs on ubuntu virtual machine
     steps:
       - uses: actions/checkout@v4      # clones repo into runner
+        with:
+          fetch-depth: 0               # full history + tags so version.mjs counts commits correctly
       - uses: actions/setup-node@v4    # installs node.js and npm caching
         with:
           node-version: 22
