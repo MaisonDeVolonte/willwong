@@ -65,10 +65,51 @@ async function readLocalContent(): Promise<ContentMap> {
 /* github source (production): fetch content/ from the main branch             */
 /* -------------------------------------------------------------------------- */
 
+const MAX_ATTEMPTS = 3;
+const FETCH_CONCURRENCY = 12;
+
+type GithubInit = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Retry transient GitHub failures (429 / 5xx / network) with linear backoff, so a single
+// throttled response doesn't fail the whole content load.
+async function githubFetch(url: string, init: GithubInit): Promise<Response> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(url, init);
+      if (res.ok || (res.status < 500 && res.status !== 429)) return res;
+      lastError = new Error(`${res.status} ${res.statusText}`);
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt < MAX_ATTEMPTS) await sleep(250 * attempt);
+  }
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
+}
+
+// Concurrency-limited map so a cold load doesn't burst ~100 requests at GitHub at once
+// (which self-throttles into 503s).
+async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let cursor = 0;
+  async function worker(): Promise<void> {
+    while (cursor < items.length) {
+      const index = cursor++;
+      results[index] = await fn(items[index]);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
 async function readGithubContent(): Promise<ContentMap> {
   const paths = await listContentPaths();
-  const entries = await Promise.all(
-    paths.map(async (rel) => [rel, await fetchRawFile(rel)] as const),
+  const entries = await mapLimit(
+    paths,
+    FETCH_CONCURRENCY,
+    async (rel) => [rel, await fetchRawFile(rel)] as const,
   );
   return Object.fromEntries(entries);
 }
@@ -76,7 +117,7 @@ async function readGithubContent(): Promise<ContentMap> {
 // One recursive tree call lists every file under content/ (paths relative to content/).
 async function listContentPaths(): Promise<string[]> {
   const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
-  const res = await fetch(url, {
+  const res = await githubFetch(url, {
     headers: await githubHeaders(),
     next: { revalidate: REVALIDATE_SECONDS, tags: [CONTENT_TAG] },
   });
@@ -92,7 +133,7 @@ async function listContentPaths(): Promise<string[]> {
 async function fetchRawFile(rel: string): Promise<string> {
   const encoded = rel.split("/").map(encodeURIComponent).join("/");
   const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${CONTENT_PREFIX}${encoded}`;
-  const res = await fetch(url, {
+  const res = await githubFetch(url, {
     next: { revalidate: REVALIDATE_SECONDS, tags: [CONTENT_TAG] },
   });
   if (!res.ok) throw new Error(`GitHub raw fetch failed (${res.status}): ${rel}`);

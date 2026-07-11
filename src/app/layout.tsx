@@ -43,6 +43,11 @@ import "@/app/custom.css";
 import "@/core/controllers/panels.css";
 import "@/modules/stage/Chat.css";
 
+// Content is fetched from the main branch at runtime (see src/cms/source.ts), so every
+// route renders dynamically. Nothing is prerendered at build — which would otherwise
+// fetch all content and couple the build to GitHub availability.
+export const dynamic = "force-dynamic";
+
 // Metadata
 export const metadata: Metadata = {
   title: {

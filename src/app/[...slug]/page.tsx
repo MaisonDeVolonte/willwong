@@ -21,11 +21,9 @@ type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-// Content lives on the main branch, not the bundle, so routes are resolved on demand
-// rather than enumerated at build. Rendered pages cache and revalidate like the home
-// page (timer or a `content` tag revalidation on publish); unknown slugs render live.
-export const dynamicParams = true;
-export const revalidate = 60;
+// Content lives on the main branch, not the bundle, so routes resolve on demand at
+// runtime — the root layout's `force-dynamic` renders every path live, with no build-time
+// enumeration or content fetch.
 
 // Metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -38,12 +36,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: file.title,
     description: file.description,
   };
-}
-
-export async function generateStaticParams() {
-  // Nothing is prerendered at build — every path renders on demand and caches.
-  // Avoids a build-time content fetch and lets new notes appear without a deploy.
-  return [];
 }
 
 export default async function DynamicPage({ params }: Props) {
