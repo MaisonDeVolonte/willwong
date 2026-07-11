@@ -36,11 +36,15 @@ export async function getFile(slug: string[]): Promise<ResolvedFile | null> {
   if (slug.length > 1) {
     const pageSlugs = slug.slice(0, -1);
     const filename = slug[slug.length - 1];
-    const page = pages.find((p) => p.slug.map(slugify).join("/") === pageSlugs.join("/"));
-    if (page) {
-      const fileIndex = page.files.findIndex((f) => slugify(f.name) === filename);
-      if (fileIndex !== -1) {
-        return { page, fileIndex };
+    
+    // Instead of find(), loop through all matching pages since there could be collisions
+    // (e.g. AGENTS.md vs AGENTS/ directory)
+    for (const p of pages) {
+      if (p.slug.map(slugify).join("/") === pageSlugs.join("/")) {
+        const fileIndex = p.files.findIndex((f) => slugify(f.name) === filename);
+        if (fileIndex !== -1) {
+          return { page: p, fileIndex };
+        }
       }
     }
   }
@@ -52,7 +56,14 @@ export async function getAllFileParams(): Promise<{ slug: string[] }[]> {
   const pages = await getAllPages();
   return pages.flatMap((p) => {
     const urlSlugPath = p.slug.map(slugify);
-    return p.files.length === 1
+    
+    // Check if the leaf should collapse: only if the final slug segment matches the filename.
+    // E.g., about/about.md collapses to /about
+    // But AGENTS/_logs.md should generate /agents/_logs
+    const shouldCollapse = p.files.length === 1 && 
+      urlSlugPath[urlSlugPath.length - 1] === slugify(p.files[0].name);
+
+    return shouldCollapse
       ? [{ slug: urlSlugPath }]
       : p.files.map((f) => ({ slug: [...urlSlugPath, slugify(f.name)] }));
   });
