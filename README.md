@@ -3,6 +3,8 @@
 A portfolio/resume site built as a mock IDE that renders its own source code. 
 Next.js (App Router) deployed to Webflow Cloud on Cloudflare Workers via OpenNext.
 
+[GitHub Project Board](https://github.com/users/MaisonDeVolonte/projects/1)
+
 ## Workflow
 Strict, atomic, continuously integrated, trunk-based development: fast review, trivial reverts, clean bisect, near-zero conflicts
 
@@ -89,15 +91,30 @@ Because Cloudflare Workers (`workerd`) do not have a runtime filesystem (`fs`), 
 
 | | |
 |---|---|
-| [Next.js 15](https://nextjs.org/docs) | Framework, App Router |
-| [React 19](https://react.dev) | UI runtime |
-| [TypeScript 5](https://www.typescriptlang.org/docs) | Types |
+| [Node.js 22](https://nodejs.org/) | Local build runtime |
+| [Next.js 15](https://nextjs.org/docs) | App Router framework |
+| [React 19](https://react.dev) | UI library |
+| [TypeScript 5](https://www.typescriptlang.org/docs) | Static typing |
 | [Tailwind 4](https://tailwindcss.com/docs) | Utility CSS |
-| [Webflow Devlink](https://developers.webflow.com/devlink/docs) | Design system export (`webflow/`) |
-| [Webflow Cloud](https://developers.webflow.com/webflow-cloud/docs) | Hosting + deploy target |
-| [OpenNext Cloudflare](https://opennext.js.org/cloudflare) | Next.js → Cloudflare Workers adapter |
-| [Cloudflare R2](https://developers.cloudflare.com/r2) | Incremental cache for prerendered pages |
-| [Wrangler](https://developers.cloudflare.com/workers/wrangler) | Cloudflare CLI |
+| [PostCSS 8](https://postcss.org/) | CSS transformation |
+| [Webflow CLI 2](https://developers.webflow.com/docs/webflow-cli) | Webflow CLI |
+| [Webflow DevLink](https://developers.webflow.com/devlink/docs) | Design system export |
+| [Webflow Cloud](https://developers.webflow.com/webflow-cloud/docs) | Production hosting |
+| [Webflow MCP](https://developers.webflow.com/docs/models-context-protocol) | AI context protocol |
+| [Cloudflare OpenNext](https://opennext.js.org/cloudflare) | Cloudflare adapter |
+| [Cloudflare Workerd](https://github.com/cloudflare/workerd) | Edge runtime |
+| [Cloudflare R2](https://developers.cloudflare.com/r2) | Incremental cache |
+| [Cloudflare Wrangler 4](https://developers.cloudflare.com/workers/wrangler) | Cloudflare CLI |
+| [GitHub CLI 2](https://cli.github.com/) | Workflow automation |
+| [GitHub Actions](https://docs.github.com/en/actions) | CI/CD pipelines |
+| [ESLint 9](https://eslint.org/) | Strict code linter |
+| [Playwright 1](https://playwright.dev/) | Behavior testing |
+| [Prettier 3](https://prettier.io/) | Code formatter |
+| [Refractor 5](https://github.com/wooorm/refractor) | Syntax highlighting |
+| [Zed](https://zed.dev/) | AI-native editor environment |
+| [Claude 3.5](https://anthropic.com/claude) | Primary agent model |
+| [Gemini 1.5](https://deepmind.google/technologies/gemini/) | Secondary agent model |
+
 
 ## Structure
 
