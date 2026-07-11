@@ -55,26 +55,30 @@ Ensures `main` is always deployable and the `production` edge environment remain
 - `next build` bakes the version information into the static html/js bundle
 
 **Configuration:**
-- `wrangler.json` requires `NEXT_INC_CACHE_R2_BUCKET`
+- `wrangler.json` requires `NEXT_INC_CACHE_R2_BUCKET` (R2) and `NEXT_TAG_CACHE_KV` (KV, for tag revalidation)
 - `webflow.json` requires `cloud.app_id`
 - `deploy.yml` requires `WEBFLOW_API_TOKEN` and `WEBFLOW_SITE_ID`
+- Runtime env (Webflow Cloud secrets): `GITHUB_TOKEN` (optional, lifts the GitHub API rate limit) and `GITHUB_WEBHOOK_SECRET` (for `/api/revalidate`)
 
 ## Content
 
-Because Cloudflare Workers (`workerd`) do not have a runtime filesystem (`fs`), the app uses a hybrid bundling and caching strategy to serve content at the edge:
+Cloudflare Workers (`workerd`) have no runtime filesystem (`fs`), so content is split by **where its body comes from** — authored content is fetched from the `main` branch at runtime (git-as-CMS), while build-time artifacts (`@mirror` snapshots + icons) stay bundled:
 
 ```text
-[content/*] → (build) → [content.generated.ts] → (prerender) → [.open-next/cache]
-                                  ↓                                    ↓
-                        (cache miss fallback)               (bulk upload on deploy)
-                                  ↓                                    ↓
- [browser]  ← (serves) ← [cloudflare worker]  ←  (reads)  ←  [R2 incremental cache]
+ authored content                             build-time artifacts
+ [content/*] ──(git push)──→ [main]           [@mirror + icons]
+      ↑                          │ (GitHub API,       │ (build)
+ [npm run publish]              │  runtime fetch)     ↓
+                                 ↓            [content.generated.ts]
+        [browser] ←─(serves)── [cloudflare worker] ──(reads)──┘
+                                 ↑
+              [R2 incremental cache + KV tag cache]  ← revalidate: 60 / webhook
 ```
 
-- **Build-Time Bundling:** `scripts/content.mjs` compiles all raw content into a single in-memory typescript object
-- **Pre-rendering:** next.js uses the ts object to generate static html/json payloads during `next build`
-- **Edge Caching:** `opennextjs-cloudflare` uploads these payloads to `willwong-cache` R2 bucket on deploy
-- **Runtime Fallback:** the worker serves from R2 but on a cache miss, it renders using the `content.generated.ts` bundle, bypassing the need for `fs.readFile`
+- **Runtime Source:** in production `src/cms/source.ts` fetches `content/` from `main` via the GitHub API and caches it under the `content` tag; in dev/CI it reads the local `content/` folder from disk (`CONTENT_SOURCE=local`)
+- **Build-Time Bundle:** `scripts/content.mjs` compiles only `@mirror` snapshots (resolved from real repo source) and icons into `src/cms/content.generated.ts` — these belong to the build, so they move with deploys
+- **Publishing:** `npm run publish` commits `content/` and pushes to `main` — no deploy; new content is live within ~60s (the revalidate timer), or instantly once the GitHub push webhook (`src/app/api/revalidate/`) busts the `content` tag
+- **Runtime Rendering:** routes render on demand (`dynamicParams`) and cache in R2; `revalidateTag("content")` or the timer refreshes them — no `fs.readFile` anywhere
 
 ## Commands
 
@@ -82,7 +86,8 @@ Because Cloudflare Workers (`workerd`) do not have a runtime filesystem (`fs`), 
 |---|---|
 | `npm run dev` | Dev server at `localhost:3001` |
 | `npm run build` | Production build |
-| `npm run generate` | Rebuild generated metadata (version + bundled content); runs automatically before `dev`/`build` |
+| `npm run generate` | Rebuild generated metadata (version + `@mirror`/icon bundle); runs automatically before `dev`/`build` |
+| `npm run publish` | Commit `content/` and push to `main` — publishes content without a deploy |
 | `npm run preview` | Cloudflare Worker (`workerd`) preview build |
 | `npm run deploy` | Manual deploy to Webflow Cloud (automated deploys run in CI) |
 | `npm run lint` | ESLint |
@@ -128,13 +133,15 @@ content/                             # Build-time content source
  ├── [folder]/
  └── [page].ext
 
-scripts/                             # Build-time generators (Node.js only, generated files are gitignored)
- ├── content.mjs                     # Compiles content json → src/cms/content.generated.ts
+scripts/                             # Node.js scripts (generated files are gitignored)
+ ├── content.mjs                     # Bundles @mirror snapshots + icons → src/cms/content.generated.ts
+ ├── publish.mjs                     # Commits content/ and pushes to main (npm run publish)
  └── version.mjs                     # Injects build data → src/meta/config/version.generated.ts
 
 src/
  ├── app/                            # Routing and page definitions
  │    ├── [...slug]/
+ │    ├── api/revalidate/            # GitHub webhook → revalidateTag("content")
  │    ├── custom.css
  │    ├── layout.tsx
  │    └── page.tsx
@@ -142,11 +149,12 @@ src/
  ├── assets/                         # Raw static files
  │    └── icons/
  │
- ├── cms/                            # Runtime engine for static content
+ ├── cms/                            # Content engine (runtime source + routing)
  │    ├── directives.ts
  │    ├── folders.ts
  │    ├── pages.ts
- │    └── slugs.ts
+ │    ├── slugs.ts
+ │    └── source.ts                  # Runtime content: GitHub (prod) / fs (dev)
  │
  ├── core/                           # Behavior, state, and event handling
  │    └── controllers/
@@ -174,9 +182,9 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 
 **Behavior (JS/TS)** — Managed in `src/core/controllers/` and attaches logic via vanilla JS, `useEffect` hooks, and DOM event delegation.
 
-**Content (`@mirror`)** — `content/` holds the CMS source; files mirror real source via `@mirror` comments. `scripts/content.mjs` resolves those (and icons) at build into `src/cms/content.generated.ts`, and `src/cms/` reads that bundle. `src/modules/stage/Refractor.tsx` renders code as highlighted HTML.
+**Content (git-as-CMS)** — `content/` holds the CMS source, fetched from `main` at runtime by `src/cms/source.ts` (dev/CI read it from disk). `@mirror` files instead resolve real repo source at build via `scripts/content.mjs` into `src/cms/content.generated.ts`. `src/modules/stage/Refractor.tsx` renders code as highlighted HTML.
 
-**Content Routing** — `src/cms/` walks the bundled content to build page routes and the `src/modules/nav/` tree.
+**Content Routing** — `src/cms/` walks the runtime content map to build page routes and the `src/modules/nav/` tree; routes render on demand (`dynamicParams`).
 
 **Build Metadata** — `scripts/version.mjs` bakes the app version (`package.json`) and commit hash (`git rev-parse`) into `src/meta/config/version.generated.ts`, surfaced in the header via `@/meta/config/version.ts`.
 
@@ -188,4 +196,4 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 
 **Webflow DevLink only exports component styles.** CSS classes applied exclusively to page-level elements (not inside a DevLink component) are silently omitted from the export. If styles are missing from `webflow/css/` after a sync, check whether the class is used on a component or only on a page. Fix: apply the class to an element inside a component, or use a dedicated style-carrier component.
 
-**No filesystem at runtime.** Cloudflare Workers (`workerd`) don't implement `fs.readFile`/`readdir` — they throw at request time. This is why content is bundled in-memory (see Architecture & Delivery).
+**No filesystem at runtime.** Cloudflare Workers (`workerd`) don't implement `fs.readFile`/`readdir` — they throw at request time. This is why authored content is fetched from `main` at runtime and only `@mirror` snapshots + icons are bundled (see **Content**).
