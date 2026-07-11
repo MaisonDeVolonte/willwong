@@ -24,8 +24,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
+// Content is fetched from the main branch at runtime; hold the render in cache and
+// refresh on the timer or a `content` tag revalidation (a publish).
+export const revalidate = 60;
+
 export default async function Home() {
-  const content = getContent("README.md");
+  const content = await getContent("README.md");
   const icon = await readIcon("md");
   return (
     <>

@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 import * as schema from "@/meta/schema";
 
 import { notFound, redirect } from "next/navigation";
-import { getAllFileParams, getFile } from "@/cms/slugs";
+import { getFile } from "@/cms/slugs";
 import { populatePageContent } from "@/cms/pages";
 
 import Canvas from "@/modules/stage/Canvas";
@@ -20,6 +20,12 @@ import Canvas from "@/modules/stage/Canvas";
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
+
+// Content lives on the main branch, not the bundle, so routes are resolved on demand
+// rather than enumerated at build. Rendered pages cache and revalidate like the home
+// page (timer or a `content` tag revalidation on publish); unknown slugs render live.
+export const dynamicParams = true;
+export const revalidate = 60;
 
 // Metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -35,7 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return getAllFileParams();
+  // Nothing is prerendered at build — every path renders on demand and caches.
+  // Avoids a build-time content fetch and lets new notes appear without a deploy.
+  return [];
 }
 
 export default async function DynamicPage({ params }: Props) {
