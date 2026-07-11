@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest                        # Case-sensitive runner; catches file path bugs macOS hides
+    env:
+      CONTENT_SOURCE: local                       # Test this branch's own content/, not whatever sits on main (prod fetches from main)
     steps:
       - uses: actions/checkout@v4                 # Pulls repository source code into runner environment
       - uses: actions/setup-node@v4               # Configures Node runtime environment

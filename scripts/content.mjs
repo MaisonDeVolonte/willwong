@@ -62,14 +62,15 @@ try {
   }
 } catch {}
 
+// Content bodies are fetched from the main branch at runtime (see src/cms/source.ts),
+// so the bundle only carries build-time artifacts: @mirror snapshots and UI icons.
 const out =
   `// generated at build by scripts/content.mjs — do not edit, do not commit\n` +
-  `export const CONTENT: Record<string, string> = ${JSON.stringify(CONTENT)};\n` +
   `export const MIRRORS: Record<string, string> = ${JSON.stringify(MIRRORS)};\n` +
   `export const ICONS: Record<string, string> = ${JSON.stringify(ICONS)};\n`;
 
 writeFileSync(path.join(ROOT, "src/cms/content.generated.ts"), out);
 console.log(
-  `content.generated.ts -> ${Object.keys(CONTENT).length} files, ` +
+  `content.generated.ts -> ${Object.keys(CONTENT).length} files scanned, ` +
     `${Object.keys(MIRRORS).length} mirrors, ${Object.keys(ICONS).length} icons`,
 );
