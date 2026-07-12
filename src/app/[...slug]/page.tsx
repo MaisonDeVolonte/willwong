@@ -22,8 +22,7 @@ type Props = {
 };
 
 // Content lives on the main branch, not the bundle, so routes resolve on demand at
-// runtime — the root layout's `force-dynamic` renders every path live, with no build-time
-// enumeration or content fetch.
+// runtime — the root layout's ISR configuration handles caching the routes on the fly.
 
 // Metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
