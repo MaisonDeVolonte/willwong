@@ -14,6 +14,31 @@ import Folder from "@/modules/nav/Folder";
 import { buildNavTree } from "@/cms/folders";
 import type { NavNode } from "@/cms/folders";
 import { slugify } from "@/cms/slugs";
+import Prefetcher from "@/modules/nav/Prefetcher";
+
+// Helper to recursively collect all route hrefs from the tree for prefetching
+function collectUrls(nodes: NavNode[]): string[] {
+  const urls: string[] = [];
+  
+  function walk(node: NavNode) {
+    if (node.kind === "folder") {
+      node.children.forEach(walk);
+    } else {
+      if (node.files.length === 1 && !node.files[0].externalUrl) {
+        urls.push(node.href);
+      } else if (node.files.length > 1) {
+        node.files.forEach(file => {
+          if (!file.externalUrl) {
+            urls.push(`${node.href}/${slugify(file.name)}`);
+          }
+        });
+      }
+    }
+  }
+
+  nodes.forEach(walk);
+  return urls;
+}
 
 
 
@@ -79,6 +104,12 @@ export default async function Panel() {
   const [pages, chevron] = await Promise.all([getAllPages(), readIcon("chevron")]);
   const tree = buildNavTree(pages);
   const nodes = await Promise.all(tree.map((node) => renderNode(node, 1, chevron)));
+  const allUrls = collectUrls(tree);
 
-  return <div className="nav__links">{nodes}</div>;
+  return (
+    <div className="nav__links">
+      {nodes}
+      <Prefetcher urls={allUrls} />
+    </div>
+  );
 }
