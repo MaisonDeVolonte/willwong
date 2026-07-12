@@ -59,8 +59,6 @@ src/cms/content.generated.ts
 
 # agent memory logs (local-only)
 AGENTS/logs/
-AGENTS/_logs.md
 
 # agent plans (local-only)
 AGENTS/plans/
-AGENTS/_plans.md
