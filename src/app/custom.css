@@ -58,6 +58,21 @@ video {
 .chat__menu__pane::-webkit-scrollbar-thumb {background-color: var(--panels-hover);}
 .chat__menu__pane::-webkit-scrollbar-track {background: var(--panels-border);}
 
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.nav__spinner {
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.5em;
+  color: var(--text-muted);
+  animation: spin 1s linear infinite;
+  opacity: 0.7;
+}
+
 /* Colorize */
 .colorize {animation: colorize var(--colorize-duration, 20s) infinite alternate;}
 @keyframes colorize {
