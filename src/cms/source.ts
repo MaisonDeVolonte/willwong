@@ -10,7 +10,7 @@
  * @see /src/cms/pages.ts/, /scripts/content.mjs/
  */
 
-import { cache } from "react";
+import { unstable_cache } from "next/cache";
 
 const REPO_OWNER = "MaisonDeVolonte";
 const REPO_NAME = "willwong";
@@ -35,9 +35,9 @@ function chooseSource(): "local" | "github" {
 
 // Memoized per request (React cache): getAllPages, populatePageContent, and getContent
 // share a single fetch within one render.
-export const getContentMap = cache(async (): Promise<ContentMap> => {
-  return chooseSource() === "local" ? readLocalContent() : readGithubContent();
-});
+export const getContentMap = async (): Promise<ContentMap> => {
+  return chooseSource() === "local" ? readLocalContent() : getCachedGithubContent();
+};
 
 /* -------------------------------------------------------------------------- */
 /* local source (dev / CI): read content/ from disk                            */
@@ -104,22 +104,25 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
   return results;
 }
 
-async function readGithubContent(): Promise<ContentMap> {
-  const paths = await listContentPaths();
-  const entries = await mapLimit(
-    paths,
-    FETCH_CONCURRENCY,
-    async (rel) => [rel, await fetchRawFile(rel)] as const,
-  );
-  return Object.fromEntries(entries);
-}
+const getCachedGithubContent = unstable_cache(
+  async (): Promise<ContentMap> => {
+    const paths = await listContentPaths();
+    const entries = await mapLimit(
+      paths,
+      FETCH_CONCURRENCY,
+      async (rel) => [rel, await fetchRawFile(rel)] as const,
+    );
+    return Object.fromEntries(entries);
+  },
+  ["github-content-map"],
+  { tags: [CONTENT_TAG], revalidate: REVALIDATE_SECONDS }
+);
 
 // One recursive tree call lists every file under content/ (paths relative to content/).
 async function listContentPaths(): Promise<string[]> {
   const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
   const res = await githubFetch(url, {
     headers: await githubHeaders(),
-    next: { revalidate: REVALIDATE_SECONDS, tags: [CONTENT_TAG] },
   });
   if (!res.ok) throw new Error(`GitHub tree fetch failed: ${res.status} ${res.statusText}`);
 
@@ -133,9 +136,7 @@ async function listContentPaths(): Promise<string[]> {
 async function fetchRawFile(rel: string): Promise<string> {
   const encoded = rel.split("/").map(encodeURIComponent).join("/");
   const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${CONTENT_PREFIX}${encoded}`;
-  const res = await githubFetch(url, {
-    next: { revalidate: REVALIDATE_SECONDS, tags: [CONTENT_TAG] },
-  });
+  const res = await githubFetch(url, {});
   if (!res.ok) throw new Error(`GitHub raw fetch failed (${res.status}): ${rel}`);
   return res.text();
 }
