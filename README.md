@@ -126,6 +126,7 @@ Cloudflare Workers (`workerd`) have no runtime filesystem (`fs`), so content is 
 ```
 AGENTS/                              # Custom agent automations
  ├── logs/
+ ├── plans/
  ├── [trigger].md
  └── [trigger].sh
 

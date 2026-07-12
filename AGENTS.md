@@ -17,12 +17,14 @@
 - DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
 - EXCEPTIONS: context gathering, writing to agent logs, @customtrigger automations, etc
 
-## Agent Logs
+## Agent Logs & Plans
 - BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
+- BEFORE starting complex architectural tasks, read or write a plan in `AGENTS/plans/`
 - AFTER reading, learning, or completing anything meaningful, autonomously:
   - APPEND your notes to the bottom of the current day's existing memory log OR
   - CREATE a new log file for the current day named `YYYY-MM-DD.md`
 - FORMAT logs using the shape defined in `AGENTS/_logs.md`
+- FORMAT plans using the shape defined in `AGENTS/_plans.md`
   
 ## Triggers
 follow the usage guidelines in each agent's documentation page below:
