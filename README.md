@@ -71,14 +71,17 @@ Cloudflare Workers (`workerd`) have no runtime filesystem (`fs`), so content is 
  [npm run publish]              │  runtime fetch)     ↓
                                  ↓            [content.generated.ts]
         [browser] ←─(serves)── [cloudflare worker] ──(reads)──┘
-                                 ↑
-              [R2 incremental cache + KV tag cache]  ← revalidate: 60 / webhook
+            │                    ↑
+            │         [R2 ISR cache + KV tag cache]  ← revalidate: 30 days
+            ↓
+  [next.js router cache]
+  (aggressive prefetch)
 ```
 
-- **Runtime Source:** in production `src/cms/source.ts` fetches `content/` from `main` via the GitHub API and caches it under the `content` tag; in dev/CI it reads the local `content/` folder from disk (`CONTENT_SOURCE=local`)
+- **Runtime Source:** in production `src/cms/source.ts` fetches `content/` from `main` via the GitHub API and caches it natively in the Next.js KV Data Cache; in dev/CI it reads the local `content/` folder from disk (`CONTENT_SOURCE=local`)
 - **Build-Time Bundle:** `scripts/content.mjs` compiles only `@mirror` snapshots (resolved from real repo source) and icons into `src/cms/content.generated.ts` — these belong to the build, so they move with deploys
-- **Publishing:** `npm run publish` commits `content/` and pushes to `main` — no deploy; new content is live within ~60s (the revalidate timer), or instantly once the GitHub push webhook (`src/app/api/revalidate/`) busts the `content` tag
-- **Runtime Rendering:** routes render on demand (`dynamicParams`) and cache in R2; `revalidateTag("content")` or the timer refreshes them — no `fs.readFile` anywhere
+- **Publishing:** `npm run publish` commits `content/` and pushes to `main` — no deploy; new content is live within ~60s (the revalidate timer), or instantly once the GitHub push webhook (`src/app/api/revalidate/`) busts the cache tags
+- **Runtime Rendering:** routes render on demand (`dynamicParams`), aggressively cache on the Edge via ISR (30 days), and are aggressively prefetched into the client browser's router cache via `requestIdleCallback` to achieve 0ms instant navigations
 
 ## Commands
 
