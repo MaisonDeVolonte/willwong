@@ -165,14 +165,8 @@ async function readContentFiles(map: ContentMap, dirRel: string): Promise<Conten
       .filter((e) => e.isFile && !IGNORE.has(e.name))
       .map((e) => buildContentFile(map, dirRel, e.name))
   );
-  // README.md first, then alphabetically
-  files.sort((a, b) => {
-    const aIsReadme = a.name.toUpperCase() === "README.MD";
-    const bIsReadme = b.name.toUpperCase() === "README.MD";
-    if (aIsReadme && !bIsReadme) return -1;
-    if (!aIsReadme && bIsReadme) return 1;
-    return a.name.localeCompare(b.name);
-  });
+  // sort alphabetically
+  files.sort((a, b) => a.name.localeCompare(b.name));
   return files;
 }
 

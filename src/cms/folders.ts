@@ -38,11 +38,6 @@ function sortNavNodes(nodes: NavNode[]): NavNode[] {
     if (aIsFolder && !bIsFolder) return -1;
     if (!aIsFolder && bIsFolder) return 1;
 
-    const aIsReadme = a.label.toUpperCase() === "README.MD";
-    const bIsReadme = b.label.toUpperCase() === "README.MD";
-    if (aIsReadme && !bIsReadme) return -1;
-    if (!aIsReadme && bIsReadme) return 1;
-
     return a.label.localeCompare(b.label);
   });
 }
