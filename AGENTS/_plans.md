@@ -1,4 +1,4 @@
-# AGENT PLAN: YYYY-MM-DD-short-title
+# AGENT PLAN: Short Title
 runs before executing complex tasks or architecture changes
 
 ## Overview
