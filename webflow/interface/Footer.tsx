@@ -15,16 +15,62 @@ import Link from "../webflow_modules/Basic/components/Link";
 /**
  * Props for {@link Footer}
  */
-export type FooterProps = {};
+export type FooterProps = {
+  hashLink?: {
+    href: string;
+    preload?: "prerender" | "prefetch" | "none";
+    target?: "_self" | "_blank";
+  };
+  hashText?: React.ReactNode;
+  versionLink?: {
+    href: string;
+    preload?: "prerender" | "prefetch" | "none";
+    target?: "_self" | "_blank";
+  };
+  versionText?: React.ReactNode;
+};
 
 /**
  * Footer
  *
  * @see {@link https://willwong.design.webflow.com | Source site in Webflow}
  */
-export function Footer({}: FooterProps) {
+export function Footer({
+  hashLink = {
+    href: "#",
+  },
+
+  hashText = "a1b2c3d",
+
+  versionLink = {
+    href: "#",
+  },
+
+  versionText = "v0.0.0",
+}: FooterProps) {
   return (
     <Block className={"footer"} id={"Footer"} tag={"footer"}>
+      <Block className={"version"} id={"VersionInfo"} tag={"div"}>
+        <Link
+          button={false}
+          className={"version__link"}
+          id={"VersionNumber"}
+          options={versionLink}
+        >
+          {versionText}
+        </Link>
+        <Block className={"version__dot"} tag={"div"}>
+          {"•"}
+        </Block>
+        <Link
+          button={false}
+          className={"version__link"}
+          id={"CommitHash"}
+          options={hashLink}
+        >
+          {hashText}
+        </Link>
+      </Block>
       <Block className={"flex-expand"} tag={"div"} />
       <Link
         aria-controls={"TestPanel"}
@@ -41,7 +87,7 @@ export function Footer({}: FooterProps) {
         <HtmlEmbed
           className={"icon icon--footer"}
           content={
-            '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 511.991"><path d="M203.7 480.9h0l-37.8 26.7c-7.3 5.2-16.9 5.8-24.9 1.7S128 497 128 488v-72H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h320c53 0 96 43 96 96v224c0 53-43 96-96 96H295.6l-91.9 64.9zM268 376.8c8.1-5.7 17.8-8.8 27.7-8.8H416c26.5 0 48-21.5 48-48V96c0-26.5-21.5-48-48-48H96c-26.5 0-48 21.5-48 48v224c0 26.5 21.5 48 48 48h56a23.96 23.96 0 0 1 22.6 15.9c.9 2.5 1.4 5.2 1.4 8.1v49.7l91.9-64.9h.1zM287 127c9.4-9.4 24.6-9.4 33.9 0l64 64c9.4 9.4 9.4 24.6 0 33.9l-64 64c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9v-.1zm-62 34l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9l64-64c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9v.1z"/></svg>'
+            '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256c0-114.9-93.1-208-208-208S48 141.1 48 256s93.1 208 208 208 208-93.1 208-208zM0 256C0 114.6 114.6 0 256 0s256 114.6 256 256-114.6 256-256 256S0 397.4 0 256zm256-80a31.97 31.97 0 0 0-32 32c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-44.2 35.8-80 80-80s80 35.8 80 80c0 47.2-36 67.2-56 74.5v3.8c0 13.3-10.7 24-24 24s-24-10.7-24-24v-8.1c0-20.5 14.8-35.2 30.1-40.2 6.4-2.1 13.2-5.5 18.2-10.3 4.3-4.2 7.7-10 7.7-19.6a31.97 31.97 0 0 0-32-32v-.1zm-32 192a31.97 31.97 0 1 1 64 0 31.97 31.97 0 1 1-64 0z"/></svg>'
           }
         />
       </Link>

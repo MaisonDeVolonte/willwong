@@ -17,6 +17,7 @@ li,.w-dyn-item {break-inside: avoid !important;}
 
 /* Menus */
 .w-dropdown-list {overscroll-behavior: contain;}
+.menu__section:last-of-type {border-bottom: 0px;}
 
 /* Forms */
 * {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}

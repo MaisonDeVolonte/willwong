@@ -79,6 +79,7 @@ export const ICON_COLORS: Record<string, string> = {
   link:   "var(--icon-link)",
   md:     "var(--icon-md)",
   mjs:    "var(--icon-mjs)",
+  sh:     "var(--icon-sh)",
   site:   "var(--icon-site)",
   svg:    "var(--icon-svg)",
   ts:     "var(--icon-ts)",

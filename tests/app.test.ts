@@ -52,7 +52,6 @@ test.describe('Header', () => {
     let elements = [
       '#NavTrigger',
       '#NavRoot',
-      '#VersionInfo',
     ];
     if (isMobile) {elements = [
       '#NavTrigger',
@@ -92,38 +91,36 @@ test.describe('Header', () => {
     await expect(page).toHaveURL(/.*\/$/);
     await expect(navRoot).toHaveClass(/nav__root--active/);
   });
+});
 
-  test('VersionInfo', async ({ page, context, isMobile }) => {
+test.describe('Footer', () => {
+  test('VersionInfo', async ({ page, context }) => {
     const versionInfo = page.locator('#VersionInfo');
     const versionLink = page.locator('#VersionNumber');
     const commitLink = page.locator('#CommitHash');
 
     await page.goto('/');
 
-    if (!isMobile) {
-      await expect(versionInfo).toBeVisible();
+    await expect(versionInfo).toBeVisible();
 
-      await expect(versionLink).toHaveText(/^v\d+\.\d+\.\d+$/);
-      await expect(versionLink).toHaveAttribute('href', /github\.com.*\/releases/);
-      await expect(versionLink).toHaveAttribute('target', '_blank');
-      const [versionLinkDestination] = await Promise.all([
-        context.waitForEvent('page'),
-        versionLink.click(),
-      ]);
-      await expect(versionLinkDestination).toHaveURL(/github\.com.*\/releases/);
-      await versionLinkDestination.close();
+    await expect(versionLink).toHaveText(/^v\d+\.\d+\.\d+$/);
+    await expect(versionLink).toHaveAttribute('href', /github\.com.*\/releases/);
+    await expect(versionLink).toHaveAttribute('target', '_blank');
+    const [versionLinkDestination] = await Promise.all([
+      context.waitForEvent('page'),
+      versionLink.click(),
+    ]);
+    await expect(versionLinkDestination).toHaveURL(/github\.com.*\/releases/);
+    await versionLinkDestination.close();
 
-      await expect(commitLink).toHaveText(/^[a-f0-9]{7}$/);
-      await expect(commitLink).toHaveAttribute('href', /github\.com.*\/commit\/[a-f0-9]{7}/);
-      await expect(commitLink).toHaveAttribute('target', '_blank');
-      const [commitLinkDestination] = await Promise.all([
-        context.waitForEvent('page'),
-        commitLink.click(),
-      ]);
-      await expect(commitLinkDestination).toHaveURL(/github\.com.*\/commit\/[a-f0-9]{7}/);
-      await commitLinkDestination.close();
-    } else {
-      await expect(versionInfo).not.toBeVisible();
-    }
+    await expect(commitLink).toHaveText(/^[a-f0-9]{7}$/);
+    await expect(commitLink).toHaveAttribute('href', /github\.com.*\/commit\/[a-f0-9]{7}/);
+    await expect(commitLink).toHaveAttribute('target', '_blank');
+    const [commitLinkDestination] = await Promise.all([
+      context.waitForEvent('page'),
+      commitLink.click(),
+    ]);
+    await expect(commitLinkDestination).toHaveURL(/github\.com.*\/commit\/[a-f0-9]{7}/);
+    await commitLinkDestination.close();
   });
 });
