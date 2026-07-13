@@ -31,15 +31,16 @@
 - `push` to 'production' triggers the `deploy.yml` workflow to release the app
 
 ```text
-[pr] → [ubuntu] → [tsc] → [eslint] → [next build] → [playwright] → [main] → [production]
+[pr] → [ubuntu] → [tsc] → [eslint] → [vitest] → [next build] → [playwright] → [main] → [production]
 ```
 
 **CI Gates:**
 - `environment` uses `ubuntu-latest` to catch case-sensitive errors macOS hides
-- `gate 1 (tsc --noEmit)` enforces strict type safety
-- `gate 2 (eslint . --max-warnings 0)` enforces strict code style
-- `gate 3 (next build)` verifies static generation and asset optimization
-- `gate 4 (npm run test:e2e)` verifies end-to-end functionality
+- `gate 1: tsc --noEmit` enforces strict type safety
+- `gate 2: eslint . --max-warnings 0` enforces strict code style
+- `gate 3: npm run test:unit` verifies core logic
+- `gate 4: next build` verifies static generation and asset optimization
+- `gate 5: npm run test:e2e` verifies end-to-end functionality
 
 **Version Tracking:**
 - `package.json` uses a prebuild hook (`npm run generate`)
@@ -103,6 +104,7 @@
 | [GitHub CLI 2](https://cli.github.com/) | Workflow automation |
 | [GitHub Actions](https://docs.github.com/en/actions) | CI/CD pipelines |
 | [ESLint 9](https://eslint.org/) | Strict code linter |
+| [Vitest 4](https://vitest.dev/) | Unit testing |
 | [Playwright 1](https://playwright.dev/) | Behavior testing |
 | [Prettier 3](https://prettier.io/) | Code formatter |
 | [Refractor 5](https://github.com/wooorm/refractor) | Syntax highlighting |
