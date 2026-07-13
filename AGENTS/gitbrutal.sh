@@ -19,20 +19,20 @@ git log -100 --format="%s" | awk -F'[(:]' '{print $1}' | sort | uniq -c | sort -
 
 echo "--- LOC BALANCE (ESTIMATE) ---"
 # Rough check of App files vs Config/Infra files
-APP_FILES=$(find src app components lib -type f 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+APP_FILES=$(find src -type f 2>/dev/null | wc -l | tr -d ' ' || echo 0)
 INFRA_FILES=$(find AGENTS .github webflow -maxdepth 2 -type f 2>/dev/null | wc -l | tr -d ' ' || echo 0)
-ROOT_CONFIGS=$(find . -maxdepth 1 -type f -name "*.js" -o -name "*.json" -o -name "*.mjs" -o -name "*.ts" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+ROOT_CONFIGS=$(find . -maxdepth 1 -type f \( -name "*.js" -o -name "*.json" -o -name "*.mjs" -o -name "*.ts" \) 2>/dev/null | wc -l | tr -d ' ' || echo 0)
 echo "app source files: $APP_FILES"
 echo "infra/agent files: $INFRA_FILES"
 echo "root config files: $ROOT_CONFIGS"
 
 echo "--- TEST REALITY ---"
-TEST_FILES=$(find . -name "*.test.*" -o -name "*.spec.*" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
-TODO_COUNT=$(git grep -i "TODO" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
-MIRROR_COUNT=$(git grep -i "@mirror" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+TEST_FILES=$(find . \( -path ./node_modules -o -path ./content \) -prune -o \( -name "*.test.*" -o -name "*.spec.*" \) -type f -print 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+TODO_COUNT=$({ git grep -i "TODO" -- ':!AGENTS' 2>/dev/null || true; } | wc -l | tr -d ' ' || echo 0)
+MIRROR_COUNT=$({ git grep -il "@mirror" -- 'content/**' 2>/dev/null || true; } | wc -l | tr -d ' ' || echo 0)
 echo "test files: $TEST_FILES"
 echo "unresolved TODOs: $TODO_COUNT"
-echo "mirrored/duplicated files: $MIRROR_COUNT"
+echo "mirror pointer files: $MIRROR_COUNT"
 
 echo "--- RISK HYGIENE ---"
 # Check if sensitive or generated files slipped in
