@@ -27,7 +27,7 @@ export function NavLink({}: NavLinkProps) {
     <Link
       block={"inline"}
       button={false}
-      className={"nav__link"}
+      className={"nav__link nav__link--active"}
       options={{
         href: "#",
       }}
@@ -39,7 +39,7 @@ export function NavLink({}: NavLinkProps) {
         }
       />
       <Block className={"nav__text"} tag={"div"}>
-        {"folder_name"}
+        {"nav__link"}
       </Block>
     </Link>
   );

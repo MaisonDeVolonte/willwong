@@ -113,19 +113,19 @@ export default function RootLayout({
             }}
           />
           <div id="Shell" className="shell">
-            <Header
-              versionText={versionText}
-              versionLink={versionLink}
-              hashText={hashText}
-              hashLink={hashLink}
-            />
+            <Header />
             <div id="Stage" className="stage">
               <Nav slot={<Panel />} />
               <main id="Canvas" className="canvas">{children}</main>
               <Test />
               <Chat />
             </div>
-            <Footer />
+            <Footer
+              versionText={versionText}
+              versionLink={versionLink}
+              hashText={hashText}
+              hashLink={hashLink}
+            />
           </div>
           <States />
           <Panels />

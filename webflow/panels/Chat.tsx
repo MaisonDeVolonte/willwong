@@ -146,7 +146,10 @@ export function Chat({
                 <Block className={"chat__menu__name"} tag={"div"}>
                   {"Context:"}
                 </Block>
-                <Block className={"chat__menu__name"} tag={"div"}>
+                <Block
+                  className={"chat__menu__name chat__menu__name--ellipsis"}
+                  tag={"div"}
+                >
                   {"/"}
                 </Block>
               </DropdownToggle>
@@ -253,7 +256,10 @@ export function Chat({
                 <Block className={"chat__menu__name"} tag={"div"}>
                   {"Reference:"}
                 </Block>
-                <Block className={"chat__menu__name"} tag={"div"}>
+                <Block
+                  className={"chat__menu__name chat__menu__name--ellipsis"}
+                  tag={"div"}
+                >
                   {"Agent-Negotiator-7B-8k-Strict-Q6_K"}
                 </Block>
               </DropdownToggle>
