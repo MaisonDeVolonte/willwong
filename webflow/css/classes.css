@@ -593,6 +593,10 @@
   align-items: center;
 }
 
+.version__link:hover {
+  color: var(--text-active);
+}
+
 .version__dot {
   margin-right: 0.5em;
   margin-left: 0.5em;
