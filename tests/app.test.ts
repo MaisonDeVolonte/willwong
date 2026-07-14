@@ -49,14 +49,11 @@ test.describe('layout', () => {
 
 test.describe('Header', () => {
   test('initialization', async ({ page, isMobile }) => {
-    let elements = [
+    const elements = [
       '#NavTrigger',
       '#NavRoot',
+      '#ProfileTrigger',
     ];
-    if (isMobile) {elements = [
-      '#NavTrigger',
-      '#NavRoot',
-    ];}
 
     await page.goto('/');
     for (const selector of elements) { await expect(page.locator(selector)).toBeVisible(); }
@@ -83,13 +80,35 @@ test.describe('Header', () => {
   test('NavRoot', async ({ page }) => {
     const navRoot = page.locator('#NavRoot');
 
-    await page.goto('/about');
+    await page.goto('/system/readme');
     await expect(navRoot).toHaveAttribute('href', '/');
     await expect(navRoot).not.toHaveClass(/nav__root--active/);
 
     await navRoot.click();
     await expect(page).toHaveURL(/.*\/$/);
     await expect(navRoot).toHaveClass(/nav__root--active/);
+  });
+
+  test('ProfileMenus', async ({ page, isMobile }) => {
+    const profileTrigger = page.locator('#ProfileTrigger');
+    const profileMenu = page.locator('#ProfileMenu');
+
+    await page.goto('/');
+    await profileTrigger.click();
+    await expect(profileMenu).toBeVisible();
+
+    if (!isMobile) {
+      const insightsTrigger = page.locator('#InsightsTrigger');
+      const insightsMenu = page.locator('#InsightsMenu');
+
+      await insightsTrigger.hover();
+      await expect(insightsMenu).toBeVisible();
+      await page.mouse.move(0, 0);
+      await expect(insightsMenu).not.toBeVisible();
+    }
+
+    await profileTrigger.click();
+    await expect(profileMenu).not.toBeVisible();
   });
 });
 
