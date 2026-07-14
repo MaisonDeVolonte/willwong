@@ -108,18 +108,28 @@ export default function Panels() {
     let activePanel: HTMLElement | null = null;
     let directionMultiplier = 1; // 1 = left-anchored, -1 = right-anchored
 
-    // begin tracking drag (desktop only)
-    function startResize(event: MouseEvent) {
-      if (!desktopMediaQuery.matches) return;
+    // begin tracking drag
+    function startResize(event: MouseEvent | TouchEvent) {
+      const isDesktop = desktopMediaQuery.matches;
+      // aggressively block dragging on mobile sizes
+      if (!isDesktop) return;
 
-      const handle = (event.target as HTMLElement).closest<HTMLElement>("[data-handle]");
+      const target = event.target as HTMLElement;
+      const handle = target.closest<HTMLElement>("[data-handle]");
       if (!handle) return;
 
       activePanel = getPanelWithName(handle.dataset.handle!);
       if (!activePanel) return;
 
       isDragging = true;
-      startX = event.clientX;
+
+      // normalize X coordinate for mouse vs touch
+      if (window.TouchEvent && event instanceof TouchEvent) {
+        startX = event.touches[0].clientX;
+      } else {
+        startX = (event as MouseEvent).clientX;
+      }
+
       directionMultiplier = activePanel.dataset.side === "right" ? -1 : 1;
 
       const panelPixels = activePanel.getBoundingClientRect().width;
@@ -127,16 +137,27 @@ export default function Panels() {
 
       document.body.style.userSelect = "none";
 
-      window.addEventListener("mousemove", resizePanel);
+      window.addEventListener("mousemove", resizePanel, { passive: false });
+      window.addEventListener("touchmove", resizePanel, { passive: false });
       window.addEventListener("mouseup", stopResize);
+      window.addEventListener("touchend", stopResize);
     }
 
     // write the live width to a CSS variable, clamped to min/max
-    function resizePanel(event: MouseEvent) {
+    function resizePanel(event: MouseEvent | TouchEvent) {
       if (!isDragging || !activePanel) return;
+      event.preventDefault(); // aggressively block native scrolling
 
       const windowPixels = window.innerWidth;
-      const pixelsMoved = event.clientX - startX;
+
+      let clientX;
+      if (window.TouchEvent && event instanceof TouchEvent) {
+        clientX = event.touches[0].clientX;
+      } else {
+        clientX = (event as MouseEvent).clientX;
+      }
+
+      const pixelsMoved = clientX - startX;
       const percentageChange = ((pixelsMoved * directionMultiplier) / windowPixels) * 100;
       let newWidthPercent = startWidthPercent + percentageChange;
 
@@ -181,33 +202,39 @@ export default function Panels() {
       document.body.style.removeProperty("user-select");
 
       window.removeEventListener("mousemove", resizePanel);
+      window.removeEventListener("touchmove", resizePanel);
       window.removeEventListener("mouseup", stopResize);
+      window.removeEventListener("touchend", stopResize);
     }
 
     // named (not anonymous) so cleanup can remove it
-    function onMousedown(event: MouseEvent) {
-      if ((event.target as HTMLElement).closest("[data-handle]")) startResize(event);
+    function onPointerDown(event: MouseEvent | TouchEvent) {
+      if ((event.target as HTMLElement).closest("[data-handle]")) {
+        startResize(event);
+      }
     }
 
     // ==============
-    // INITIALIZATION
+    // EVENTS
     // ==============
-
     updateTriggerAriaAttributes();
     document.addEventListener("click", togglePanels);
     desktopMediaQuery.addEventListener("change", restorePanelDefaults);
-    document.addEventListener("mousedown", onMousedown);
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, { passive: false });
 
     // ==============
     // CLEANUP
     // ==============
-
     return () => {
       document.removeEventListener("click", togglePanels);
       desktopMediaQuery.removeEventListener("change", restorePanelDefaults);
-      document.removeEventListener("mousedown", onMousedown);
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
       window.removeEventListener("mousemove", resizePanel);
+      window.removeEventListener("touchmove", resizePanel);
       window.removeEventListener("mouseup", stopResize);
+      window.removeEventListener("touchend", stopResize);
     };
   }, []);
 
