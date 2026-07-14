@@ -60,10 +60,14 @@ export function Header({}: HeaderProps) {
       </Link>
       <Block className={"flex-expand"} tag={"div"} />
       <DropdownWrapper className={"menu"} delay={0} hover={false} tag={"div"}>
-        <DropdownToggle className={"menu__toggle"} tag={"div"}>
+        <DropdownToggle
+          className={"menu__toggle"}
+          id={"ProfileTrigger"}
+          tag={"div"}
+        >
           <Block className={"avatar"} tag={"div"} />
         </DropdownToggle>
-        <DropdownList className={"menu__pane"} tag={"nav"}>
+        <DropdownList className={"menu__pane"} id={"ProfileMenu"} tag={"nav"}>
           <Block className={"menu__section"} tag={"div"}>
             <Link
               block={"inline"}
@@ -105,7 +109,11 @@ export function Header({}: HeaderProps) {
               hover={true}
               tag={"div"}
             >
-              <DropdownToggle className={"menu__toggle"} tag={"div"}>
+              <DropdownToggle
+                className={"menu__toggle"}
+                id={"InsightsTrigger"}
+                tag={"div"}
+              >
                 <Link
                   block={"inline"}
                   button={false}
@@ -128,6 +136,7 @@ export function Header({}: HeaderProps) {
               </DropdownToggle>
               <DropdownList
                 className={"menu__pane menu__pane--flyout"}
+                id={"InsightsMenu"}
                 tag={"nav"}
               >
                 <Block className={"menu__section"} tag={"div"}>
