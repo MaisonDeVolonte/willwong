@@ -535,7 +535,9 @@ export function Chat({
         data-handle={"chat"}
         id={"ChatHandle"}
         tag={"div"}
-      />
+      >
+        <Block className={"panel__handle__expander"} tag={"div"} />
+      </Block>
     </Block>
   );
 }

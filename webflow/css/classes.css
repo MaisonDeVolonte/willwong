@@ -1,4 +1,5 @@
 .canvas {
+  position: relative;
   display: block;
   overflow: hidden;
   height: 100%;
@@ -133,10 +134,7 @@
   height: 100%;
   max-width: 30%;
   min-width: 10%;
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-right-color: var(--panels-border);
-  overflow-x: hidden;
+  border-right: 1px solid var(--panels-border);
 }
 
 .nav__folder {
@@ -274,6 +272,7 @@
   padding: 0.25em;
   justify-content: space-between;
   align-items: stretch;
+  border-top: 1px solid var(--panels-border);
   border-bottom: 1px solid var(--panels-border);
 }
 
@@ -317,10 +316,10 @@
   display: flex;
   overflow: hidden;
   width: 100vw;
-  height: 100vh;
   flex-direction: column;
   flex-wrap: nowrap;
   font-size: 1em;
+  height: 100dvh;
 }
 
 .footer {
@@ -567,14 +566,13 @@
   right: 0%;
   bottom: 0%;
   z-index: 1;
-  width: 0.5em;
-  border-right: 0.25em solid var(--transparent);
-  border-left: 0.25em solid var(--transparent);
+  width: 0.2em;
   cursor: col-resize;
+  touch-action: none;
 }
 
 .panel__handle:hover {
-  border-right-color: var(--text-light);
+  background-color: var(--text-light);
 }
 
 .panel__handle.panel__handle--left {
@@ -582,11 +580,6 @@
   top: 0%;
   right: auto;
   bottom: 0%;
-}
-
-.panel__handle.panel__handle--left:hover {
-  border-right-color: var(--transparent);
-  border-left-color: var(--text-light);
 }
 
 .nav__links {
@@ -632,23 +625,16 @@
   background-repeat: no-repeat;
 }
 
+.avatar:hover {
+  background-image: url(https://cdn.prod.website-files.com/6a259953fee40810f9cfa688/6a5541f827c4975734612f50_avatars.gif);
+}
+
 .avatar.nav__avatar--overlay {
   position: absolute;
   left: 0%;
   top: 0%;
   right: 0%;
   bottom: 0%;
-}
-
-.avatar__gif {
-  display: block;
-  width: 100%;
-  opacity: 0;
-  object-fit: cover;
-}
-
-.avatar__gif:hover {
-  opacity: 1;
 }
 
 .menu__pane {
@@ -731,6 +717,14 @@
   height: 1em;
 }
 
+.panel__handle__expander {
+  position: absolute;
+  left: -0.8em;
+  top: 0%;
+  right: -0.8em;
+  bottom: 0%;
+}
+
 @media screen and (max-width: 479px) {
   .canvas {
     font-size: 0.85em;
@@ -772,8 +766,8 @@
     display: none;
   }
 
-  .avatar__gif:hover {
-    opacity: 0;
+  .avatar:hover {
+    background-image: url(https://cdn.prod.website-files.com/6a259953fee40810f9cfa688/6a552ad7bca79f1fb7c8f249_avatar-2026.jpg);
   }
 
   .menu__pane {
@@ -783,6 +777,11 @@
     right: 0%;
     bottom: 2.5em;
     overflow: scroll;
+    border-radius: 0em;
+  }
+
+  .menu__pane.w--open {
+    border-color: var(--transparent);
   }
 
   .menu__section {
