@@ -48,7 +48,7 @@ test.describe('layout', () => {
 });
 
 test.describe('Header', () => {
-  test('initialization', async ({ page, isMobile }) => {
+  test('initialization', async ({ page }) => {
     const elements = [
       '#NavTrigger',
       '#NavRoot',
