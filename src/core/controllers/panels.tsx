@@ -11,6 +11,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { savePanelWidth } from "@/utilities/localStorage";
 
 // Behavior-only component: renders no DOM, wires panel toggling + resizing
@@ -18,6 +19,7 @@ import { savePanelWidth } from "@/utilities/localStorage";
 // Mount once in layout.tsx, as a sibling of <DevLinkProvider>.
 
 export default function Panels() {
+  const pathname = usePathname();
   useEffect(() => {
     // desktop ↔ mobile threshold
     const desktopMediaQuery = window.matchMedia("(min-width: 480px)");
@@ -210,6 +212,24 @@ export default function Panels() {
       window.removeEventListener("mouseup", stopResize);
     };
   }, []);
+
+  // close panels on mobile when navigating to a new page
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(min-width: 480px)").matches;
+    if (isDesktop) return;
+
+    document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+      panel.dataset.state = "closed";
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-trigger]").forEach((trigger) => {
+      const panelName = trigger.dataset.trigger;
+      if (!panelName) return;
+
+      const panel = document.querySelector<HTMLElement>(`[data-panel="${panelName}"]`);
+      if (panel) trigger.setAttribute("aria-expanded", "false");
+    });
+  }, [pathname]);
 
   return null;
 }
