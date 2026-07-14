@@ -15,27 +15,21 @@
 # Agent Rules
 - DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, plan, etc
 - DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
-- EXCEPTIONS: context gathering, writing to agent logs, @customtrigger automations, etc
+- EXCEPTIONS: context gathering, writing to agent logs/plans, @customtrigger automations, etc
 
-## Agent Logs
-- BEGIN every interaction by reading the most recent log file in `AGENTS/logs/`
-- FORMAT logs using the shape defined in `AGENTS/_logs.md`
-- AFTER reading, learning, or completing anything meaningful, autonomously:
-  - APPEND your notes to the bottom of the current day's existing memory log OR
-  - CREATE a new log file for the current day named `YYYY-MM-DD.md`
-
-## Agent Plans
-- BEFORE starting complex architectural tasks, write a plan in `AGENTS/plans/`
-- FORMAT plans using the shape defined in `AGENTS/_plans.md`
-- AFTER completing a plan, autonomously:
-  - APPEND a summary of changes to the bottom of the plan file
-  - APPEND your notes to the bottom of the current day's existing memory log
+## Agent Logs & Plans
+- BEGIN each day by creating a new empty log file in `AGENTS/logs/` (see `AGENTS/_logs.md`)
+- BEGIN complex tasks by writing a detailed plan in `AGENTS/plans/` (see `AGENTS/_plans.md`)
+- BEFORE sending final summary messages or upon seeing the `@movingon` trigger, autonomously:
+  1. APPEND your notes to the bottom of the day's corresponding log file, if none exists - create one
+  2. APPEND a summary to the bottom of the task's corresponding plan file, if none exists - ignore
   
 ## Triggers
 follow the usage guidelines in each agent's documentation page below:
 - [@agentlog](AGENTS/_logs.md): SAFE; create or append to current day's memory log file
+- [@agentplan](AGENTS/_plans.md): SAFE; create or append to corresponding plan file
 - [@gitaudit](AGENTS/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
-- [@gitbrutal](AGENTS/gitbrutal.md): READ-ONLY; adversarial reality check, effort vs output, and docs vs codebase
+- [@gitbrutal](AGENTS/gitbrutal.md): READ-ONLY; brutally honest code review and progress report
 - [@gitcontinue](AGENTS/gitcontinue.md): SAFE; stash, sync, and pop
 - [@gitdeliver](AGENTS/gitdeliver.md): GATED; atomically stage, commit, branch, push, pr, build, and check
 - [@gitempty](AGENTS/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and gated branch deletion
@@ -61,55 +55,64 @@ follow the usage guidelines in each agent's documentation page below:
 
 *example:*
 ```typescript
-export function writeCode(requirements: Context, request: string) {
-  // 1. hoisted state
-  const isAgent = true;
-  const isClever = false;
+
+// 1. global constants
+const IS_AGENT = true;
+
+type Requirement = {
+  rawCode: string;
+  badHabits: string[];
+  nestingDepth: number;
+  isDuplicated: boolean;
+  isSurprising: boolean;
+};
+
+export function writeCode(requirements: Requirement[], request: string) {
+  // 2. hoisted state
+  const maxNesting = 2;
   let finalSolution = "";
 
-  // 2. defined helpers
-  function keepItSimple(rawCode: string, logic: string) {
-    if (isClever) return false;
-    if (rawCode.includes("?")) {
-      const ternaryCount = (rawCode.match(/\?/g) || []).length;
+  // 3. defined helpers
+  function keepItSimple(req: Requirement) {
+    if (req.rawCode.includes("?")) {
+      const ternaryCount = (req.rawCode.match(/\?/g) || []).length;
       if (ternaryCount > 1) throw new Error("use an if-statement");
     }
-    if (rawCode.includes(".reduce(")) {throw new Error("use a for/forEach loop");}
-    if (rawCode.includes("\n\n\n")) {throw new Error("use empty lines sparingly");}
-    if (logic.nestingDepth > 2) throw new Error("are you building a pyramid?");
+    if (req.rawCode.includes(".reduce(")) throw new Error("use a for/forEach loop");
+    if (req.rawCode.includes("\n\n\n")) throw new Error("use empty lines sparingly");
+    if (req.nestingDepth > maxNesting) throw new Error("are you building a pyramid?");
 
     return true;
   }
 
-  function respectFirstPrinciples(code: string) {
-    if (code.isDuplicated) throw new Error("extract to a helper");
-    if (code.doesMultipleThings) throw new Error("split to separate function");
-    if (code.isSurprising) throw new Error("make it boring and obvious");
+  function respectFirstPrinciples(req: Requirement) {
+    if (req.isDuplicated) throw new Error("extract to a helper");
+    if (req.isSurprising) throw new Error("make it boring and obvious");
   }
 
-  function punishAgent(behavior: string, variables: string[]) {
-    if (["e", "idx", "el", "cb"].includes(behavior)) {
-      throw new Error("i get it, just spell it out please");
-    }
+  function punishAgent(variables: string[]) {
+    if (!IS_AGENT) return;
 
-    // variable names should be helpful, intuitive, and highly legible
     variables.forEach(variableName => {
-      const variableChars = variableName.length;
-      const variableWords = variableName.split(/(?=[A-Z])/).length;
-      if (variableChars > 25 || variableWords > 4) {
+      if (["e", "idx", "el", "cb"].includes(variableName)) {
+        throw new Error("i get it, just spell it out please");
+      }
+      const charCount = variableName.length;
+      const wordCount = variableName.split(/(?=[A-Z])/).length;
+      if (charCount > 25 || wordCount > 4) {
         throw new Error(`'${variableName}' is not very helpful`);
       }
     });
   }
 
-  // 3. main logic & execution
+  // 4. main logic & execution
   if (!request) return finalSolution;
 
-  requirements.forEach(requirement => {
-    punishAgent(requirement.badHabits);
-    respectFirstPrinciples(requirement.architecture);
+  requirements.forEach(req => {
+    punishAgent(req.badHabits);
+    respectFirstPrinciples(req);
 
-    if (keepItSimple(requirement.logic)) { finalSolution += requirement.lines; }
+    if (keepItSimple(req)) {finalSolution += req.rawCode;}
   });
 
   return finalSolution;
