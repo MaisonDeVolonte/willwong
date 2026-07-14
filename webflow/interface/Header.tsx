@@ -13,7 +13,6 @@ import DropdownList from "../webflow_modules/Dropdown/components/DropdownList";
 import DropdownToggle from "../webflow_modules/Dropdown/components/DropdownToggle";
 import DropdownWrapper from "../webflow_modules/Dropdown/components/DropdownWrapper";
 import HtmlEmbed from "../webflow_modules/Embed/components/HtmlEmbed";
-import Image from "../webflow_modules/Basic/components/Image";
 import Link from "../webflow_modules/Basic/components/Link";
 
 /**
@@ -62,18 +61,7 @@ export function Header({}: HeaderProps) {
       <Block className={"flex-expand"} tag={"div"} />
       <DropdownWrapper className={"menu"} delay={0} hover={false} tag={"div"}>
         <DropdownToggle className={"menu__toggle"} tag={"div"}>
-          <Block className={"avatar"} tag={"div"}>
-            <Image
-              alt={""}
-              className={"avatar__gif"}
-              height={"auto"}
-              loading={"lazy"}
-              src={
-                "https://cdn.prod.website-files.com/6a259953fee40810f9cfa688/6a5541f827c4975734612f50_avatars.gif"
-              }
-              width={"auto"}
-            />
-          </Block>
+          <Block className={"avatar"} tag={"div"} />
         </DropdownToggle>
         <DropdownList className={"menu__pane"} tag={"nav"}>
           <Block className={"menu__section"} tag={"div"}>

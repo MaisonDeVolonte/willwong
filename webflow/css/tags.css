@@ -2,7 +2,6 @@ body {
   background-color: var(--panels-bg);
   font-family: var(--primary);
   color: var(--text-light);
-  font-size: 1vw;
   line-height: 1em;
   --panels-bg: hsla(219.99999999999997, 14.21%, 13.19%, 1);
   --primary: "IBM Plex Sans", sans-serif;
@@ -45,6 +44,7 @@ body {
   --instagram33: #dd2a7b;
   --instagram66: #8134af;
   --instagram100: #515bd4;
+  font-size: calc(1vw + 0.1rem);
 }
 
 h1 {
@@ -131,16 +131,20 @@ blockquote {
   line-height: 1em;
 }
 
+@media screen and (min-width: 1440px) {
+  body {
+    font-size: 14px;
+  }
+}
+
 @media screen and (min-width: 1920px) {
   body {
     max-width: none;
-    font-size: 14px;
   }
 }
 
 @media screen and (max-width: 479px) {
   body {
-    font-size: 4vw;
     ---mode--collection-20d2bbb2-a440-44b1-58c0-3aeb42ed92a3: mode-42d8af22-681b-782d-2c13-fae6660ab01e;
     --panels-bg: hsla(219.99999999999997, 14.21%, 13.19%, 1);
     --primary: "IBM Plex Sans", sans-serif;
@@ -184,5 +188,6 @@ blockquote {
     --instagram66: #8134af;
     --instagram100: #515bd4;
     ---mode--collection-440cce0d-a5be-88a9-a4f0-e22f237d9a6b: mode-85ade385-18e8-f8d1-94e6-320e9a9ca43b;
+    font-size: calc(4vw + 0.1rem);
   }
 }

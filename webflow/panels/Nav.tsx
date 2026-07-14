@@ -40,7 +40,9 @@ export function Nav({ slot }: NavProps) {
         data-handle={"nav"}
         id={"NavHandle"}
         tag={"div"}
-      />
+      >
+        <Block className={"panel__handle__expander"} tag={"div"} />
+      </Block>
     </Block>
   );
 }

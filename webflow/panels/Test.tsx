@@ -30,6 +30,15 @@ export function Test({}: TestProps) {
       data-state={"default"}
       id={"TestPanel"}
       tag={"div"}
-    />
+    >
+      <Block
+        className={"panel__handle panel__handle--left"}
+        data-handle={"test"}
+        id={"TestHandle"}
+        tag={"div"}
+      >
+        <Block className={"panel__handle__expander"} tag={"div"} />
+      </Block>
+    </Block>
   );
 }
