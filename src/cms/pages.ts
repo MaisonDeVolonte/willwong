@@ -121,6 +121,11 @@ function listDir(map: ContentMap, rel: string): DirEntry[] {
   return [...seen].map(([name, isFile]) => ({ name, isFile, isDirectory: !isFile }));
 }
 
+// Custom icon overrides for specific filenames
+const CUSTOM_ICONS: Record<string, string> = {
+  "eslint.config.mjs": "eslint",
+};
+
 async function buildContentFile(map: ContentMap, dirRel: string, fileName: string): Promise<ContentFile> {
   const ext = fileName.split(".").pop()?.toLowerCase() ?? "";
   const rel = dirRel ? `${dirRel}/${fileName}` : fileName;
@@ -128,7 +133,7 @@ async function buildContentFile(map: ContentMap, dirRel: string, fileName: strin
   const { externalUrl, iconName: externalIcon } = processExternal(head);
   const { title, description } = getFileMetadata(fileName, head);
 
-  const iconName = externalIcon ?? (externalUrl ? "link" : ext);
+  const iconName = externalIcon ?? CUSTOM_ICONS[fileName] ?? (externalUrl ? "link" : ext);
   const icon = await readIcon(iconName);
   return {
     name: fileName,
