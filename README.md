@@ -19,9 +19,9 @@
 - `wip` are integrated via runtime feature flags, not long-lived branches
 - `staging` aims for a ~50-100 line soft-ceiling, always favoring logical cohesion
 - `commits` are structured as 'type(scope): title' with '- hyphen-delimited, multiline descriptions'
-- `prs` are autonomously staged, branched, and shipped via [@gitdeliver](AGENTS/gitdeliver.md)
+- `prs` are autonomously staged, branched, and shipped via [@gitdeliver](AGENTS/git/gitdeliver.md)
 - `ci` checks typescript, linting, building, and behavior before merging
-- `merges` are automatic and ghost branches are pruned via [@gitempy](AGENTS/gitempy.md)
+- `merges` are automatic and ghost branches are pruned via [@gitempty](AGENTS/git/gitempty.md)
 - `production` is a decoupled release branch used to manage live deployments
 - `deploys` are triggered by pushing main to production and executed via 'github actions'
 - `willwong.me` is served from the edge via cloudflare workers and webflow cloud
@@ -180,9 +180,21 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
  └── webflow_modules
 ```
 
+## Design (see src/app/custom.css)
+- `1vw` defines the base unit for fluid/scalable design
+- `100dvh` defines the viewport height dynamically
+- `0.1rem` defines the hook for browser zoom access
+- `em` is the default unit of measure for ALL properties
+- `%` is the fallback unit of measure when em is not practical
+
+## Webflow
+- `webflow/` is strictly read-only, overwritten by devlink, and maintained in webflow
+- `webflow/css/` does not export page-level styles - ONLY component styles
+
+## Content
+- `/content/` files are raw strings – never import, execute, or refactor
+
 ## Notes
-- `visuals` are managed in webflow and exported to `@webflow/` via devlink; never edited manually
-- `missing css`: devlink only exports component styles
 - `behavior` lives in `src/core/controllers/` using vanilla js, `useEffect`, and event delegation
 - `active states` are declaratively controlled by `src/modules/nav/states.tsx`
 - `formatting` uses the zed language server, disabled on save in `.zed/settings.json`
