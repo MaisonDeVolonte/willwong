@@ -1,1 +1,0 @@
-// @mirror AGENTS/gitgud.md

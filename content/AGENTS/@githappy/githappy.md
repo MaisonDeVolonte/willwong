@@ -1,1 +1,0 @@
-// @mirror AGENTS/githappy.md
