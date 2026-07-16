@@ -1,0 +1,1 @@
+// @mirror AGENTS/git.md
