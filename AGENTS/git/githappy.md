@@ -1,3 +1,19 @@
+```javascript
+/**
+ * ===================================
+ * @file githappy.md - release trigger
+ * ===================================
+ * @description
+ * - ran only on explicit `@githappy` command; aborts on any failed preflight check or
+ *   uncommitted changes on `main`
+ * - `--minor`/`--major` (default minor) bumps `package.json`, commits, and tags locally
+ *   on `main`
+ * - fast-forwards `production` to `main` and pushes, triggering `deploy.yml`'s live deployment
+ * - syncs `main` back to `origin` and generates a github release page with release notes
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/githappy.sh, .github/workflows/deploy.yml
+ */
+```
+
 **@githappy:** Run ONLY on explicit `@githappy` command
 - run when you want to release a new minor or major version 
 - aborts if any preflight checks fail, including uncommitted changes on `main`
@@ -13,7 +29,7 @@
 
 1. run the native shell command exactly as specified
   ```bash
-  AGENTS/githappy.sh <flag>
+  AGENTS/git/githappy.sh <flag>
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → report completion and share the github release url

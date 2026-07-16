@@ -1,4 +1,11 @@
 #!/bin/bash
+# ==================================================
+# @file gitfresh.sh - destructive hard-reset sidecar
+# ==================================================
+# @description
+# - sidecar for `@gitfresh` — nukes local state and syncs a pristine trunk to origin
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitfresh.md
+
 # only run if the --confirmed flag is present
 if [ "${1:-}" != "--confirmed" ]; then echo "refusing without --confirmed"; exit 1; fi
 # exit if any command fails, including unset variables and pipeline errors

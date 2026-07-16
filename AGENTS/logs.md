@@ -1,5 +1,6 @@
-# AGENT LOG: WEEKDAY, MONTH DAY, YEAR
-runs autonomously or via `@agentlog` command
+# AGENTS/logs/YYYY-MM-DD.md
+- runs autonomously or via `@agentlog` command
+- logs are to be written in maximally concise language
 
 ## Thread #1: Short description of thread, task, or session
 
@@ -59,5 +60,18 @@ generate a list of atomic tasks to work on next, prioritizing psychological mome
 >  - say 'let's continue where we left off'
 >  - reconcile the new agent's output with the most recent logs
 
+### notes 
+[timestamp]: generate a single sentence summary of the thread's progress and then:
+- a bulleted list of descriptions
+- and/or 
+- a numbered list of sequential thoughts
+- since the last autosave
+
+*example:*
+> #### YYYY-MM-DD HH:MM
+> fixed many things that the user sabotaged while i was afk
+> - renamed this thing because of course
+> - hardened this thing because of course
+> - remembered this thing because of course
 
 ## Thread #2: Repeat the above format for each thread, task, or session

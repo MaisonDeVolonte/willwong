@@ -1,4 +1,11 @@
 #!/bin/bash
+# ===============================================
+# @file gitinsights.sh - opportunity-scan sidecar
+# ===============================================
+# @description
+# - sidecar for `@gitinsights` — deterministic checks for broken refs and code markers
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitinsights.md
+
 set -euo pipefail
 
 # ==============

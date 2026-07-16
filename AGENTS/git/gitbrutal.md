@@ -1,3 +1,19 @@
+```javascript
+/**
+ * =============================================================
+ * @file gitbrutal.md - adversarial doc-vs-reality audit trigger
+ * =============================================================
+ * @description
+ * - ran only on explicit `@gitbrutal` command; read-only, never mutates the repo
+ * - runs `AGENTS/git/gitbrutal.sh`, then reads `README.md`/`AGENTS.md` to learn the
+ *   project's documented claims
+ * - scores effort-vs-output, claim-vs-reality, test coverage, and risk hygiene against
+ *   the shell telemetry
+ * - outputs a harsh A-F scorecard with a one-sentence verdict; never flatters the user
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitbrutal.sh, README.md
+ */
+```
+
 **@gitbrutal:** Run ONLY on explicit `@gitbrutal` command
 - runs an adversarial, strictly read-only audit of the codebase
 - purpose: to ruthlessly compare the project's documented claims against its technical reality
@@ -5,7 +21,7 @@
 
 1. run the native shell command exactly as specified:
   ```bash
-  AGENTS/gitbrutal.sh
+  AGENTS/git/gitbrutal.sh
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → continue

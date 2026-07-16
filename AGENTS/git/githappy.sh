@@ -1,4 +1,11 @@
 #!/bin/bash
+# ====================================================
+# @file githappy.sh - version bump/tag/release sidecar
+# ====================================================
+# @description
+# - sidecar for `@githappy` — bumps version, tags, promotes main to production
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/githappy.md
+
 set -euo pipefail
 
 FLAG=${1:-}

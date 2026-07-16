@@ -1,7 +1,21 @@
+```javascript
+/**
+ * =====================================================
+ * @file gitaudit.md - read-only git diagnostics trigger
+ * =====================================================
+ * @description
+ * - ran only on explicit `@gitaudit` command; read-only, never mutates the repo
+ * - runs `AGENTS/git/gitaudit.sh` then evaluates telemetry for ghost branches, local
+ *   clutter, conflict risk, and a dirty trunk
+ * - outputs a numbered list of issues with manual + `@agent` shortcut resolutions
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitaudit.sh
+ */
+```
+
 **@gitaudit:** Run ONLY on explicit `@gitaudit` command
 1. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitaudit.sh
+  AGENTS/git/gitaudit.sh
   ```
 
 2. IF FAILURE (exit code > 0):

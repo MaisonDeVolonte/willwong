@@ -1,4 +1,11 @@
 #!/bin/bash
+# =============================================
+# @file gitgud.sh - stale-pr ci refresh sidecar
+# =============================================
+# @description
+# - sidecar for `@gitgud` — re-runs ci on a stale pr against the default branch
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitgud.md
+
 set -euo pipefail
 
 WATCH="false"

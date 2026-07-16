@@ -1,3 +1,18 @@
+```javascript
+/**
+ * ===================================================
+ * @file gitdeliver.md - gated atomic delivery trigger
+ * ===================================================
+ * @description
+ * - ran only on explicit `@gitdeliver` command
+ * - floats uncommitted changes onto trunk, then drains them one atomic `type(scope)`
+ *   bucket at a time: branch → commit → push → pr → auto-merge on green → back to trunk
+ * - `--first` flag stops after the first pr; re-runnable, `git status` drives the loop
+ * - gated: drafts each pr command and waits for user confirmation before executing
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitdeliver.sh
+ */
+```
+
 **@gitdeliver:** Run ONLY on explicit `@gitdeliver` command
 - floats uncommitted changes onto the trunk, then drains them one atomic bucket at a time
 - each atomic bucket: branch → commit → push → PR → auto-merge on green, then back to the trunk for the next
@@ -11,7 +26,7 @@
 
 1. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitdeliver.sh
+  AGENTS/git/gitdeliver.sh
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → capture $DEFAULT_BRANCH from output

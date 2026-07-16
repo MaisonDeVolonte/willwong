@@ -1,4 +1,11 @@
 #!/bin/bash
+# ================================================
+# @file gitcontinue.sh - stash/sync/resume sidecar
+# ================================================
+# @description
+# - sidecar for `@gitcontinue` — stash, fetch, fast-forward, pop
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitcontinue.md
+
 set -euo pipefail
 
 # check if in git repository

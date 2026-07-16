@@ -1,4 +1,11 @@
 #!/bin/bash
+# =========================================================
+# @file gitdeliver.sh - atomic stage/commit/push/pr sidecar
+# =========================================================
+# @description
+# - sidecar for `@gitdeliver` — preflight before the atomic-bucket delivery loop
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitdeliver.md
+
 set -euo pipefail
 
 # check if in git repository
