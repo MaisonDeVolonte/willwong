@@ -1,10 +1,25 @@
+```javascript
+/**
+ * =========================================================
+ * @file gitinsights.md - read-only opportunity-scan trigger
+ * =========================================================
+ * @description
+ * - ran only on explicit `@gitinsights` command; read-only, never mutates the repo
+ * - runs `AGENTS/git/gitinsights.sh` for deterministic findings (broken references, code markers)
+ * - reconciles `README.md`/`AGENTS.md`/trigger docs against actual repo reality
+ * - reads the 5 most recent `AGENTS/logs/` entries for unresolved observations
+ * - merges all three streams into an urgent/important opportunity matrix
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitinsights.sh, AGENTS/logs/, AGENTS/logs.md
+ */
+```
+
 **@gitinsights:** Run ONLY on explicit `@gitinsights` command
 - surfaces work opportunities from three streams: deterministic reference checks, doc-vs-reality reconciliation, and recent agent logs
 - categorizes every opportunity on an urgent/important matrix
 
 1. run the sidecar for deterministic findings
   ```bash
-  AGENTS/gitinsights.sh
+  AGENTS/git/gitinsights.sh
   ```
   - report-only; it never fails the run — capture its telemetry (broken references + code markers)
 

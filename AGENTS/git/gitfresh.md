@@ -1,3 +1,19 @@
+```javascript
+/**
+ * ==================================================
+ * @file gitfresh.md - destructive hard-reset trigger
+ * ==================================================
+ * @description
+ * - ran only on explicit `@gitfresh` command; for a broken, conflicted, or desynced workspace
+ * - runs `AGENTS/git/gitaudit.sh` telemetry first, then requires an exact confirmation
+ *   phrase before nuking anything
+ * - backs up all changes to an emergency stash, then hard-resets trunk and deletes local
+ *   branches to match origin
+ * - runs `AGENTS/git/gitfresh.sh --confirmed` only after explicit user confirmation
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitfresh.sh, AGENTS/git/gitaudit.sh
+ */
+```
+
 **@gitfresh:** Run ONLY on explicit `@gitfresh` command
 - typically ran when local workspace is broken, conflicted, or severely desynced
 - backs up all tracked modifications (staged/unstaged) and untracked files into an emergency stash
@@ -6,7 +22,7 @@
 
 1. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitaudit.sh
+  AGENTS/git/gitaudit.sh
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0):
@@ -26,7 +42,7 @@
 
 2. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitfresh.sh --confirmed
+  AGENTS/git/gitfresh.sh --confirmed
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → continue and report: "@gitfresh telemetry"

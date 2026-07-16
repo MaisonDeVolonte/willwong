@@ -1,4 +1,11 @@
 #!/bin/bash
+# =============================================================
+# @file gitbrutal.sh - adversarial doc-vs-reality audit sidecar
+# =============================================================
+# @description
+# - sidecar for `@gitbrutal` — gathers telemetry for the brutal-honesty scorecard
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitbrutal.md
+
 set -euo pipefail
 
 # check if in git repository

@@ -1,3 +1,17 @@
+```javascript
+/**
+ * ==========================================================
+ * @file gitempty.md - destructive post-merge cleanup trigger
+ * ==========================================================
+ * @description
+ * - ran only on explicit `@gitempty` command; typically post-merge, but safe anytime
+ * - runs `AGENTS/git/gitempty.sh` to stash work, prune dead remotes, and fast-forward trunk
+ * - runs `AGENTS/git/gitaudit.sh` to classify branches (local/remote/ghost/zombie) for deletion
+ * - destructive: asks the user to confirm every branch-cleanup action before deleting
+ * @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitempty.sh, AGENTS/git/gitaudit.sh
+ */
+```
+
 **@gitempty:** Run ONLY on explicit `@gitempty` command
 - typically ran post-merge but safe to run anytime
 - stashes work, prunes dead remotes, fast-forwards trunk, and returns you to starting branch
@@ -5,14 +19,14 @@
 
 1. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitempty.sh
+  AGENTS/git/gitempty.sh
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0) → continue and report: "@gitempty telemetry"
 
 2. run the native shell command exactly as specified
   ```bash
-  AGENTS/gitaudit.sh
+  AGENTS/git/gitaudit.sh
   ```
   - fail (exit code > 0) → abort and report: "<raw terminal error>"
   - success (exit code = 0): ask the user to confirm any branch cleanup actions:

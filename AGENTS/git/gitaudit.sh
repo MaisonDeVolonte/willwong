@@ -1,4 +1,11 @@
 #!/bin/bash
+# =====================================================
+# @file gitaudit.sh - read-only git diagnostics sidecar
+# =====================================================
+# @description
+# - sidecar for `@gitaudit` — probes repo/branch state for telemetry
+# @see AGENTS.md, AGENTS/git.md, AGENTS/git/gitaudit.md
+
 # probes: echo "key: $(git some command 2>/dev/null || echo n/a)"
 
 # check if in git repository, aborts if not
