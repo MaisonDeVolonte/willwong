@@ -1,0 +1,39 @@
+{"hooks": {
+  "SessionStart": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/sessionstart.sh", "timeout": 5 }] }],
+  "SessionEnd": [],
+  "Setup": [],
+
+  "UserPromptSubmit": [],
+  "UserPromptExpansion": [],
+  "Stop": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/stop.sh", "timeout": 5 }] }],
+  "StopFailure": [],
+  "Notification": [],
+  "MessageDisplay": [],
+
+  "PermissionRequest": [],
+  "PermissionDenied": [],
+  "PreToolUse": [],
+  "PostToolUse": [],
+  "PostToolUseFailure": [],
+  "PostToolBatch": [],
+
+  "SubagentStart": [],
+  "SubagentStop": [],
+
+  "PreCompact": [],
+  "PostCompact": [],
+
+  "TaskCreated": [],
+  "TaskCompleted": [],
+
+  "Elicitation": [],
+  "ElicitationResult": [],
+  "TeammateIdle": [],
+
+  "ConfigChange": [],
+  "WorktreeCreate": [],
+  "WorktreeRemove": [],
+  "InstructionsLoaded": [],
+  "CwdChanged": [],
+  "FileChanged": []
+}}
