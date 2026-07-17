@@ -1,6 +1,20 @@
+```javascript
+/**
+ * ============================
+ * @file logs.md - log template
+ * ============================
+ * @description
+ * - gitignored, local-only, never committed, one log file per day
+ * - `logs` are written in maximally clear, concise and casual language
+ * - `threads` group work by task or topic
+ * - `notes` are appended after taskcomplete or every 15 minutes
+ * - `synthesize` means to `incorporate & delete` pending notes into corresponding threads
+ * - ALWAYS synthesize pending notes when creating a new thread
+ * @see AGENTS.md, /AGENTS/logs/
+ */
+```
+
 # AGENTS/logs/YYYY-MM-DD.md
-- runs autonomously or via `@agentlog` command
-- logs are to be written in maximally concise language
 
 ## Thread #1: Short description of thread, task, or session
 
@@ -24,22 +38,22 @@ list any work or prs you delivered:
 
 ### gotchas
 record technical friction, unexpected behaviors, or weird dependencies that tripped you up during the session:
-- **highlight:** root causes or specific error codes
-- **describe:** temporary workarounds or permanent fixes
+- highlight: root causes or specific error codes
+- describe: temporary workarounds or permanent fixes
 
 *example:*
-> - **git clutter:** instructions said to write logs after every task, session or day, which naturally cluttered up the repo, which should've never been included to begin with - typical ocd behavior ngl
+> - git clutter: instructions said to write logs after every task, session or day, which naturally cluttered up the repo, which should've never been included to begin with - typical ocd behavior ngl
 
 ### insights
 evaluate what went right, what went wrong, and how the same mistakes could be avoided in the future:
-- **analyze:** architectural sensibilities and wayfinding
-- **audit:** naming conventions and legibility
-- **offer:** your brutally honest opinions
+- analyze: architectural sensibilities and wayfinding
+- audit: naming conventions and legibility
+- offer: your brutally honest opinions
 
 *example:*
 > overall, this task went generally well, despite the user being of no help at all
-> - **gitignore:** local-only, gitignored logs was the obvious move here, even a retard could figure that out
-> - **log reviews:** not happy that i was forced to review logs before starting every SINGLE task, but it ended up being useful so fuck it, not a hill i'm willing to die on
+> - gitignore: local-only, gitignored logs was the obvious move here, even a retard could figure that out
+> - log reviews: not happy that i was forced to review logs before starting every SINGLE task, but it ended up being useful so fuck it, not a hill i'm willing to die on
 
 ### advice
 generate a list of atomic tasks to work on next, prioritizing psychological momentum to minimize demoralization
@@ -50,28 +64,28 @@ generate a list of atomic tasks to work on next, prioritizing psychological mome
 
 *example:*
 > now that we've implemented agent memory logs, we should probably test them out and make sure they're working as expected
-> - **test log generation:**
+> - test log generation:
 >  - start a brand new thread
 >  - run @gitaudit 
 >  - close the thread
 >  - verify the log file was created
-> - **test log reviewing:**
+> - test log reviewing:
 >  - start a brand new thread
 >  - say 'let's continue where we left off'
 >  - reconcile the new agent's output with the most recent logs
 
-### notes 
-[timestamp]: generate a single sentence summary of the thread's progress and then:
-- a bulleted list of descriptions
-- and/or 
-- a numbered list of sequential thoughts
-- since the last autosave
+#### NOTE: YYYY-MM-DD HH:MM
+output a subject: followed by a description of your notes
+- and a bulleted/numbered list
+- of thoughts
+- since the last note
 
 *example:*
-> #### YYYY-MM-DD HH:MM
-> fixed many things that the user sabotaged while i was afk
+> #### NOTE: 2026-07-16 19:25
+> fixed many things: standard user sabotage while afk
 > - renamed this thing because of course
 > - hardened this thing because of course
 > - remembered this thing because of course
 
-## Thread #2: Repeat the above format for each thread, task, or session
+## Thread #2: Repeat the above format for each meaningful unit of work
+synthesize any pending notes when creating a new thread

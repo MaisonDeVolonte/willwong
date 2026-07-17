@@ -1,19 +1,19 @@
 #!/bin/bash
-# ============================================================
-# @file sessionstart.sh - agent sessionstart hook instructions
-# ============================================================
+# =================================================
+# @file sessionstart.sh - session start hook script
+# =================================================
 # @description
-# - runs on session start, before user begins typing
-# - creates today's empty AGENTS/logs/ file if missing
-# - injects today's log + most recent prior log + README.md into context
-# @see AGENTS.md, AGENTS/hooks.md, AGENTS/logs.md
+# - runs before user begins typing
+# - creates today's log file if none exists yet
+# - injects today's log + most recent prior log + README.md into session context
+# @see AGENTS.md, AGENTS/logs.md, /AGENTS/logs/
 
 TODAY_LOG="AGENTS/logs/$(date +%Y-%m-%d).md"
 PREV_LOG=$(ls -1 AGENTS/logs/*.md 2>/dev/null | grep -vF "$TODAY_LOG" | sort -r | head -1)
 READ_ME="README.md"
 CHAR_LIMIT=6000
 
-# check if today's log exists already
+# make today's log file if one doesn't exist
 if [ ! -f "$TODAY_LOG" ];
 then mkdir -p AGENTS/logs; echo "# $TODAY_LOG" > "$TODAY_LOG"; fi
 

@@ -57,8 +57,7 @@ next-env.d.ts
 src/meta/config/version.generated.ts
 src/cms/content.generated.ts
 
-# agent memory logs (local-only)
+# agents (local-only)
 AGENTS/logs/
-
-# agent plans (local-only)
 AGENTS/plans/
+AGENTS/prompts/
