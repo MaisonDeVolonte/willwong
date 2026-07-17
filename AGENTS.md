@@ -1,8 +1,8 @@
 ```javascript
 /**
- * =======================================================
- * @file AGENTS.md - master operating manual for ai agents
- * =======================================================
+ * =============================
+ * @file AGENTS.md - agent rules
+ * =============================
  * @description
  * - primary rulebook for all ai interactions within this project
  * - read entirely before taking any action or writing any code
@@ -23,13 +23,11 @@
 - DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
 - EXCEPTIONS: context gathering, writing to agent logs/plans, @customtrigger automations, etc
 
-### Automations (see AGENTS/git.md)
+### Automations
 - `<trigger>.md`: description, flags, sidecar, instructions, report
 - `<trigger>.sh`: preflight, execution, telemetry 
 
-### Triggers
-- [@agentlog](AGENTS/logs.md): SAFE; create or append to current day's memory log file
-- [@agentplan](AGENTS/plans.md): SAFE; create or append to corresponding plan file
+### Git (see `AGENTS/git.md`)
 - [@gitaudit](AGENTS/git/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
 - [@gitbrutal](AGENTS/git/gitbrutal.md): READ-ONLY; brutally honest code review and progress report
 - [@gitcontinue](AGENTS/git/gitcontinue.md): SAFE; stash, sync, and pop
@@ -37,15 +35,27 @@
 - [@gitempty](AGENTS/git/gitempty.md): DESTRUCTIVE; prune, stash, fast-forward, restore, and gated branch deletion
 - [@gitfresh](AGENTS/git/gitfresh.md): DESTRUCTIVE; stash, hard reset, purges local changes, and syncs fresh main
 - [@gitgud](AGENTS/git/gitgud.md): SAFE; query branch delta, merge remote main into it, and run fresh CI
-- [@githappy](AGENTS/git/githappy.md): RELEASE; bumps version, adds tag, merges to production, and github release notes
+- [@githappy](AGENTS/git/githappy.md): RELEASE; bumps version, adds tag, merges to production, and release notes
 - [@gitinsights](AGENTS/git/gitinsights.md): READ-ONLY; scans agent logs and codebase for opportunities to improve
 
-### Logs & Plans
-- BEGIN each day by creating a new empty log file in `AGENTS/logs/` (see `AGENTS/logs.md`)
+### Plans (see `AGENTS/plans.md`)
 - BEGIN complex tasks by writing a detailed plan in `AGENTS/plans/` (see `AGENTS/plans.md`)
 - BEFORE sending final summary messages or upon seeing the `@movingon` trigger, autonomously:
   1. APPEND your notes to the bottom of the day's corresponding log file, if none exists - create one
   2. APPEND a summary to the bottom of the task's corresponding plan file, if none exists - ignore
+
+### Logs (see `AGENTS/logs.md`)
+- `AGENTS/hooks/sessionstart.sh` creates a new empty log file in `AGENTS/logs/` 
+- `AGENTS/hooks/taskcreated.sh` nudges a new thread when a new task is unrelated to the most recent one
+- `AGENTS/hooks/taskcompleted.sh` appends a note to the bottom of the day's log
+- `AGENTS/hooks/stop.sh` synthesizes and deletes notes at the bottom of the day's log every hour
+- manual triggers (yes, i manually save games that have autosave, i'm that guy)
+  - `@logthread` instructs the agent to `add a thread` to the bottom of the day's log
+  - `@lognote` instructs the agent to `append a note` to the bottom of the day's log
+  - `@logsynth` instructs the agent to `synthesize notes` at the bottom of the day's log
+
+### Prompts (see `AGENTS/prompts.md`)
+- `AGENTS/hooks/stop.sh` also flushes any uncaptured prompts to `AGENTS/prompts/` on the same tick as its log-note pass
 
 ## Architecture
 
