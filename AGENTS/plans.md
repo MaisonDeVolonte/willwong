@@ -1,3 +1,17 @@
+```javascript
+/**
+ * ==============================
+ * @file plans.md - plan template
+ * ==============================
+ * @description
+ * - one file per plan, `AGENTS/plans/`
+ * - gitignored, local-only, never committed
+ * - written before complex or architectural work
+ * - covers overview, context, fixes, risks, checklist
+ * @see AGENTS.md, /AGENTS/plans/
+ */
+```
+
 # AGENT PLAN: Short Title
 runs before executing complex tasks or architecture changes
 

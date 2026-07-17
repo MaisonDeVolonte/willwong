@@ -1,14 +1,14 @@
 ```javascript
 /**
- * ========================================
- * @file git.md - git automation reference
- * ========================================
+ * ======================================
+ * @file git.md - git automation template
+ * ======================================
  * @description
  * - ran only on explicit `@gitautomation` commands
  * - starts with a native shell script sidecar
  * - fail: outputs raw terminal errors
  * - success: evaluates telemetry and executes subsequent actions
- * @see AGENTS.md, /AGENTS/, .claude/settings.json
+ * @see AGENTS.md, /AGENTS/git/
  */
 ```
 
