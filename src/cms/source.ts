@@ -11,6 +11,7 @@
  */
 
 import { unstable_cache } from "next/cache";
+import { getGithubToken } from "@/utilities/githubToken";
 
 const REPO_OWNER = "MaisonDeVolonte";
 const REPO_NAME = "willwong";
@@ -52,6 +53,10 @@ async function readLocalContent(): Promise<ContentMap> {
   const out: ContentMap = {};
   async function walk(dir: string, base = ""): Promise<void> {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
+
+      // finder artifact that gitignore can't filter on raw fs walk
+      if (entry.name === ".DS_Store") continue;
+
       const rel = base ? `${base}/${entry.name}` : entry.name;
       if (entry.isDirectory()) await walk(join(dir, entry.name), rel);
       else if (entry.isFile()) out[rel] = await readFile(join(dir, entry.name), "utf-8");
@@ -146,20 +151,7 @@ async function githubHeaders(): Promise<Record<string, string>> {
     Accept: "application/vnd.github+json",
     "User-Agent": `${REPO_NAME}-cms`,
   };
-  const token = await githubToken();
+  const token = await getGithubToken();
   if (token) headers.Authorization = `Bearer ${token}`;
   return headers;
-}
-
-// Optional read-only token raises the tree API limit from 60/hr to 5000/hr. Injected as a
-// Webflow Cloud runtime secret; absent at build (static prerender), where unauth is fine.
-async function githubToken(): Promise<string | undefined> {
-  try {
-    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
-    const value = (getCloudflareContext().env as Record<string, unknown>).GITHUB_TOKEN;
-    if (typeof value === "string" && value) return value;
-  } catch {
-    // No request context (e.g. build-time prerender) — fall through to process.env.
-  }
-  return process.env.GITHUB_TOKEN || undefined;
 }
