@@ -7,47 +7,36 @@
  * - one file per plan, `AGENTS/plans/`
  * - gitignored, local-only, never committed
  * - written before complex or architectural work
- * - covers overview, context, fixes, risks, checklist
+ * - covers overview, context, fixes, risks, and checklist
  * - plans are written in maximally clear, concise, action-oriented language
+ * - write for humans, not machines
  * @see AGENTS.md, /AGENTS/plans/
  */
 ```
 
 # AGENT PLAN: Short Title
-runs before executing complex tasks or architecture changes
+write before executing complex tasks
 
-## Overview
-What is the core objective of this plan?
-
-*example:*
-> We need to improve the runtime CMS page load speeds. The warm TTFB is ~3s and cold is ~15s due to un-cached data fetching and API throttling at build time.
-
-## Context
-Describe the current state of the repo, inherited problems, constraints, and why this plan is necessary.
+## 1. Context & Goal
+what is broken, what are the limiting factors, and what does success look like?
 
 *example:*
-> The root layout uses `force-dynamic`, preventing caching. `readGithubContent` makes 106 separate fetches, which throttles the GitHub API without a token and has significant KV Data Cache overhead.
+> - `lead with the core idea` so plan steps are easy to scan and understand
+> - `write concisely` aiming for one main idea per line, favoring more lines over completeness
 
-## Proposed Fixes
-List the concrete changes and actions required to resolve the issue.
-
-*example:*
-> 1. Consolidate `readGithubContent` fetches into one via `unstable_cache`.
-> 2. Pass `GITHUB_TOKEN` in `deploy.yml` to raise rate limits and prevent 503s at build time.
-> 3. Replace `force-dynamic` with a long `revalidate` for ISR.
-> 4. Add a cache prime curl script post-deploy in `deploy.yml`.
-
-## Risks & Gotchas
-Identify potential breaking changes, race conditions, or edge cases.
+## 2. Solution & Checklist
+what is the general strategy and what are the atomic steps to ship it?
 
 *example:*
-> - Guarding the build fetch with `NEXT_PHASE` risks caching an empty shell for the homepage.
-> - OpenNext KV starts empty on a fresh deploy, meaning a cache-prime is strictly necessary.
+> 1. `combine` this with that to make it lighter
+> 2. `separate` this from that to make it easier
+> 3. `refactor` this into that to make it simpler
+> 4. `test` that with this to make it resilient
 
-## Checklist
-A concrete list of atomic steps to implement the plan.
+## 3. Risks & Gotchas
+what could break, what hidden edge cases exist, and how do we avoid them?
 
-*example:*
-> - [ ] Update `src/cms/source.ts` with `unstable_cache`.
-> - [ ] Update `src/app/layout.tsx` to remove `force-dynamic`.
-> - [ ] Update `.github/workflows/deploy.yml` with `GITHUB_TOKEN` and curl warm-up.
+*example:* 
+> - `race condition` between this and that
+> - `breaking change` if we change this to that
+> - `edge case` due to changing that to this
