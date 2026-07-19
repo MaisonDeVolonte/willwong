@@ -20,6 +20,7 @@
   --icon-eslint: hsla(255, 100%, 70.44%, 1);
   --icon-yml: var(--text-light);
   --icon-sh: #ff3535;
+  --icon-json: #ffa448;
   --radius-sm: 0.25em;
   --chat-width: 25%;
   --transparent: hsla(0, 0%, 100%, 0);

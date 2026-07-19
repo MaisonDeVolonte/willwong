@@ -9,6 +9,9 @@
 "use client";
 
 import Block from "../webflow_modules/Basic/components/Block";
+import DropdownList from "../webflow_modules/Dropdown/components/DropdownList";
+import DropdownToggle from "../webflow_modules/Dropdown/components/DropdownToggle";
+import DropdownWrapper from "../webflow_modules/Dropdown/components/DropdownWrapper";
 import HtmlEmbed from "../webflow_modules/Embed/components/HtmlEmbed";
 import Link from "../webflow_modules/Basic/components/Link";
 
@@ -22,6 +25,7 @@ export type FooterProps = {
     target?: "_self" | "_blank";
   };
   hashText?: React.ReactNode;
+  languageSlot?: React.ReactNode;
   versionLink?: {
     href: string;
     preload?: "prerender" | "prefetch" | "none";
@@ -41,6 +45,7 @@ export function Footer({
   },
 
   hashText = "a1b2c3d",
+  languageSlot,
 
   versionLink = {
     href: "#",
@@ -72,6 +77,27 @@ export function Footer({
         </Link>
       </Block>
       <Block className={"flex-expand"} tag={"div"} />
+      <DropdownWrapper className={"menu"} delay={0} hover={false} tag={"div"}>
+        <DropdownToggle
+          className={"footer__trigger"}
+          id={"LanguagesTrigger"}
+          tag={"div"}
+        >
+          <HtmlEmbed
+            className={"icon icon--footer"}
+            content={
+              '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576.05 512.11"><path d="M360.77 1.25c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0v-.1zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-95.99 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-73.4-73.3 73.3-73.4c12.5-12.5 12.5-32.8 0-45.3h.1z"/></svg>\n'
+            }
+          />
+        </DropdownToggle>
+        <DropdownList
+          className={"menu__pane menu__pane--up"}
+          id={"LanguagesMenu"}
+          tag={"nav"}
+        >
+          {languageSlot}
+        </DropdownList>
+      </DropdownWrapper>
       <Link
         aria-controls={"TestPanel"}
         block={"inline"}

@@ -68,242 +68,53 @@ export function Header({}: HeaderProps) {
           <Block className={"avatar"} tag={"div"} />
         </DropdownToggle>
         <DropdownList className={"menu__pane"} id={"ProfileMenu"} tag={"nav"}>
-          <Block className={"menu__section"} tag={"div"}>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://github.com/MaisonDeVolonte",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"MaisonDeVolonte"}
-              </Block>
-            </Link>
-          </Block>
-          <Block className={"menu__section"} tag={"div"}>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link menu__link--mobile"}
-              options={{
-                href: "https://github.com/MaisonDeVolonte/willwong/pulse",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Insights"}
-              </Block>
-              <HtmlEmbed
-                className={"menu__chevron"}
-                content={
-                  '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2016 2016"><path d="M1369.46,974.53L791.44,391.78c-18.51-18.51-48.43-18.51-66.94,0l-77.96,77.96c-18.51,18.51-18.51,48.43,0,66.94l466.59,471.32-466.59,471.32c-18.51,18.51-18.51,48.43,0,66.94l77.96,77.96c18.51,18.51,48.43,18.51,66.94,0l578.03-582.75c18.51-18.51,18.51-48.43,0-66.94Z"/></svg>'
-                }
-              />
-            </Link>
-            <DropdownWrapper
-              className={"menu menu--flyout"}
-              delay={0}
-              hover={true}
-              tag={"div"}
-            >
-              <DropdownToggle
-                className={"menu__toggle"}
-                id={"InsightsTrigger"}
+          <Block className={"menu__profile"} tag={"div"}>
+            <Block className={"menu__section"} tag={"div"}>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://github.com/MaisonDeVolonte",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"MaisonDeVolonte"}
+                </Block>
+              </Link>
+            </Block>
+            <Block className={"menu__section"} tag={"div"}>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link menu__link--mobile"}
+                options={{
+                  href: "https://github.com/MaisonDeVolonte/willwong/pulse",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Insights"}
+                </Block>
+                <HtmlEmbed
+                  className={"menu__chevron"}
+                  content={
+                    '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2016 2016"><path d="M1369.46,974.53L791.44,391.78c-18.51-18.51-48.43-18.51-66.94,0l-77.96,77.96c-18.51,18.51-18.51,48.43,0,66.94l466.59,471.32-466.59,471.32c-18.51,18.51-18.51,48.43,0,66.94l77.96,77.96c18.51,18.51,48.43,18.51,66.94,0l578.03-582.75c18.51-18.51,18.51-48.43,0-66.94Z"/></svg>'
+                  }
+                />
+              </Link>
+              <DropdownWrapper
+                className={"menu menu--flyout"}
+                delay={0}
+                hover={true}
                 tag={"div"}
               >
-                <Link
-                  block={"inline"}
-                  button={false}
-                  className={"menu__link"}
-                  options={{
-                    href: "https://github.com/MaisonDeVolonte/willwong/issues/new",
-                    target: "_blank",
-                  }}
+                <DropdownToggle
+                  className={"menu__toggle"}
+                  id={"InsightsTrigger"}
+                  tag={"div"}
                 >
-                  <Block className={"menu__text"} tag={"div"}>
-                    {"Insights"}
-                  </Block>
-                  <HtmlEmbed
-                    className={"menu__chevron"}
-                    content={
-                      '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2016 2016"><path d="M1369.46,974.53L791.44,391.78c-18.51-18.51-48.43-18.51-66.94,0l-77.96,77.96c-18.51,18.51-18.51,48.43,0,66.94l466.59,471.32-466.59,471.32c-18.51,18.51-18.51,48.43,0,66.94l77.96,77.96c18.51,18.51,48.43,18.51,66.94,0l578.03-582.75c18.51-18.51,18.51-48.43,0-66.94Z"/></svg>'
-                    }
-                  />
-                </Link>
-              </DropdownToggle>
-              <DropdownList
-                className={"menu__pane menu__pane--flyout"}
-                id={"InsightsMenu"}
-                tag={"nav"}
-              >
-                <Block className={"menu__section"} tag={"div"}>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/pulse",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Pulse"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/activity",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Activity"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/commits/production",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Commits"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/graphs/code-frequency",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Frequency"}
-                    </Block>
-                  </Link>
-                </Block>
-                <Block className={"menu__section"} tag={"div"}>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/users/MaisonDeVolonte/projects/1/views/4",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Roadmap"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/graphs/contributors?from=4%2F11%2F2026",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Contributors"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/graphs/community",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Community"}
-                    </Block>
-                  </Link>
-                </Block>
-                <Block className={"menu__section"} tag={"div"}>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/graphs/traffic",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Traffic"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/network",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Network"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/network/dependencies",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Dependencies"}
-                    </Block>
-                  </Link>
-                </Block>
-                <Block className={"menu__section"} tag={"div"}>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/actions/metrics/usage",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Usage"}
-                    </Block>
-                  </Link>
-                  <Link
-                    block={"inline"}
-                    button={false}
-                    className={"menu__link"}
-                    options={{
-                      href: "https://github.com/MaisonDeVolonte/willwong/actions/metrics/performance",
-                      target: "_blank",
-                    }}
-                  >
-                    <Block className={"menu__text"} tag={"div"}>
-                      {"Performance"}
-                    </Block>
-                  </Link>
-                </Block>
-                <Block className={"menu__section"} tag={"div"}>
                   <Link
                     block={"inline"}
                     button={false}
@@ -314,164 +125,355 @@ export function Header({}: HeaderProps) {
                     }}
                   >
                     <Block className={"menu__text"} tag={"div"}>
-                      {"Report an issue"}
+                      {"Insights"}
                     </Block>
                     <HtmlEmbed
-                      className={"menu__icon"}
+                      className={"menu__chevron"}
                       content={
-                        '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32L0 64 0 368 0 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48l0-16z"/></svg>'
+                        '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2016 2016"><path d="M1369.46,974.53L791.44,391.78c-18.51-18.51-48.43-18.51-66.94,0l-77.96,77.96c-18.51,18.51-18.51,48.43,0,66.94l466.59,471.32-466.59,471.32c-18.51,18.51-18.51,48.43,0,66.94l77.96,77.96c18.51,18.51,48.43,18.51,66.94,0l578.03-582.75c18.51-18.51,18.51-48.43,0-66.94Z"/></svg>'
                       }
                     />
                   </Link>
+                </DropdownToggle>
+                <DropdownList
+                  className={"menu__pane menu__pane--flyout"}
+                  id={"InsightsMenu"}
+                  tag={"nav"}
+                >
+                  <Block className={"menu__section"} tag={"div"}>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/pulse",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Pulse"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/activity",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Activity"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/commits/production",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Commits"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/graphs/code-frequency",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Frequency"}
+                      </Block>
+                    </Link>
+                  </Block>
+                  <Block className={"menu__section"} tag={"div"}>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/users/MaisonDeVolonte/projects/1/views/4",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Roadmap"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/graphs/contributors?from=4%2F11%2F2026",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Contributors"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/graphs/community",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Community"}
+                      </Block>
+                    </Link>
+                  </Block>
+                  <Block className={"menu__section"} tag={"div"}>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/graphs/traffic",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Traffic"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/network",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Network"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/network/dependencies",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Dependencies"}
+                      </Block>
+                    </Link>
+                  </Block>
+                  <Block className={"menu__section"} tag={"div"}>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/actions/metrics/usage",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Usage"}
+                      </Block>
+                    </Link>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/actions/metrics/performance",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Performance"}
+                      </Block>
+                    </Link>
+                  </Block>
+                  <Block className={"menu__section"} tag={"div"}>
+                    <Link
+                      block={"inline"}
+                      button={false}
+                      className={"menu__link"}
+                      options={{
+                        href: "https://github.com/MaisonDeVolonte/willwong/issues/new",
+                        target: "_blank",
+                      }}
+                    >
+                      <Block className={"menu__text"} tag={"div"}>
+                        {"Report an issue"}
+                      </Block>
+                      <HtmlEmbed
+                        className={"menu__icon"}
+                        content={
+                          '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32L0 64 0 368 0 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48l0-16z"/></svg>'
+                        }
+                      />
+                    </Link>
+                  </Block>
+                </DropdownList>
+              </DropdownWrapper>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://github.dev/MaisonDeVolonte/willwong",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Open in GitHub.dev"}
                 </Block>
-              </DropdownList>
-            </DropdownWrapper>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://github.dev/MaisonDeVolonte/willwong",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Open in GitHub.dev"}
-              </Block>
-            </Link>
-          </Block>
-          <Block className={"menu__section"} tag={"div"}>
-            <Block className={"menu__label"} tag={"div"}>
-              {"Organizations"}
+              </Link>
             </Block>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.turnerandwolf.com/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Turner & Wolf"}
+            <Block className={"menu__section"} tag={"div"}>
+              <Block className={"menu__label"} tag={"div"}>
+                {"Organizations"}
               </Block>
-              <Block className={"menu__pill"} tag={"div"}>
-                {"Agency"}
-              </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.hhc.ooo/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"HHC Worldwide"}
-              </Block>
-              <Block className={"menu__pill"} tag={"div"}>
-                {"Work"}
-              </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.courtesykey.com/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Courtesy Key"}
-              </Block>
-              <Block className={"menu__pill"} tag={"div"}>
-                {"Business"}
-              </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.ownershive.com/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"OwnersHive"}
-              </Block>
-              <Block className={"menu__pill"} tag={"div"}>
-                {"Startup"}
-              </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.intactglobal.org/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Intact Global"}
-              </Block>
-              <Block className={"menu__pill"} tag={"div"}>
-                {"Non-Profit"}
-              </Block>
-            </Link>
-          </Block>
-          <Block className={"menu__section"} tag={"div"}>
-            <Block className={"menu__label"} tag={"div"}>
-              {"Contact"}
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.turnerandwolf.com/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Turner & Wolf"}
+                </Block>
+                <Block className={"menu__pill"} tag={"div"}>
+                  {"Agency"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.hhc.ooo/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"HHC Worldwide"}
+                </Block>
+                <Block className={"menu__pill"} tag={"div"}>
+                  {"Work"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.courtesykey.com/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Courtesy Key"}
+                </Block>
+                <Block className={"menu__pill"} tag={"div"}>
+                  {"Business"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.ownershive.com/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"OwnersHive"}
+                </Block>
+                <Block className={"menu__pill"} tag={"div"}>
+                  {"Startup"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.intactglobal.org/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Intact Global"}
+                </Block>
+                <Block className={"menu__pill"} tag={"div"}>
+                  {"Non-Profit"}
+                </Block>
+              </Link>
             </Block>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "mailto:contact@willwong.me?subject=Hi!%20Let's%20connect!",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Email"}
+            <Block className={"menu__section"} tag={"div"}>
+              <Block className={"menu__label"} tag={"div"}>
+                {"Contact"}
               </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.linkedin.com/in/william-wong-tech/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"LinkedIn"}
-              </Block>
-            </Link>
-            <Link
-              block={"inline"}
-              button={false}
-              className={"menu__link"}
-              options={{
-                href: "https://www.instagram.com/maisondevolonte/",
-                target: "_blank",
-              }}
-            >
-              <Block className={"menu__text"} tag={"div"}>
-                {"Instagram"}
-              </Block>
-            </Link>
-          </Block>
-          <Block className={"menu__section"} tag={"div"}>
-            <Block className={"menu__link menu__link--idgaf"} tag={"div"}>
-              <Block className={"menu__text"} tag={"div"}>
-                {"My stance on [current thing]"}
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "mailto:contact@willwong.me?subject=Hi!%20Let's%20connect!",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Email"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.linkedin.com/in/william-wong-tech/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"LinkedIn"}
+                </Block>
+              </Link>
+              <Link
+                block={"inline"}
+                button={false}
+                className={"menu__link"}
+                options={{
+                  href: "https://www.instagram.com/maisondevolonte/",
+                  target: "_blank",
+                }}
+              >
+                <Block className={"menu__text"} tag={"div"}>
+                  {"Instagram"}
+                </Block>
+              </Link>
+            </Block>
+            <Block className={"menu__section"} tag={"div"}>
+              <Block className={"menu__link menu__link--idgaf"} tag={"div"}>
+                <Block className={"menu__text"} tag={"div"}>
+                  {"My stance on [current thing]"}
+                </Block>
               </Block>
             </Block>
           </Block>
