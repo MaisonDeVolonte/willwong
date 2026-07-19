@@ -79,7 +79,7 @@
 ```
 
 **Notes:**
-- `npm run dev` and `ci` fetche content files from local `fs` at runtime (`CONTENT_SOURCE=local`)
+- `npm run dev` and `ci` fetches content files from local `fs` at runtime (`CONTENT_SOURCE=local`)
 - `npm run publish` commits `content/` and pushes to `main`
 - `github push webhook` hits `api/revalidate/` to bust cache tags; falls back to 60s timer
 
@@ -87,30 +87,40 @@
 
 | | |
 |---|---|
-| [Node.js 22](https://nodejs.org/) | Local build runtime |
-| [Next.js 15](https://nextjs.org/docs) | App Router framework |
-| [React 19](https://react.dev) | UI library |
-| [TypeScript 5](https://www.typescriptlang.org/docs) | Static typing |
-| [Tailwind 4](https://tailwindcss.com/docs) | Utility CSS |
-| [PostCSS 8](https://postcss.org/) | CSS transformation |
-| [Webflow CLI 2](https://developers.webflow.com/docs/webflow-cli) | Webflow CLI |
-| [Webflow DevLink](https://developers.webflow.com/devlink/docs) | Design system export |
-| [Webflow Cloud](https://developers.webflow.com/webflow-cloud/docs) | Production hosting |
-| [Webflow MCP](https://developers.webflow.com/docs/models-context-protocol) | AI context protocol |
-| [Cloudflare OpenNext](https://opennext.js.org/cloudflare) | Cloudflare adapter |
-| [Cloudflare Workerd](https://github.com/cloudflare/workerd) | Edge runtime |
-| [Cloudflare R2](https://developers.cloudflare.com/r2) | Incremental cache |
-| [Cloudflare Wrangler 4](https://developers.cloudflare.com/workers/wrangler) | Cloudflare CLI |
-| [GitHub CLI 2](https://cli.github.com/) | Workflow automation |
-| [GitHub Actions](https://docs.github.com/en/actions) | CI/CD pipelines |
-| [ESLint 9](https://eslint.org/) | Strict code linter |
-| [Vitest 4](https://vitest.dev/) | Unit testing |
-| [Playwright 1](https://playwright.dev/) | Behavior testing |
-| [Prettier 3](https://prettier.io/) | Code formatter |
-| [Refractor 5](https://github.com/wooorm/refractor) | Syntax highlighting |
-| [Zed](https://zed.dev/) | AI-native editor environment |
-| [Claude 3.5](https://anthropic.com/claude) | Primary agent model |
-| [Gemini 1.5](https://deepmind.google/technologies/gemini/) | Secondary agent model |
+| [Node.js 22](https://nodejs.org/) | local build runtime |
+| [Next.js 15](https://nextjs.org/docs) | app router framework |
+| [React 19](https://react.dev) | ui library |
+| [TypeScript 5](https://www.typescriptlang.org/docs) | static typing |
+| [Tailwind 4](https://tailwindcss.com/docs) | utility CSS |
+| [PostCSS 8](https://postcss.org/) | css transformation |
+| [Webflow CLI 2](https://developers.webflow.com/docs/webflow-cli) | webflow cli |
+| [Webflow DevLink](https://developers.webflow.com/devlink/docs) | design system export |
+| [Webflow Cloud](https://developers.webflow.com/webflow-cloud/docs) | production hosting |
+| [Webflow MCP](https://developers.webflow.com/docs/models-context-protocol) | ai context protocol |
+| [Cloudflare OpenNext](https://opennext.js.org/cloudflare) | cloudflare adapter |
+| [Cloudflare Workerd](https://github.com/cloudflare/workerd) | edge runtime |
+| [Cloudflare R2](https://developers.cloudflare.com/r2) | incremental cache |
+| [Cloudflare Wrangler 4](https://developers.cloudflare.com/workers/wrangler) | cloudflare cli|
+| [GitHub CLI 2](https://cli.github.com/) | workflow automation |
+| [GitHub Actions](https://docs.github.com/en/actions) | ci/cd pipelines |
+| [ESLint 9](https://eslint.org/) | strict code linter |
+| [Vitest 4](https://vitest.dev/) | unit testing |
+| [Playwright 1](https://playwright.dev/) | behavior testing |
+| [Prettier 3](https://prettier.io/) | code formatter |
+| [Refractor 5](https://github.com/wooorm/refractor) | syntax highlighting |
+| [Zed](https://zed.dev/) | ai-native editor environment |
+| [Claude 3.5](https://anthropic.com/claude) | primary agent model |
+| [Grok 4.5](https://x.ai/cli) | secondary agent model |
+| [Gemini 1.5](https://deepmind.google/technologies/gemini/) | secondary agent model |
+
+## APIs
+
+| | |
+|---|---|
+| [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree and stats |
+| [GitHub Raw Content](https://raw.githubusercontent.com) | GIT-as-cms |
+| [GitHub Webhooks](https://docs.github.com/en/webhooks) | cache busting |
+| [Webflow API](https://developers.webflow.com/data/reference) | deploy |
 
 ## Commands
 
@@ -127,60 +137,65 @@
 ## Structure
 
 ```
-AGENTS/                              # agent automations and workflows
+AGENTS/                         # agent automations and workflows
+ ├── git/
+ │    ├── [@trigger].md
+ │    └── [@trigger].sh
+ ├── hooks/
  ├── logs/
  ├── plans/
- ├── [@trigger].md
- └── [@trigger].sh
+ ├── prompts/
+ └── [docs].md
 
-content/                             # git-as-cms content source
+content/                        # git-as-cms content source
  ├── [folder]/
  └── [page].ext
 
-scripts/                             # node.js scripts (generated files are gitignored)
- ├── content.mjs                     # bundles @mirrors and icons (src/cms/content.generated.ts)
- ├── publish.mjs                     # commits /content/ and pushes to main (npm run publish)
- └── version.mjs                     # injects build data (src/meta/config/version.generated.ts)
+scripts/                        # node.js scripts (generated files are gitignored)
+ ├── content.mjs                # bundles @mirrors and icons (src/cms/content.generated.ts)
+ ├── publish.mjs                # commits /content/ and pushes to main (npm run publish)
+ └── version.mjs                # injects build data (src/meta/config/version.generated.ts)
 
 src/
- ├── app/                            # routing and page definitions
+ ├── app/                       # routing and page definitions
  │    ├── [...slug]/
- │    ├── api/revalidate/            # github push webhook (cache busting)
+ │    ├── api/revalidate/       # github push webhook (cache busting)
  │    ├── custom.css
  │    ├── layout.tsx
  │    └── page.tsx
  │
- ├── assets/                         # raw static files
+ ├── assets/                    # raw static files
  │    └── icons/
  │
- ├── cms/                            # content engine (runtime source + routing)
+ ├── cms/                       # content engine (runtime source + routing)
  │    ├── directives.ts
  │    ├── folders.ts
  │    ├── pages.ts
  │    ├── slugs.ts
- │    └── source.ts                  # runtime content (prod: github; dev: fs)
+ │    └── source.ts             # runtime content (prod: github; dev: fs)
  │
- ├── core/                           # behavior, state, and event handling
+ ├── core/                      # behavior, state, and event handling
  │    └── controllers/
  │
- ├── meta/                           # build-time meta/structured data
+ ├── meta/                      # build-time meta/structured data
  │    ├── config/
  │    └── schema/
  │
- ├── modules/                        # concrete, feature-scoped components
+ ├── modules/                   # concrete, feature-scoped components
  │    ├── nav/
- │    └── stage/
+ │    ├── stage/
+ │    └── stats/
  │
- └── utilities/                      # utility functions and helpers
+ └── utilities/                 # utility functions and helpers
       └── [utilityName].ts
 
-webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
+webflow/                        # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
  ├── [components]/
  ├── css/
  └── webflow_modules
 ```
 
-## Design (see src/app/custom.css)
+## Design
 - `1vw` defines the base unit for fluid/scalable design
 - `100dvh` defines the viewport height dynamically
 - `0.1rem` defines the hook for browser zoom access
@@ -190,6 +205,7 @@ webflow/                             # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 ## Webflow
 - `webflow/` is strictly read-only, overwritten by devlink, and maintained in webflow
 - `webflow/css/` does not export page-level styles - ONLY component styles
+- `Code` properties on `HtmlEmbed` elements do not pass through devlink - use custom attributes instead
 
 ## Content
 - `/content/` files are raw strings – never import, execute, or refactor
