@@ -7,7 +7,7 @@
 
 ### Experience
 - partner at [turner & wolf](https://www.turnerandwolf.com) (2020-present)
-- marketing director at [royalty exotic cars](https://royaltyexoticcars.com) (2016-2020)
+- digital operations director at [royalty exotic cars](https://royaltyexoticcars.com) (2016-2020)
 - head of support at [webflow](https://webflow.com) (2014-2016)
 
 ### Skills
