@@ -33,6 +33,10 @@
   font-size: 1.2em;
 }
 
+.icon.icon--stat {
+  margin-right: 0.5em;
+}
+
 .nav {
   position: relative;
   width: var(--nav-width);
@@ -618,7 +622,7 @@
   padding-left: 0.5em;
   opacity: 0.75;
   font-size: 0.9em;
-  line-height: 1.6em;
+  line-height: 1.8em;
 }
 
 .menu__pill {
@@ -650,31 +654,29 @@
   bottom: 0%;
 }
 
-.language {
+.stat {
   display: flex;
-  height: 1.8em;
+  height: 1.75em;
   padding-right: 0.5em;
   padding-left: 0.5em;
   justify-content: flex-start;
   align-items: center;
-  font-size: 0.9em;
 }
 
-.language__text {
+.stat__text {
   line-height: 1em;
 }
 
-.language__text.language__text--name {
+.stat__text.stat__text--language {
   width: 2.8em;
-  margin-left: 0.5em;
 }
 
-.language__text.language__text--value {
-  width: 2em;
+.stat__text.stat__text--pct1 {
+  width: 3em;
   text-align: right;
 }
 
-.language__bar {
+.stat__bar {
   overflow: hidden;
   width: 10em;
   height: 0.5em;
@@ -684,7 +686,7 @@
   background-color: var(--panels-hover);
 }
 
-.language__fill {
+.stat__fill {
   width: 30%;
   height: 100%;
   border-top-right-radius: 0.25em;
@@ -701,9 +703,8 @@
   width: 100%;
 }
 
-.language__slot {
-  display: block;
-  width: 100%;
+.statsslot {
+  height: auto;
 }
 
 @media screen and (max-width: 479px) {

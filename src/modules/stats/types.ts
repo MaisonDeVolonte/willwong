@@ -10,3 +10,16 @@ export type LanguageStat = {
   bytes: number;
   percent: number;
 };
+
+export type ProjectStats = {
+  age?: string;
+  size?: string;
+  files?: string;
+};
+
+export type CodeStats = {
+  lines?: string;
+  churn?: string;
+  coverage?: string;
+  commits?: string;
+};
