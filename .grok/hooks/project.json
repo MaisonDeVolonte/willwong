@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "../../AGENTS/hooks/sessionstart.sh", "timeout": 10 }] }],
+    "SessionEnd": [],
+
+    "UserPromptSubmit": [],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "../../AGENTS/hooks/stop.sh", "timeout": 10 }] }],
+    "StopFailure": [],
+    "Notification": [],
+
+    "PermissionDenied": [],
+    "PreToolUse": [],
+    "PostToolUse": [{ "matcher": "Write|Edit", "hooks": [{ "type": "command", "command": "../../AGENTS/hooks/posttooluse.sh", "timeout": 30 }] }],
+    "PostToolUseFailure": [],
+
+    "SubagentStart": [],
+    "SubagentStop": [],
+
+    "PreCompact": [],
+    "PostCompact": []
+  }
+}

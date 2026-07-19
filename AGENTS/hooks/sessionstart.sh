@@ -6,6 +6,7 @@
 # - runs before user begins typing
 # - creates today's log file if none exists yet
 # - injects today's log + most recent prior log + README.md into session context
+# - works with `claude`; does not work with `grok`
 # @see AGENTS.md, AGENTS/logs.md, /AGENTS/logs/
 
 TODAY_LOG="AGENTS/logs/$(date +%Y-%m-%d).md"
@@ -34,12 +35,12 @@ then PREV_LOG_TRUNC=$(truncFile "$PREV_LOG")
 else PREV_LOG_TRUNC="(no prior log found)"; fi
 
 if [ -f "$READ_ME" ];
-then READ_ME_TRUNC=$(truncFile "$READ_ME")
-else READ_ME_TRUNC="(README.md not found)"; fi
+then README_FULL=$(cat "$READ_ME")
+else README_FULL="(README.md not found)"; fi
 
 # inject files into session context
 jq -n \
-  --arg readMe "$READ_ME_TRUNC" \
+  --arg readMe "$README_FULL" \
   --arg todayLog "$TODAY_LOG_TRUNC" \
   --arg prevLog "$PREV_LOG_TRUNC" \
   '{

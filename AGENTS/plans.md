@@ -8,6 +8,7 @@
  * - gitignored, local-only, never committed
  * - written before complex or architectural work
  * - covers overview, context, fixes, risks, checklist
+ * - plans are written in maximally clear, concise, action-oriented language
  * @see AGENTS.md, /AGENTS/plans/
  */
 ```
