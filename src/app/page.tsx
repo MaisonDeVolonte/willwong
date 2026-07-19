@@ -12,7 +12,8 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/meta/config/site";
 import { personSchema, websiteSchema, Schema } from "@/meta/schema";
 
-import { getContent, readIcon } from "@/cms/pages";
+import { getContent } from "@/cms/pages";
+import { readIcon } from "@/utilities/icons";
 
 import Canvas from "@/modules/stage/Canvas";
 

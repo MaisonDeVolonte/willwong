@@ -8,7 +8,8 @@
  * @see /src/app/[...slug]/page.tsx/, /src/modules/stage/Refractor.tsx/
  */
 
-import { ICON_COLORS, type ContentPage } from "@/cms/pages";
+import type { ContentPage } from "@/cms/pages";
+import { ICON_COLORS } from "@/utilities/icons";
 
 import Link from "next/link";
 import Refractor from "@/modules/stage/Refractor";

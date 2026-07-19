@@ -8,7 +8,8 @@
  * @see /src/cms/folders.ts/, /src/app/layout.tsx/
  */
 
-import { getAllPages, readIcon, ICON_COLORS } from "@/cms/pages";
+import { getAllPages } from "@/cms/pages";
+import { readIcon, ICON_COLORS } from "@/utilities/icons";
 import Link from "@/modules/nav/Link";
 import Folder from "@/modules/nav/Folder";
 import { buildNavTree } from "@/cms/folders";

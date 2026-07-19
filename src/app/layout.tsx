@@ -25,6 +25,9 @@ import { Test } from "@webflow/panels/Test";
 import Panel from "@/modules/nav/Panel";
 import States from "@/modules/nav/states";
 
+// Stats
+import Languages from "@/modules/stats/Languages";
+
 // Controllers
 import Panels from "@/core/controllers/panels";
 import Links from "@/core/controllers/links";
@@ -125,6 +128,7 @@ export default function RootLayout({
               versionLink={versionLink}
               hashText={hashText}
               hashLink={hashLink}
+              languageSlot={<Languages />}
             />
           </div>
           <States />
