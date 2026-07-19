@@ -10,7 +10,7 @@
  * - establishes rules for file naming, wayfinding, imports, comments, code, etc
  * - dictates a boring, highly-legible, first-principles coding philosophy
  * - sets hard boundaries for read-only directories, etc
- * @see /AGENTS/, /.claude/
+ * @see /AGENTS/, /.claude/, /.grok/
  */
 ```
 
@@ -77,7 +77,7 @@
  * - update @description and @see tags to reflect the file's contents, purpose, and dependencies
  * - read this block to understand the file's context and boundaries before modifying it
  * - write maximally concise, shorthand, lowercase english, favoring legibility over completeness
- * @see /AGENTS/, /.claude/, /eslint.config.mjs
+ * @see /AGENTS/, /.claude/, /.grok/, /eslint.config.mjs
  */
 ```
 

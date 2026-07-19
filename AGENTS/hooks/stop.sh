@@ -7,9 +7,7 @@
 # - appends a note to a thread every 15 minutes
 # - synthesizes notes into corresponding threads every hour
 # - every tick also asks for any uncaptured prompts to be flushed
-# - prompts moved here from userpromptsubmit.sh: that event can't
-#   block-and-retry, so capture on it was unreliable (3 real misses,
-#   also a documented upstream issue) — this hook already is reliable
+# - works with `claude`; does not work with `grok`
 # @see AGENTS.md, AGENTS/logs.md, AGENTS/prompts.md, AGENTS/logs/, AGENTS/prompts/
 
 TODAYS_LOG="AGENTS/logs/$(date +%Y-%m-%d).md"
