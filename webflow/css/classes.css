@@ -7,101 +7,6 @@
   background-color: var(--canvas-bg);
 }
 
-.richtext p {
-  margin-bottom: 0.9em;
-  font-size: 1em;
-  line-height: 1.5em;
-  text-wrap: wrap;
-}
-
-.richtext h1 {
-  margin-bottom: 0.4em;
-  font-size: 2.2em;
-  line-height: 1.2em;
-  font-weight: 900;
-}
-
-.richtext h2 {
-  margin-top: 1em;
-  margin-bottom: 0.4em;
-  font-size: 1.9em;
-  line-height: 1.2em;
-  font-weight: 700;
-}
-
-.richtext h3 {
-  margin-top: 1em;
-  margin-bottom: 0.6em;
-  font-size: 1.6em;
-  line-height: 1.2em;
-  font-weight: 400;
-}
-
-.richtext h6 {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: 1em;
-  line-height: 1.2em;
-}
-
-.richtext h5 {
-  margin-top: 1em;
-  margin-bottom: 0.9em;
-  font-size: 1em;
-  line-height: 1.2em;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.richtext h4 {
-  margin-top: 1em;
-  margin-bottom: 0.8em;
-  font-size: 1.3em;
-  line-height: 1.2em;
-  font-weight: 400;
-}
-
-.richtext blockquote {
-  margin-bottom: 1em;
-  padding: 1em;
-  font-size: 1em;
-  line-height: 1.4em;
-}
-
-.richtext ol {
-  margin-bottom: 1em;
-  font-size: 1em;
-  line-height: 1em;
-}
-
-.richtext li {
-  margin-bottom: 0.5em;
-  line-height: 1.3em;
-}
-
-.richtext ul {
-  margin-bottom: 1em;
-  padding-left: 1.3em;
-  font-size: 1em;
-  line-height: 1em;
-}
-
-.richtext a {
-  border-bottom: 1px dotted black;
-}
-
-.richtext a:hover {
-  border-bottom-style: solid;
-}
-
-.richtext strong {
-  font-weight: 700;
-}
-
-.richtext em {
-  font-style: italic;
-}
-
 .icon {
   display: flex;
   width: 1em;
@@ -244,6 +149,10 @@
 
 .nav__icon.nav__icon--sh {
   color: var(--icon-sh);
+}
+
+.nav__icon.nav__icon--json {
+  color: var(--icon-json);
 }
 
 .nav__list {
@@ -535,14 +444,25 @@
 .footer__trigger {
   display: flex;
   width: 2em;
+  margin: 0px;
+  padding: 0px;
   justify-content: center;
   align-items: center;
   aspect-ratio: 1/1;
   border-radius: var(--radius-sm);
+  color: var(--text-light);
 }
 
 .footer__trigger:hover {
   background-color: var(--panels-hover);
+}
+
+.footer__trigger:active {
+  color: var(--text-active);
+}
+
+.footer__trigger.w--open {
+  color: var(--text-active);
 }
 
 .test {
@@ -615,6 +535,10 @@
   align-items: center;
 }
 
+.menu__toggle.w--open {
+  color: var(--text-active);
+}
+
 .avatar {
   display: block;
   overflow: hidden;
@@ -633,20 +557,11 @@
   background-image: url(https://cdn.prod.website-files.com/6a259953fee40810f9cfa688/6a5541f827c4975734612f50_avatars.gif);
 }
 
-.avatar.nav__avatar--overlay {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-}
-
 .menu__pane {
   left: auto;
   top: 100%;
   right: 0.5em;
   bottom: auto;
-  width: 18em;
   border: 1px solid var(--panels-border);
   border-radius: var(--radius-sm);
   background-color: var(--panels-bg);
@@ -659,7 +574,13 @@
   min-width: 15em;
 }
 
+.menu__pane.menu__pane--up {
+  top: auto;
+  bottom: 100%;
+}
+
 .menu__section {
+  width: 100%;
   padding: 0.5em;
   border-bottom: 1px solid var(--panels-border);
 }
@@ -696,8 +617,8 @@
   padding-right: 0.5em;
   padding-left: 0.5em;
   opacity: 0.75;
-  font-size: 0.95em;
-  line-height: 1.4em;
+  font-size: 0.9em;
+  line-height: 1.6em;
 }
 
 .menu__pill {
@@ -727,6 +648,62 @@
   top: 0%;
   right: -0.8em;
   bottom: 0%;
+}
+
+.language {
+  display: flex;
+  height: 1.8em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.language__text {
+  line-height: 1em;
+}
+
+.language__text.language__text--name {
+  width: 2.8em;
+  margin-left: 0.5em;
+}
+
+.language__text.language__text--value {
+  width: 2em;
+  text-align: right;
+}
+
+.language__bar {
+  overflow: hidden;
+  width: 10em;
+  height: 0.5em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  border-radius: 0.25em;
+  background-color: var(--panels-hover);
+}
+
+.language__fill {
+  width: 30%;
+  height: 100%;
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+  background-color: var(--text-light);
+}
+
+.menu__profile {
+  width: 18em;
+}
+
+.menu__slot {
+  display: block;
+  width: 100%;
+}
+
+.language__slot {
+  display: block;
+  width: 100%;
 }
 
 @media screen and (max-width: 479px) {
@@ -788,6 +765,11 @@
     border-color: var(--transparent);
   }
 
+  .menu__pane.menu__pane--up {
+    top: 3em;
+    bottom: 2.5em;
+  }
+
   .menu__section {
     padding-left: 0.4em;
   }
@@ -798,5 +780,9 @@
 
   .menu__link.menu__link--idgaf {
     cursor: not-allowed;
+  }
+
+  .menu__profile {
+    width: auto;
   }
 }

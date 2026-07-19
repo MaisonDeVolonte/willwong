@@ -5,19 +5,5 @@
 import * as React from "react";
 
 export function DevLinkFontTags(): React.ReactElement | null {
-  return (
-    <>
-      {/* Google Fonts */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic,900,900italic&display=swap"
-      />
-    </>
-  );
+  return null;
 }
