@@ -1,0 +1,10 @@
+# codecov.yml - patch/project coverage checks report a number but never fail a PR
+# @see AGENTS/plans/2026-07-19-coverage.md, .github/workflows/ci.yml
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+    patch:
+      default:
+        informational: true
