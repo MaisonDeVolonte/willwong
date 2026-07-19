@@ -14,6 +14,8 @@ import DropdownToggle from "../webflow_modules/Dropdown/components/DropdownToggl
 import DropdownWrapper from "../webflow_modules/Dropdown/components/DropdownWrapper";
 import HtmlEmbed from "../webflow_modules/Embed/components/HtmlEmbed";
 import Link from "../webflow_modules/Basic/components/Link";
+import { Language } from "../elements/Language";
+import { Stat } from "../elements/Stat";
 
 /**
  * Props for {@link Footer}
@@ -25,7 +27,7 @@ export type FooterProps = {
     target?: "_self" | "_blank";
   };
   hashText?: React.ReactNode;
-  languageSlot?: React.ReactNode;
+  statsSlot?: React.ReactNode;
   versionLink?: {
     href: string;
     preload?: "prerender" | "prefetch" | "none";
@@ -45,7 +47,7 @@ export function Footer({
   },
 
   hashText = "a1b2c3d",
-  languageSlot,
+  statsSlot,
 
   versionLink = {
     href: "#",
@@ -80,22 +82,22 @@ export function Footer({
       <DropdownWrapper className={"menu"} delay={0} hover={false} tag={"div"}>
         <DropdownToggle
           className={"footer__trigger"}
-          id={"LanguagesTrigger"}
+          id={"StatsTrigger"}
           tag={"div"}
         >
           <HtmlEmbed
             className={"icon icon--footer"}
             content={
-              '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576.05 512.11"><path d="M360.77 1.25c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0v-.1zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-95.99 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-73.4-73.3 73.3-73.4c12.5-12.5 12.5-32.8 0-45.3h.1z"/></svg>\n'
+              '<svg width="100%" height="100%" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 448"><path d="M120 152h112c13.3 0 24-10.7 24-24s-10.7-24-24-24H120c-13.3 0-24 10.7-24 24s10.7 24 24 24zm48 144h-48c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24zm160-96H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h208c13.3 0 24-10.7 24-24s-10.7-24-24-24zM384 0H64C28.7 0 0 28.7 0 64v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h320c8.8 0 16 7.2 16 16v320z"/></svg>'
             }
           />
         </DropdownToggle>
         <DropdownList
           className={"menu__pane menu__pane--up"}
-          id={"LanguagesMenu"}
+          id={"StatsMenu"}
           tag={"nav"}
         >
-          {languageSlot}
+          {statsSlot}
         </DropdownList>
       </DropdownWrapper>
       <Link

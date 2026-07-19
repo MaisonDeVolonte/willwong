@@ -12,10 +12,8 @@
 
 import { unstable_cache } from "next/cache";
 import { getGithubToken } from "@/utilities/githubToken";
+import { REPO_OWNER, REPO_NAME, BRANCH } from "@/utilities/githubRepo";
 
-const REPO_OWNER = "MaisonDeVolonte";
-const REPO_NAME = "willwong";
-const BRANCH = "main";
 const CONTENT_PREFIX = "content/";
 
 // Content is tiny/all-text, so we fetch the whole tree and cache it until a publish

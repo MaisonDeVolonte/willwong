@@ -31,14 +31,14 @@
 - `push` to 'production' triggers the `deploy.yml` workflow to release the app
 
 ```text
-[pr] → [ubuntu] → [tsc] → [eslint] → [vitest] → [next build] → [playwright] → [main] → [production]
+[pr] → [ubuntu] → [tsc] → [eslint] → [vitest] → [codecov] → [next] → [playwright] → [main] → [production]
 ```
 
 **CI Gates:**
 - `environment` uses `ubuntu-latest` to catch case-sensitive errors macOS hides
 - `gate 1: tsc --noEmit` enforces strict type safety
 - `gate 2: eslint . --max-warnings 0` enforces strict code style
-- `gate 3: npm run test:unit` verifies core logic
+- `gate 3: npm run test:unit:coverage` verifies core logic and reports coverage
 - `gate 4: next build` verifies static generation and asset optimization
 - `gate 5: npm run test:e2e` verifies end-to-end functionality
 
@@ -48,10 +48,17 @@
 - `src/meta/config/version.generated.ts` stores the version information
 - `next build` bakes the version information into the static html/js bundle
 
+**Coverage:**
+- `npm run test:unit:coverage` runs vitest with the v8 provider (`vitest.config.ts`)
+- `codecov/codecov-action` uploads `coverage/lcov.info` on every ci run, keyed off `CODECOV_API_TOKEN`
+- `codecov.io` exposes the latest total via a public read api, no auth required at runtime
+- `src/modules/stats/apis/codecovCoverage.ts` fetches it for the footer's Coverage stat
+
 **Configuration:**
 - `wrangler.json`: `NEXT_INC_CACHE_R2_BUCKET` (isr page cache) and `NEXT_TAG_CACHE_KV` (cache tagging)
 - `webflow.json`: `cloud.app_id`
 - `deploy.yml`: `WEBFLOW_API_TOKEN` and `WEBFLOW_SITE_ID`
+- `ci.yml`: `CODECOV_API_TOKEN` (coverage upload)
 - `webflow cloud`: `GITHUB_TOKEN` (rate limits) and `GITHUB_WEBHOOK_SECRET` (cache busting)
 
 ## CMS
@@ -105,6 +112,7 @@
 | [GitHub Actions](https://docs.github.com/en/actions) | ci/cd pipelines |
 | [ESLint 9](https://eslint.org/) | strict code linter |
 | [Vitest 4](https://vitest.dev/) | unit testing |
+| [Codecov Action 4](https://github.com/codecov/codecov-action) | coverage reporting |
 | [Playwright 1](https://playwright.dev/) | behavior testing |
 | [Prettier 3](https://prettier.io/) | code formatter |
 | [Refractor 5](https://github.com/wooorm/refractor) | syntax highlighting |
@@ -117,9 +125,12 @@
 
 | | |
 |---|---|
-| [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree and stats |
+| [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree, files, and language stats |
+| [GitHub Repos](https://docs.github.com/en/rest/repos/repos) | project age and size stats |
+| [GitHub Statistics](https://docs.github.com/en/rest/metrics/statistics) | commit and churn stats |
 | [GitHub Raw Content](https://raw.githubusercontent.com) | GIT-as-cms |
 | [GitHub Webhooks](https://docs.github.com/en/webhooks) | cache busting |
+| [Codecov API](https://docs.codecov.com/reference/overview) | coverage stat |
 | [Webflow API](https://developers.webflow.com/data/reference) | deploy |
 
 ## Commands
@@ -153,6 +164,7 @@ content/                        # git-as-cms content source
 
 scripts/                        # node.js scripts (generated files are gitignored)
  ├── content.mjs                # bundles @mirrors and icons (src/cms/content.generated.ts)
+ ├── loc.mjs                    # counts lines of code (src/modules/stats/loc.generated.ts)
  ├── publish.mjs                # commits /content/ and pushes to main (npm run publish)
  └── version.mjs                # injects build data (src/meta/config/version.generated.ts)
 
@@ -206,6 +218,7 @@ webflow/                        # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
 - `webflow/` is strictly read-only, overwritten by devlink, and maintained in webflow
 - `webflow/css/` does not export page-level styles - ONLY component styles
 - `Code` properties on `HtmlEmbed` elements do not pass through devlink - use custom attributes instead
+- `DropdownToggle.tsx` reads `isOpen` but never applies `w--open` - use `:has(~ .menu__pane.w--open)`
 
 ## Content
 - `/content/` files are raw strings – never import, execute, or refactor

@@ -26,6 +26,8 @@ li,.w-dyn-item {break-inside: avoid !important;}
 /* menus */
 .w-dropdown-list {overscroll-behavior: contain;}
 .menu__section:last-of-type {border-bottom: 0px;}
+.footer__trigger:has(~ .menu__pane.w--open) {color: var(--text-active);}
+.chat__menu__toggle:has(~ .chat__menu__pane.w--open) {color: var(--text-active);}
 
 /* forms */
 * {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}

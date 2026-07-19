@@ -26,7 +26,7 @@ import Panel from "@/modules/nav/Panel";
 import States from "@/modules/nav/states";
 
 // Stats
-import Languages from "@/modules/stats/Languages";
+import Stats from "@/modules/stats/Stats";
 
 // Controllers
 import Panels from "@/core/controllers/panels";
@@ -128,7 +128,7 @@ export default function RootLayout({
               versionLink={versionLink}
               hashText={hashText}
               hashLink={hashLink}
-              languageSlot={<Languages />}
+              statsSlot={<Stats />}
             />
           </div>
           <States />

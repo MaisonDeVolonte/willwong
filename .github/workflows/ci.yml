@@ -1,25 +1,29 @@
 name: CI
 on:
   push:
-    branches: [main]                              # integration gate for the main trunk line
-  pull_request:                                   # evaluation gate for all prs
+    branches: [main]                               # integration gate for the main trunk line
+  pull_request:                                    # evaluation gate for all prs
 
 jobs:
   build:
-    runs-on: ubuntu-latest                        # case-sensitive runner; catches file path bugs macos hides
+    runs-on: ubuntu-latest                         # case-sensitive runner; catches file path bugs macos hides
     env:
-      CONTENT_SOURCE: local                       # test this branch's /content/; prod fetches from main
+      CONTENT_SOURCE: local                        # test this branch's /content/; prod fetches from main
     steps:
-      - uses: actions/checkout@v4                 # pulls repository source code into runner environment
-      - uses: actions/setup-node@v4               # configures node runtime environment
+      - uses: actions/checkout@v4                  # pulls repository source code into runner environment
+      - uses: actions/setup-node@v4                # configures node runtime environment
         with:
           node-version: 22
-          cache: npm                              # reuses dependencies across runs
-      - run: npm ci                               # immutable dependency install; strict lockfile enforcement
-      - run: npm run generate                     # generate build metadata the app imports
-      - run: npx tsc --noEmit                     # gate 1 (types): compiles types to catch logic drift
-      - run: npx eslint . --max-warnings 0        # gate 2 (quality): eslint, zero-tolerance (errors + warnings)
-      - run: npm run test:unit                    # gate 3 (logic): vitest unit tests (fast, isolated)
-      - run: npm run build                        # gate 4 (fidelity): the exact command webflow cloud runs
-      - run: npx playwright install --with-deps   # install browsers for playwright testing
-      - run: npm run test:e2e                     # gate 5 (behavior): playwright e2e tests
+          cache: npm                               # reuses dependencies across runs
+      - run: npm ci                                # immutable dependency install; strict lockfile enforcement
+      - run: npm run generate                      # generate build metadata the app imports
+      - run: npx tsc --noEmit                      # gate 1 (types): compiles types to catch logic drift
+      - run: npx eslint . --max-warnings 0         # gate 2 (quality): eslint, zero-tolerance (errors + warnings)
+      - run: npm run test:unit:coverage            # gate 3 (logic): vitest unit tests (fast, isolated) + coverage report
+      - uses: codecov/codecov-action@v4            # uploads coverage/lcov.info
+        with:
+          token: ${{ secrets.CODECOV_API_TOKEN }}
+          files: ./coverage/lcov.info
+      - run: npm run build                         # gate 4 (fidelity): the exact command webflow cloud runs
+      - run: npx playwright install --with-deps    # install browsers for playwright testing
+      - run: npm run test:e2e                      # gate 5 (behavior): playwright e2e tests

@@ -55,6 +55,7 @@ next-env.d.ts
 
 # generated build metadata
 src/meta/config/version.generated.ts
+src/modules/stats/loc.generated.ts
 src/cms/content.generated.ts
 
 # agents (local-only)
