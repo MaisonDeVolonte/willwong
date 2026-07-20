@@ -5,30 +5,19 @@
  * @description
  * - single source for anything derived from the full file tree (language bytes, file count)
  * - one cached call feeds every tree-shaped stat instead of one Trees API call per stat
- * @see /src/modules/stats/languages.ts/, /src/modules/stats/files.ts/
+ * @see /src/modules/stats/languages.ts/, /src/modules/stats/files.ts/, /src/modules/stats/exclusions.mjs/
  */
 
 import { unstable_cache } from "next/cache";
 import { getGithubToken } from "@/utilities/githubToken";
 import { REPO_OWNER, REPO_NAME, BRANCH } from "@/utilities/githubRepo";
 
+export { isExcluded } from "@/modules/stats/exclusions.mjs";
+
 export const GITHUB_TREE_TAG = "github-stats-tree";
 const REVALIDATE_SECONDS = 3600;
 
 export type TreeNode = { path: string; type: string; size?: number };
-
-// excludes by filename or folder/
-const EXCLUDED_PATHS = ["package-lock.json", "webflow/"];
-
-export function isExcluded(path: string, basename: string): boolean {
-  const matchesDenylist = EXCLUDED_PATHS.some((pattern) =>
-    pattern.endsWith("/") ? path.startsWith(pattern) : basename === pattern,
-  );
-  if (matchesDenylist) return true;
-
-  // excludes dotfiles and extensionless files
-  return basename.lastIndexOf(".") <= 0;
-}
 
 export const getGithubTree = unstable_cache(
   async (): Promise<TreeNode[]> => {

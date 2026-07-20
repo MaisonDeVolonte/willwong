@@ -4,6 +4,8 @@
  * ==========================================================
  * @description
  * - one call covers both Age (`created_at`) and Size (`size`, KB) for the Project section
+ * - repo-wide metadata with no path-level filtering — `exclusions.mjs` cannot apply here,
+ *   unlike the tree-walk-based stats (Files/Languages/Lines)
  * @see /src/modules/stats/aggregate.ts/
  */
 
