@@ -9,4 +9,4 @@
 
 export const REPO_OWNER = "MaisonDeVolonte";
 export const REPO_NAME = "willwong";
-export const BRANCH = "main";
+export const REPO_BRANCH = "main";
