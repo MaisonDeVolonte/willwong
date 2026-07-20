@@ -564,7 +564,7 @@
 .menu__pane {
   left: auto;
   top: 100%;
-  right: 0.5em;
+  right: 0.4em;
   bottom: auto;
   border: 1px solid var(--panels-border);
   border-radius: var(--radius-sm);
@@ -580,6 +580,7 @@
 
 .menu__pane.menu__pane--up {
   top: auto;
+  right: 0em;
   bottom: 100%;
 }
 
@@ -665,6 +666,7 @@
 
 .stat__text {
   line-height: 1em;
+  white-space: nowrap;
 }
 
 .stat__text.stat__text--language {
