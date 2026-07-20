@@ -45,14 +45,14 @@
 **Version Tracking:**
 - `package.json` uses a prebuild hook (`npm run generate`)
 - `scripts/version.mjs` checks .git history, counts commits since last tag, and grabs commit hash
-- `src/meta/config/version.generated.ts` stores the version information
+- `src/meta/config/version.generated.ts` stores the version information, plus a `TOTAL_COMMIT_COUNT` that never resets (the tag-relative `COMMIT_COUNT` does, on every tag) — the footer's Commits stat needs the true total
 - `next build` bakes the version information into the static html/js bundle
 
 **Coverage:**
 - `npm run test:unit:coverage` runs vitest with the v8 provider (`vitest.config.ts`)
 - `codecov/codecov-action` uploads `coverage/lcov.info` on every ci run, keyed off `CODECOV_API_TOKEN`
 - `codecov.io` exposes the latest total via a public read api, no auth required at runtime
-- `src/modules/stats/apis/codecovCoverage.ts` fetches it for the footer's Coverage stat
+- `src/modules/stats/apis/codecov.ts` fetches it for the footer's Coverage stat
 
 **Configuration:**
 - `wrangler.json`: `NEXT_INC_CACHE_R2_BUCKET` (isr page cache) and `NEXT_TAG_CACHE_KV` (cache tagging)
@@ -113,6 +113,7 @@
 | [ESLint 9](https://eslint.org/) | strict code linter |
 | [Vitest 4](https://vitest.dev/) | unit testing |
 | [Codecov Action 4](https://github.com/codecov/codecov-action) | coverage reporting |
+| [cloc 2](https://github.com/AlDanial/cloc) | lines-of-code counter |
 | [Playwright 1](https://playwright.dev/) | behavior testing |
 | [Prettier 3](https://prettier.io/) | code formatter |
 | [Refractor 5](https://github.com/wooorm/refractor) | syntax highlighting |
@@ -127,7 +128,6 @@
 |---|---|
 | [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree, files, and language stats |
 | [GitHub Repos](https://docs.github.com/en/rest/repos/repos) | project age and size stats |
-| [GitHub Statistics](https://docs.github.com/en/rest/metrics/statistics) | commit and churn stats |
 | [GitHub Raw Content](https://raw.githubusercontent.com) | GIT-as-cms |
 | [GitHub Webhooks](https://docs.github.com/en/webhooks) | cache busting |
 | [Codecov API](https://docs.codecov.com/reference/overview) | coverage stat |
@@ -163,6 +163,7 @@ content/                        # git-as-cms content source
  └── [page].ext
 
 scripts/                        # node.js scripts (generated files are gitignored)
+ ├── churn.mjs                  # sums added/deleted lines across git history (src/modules/stats/churn.generated.ts)
  ├── content.mjs                # bundles @mirrors and icons (src/cms/content.generated.ts)
  ├── loc.mjs                    # counts lines of code (src/modules/stats/loc.generated.ts)
  ├── publish.mjs                # commits /content/ and pushes to main (npm run publish)

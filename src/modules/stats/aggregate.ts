@@ -12,15 +12,21 @@
 import { unstable_cache } from "next/cache";
 import { getExtensionBytes } from "@/modules/stats/languages";
 import { getFileCount } from "@/modules/stats/files";
-import { getContributorTotals } from "@/modules/stats/contributors";
 import { getGithubMeta } from "@/modules/stats/apis/githubMeta";
-import { getCodecovCoverage } from "@/modules/stats/apis/codecovCoverage";
+import { getCodecovCoverage } from "@/modules/stats/apis/codecov";
 import { LINES_OF_CODE } from "@/modules/stats/loc.generated";
+import { ADDITIONS, DELETIONS } from "@/modules/stats/churn.generated";
+import { TOTAL_COMMIT_COUNT } from "@/meta/config/version.generated";
 import type { LanguageStat, ProjectStats, CodeStats } from "@/modules/stats/types";
 
 export const STATS_TAG = "github-stats";
 const REVALIDATE_SECONDS = 3600;
 const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
+
+// 7,295 -> "7.3k"; below 1,000 stays as-is (e.g. "850")
+function compact(n: number): string {
+  return Math.abs(n) < 1000 ? n.toLocaleString() : `${(n / 1000).toFixed(1)}k`;
+}
 
 export const getLanguageStats = unstable_cache(
   async (): Promise<LanguageStat[]> => {
@@ -75,17 +81,11 @@ export const getProjectStats = unstable_cache(
 
 export const getCodeStats = unstable_cache(
   async (): Promise<CodeStats> => {
-    const stats: CodeStats = { lines: LINES_OF_CODE.toLocaleString() };
-
-    try {
-      const totals = await getContributorTotals();
-      if (totals) {
-        stats.churn = `+${totals.additions.toLocaleString()} / -${totals.deletions.toLocaleString()}`;
-        stats.commits = totals.commits.toLocaleString();
-      }
-    } catch {
-      // leave churn/commits unset
-    }
+    const stats: CodeStats = {
+      lines: LINES_OF_CODE.toLocaleString(),
+      churn: `+${compact(ADDITIONS)} / -${compact(DELETIONS)}`,
+      commits: TOTAL_COMMIT_COUNT.toLocaleString(),
+    };
 
     try {
       const coverage = await getCodecovCoverage();
