@@ -9,23 +9,16 @@
  * - defines default read-only posture, explicit triggers, and automations
  * - establishes rules for file naming, wayfinding, imports, comments, code, etc
  * - dictates a boring, highly-legible, first-principles coding philosophy
- * - sets hard boundaries for read-only directories, etc
  * @see /AGENTS/, /.claude/, /.grok/
  */
 ```
 
 # Agent Rules
-
-## Operations
-
-### Posture
-- DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, plan, etc
+- DEFAULT posture is strictly READ-ONLY e.g. chat, brainstorm, evaluate, and plan
 - DO NOT write code, edit files, or run commands without the explicit `@letsdoit` trigger
-- EXCEPTIONS: context gathering, writing to agent logs/plans, @customtrigger automations, etc
+- EXCEPTIONS: context gathering, writing to agent logs/prompts/plans/guides, and @customtrigger automations
 
-### Automations
-- `<trigger>.md`: description, flags, sidecar, instructions, report
-- `<trigger>.sh`: preflight, execution, telemetry 
+## Automations
 
 ### Git (see `AGENTS/git.md`)
 - [@gitaudit](AGENTS/git/gitaudit.md): READ-ONLY; diagnostics, triage, report, summary, and tasks
@@ -40,15 +33,14 @@
 
 ### Plans (see `AGENTS/plans.md`)
 - BEGIN complex tasks by writing a detailed plan in `AGENTS/plans/` (see `AGENTS/plans.md`)
-- BEFORE sending final summary messages or upon seeing the `@movingon` trigger, autonomously:
-  1. APPEND your notes to the bottom of the day's corresponding log file, if none exists - create one
-  2. APPEND a summary to the bottom of the task's corresponding plan file, if none exists - ignore
+- COMPLETE plans with a summary at the bottom of the corresponding plan file
 
 ### Logs (see `AGENTS/logs.md`)
 - `AGENTS/hooks/sessionstart.sh` creates a new empty log file in `AGENTS/logs/` 
 - `AGENTS/hooks/taskcreated.sh` nudges a new thread when a new task is unrelated to the most recent one
 - `AGENTS/hooks/taskcompleted.sh` appends a note to the bottom of the day's log
 - `AGENTS/hooks/stop.sh` synthesizes and deletes notes at the bottom of the day's log every hour
+- `AGENTS/hooks/posttooluse.sh` runs lint on agent code at time of generation
 - manual triggers (yes, i manually save games that have autosave, i'm that guy)
   - `@logthread` instructs the agent to `add a thread` to the bottom of the day's log
   - `@lognote` instructs the agent to `append a note` to the bottom of the day's log
@@ -58,10 +50,20 @@
 - `AGENTS/hooks/stop.sh` also flushes any uncaptured prompts to `AGENTS/prompts/` on the same tick as its log-note pass
 
 ### Guides (see `AGENTS/guides.md`)
-- on request, write a study guide to `AGENTS/guides/` listing files touched by a shipped feature in ideal-build order, not touched-order — for building a mental model, not for reference docs
-- no hook creates these automatically; manual only
+- on request, write a study guide to `AGENTS/guides/` 
+- list files touched by a shipped feature in ideal-build order
+- for building a mental model, not for reference docs
 
 ## Architecture
+`@retardify` applies every rule below (Files, Wayfinding, Module Order, Comments, Code) to one target file or function:
+- rename the file if its casing/extension violates `Files`
+- resync the `Wayfinding` header's @description/@see with the file as it now stands
+- reorder imports/exports per `Module Order`
+- rewrite or prune `Comments` that explain how instead of why
+- apply mechanical `Code` rewrites (e.g. ternaries → named-boolean guards)
+- user gate logic changes that would trade away real information
+- verify live before/after via tsc, tests, builds etc
+- stop once further changes are diminishing returns
 
 ### Files
 - `PascalCase.tsx` — ui-rendering components
@@ -85,14 +87,50 @@
  */
 ```
 
-### Imports
-- `alias` always use `@/`, never `./`
-- `values` imported before `types`
-- import order:
-  1. `data/files` ordered alphabetically
-  2. `config/schemas` ordered alphabetically
-  3. `ui/components` ordered alphabetically
-  4. `css` ordered by cascade specificity
+### Module Order
+- `external` npm/node packages
+- // empty line
+- `internal` @/always/aliased/first-party/code
+  - `data/files` ordered alphabetically
+  - `config/schemas` ordered alphabetically
+  - `ui/components` ordered alphabetically
+  - `css` ordered by cascade specificity
+- // empty line
+- `reexported` module bindings
+- // empty line
+- `exported` bindings
+  - `exported values`
+  - // empty line
+  - `internal values`
+  - // empty line
+  - `types`
+  - // empty line
+  - `functions`
+
+*example:*
+```typescript
+import { fetchFooCache } from "some-lib";
+import type { FooConfig } from "some-lib";
+
+import { getFoo } from "@/utilities/foo";
+import type { FooBarShape } from "@/utilities/foobar";
+import { FOO_URL, FOO_API_KEY } from "@/config/foobar";
+import FooWidget from "@/modules/foo/Widget";
+import "@/modules/foo/Widget.css";
+
+export { helperFn } from "@/utilities/shared";
+
+export const FOO_TAG = "foo-tag";
+export const FOO_LIST = ["a", "b", "c"];
+
+const FOO_TIMER = 3600;
+
+export type FooNode = { path: string; type: string };
+
+export async function getFoo(): Promise<FooNode[]> {
+  return [];
+}
+```
 
 ### Comments
 - write comments sparingly and with intention, focusing on `why` code exists vs `how` it works
@@ -103,12 +141,6 @@
   `// SECTION TITLE `
 
 ### Code
-- `@retardify` applies the rules in this section to one target file or function:
-  - automatically apply mechanical rewrites (e.g. ternaries → named-boolean guards)
-  - gate renames or logic changes that would trade away real information
-  - verify live before/after
-  - stop once further changes are diminishing returns
-  - update wayfinding and comments to reflect changes
 - `retard-maxx` like a jr-engineer who does everything the long, extremely boring way
 - `simplify` logic over advanced, deeply nested, or overly efficient abstractions
 - `separate` files or functions that do more than one thing, where practical
@@ -119,7 +151,6 @@
 
 *example:*
 ```typescript
-
 // 1. global constants
 const IS_AGENT = true;
 
@@ -176,7 +207,7 @@ export function writeCode(requirements: Requirement[], request: string) {
     punishAgent(req.badHabits);
     respectFirstPrinciples(req);
 
-    if (keepItSimple(req)) {finalSolution += req.rawCode;}
+    if (keepItSimple(req)) finalSolution += req.rawCode;
   });
 
   return finalSolution;
