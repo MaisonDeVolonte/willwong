@@ -3,55 +3,37 @@
  * @file loc.mjs - build-time script that counts lines of code
  * ========================================================================================
  * @description
- * - github's api has no LOC endpoint, so this counts locally against `git ls-files`
- *   (respects .gitignore) using the same exclusions as the runtime github-stats sources
- * @see /src/modules/stats/apis/githubTree.ts/, /src/modules/stats/aggregate.ts/
+ * - github's api has no LOC endpoint, so this counts locally instead
+ * - `cloc` does the counting (code only, comments/blanks excluded); this script only
+ *   decides which files are in scope, using the same exclusions as the runtime github-stats
+ *   sources — cloc's own `--exclude-dir`/`--vcs` flags have different matching semantics and
+ *   would create a second, slightly-divergent definition of "which files count"
+ * @see /src/modules/stats/exclusions.mjs/, /src/modules/stats/aggregate.ts/
  */
 
 import { execSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
 import path from "node:path";
+import { isExcluded } from "../src/modules/stats/exclusions.mjs";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-
-// Mirrors apis/githubTree.ts's `isExcluded` — same rules so Lines lines up with Files/Languages
-const EXCLUDED_PATHS = ["package-lock.json", "webflow/"];
-
-function isExcluded(relPath, basename) {
-  const matchesDenylist = EXCLUDED_PATHS.some((pattern) =>
-    pattern.endsWith("/") ? relPath.startsWith(pattern) : basename === pattern,
-  );
-  if (matchesDenylist) return true;
-
-  // excludes dotfiles and extensionless files
-  return basename.lastIndexOf(".") <= 0;
-}
-
-// Binary files (git itself uses this heuristic): a NUL byte in the first few KB
-function isBinary(buffer) {
-  return buffer.subarray(0, 8000).includes(0);
-}
+const CLOC_BIN = path.join(ROOT, "node_modules/.bin/cloc");
 
 const files = execSync("git ls-files", { cwd: ROOT }).toString().trim().split("\n").filter(Boolean);
+const included = files.filter((relPath) => !isExcluded(relPath, path.basename(relPath)));
+
+const tmpDir = mkdtempSync(path.join(tmpdir(), "loc-"));
+const listFile = path.join(tmpDir, "files.txt");
+writeFileSync(listFile, included.join("\n"));
 
 let lines = 0;
-let scanned = 0;
-for (const relPath of files) {
-  const basename = path.basename(relPath);
-  if (isExcluded(relPath, basename)) continue;
-
-  let buffer;
-  try {
-    buffer = readFileSync(path.join(ROOT, relPath));
-  } catch {
-    continue;
-  }
-  if (isBinary(buffer)) continue;
-
-  const text = buffer.toString("utf-8");
-  lines += text === "" ? 0 : text.split("\n").length;
-  scanned++;
+try {
+  const output = execSync(`"${CLOC_BIN}" --json --list-file="${listFile}"`, { cwd: ROOT }).toString();
+  lines = JSON.parse(output).SUM?.code ?? 0;
+} finally {
+  rmSync(tmpDir, { recursive: true, force: true });
 }
 
 writeFileSync(
@@ -60,4 +42,4 @@ writeFileSync(
     `export const LINES_OF_CODE = ${lines};\n`,
 );
 
-console.log(`loc.generated.ts -> lines=${lines} (${scanned} files scanned)`);
+console.log(`loc.generated.ts -> lines=${lines} (${included.length} files scanned)`);

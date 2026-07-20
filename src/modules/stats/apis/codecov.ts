@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * @file codecovCoverage.ts - cached total coverage % (codecov)
+ * @file codecov.ts - cached total coverage % (codecov)
  * ============================================================
  * @description
  * - the repo-level resource's `totals` field lags/never updates reliably (confirmed live:

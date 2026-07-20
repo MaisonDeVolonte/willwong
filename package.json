@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "generate": "node scripts/version.mjs && node scripts/content.mjs && node scripts/loc.mjs",
+    "generate": "node scripts/version.mjs && node scripts/content.mjs && node scripts/loc.mjs && node scripts/churn.mjs",
     "predev": "npm run generate",
     "dev": "next dev -p 3001",
     "prebuild": "npm run generate",
@@ -36,6 +36,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/coverage-v8": "^4.1.10",
+    "cloc": "^2.6.0-cloc",
     "eslint": "^9",
     "eslint-config-next": "^15.2.8",
     "eslint-plugin-jsdoc": "^63.0.10",
