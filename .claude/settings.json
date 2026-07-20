@@ -5,7 +5,9 @@
     "Edit(AGENTS/prompts/**)",
     "Write(AGENTS/prompts/**)",
     "Edit(AGENTS/plans/**)",
-    "Write(AGENTS/plans/**)"
+    "Write(AGENTS/plans/**)",
+    "Edit(AGENTS/guides/**)",
+    "Write(AGENTS/guides/**)"
   ],
   "deny": [
     "Read(.env)",
