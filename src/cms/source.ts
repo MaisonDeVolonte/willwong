@@ -12,7 +12,7 @@
 
 import { unstable_cache } from "next/cache";
 import { getGithubToken } from "@/utilities/githubToken";
-import { REPO_OWNER, REPO_NAME, BRANCH } from "@/utilities/githubRepo";
+import { REPO_OWNER, REPO_NAME, REPO_BRANCH } from "@/utilities/githubRepo";
 
 const CONTENT_PREFIX = "content/";
 
@@ -123,7 +123,7 @@ const getCachedGithubContent = unstable_cache(
 
 // One recursive tree call lists every file under content/ (paths relative to content/).
 async function listContentPaths(): Promise<string[]> {
-  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${REPO_BRANCH}?recursive=1`;
   const res = await githubFetch(url, {
     headers: await githubHeaders(),
   });
@@ -138,7 +138,7 @@ async function listContentPaths(): Promise<string[]> {
 // Bodies come from raw.githubusercontent (public CDN, no auth needed, generous limits).
 async function fetchRawFile(rel: string): Promise<string> {
   const encoded = rel.split("/").map(encodeURIComponent).join("/");
-  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${CONTENT_PREFIX}${encoded}`;
+  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/${CONTENT_PREFIX}${encoded}`;
   const res = await githubFetch(url, {});
   if (!res.ok) throw new Error(`GitHub raw fetch failed (${res.status}): ${rel}`);
   return res.text();

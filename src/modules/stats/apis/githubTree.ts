@@ -1,31 +1,34 @@
 /**
- * ================================================================
- * @file githubTree.ts - cached recursive tree walk (Git Trees API)
- * ================================================================
+ * =================================================================
+ * @file githubTree.ts - requests repo's file tree via Git Trees API
+ * =================================================================
  * @description
- * - single source for anything derived from the full file tree (language bytes, file count)
- * - one cached call feeds every tree-shaped stat instead of one Trees API call per stat
+ * - single source for anything derived from the file tree (language bytes, file count)
+ * - normalizes github's raw tree json into a flat TreeNode[] ({ path, type, size? })
+ * - result is cached and revalidated every hour; subsequent callers get cached result
  * @see /src/modules/stats/languages.ts/, /src/modules/stats/files.ts/, /src/modules/stats/exclusions.mjs/
  */
 
 import { unstable_cache } from "next/cache";
 import { getGithubToken } from "@/utilities/githubToken";
-import { REPO_OWNER, REPO_NAME, BRANCH } from "@/utilities/githubRepo";
+import { REPO_OWNER, REPO_NAME, REPO_BRANCH } from "@/utilities/githubRepo";
 
 export { isExcluded } from "@/modules/stats/exclusions.mjs";
 
-export const GITHUB_TREE_TAG = "github-stats-tree";
 const REVALIDATE_SECONDS = 3600;
-
+export const GITHUB_TREE_TAG = "github-stats-tree";
 export type TreeNode = { path: string; type: string; size?: number };
 
 export const getGithubTree = unstable_cache(
   async (): Promise<TreeNode[]> => {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`;
+    // recursive=1 walks the whole tree in one call
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${REPO_BRANCH}?recursive=1`;
     const headers: Record<string, string> = {
       Accept: "application/vnd.github+json",
+      // github rejects requests with no user-agent
       "User-Agent": `${REPO_NAME}-stats`,
     };
+    // github token is optional, unauthenticated works with lower rate limit
     const token = await getGithubToken();
     if (token) headers.Authorization = `Bearer ${token}`;
 
