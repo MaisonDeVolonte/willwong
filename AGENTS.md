@@ -57,6 +57,10 @@
 ### Prompts (see `AGENTS/prompts.md`)
 - `AGENTS/hooks/stop.sh` also flushes any uncaptured prompts to `AGENTS/prompts/` on the same tick as its log-note pass
 
+### Guides (see `AGENTS/guides.md`)
+- on request, write a study guide to `AGENTS/guides/` listing files touched by a shipped feature in ideal-build order, not touched-order — for building a mental model, not for reference docs
+- no hook creates these automatically; manual only
+
 ## Architecture
 
 ### Files
@@ -99,6 +103,12 @@
   `// SECTION TITLE `
 
 ### Code
+- `@retardify` applies the rules in this section to one target file or function:
+  - automatically apply mechanical rewrites (e.g. ternaries → named-boolean guards)
+  - gate renames or logic changes that would trade away real information
+  - verify live before/after
+  - stop once further changes are diminishing returns
+  - update wayfinding and comments to reflect changes
 - `retard-maxx` like a jr-engineer who does everything the long, extremely boring way
 - `simplify` logic over advanced, deeply nested, or overly efficient abstractions
 - `separate` files or functions that do more than one thing, where practical
