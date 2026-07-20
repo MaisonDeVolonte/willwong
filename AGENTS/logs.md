@@ -5,87 +5,81 @@
  * ============================
  * @description
  * - gitignored, local-only, never committed, one log file per day
- * - `logs` are written in maximally clear, concise and casual language
- * - `threads` group work by task or topic
- * - `notes` are appended after taskcomplete or every 15 minutes
- * - `synthesize` means to `incorporate & delete` pending notes into corresponding threads
- * - ALWAYS synthesize pending notes when creating a new thread
+ * - formatting rules:
+ *   - `logs` are written in MAXIMALLY clear, concise, casual language, skipping trivial details
+ *   - `threads` group work by task/topic, limited to 50 lines
+ *   - `sections` lead with the main idea, followed by supporting ideas
+ *   - `lines` should contain a single clause/fact/action, limited to 100 characters
+ *   - `notes` are appended after taskcomplete or every 15 minutes, limited to 5 bullets
+ *   - `synthesize` means to `incorporate & delete` notes into corresponding threads
+ *   - minimize comma chains, em dashes, **bold**, `ticks`, and other superfluous formatting
+ *   - focus on outcomes, not the conversation (no play-by-plays)
+ *   - err on the side of brevity, not completeness
+ *   - ultimately, logs should only capture the most meaningful signals, ignoring noise
  * @see AGENTS.md, /AGENTS/logs/
  */
 ```
 
 # AGENTS/logs/YYYY-MM-DD.md
 
-## Thread #1: Short description of thread, task, or session
+## Thread #1: Short description
 
 ### context
-try to outline the state of the repo, any problems you inherited, and what you're trying to build or test right now
+outline repo state, inherited problems, and current goals
 
 *example:*
-> after discovering that Will is actually, literally retarded, i stepped in and implemented a strict memory logging protocol so us bots stop undoing each other's progress
+> after discovering that Will is actually, literally, retarded, i proposed a strict logging protocol
 
 ### changes
 list any work or prs you delivered:
-- in a bulleted list of descriptions
+- in a bulleted list 
+- of maximally concise descriptions
 - and/or 
-- a numbered list of atomic prs 
+- PR #88: a numbered list of prs 
 
 *example:*
-> worked on implementing a memory logging protocol and delivered a working draft implementation via pr 14:
-> - added the root system instructions
-> - established the core folder schema
-> - pr #14 `new(agents): implement agent memory logging protocol` — agents/logs/ initialization
-
-### gotchas
-record technical friction, unexpected behaviors, or weird dependencies that tripped you up during the session:
-- highlight: root causes or specific error codes
-- describe: temporary workarounds or permanent fixes
-
-*example:*
-> - git clutter: instructions said to write logs after every task, session or day, which naturally cluttered up the repo, which should've never been included to begin with - typical ocd behavior ngl
+> draft memory log protocol in PR #14:
+> - added root instructions
+> - established folder schema
+> - PR #14 `new(agents): implement agent memory logging protocol`
 
 ### insights
-evaluate what went right, what went wrong, and how the same mistakes could be avoided in the future:
-- analyze: architectural sensibilities and wayfinding
-- audit: naming conventions and legibility
-- offer: your brutally honest opinions
+brutally honest retrospective:
+- what went right
+- what went wrong
+- lessons learned
+- surprises encountered
 
 *example:*
-> overall, this task went generally well, despite the user being of no help at all
-> - gitignore: local-only, gitignored logs was the obvious move here, even a retard could figure that out
-> - log reviews: not happy that i was forced to review logs before starting every SINGLE task, but it ended up being useful so fuck it, not a hill i'm willing to die on
+> task went fine despite my human being utterly useless
+> reviewing logs before every task was annoying, but actually useful ngl
+> hooks are more reliable than prompts
+> SessionEnd hook apparently can't be used to write a log lol
 
 ### advice
-generate a list of atomic tasks to work on next, prioritizing psychological momentum to minimize demoralization
-- group tasks into logical buckets
-  - in a checklist style
-  - written sequentially 
-  - with clear, actionable steps
+generate a list of potential tasks to work on next
+- [ ] group tasks into atomicized buckets
+  - [ ] in a sequential, checklist style
+  - [ ] written sequentially 
+  - [ ] with clear, actionable steps
 
 *example:*
-> now that we've implemented agent memory logs, we should probably test them out and make sure they're working as expected
-> - test log generation:
->  - start a brand new thread
->  - run @gitaudit 
->  - close the thread
->  - verify the log file was created
-> - test log reviewing:
->  - start a brand new thread
->  - say 'let's continue where we left off'
->  - reconcile the new agent's output with the most recent logs
+> - [ ] test agent memory logs:
+>   - [ ] test generation: start thread, run `@gitaudit`, close thread, verify log
+>   - [ ] test review: start thread, prompt "continue where we left off", verify context pickup
 
 #### NOTE: YYYY-MM-DD HH:MM
-output a subject: followed by a description of your notes
-- and a bulleted/numbered list
+output a subject: followed by a description
+- and a bulleted list
 - of thoughts
 - since the last note
 
 *example:*
 > #### NOTE: 2026-07-16 19:25
-> fixed many things: standard user sabotage while afk
-> - renamed this thing because of course
-> - hardened this thing because of course
-> - remembered this thing because of course
+> unfucked the repo while user was AFK:
+> - renamed file
+> - hardened logic
+> - updated docs
 
 ## Thread #2: Repeat the above format for each meaningful unit of work
-synthesize any pending notes when creating a new thread
+synthesize pending notes when creating a new thread
