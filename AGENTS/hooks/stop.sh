@@ -41,7 +41,7 @@ if [ "$ELAPSED_TIME" -gt "$UPDATE_INTERVAL" ]; then
   SYNTHESIZE_TASK="synthesize notes from $TODAYS_LOG \
   (see AGENTS/logs.md)"
 
-  PROMPTS_TASK="rewrite missing prompts to $TODAYS_PROMPTS \
+  PROMPTS_TASK="rewrite missing prompts to $TODAYS_PROMPTS; skip trivial prompts \
   (see AGENTS/prompts.md)"
 
   # checks if ticker is on a synthesize interval
