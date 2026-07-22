@@ -1,8 +1,14 @@
-name: Deploy
-# docs: https://developers.webflow.com/cli/command-reference
-# fetch: the webflow cli @webflow/webflow-cli@2.1.0 explicitly
-# flags: bypass npx install prompt, user input, site selection, and authentication
+#============================================
+# @file deploy.yml - deploys to webflow cloud
+#============================================
+# @description
+# - triggers on push to `production` (or manual dispatch)
+# - concurrency group cancels any in-flight deploy so only one release runs at a time
+# - pins the webflow cli to @webflow/webflow-cli@2.1.0 rather than latest
+# - `--no-input` bypasses the npx install prompt, user input, and site selection
+# @see https://developers.webflow.com/cli/command-reference
 
+name: Deploy
 on:
   push:                                # runs on 'push'
     branches: [production]             # deploys to production branch

@@ -1,3 +1,11 @@
+#==================================
+# @file ci.yml - gates trunk merges
+#==================================
+# @description
+# - runs on push to `main` and on every pr, protecting the integration trunk
+# - 5 sequential gates: tsc, eslint, vitest+coverage, next build, playwright e2e
+# @see /package.json/, /vitest.config.ts/, /playwright.config.ts/
+
 name: CI
 on:
   push:
