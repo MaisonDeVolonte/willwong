@@ -35,14 +35,12 @@ if [ "$ELAPSED_TIME" -gt "$UPDATE_INTERVAL" ]; then
   case "$TICKER_COUNT" in ''|*[!0-9]*) TICKER_COUNT=0 ;; esac
   TICKER_COUNT=$((TICKER_COUNT + 1))
 
-  NOTES_TASK="append a note to the end of $TODAYS_LOG \
-  (see AGENTS/logs.md)"
+  NOTES_TASK="append a note to the end of $TODAYS_LOG (see AGENTS/logs.md)"
 
-  SYNTHESIZE_TASK="synthesize notes from $TODAYS_LOG \
-  (see AGENTS/logs.md)"
+  PROMPTS_TASK="rewrite missing prompts to $TODAYS_PROMPTS (see AGENTS/prompts.md)"
 
-  PROMPTS_TASK="rewrite missing prompts to $TODAYS_PROMPTS; skip trivial prompts \
-  (see AGENTS/prompts.md)"
+  SYNTHESIZE_TASK="synthesize notes from $TODAYS_LOG (see AGENTS/logs.md) \
+  and synthesize prompts from $TODAYS_PROMPTS (see AGENTS/prompts.md)"
 
   # checks if ticker is on a synthesize interval
   if [ "$((TICKER_COUNT % SYNTHESIZE_INTERVAL))" -eq 0 ];

@@ -79,22 +79,28 @@
  * @file AGENTS.md - jsdoc wayfinding header guidelines
  * ====================================================
  * @description
- * - add this comment block to executable files (js, ts, tsx, jsx) not ignored by eslint.config.mjs
- * - update @description and @see tags to reflect the file's contents, purpose, and dependencies
- * - read this block to understand the file's context and boundaries before modifying it
+ * - automatically add this block to executable files (js, ts, tsx, jsx) not ignored by eslint.config.mjs
+ * - can be triggered manually via @wayfind
+ * - continuously update tags to reflect the file's contents, purpose, and dependencies
+ *   - @file: the filename - short, specific title
+ *   - @description: - hyphen delimited list of single clause descriptions, avoid wrapping text
+ *   - @see: comma, separated, list, of, ALL, related, internal, files
  * - write maximally concise, shorthand, lowercase english, favoring legibility over completeness
- * @see /AGENTS/, /.claude/, /.grok/, /eslint.config.mjs
+ * - read this block to understand the file's context and boundaries before modifying it
+ * @see AGENTS/, .claude/, .grok/, eslint.config.mjs
  */
 ```
 
-### Module Order
-- `external` npm/node packages
+### Modules
+- `external` packages (ordered alphabetically)
+- // empty line
+- `webflow` components (ordered by appearance)
 - // empty line
 - `internal` @/always/aliased/first-party/code
-  - `data/files` ordered alphabetically
-  - `config/schemas` ordered alphabetically
-  - `ui/components` ordered alphabetically
-  - `css` ordered by cascade specificity
+  - `data/files`
+  - `config/schemas`
+  - `ui/components`
+  - `css` (ordered by cascade specificity)
 - // empty line
 - `reexported` module bindings
 - // empty line
