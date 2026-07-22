@@ -5,21 +5,22 @@
  * @description
  * - returns a flat path→body map of content/, the same shape pages.ts consumed from the bundle
  * - production (workerd) fetches content/ from the `main` branch via the GitHub API at runtime,
- *   so pushing to main publishes without a deploy; results are cached under the `content` tag
+ *   so pushing to main publishes without a deploy; results are cached under CACHE_CONTENT_TAG
  * - dev/CI (node) reads the local content/ folder from disk for instant, hermetic previews
- * @see /src/cms/pages.ts/, /scripts/content.mjs/
+ * @see /src/cms/pages.ts/, /scripts/content.mjs/, /src/apis/githubFetch.ts/
  */
 
 import { unstable_cache } from "next/cache";
-import { getGithubToken } from "@/utilities/githubToken";
-import { REPO_OWNER, REPO_NAME, REPO_BRANCH } from "@/utilities/githubRepo";
+import { githubFetch, githubHeaders } from "@/apis/githubFetch";
+import {
+  REPO_OWNER,
+  REPO_NAME,
+  REPO_BRANCH,
+  CACHE_CONTENT_TAG,
+  CACHE_CONTENT_REVALIDATE,
+} from "@/utilities/githubRepo";
 
 const CONTENT_PREFIX = "content/";
-
-// Content is tiny/all-text, so we fetch the whole tree and cache it until a publish
-// invalidates the tag. `revalidateTag("content")` (or the timer) refreshes it.
-export const CONTENT_TAG = "content";
-const REVALIDATE_SECONDS = 60;
 
 export type ContentMap = Record<string, string>;
 
@@ -68,29 +69,7 @@ async function readLocalContent(): Promise<ContentMap> {
 /* github source (production): fetch content/ from the main branch             */
 /* -------------------------------------------------------------------------- */
 
-const MAX_ATTEMPTS = 3;
 const FETCH_CONCURRENCY = 12;
-
-type GithubInit = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// Retry transient GitHub failures (429 / 5xx / network) with linear backoff, so a single
-// throttled response doesn't fail the whole content load.
-async function githubFetch(url: string, init: GithubInit): Promise<Response> {
-  let lastError: unknown;
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    try {
-      const res = await fetch(url, init);
-      if (res.ok || (res.status < 500 && res.status !== 429)) return res;
-      lastError = new Error(`${res.status} ${res.statusText}`);
-    } catch (error) {
-      lastError = error;
-    }
-    if (attempt < MAX_ATTEMPTS) await sleep(250 * attempt);
-  }
-  throw lastError instanceof Error ? lastError : new Error(String(lastError));
-}
 
 // Concurrency-limited map so a cold load doesn't burst ~100 requests at GitHub at once
 // (which self-throttles into 503s).
@@ -117,15 +96,15 @@ const getCachedGithubContent = unstable_cache(
     );
     return Object.fromEntries(entries);
   },
-  ["github-content-map"],
-  { tags: [CONTENT_TAG], revalidate: REVALIDATE_SECONDS }
+  ["content-map"],
+  { tags: [CACHE_CONTENT_TAG], revalidate: CACHE_CONTENT_REVALIDATE }
 );
 
 // One recursive tree call lists every file under content/ (paths relative to content/).
 async function listContentPaths(): Promise<string[]> {
   const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${REPO_BRANCH}?recursive=1`;
   const res = await githubFetch(url, {
-    headers: await githubHeaders(),
+    headers: await githubHeaders("cms"),
   });
   if (!res.ok) throw new Error(`GitHub tree fetch failed: ${res.status} ${res.statusText}`);
 
@@ -142,14 +121,4 @@ async function fetchRawFile(rel: string): Promise<string> {
   const res = await githubFetch(url, {});
   if (!res.ok) throw new Error(`GitHub raw fetch failed (${res.status}): ${rel}`);
   return res.text();
-}
-
-async function githubHeaders(): Promise<Record<string, string>> {
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github+json",
-    "User-Agent": `${REPO_NAME}-cms`,
-  };
-  const token = await getGithubToken();
-  if (token) headers.Authorization = `Bearer ${token}`;
-  return headers;
 }

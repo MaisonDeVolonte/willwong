@@ -5,7 +5,7 @@
  * @description
  * - stages only content/, commits it to main, and pushes — no production deploy needed
  * - the site serves content from main at runtime, so this is the whole "publish" step
- * @see /src/cms/source.ts/, /src/app/api/revalidate/route.ts/
+ * @see /src/cms/source.ts/, /src/app/api/webhooks/github/route.ts/
  * @usage npm run publish -- "optional commit message"
  */
 

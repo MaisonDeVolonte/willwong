@@ -1,18 +1,22 @@
 /**
  * ========================================================================================
- * @file route.ts - GitHub push webhook that revalidates cached content on publish
+ * @file route.ts - GitHub push webhook that revalidates caches on publish
  * ========================================================================================
  * @description
- * - verifies the GitHub HMAC signature, then busts the `content` cache tag so a push to
- *   main goes live immediately instead of waiting for the revalidate timer
- * - only revalidates for pushes to main that actually touch content/
- * @see /src/cms/source.ts/, /open-next.config.ts/
+ * - verifies the GitHub HMAC signature, then busts CACHE_STATS_TAG on every push to main
+ *   (repo-wide stats can change on any commit) and CACHE_CONTENT_TAG only when content/
+ *   was touched
+ * - every apis/ and modules/stats/ unstable_cache call shares CACHE_STATS_TAG, so one
+ *   revalidateTag call busts both layers at once — no risk of busting the outer cache
+ *   while an inner one stays stale
+ * - only revalidates for pushes to main; any other ref is skipped entirely
+ * @see /src/cms/source.ts/, /src/modules/stats/, /src/apis/, /src/utilities/githubRepo.ts/, /open-next.config.ts/
  */
 
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { CONTENT_TAG } from "@/cms/source";
+import { CACHE_STATS_TAG, CACHE_CONTENT_TAG } from "@/utilities/githubRepo";
 
 // Shared secret configured on both the GitHub webhook and Webflow Cloud (as a secret).
 async function getWebhookSecret(): Promise<string | undefined> {
@@ -63,8 +67,10 @@ export async function POST(request: Request): Promise<Response> {
     return NextResponse.json({ ok: true, pong: true });
   }
 
-  // Skip pushes that aren't to main or don't touch content/ (best-effort; on parse
-  // failure we revalidate rather than risk serving stale content).
+  // Stats reflect the whole repo (file count, language bytes, size), so any push to main
+  // can change them — those tags always bust. Content only refetches when a commit actually
+  // touched content/ (best-effort; on parse failure, bust everything rather than risk stale data).
+  let touchedContent = true;
   try {
     const payload = JSON.parse(body) as {
       ref?: string;
@@ -78,13 +84,16 @@ export async function POST(request: Request): Promise<Response> {
       ...(c.modified ?? []),
       ...(c.removed ?? []),
     ]);
-    if (touched.length > 0 && !touched.some((f) => f.startsWith("content/"))) {
-      return NextResponse.json({ ok: true, skipped: "no content changes" });
-    }
+    touchedContent = touched.length === 0 || touched.some((f) => f.startsWith("content/"));
   } catch {
-    // Unparseable payload — fall through and revalidate to be safe.
+    // Unparseable payload — fall through and revalidate everything to be safe.
   }
 
-  revalidateTag(CONTENT_TAG);
-  return NextResponse.json({ ok: true, revalidated: CONTENT_TAG });
+  revalidateTag(CACHE_STATS_TAG);
+  if (touchedContent) revalidateTag(CACHE_CONTENT_TAG);
+
+  return NextResponse.json({
+    ok: true,
+    revalidated: touchedContent ? [CACHE_STATS_TAG, CACHE_CONTENT_TAG] : [CACHE_STATS_TAG],
+  });
 }
