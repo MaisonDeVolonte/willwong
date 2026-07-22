@@ -4,10 +4,11 @@
  * ===================================================
  * @description
  * - single source of truth across file-tree-based stats
- * - used in `stats/files.ts`, `scripts/loc.mjs`, `scripts/churn.mjs`, and `stats/languages.ts`
- * - plain .mjs so `apis/githubTree.ts` (runtime) and `scripts/loc.mjs` (build-time) import the same list
- * - note: `githubMeta.ts` and `githubContributors.ts` have no path-level filtering: age, size, commits
- * @see /src/modules/stats/apis/githubTree.ts/, /scripts/loc.mjs/
+ * - used in `stats/files.ts`, `scripts/lines.mjs`, `scripts/churn.mjs`, and `stats/languages.ts`
+ * - plain .mjs so `stats/files.ts`/`languages.ts` (runtime) and `scripts/lines.mjs` (build-time) import the same list
+ * - exports a predicate function that callers use inside .filter() loops
+ * - note: `githubRepos.ts` have no path-level filtering: age, size, commits
+ * @see /src/modules/stats/files.ts/, /src/modules/stats/languages.ts/, /scripts/lines.mjs/
  */
 
 export const DENY_LIST = [

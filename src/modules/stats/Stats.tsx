@@ -1,46 +1,77 @@
 /**
- * ====================================================================
- * @file Stats.tsx - footer stats menu (Project, Code, Languages)
- * ====================================================================
+ * =====================================
+ * @file Stats.tsx - footer stats widget
+ * =====================================
  * @description
- * - server component
- * - fetches all three stat sections and composes them for the footer's `statsSlot`
- * - Project/Code render as plain label/value rows (`Stat`); Languages keeps its icon+bar rows (`Language`)
- * - a section (or an individual row within Project/Code) is omitted entirely rather than
- *   faked when its source has no data yet (e.g. codecov before its first report, or a cold-cache 202)
- * @see /src/modules/stats/aggregate.ts/, /webflow/elements/Stat.tsx/, /webflow/elements/Language.tsx/, /webflow/elements/MenuSection.tsx/
+ * - server component, awaits sources directly, no client fetch/loading state
+ * - grouping under each header is a layout decision, not a shared data shape
+ * - fetches every stat source directly and composes the individual stat sections
+ *   - stats render as plain label/value rows (`Stat`);
+ *   - languages render as icon/label/bar/value rows (`Language`)
+ *   - empty sections or rows are omitted entirely rather than faked (e.g. cold-cache 202)
+ * - outputs a single `Stats` component that Layout.tsx renders
+ * @see /src/modules/stats/languages.ts/, /src/modules/stats/project.ts/, /src/modules/stats/coverage.ts/,
+ *   /src/modules/stats/files.ts/, /src/modules/stats/lines.generated.ts/, /src/modules/stats/churn.generated.ts/,
+ *   /src/modules/stats/commits.generated.ts/, /src/utilities/icons.ts/, /webflow/elements/Stat.tsx/,
+ *   /webflow/elements/Language.tsx/, /webflow/elements/MenuSection.tsx/
  */
 
-import { readIcon } from "@/utilities/icons";
-import { getLanguageStats, getProjectStats, getCodeStats } from "@/modules/stats/aggregate";
-import { MenuSection } from "@webflow/elements/MenuSection";
-import { Language } from "@webflow/elements/Language";
 import { Stat } from "@webflow/elements/Stat";
+import { Language } from "@webflow/elements/Language";
+import { MenuSection } from "@webflow/elements/MenuSection";
 
-function statRows(row: Record<string, string | undefined>) {
-  return Object.entries(row)
-    .filter((entry): entry is [string, string] => entry[1] !== undefined)
-    .map(([label, value]) => <Stat key={label} label={label} value={value} />);
+import { getProjectStats } from "@/modules/stats/project";
+import { getFileStats } from "@/modules/stats/files";
+import { getCoverageStats } from "@/modules/stats/coverage";
+import { getLanguageStats } from "@/modules/stats/languages";
+
+import { LINES_STAT } from "@/modules/stats/lines.generated";
+import { ADDITIONS_STAT, DELETIONS_STAT } from "@/modules/stats/churn.generated";
+import { COMMITS_STAT } from "@/modules/stats/commits.generated";
+
+import { readIcon } from "@/utilities/icons";
+
+// round to nearest thousandth (e.g. 7,295 -> "7.3k"; below 1,000 stays as-is)
+function compactNumber(value: number): string {
+  return Math.abs(value) < 1000 ? value.toLocaleString() : `${(value / 1000).toFixed(1)}k`;
+}
+
+// inputs a set of fields and outputs a list of `Stat` components; skips undefined values
+function mapFieldsToStats(fields: Record<string, string | undefined>): React.ReactNode[] {
+  const statComponents: React.ReactNode[] = [];
+
+  for (const [label, value] of Object.entries(fields)) {
+    if (value === undefined) continue;
+    statComponents.push(<Stat key={label} label={label} value={value} />);
+  }
+
+  return statComponents;
 }
 
 export default async function Stats() {
-  const [languages, project, code] = await Promise.all([
-    getLanguageStats(),
+  const [projectStats, fileStats, coverageStats, languageStats] = await Promise.all([
     getProjectStats(),
-    getCodeStats(),
+    getFileStats(),
+    getCoverageStats(),
+    getLanguageStats(),
   ]);
 
-  const projectRows = statRows({ Age: project.age, Size: project.size, Files: project.files });
-  const codeRows = statRows({
-    Lines: code.lines,
-    Churn: code.churn,
-    Coverage: code.coverage,
-    Commits: code.commits,
+  const projectSection = mapFieldsToStats({
+    Age: projectStats?.age,
+    Size: projectStats?.size,
+    Files: fileStats?.toLocaleString(),
+  });
+
+  const codeSection = mapFieldsToStats({
+    Lines: LINES_STAT.toLocaleString(),
+    Churn: `+${compactNumber(ADDITIONS_STAT)} / -${compactNumber(DELETIONS_STAT)}`,
+    Coverage: coverageStats,
+    Commits: COMMITS_STAT.toLocaleString(),
   });
 
   // extensions match src/assets/icons/*.svg; falls back to readIcon's "fallback" icon
-  const languageRows = await Promise.all(
-    languages.map(async (stat) => {
+  const languageSection = await Promise.all(
+    languageStats.map(async (stat) => {
       const svg = await readIcon(stat.ext);
       return (
         <Language
@@ -54,13 +85,13 @@ export default async function Stats() {
     }),
   );
 
-  if (projectRows.length === 0 && codeRows.length === 0 && languageRows.length === 0) return null;
+  if (projectSection.length === 0 && codeSection.length === 0 && languageSection.length === 0) return null;
 
   return (
     <>
-      {projectRows.length > 0 && <MenuSection label="Project" slot={projectRows} />}
-      {codeRows.length > 0 && <MenuSection label="Code" slot={codeRows} />}
-      {languageRows.length > 0 && <MenuSection label="Languages" slot={languageRows} />}
+      {projectSection.length > 0 && <MenuSection label="Project" slot={projectSection} />}
+      {codeSection.length > 0 && <MenuSection label="Code" slot={codeSection} />}
+      {languageSection.length > 0 && <MenuSection label="Languages" slot={languageSection} />}
     </>
   );
 }
