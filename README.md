@@ -45,14 +45,15 @@
 **Version Tracking:**
 - `package.json` uses a prebuild hook (`npm run generate`)
 - `scripts/version.mjs` checks .git history, counts commits since last tag, and grabs commit hash
-- `src/meta/config/version.generated.ts` stores the version information, plus a `TOTAL_COMMIT_COUNT` that never resets (the tag-relative `COMMIT_COUNT` does, on every tag) — the footer's Commits stat needs the true total
+- `src/meta/config/version.generated.ts` stores the version information (`COMMIT_HASH`, tag-relative `COMMIT_COUNT`)
+- `scripts/commits.mjs` counts the repo's true total commits (never resets, unlike `COMMIT_COUNT`) for the footer's Commits stat, stored in `src/modules/stats/commits.generated.ts`
 - `next build` bakes the version information into the static html/js bundle
 
 **Coverage:**
 - `npm run test:unit:coverage` runs vitest with the v8 provider (`vitest.config.ts`)
 - `codecov/codecov-action` uploads `coverage/lcov.info` on every ci run, keyed off `CODECOV_API_TOKEN`
 - `codecov.io` exposes the latest total via a public read api, no auth required at runtime
-- `src/modules/stats/apis/codecov.ts` fetches it for the footer's Coverage stat
+- `src/apis/codecov.ts` fetches it for the footer's Coverage stat
 
 **Configuration:**
 - `wrangler.json`: `NEXT_INC_CACHE_R2_BUCKET` (isr page cache) and `NEXT_TAG_CACHE_KV` (cache tagging)
@@ -88,7 +89,7 @@
 **Notes:**
 - `npm run dev` and `ci` fetches content files from local `fs` at runtime (`CONTENT_SOURCE=local`)
 - `npm run publish` commits `content/` and pushes to `main`
-- `github push webhook` hits `api/revalidate/` to bust cache tags; falls back to 60s timer
+- `github push webhook` hits `api/webhooks/github/` to bust the content cache tag; falls back to 60s timer
 
 ## Stack
 
@@ -126,12 +127,12 @@
 
 | | |
 |---|---|
-| [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree, files, and language stats |
-| [GitHub Repos](https://docs.github.com/en/rest/repos/repos) | project age and size stats |
-| [GitHub Raw Content](https://raw.githubusercontent.com) | GIT-as-cms |
-| [GitHub Webhooks](https://docs.github.com/en/webhooks) | cache busting |
-| [Codecov API](https://docs.codecov.com/reference/overview) | coverage stat |
 | [Webflow API](https://developers.webflow.com/data/reference) | deploy |
+| [GitHub Raw Content](https://raw.githubusercontent.com) | git-as-cms |
+| [GitHub Webhooks](https://docs.github.com/en/webhooks) | cache busting |
+| [GitHub Repos](https://docs.github.com/en/rest/repos/repos) | project metadata |
+| [GitHub Git Trees](https://docs.github.com/en/rest/git/trees) | nav tree and stats |
+| [Codecov API](https://docs.codecov.com/reference/overview) | coverage stat |
 
 ## Commands
 
@@ -148,61 +149,67 @@
 ## Structure
 
 ```
-AGENTS/                         # agent automations and workflows
+AGENTS/                       # agent automations and workflows
  ├── git/
  │    ├── [@trigger].md
  │    └── [@trigger].sh
+ ├── guides/
  ├── hooks/
  ├── logs/
  ├── plans/
  ├── prompts/
  └── [docs].md
 
-content/                        # git-as-cms content source
+content/                      # git-as-cms content source
  ├── [folder]/
  └── [page].ext
 
-scripts/                        # node.js scripts (generated files are gitignored)
- ├── churn.mjs                  # sums added/deleted lines across git history (src/modules/stats/churn.generated.ts)
- ├── content.mjs                # bundles @mirrors and icons (src/cms/content.generated.ts)
- ├── loc.mjs                    # counts lines of code (src/modules/stats/loc.generated.ts)
- ├── publish.mjs                # commits /content/ and pushes to main (npm run publish)
- └── version.mjs                # injects build data (src/meta/config/version.generated.ts)
+scripts/                      # node.js scripts (generated files are gitignored)
+ ├── churn.mjs                # sums added/deleted lines (src/modules/stats/churn.generated.ts)
+ ├── commits.mjs              # counts total commits (src/modules/stats/commits.generated.ts)
+ ├── content.mjs              # bundles @mirrors and icons (src/cms/content.generated.ts)
+ ├── lines.mjs                # counts lines of code (src/modules/stats/lines.generated.ts)
+ ├── publish.mjs              # commits /content/ and pushes to main (npm run publish)
+ └── version.mjs              # injects build data (src/meta/config/version.generated.ts)
 
 src/
- ├── app/                       # routing and page definitions
+ ├── apis/                    # external api fetchers — the network call itself, cached by the caller
+ │    ├── [apiName].ts
+ │    └── [apiHelper].ts
+ │
+ ├── app/                     # routing and page definitions
  │    ├── [...slug]/
- │    ├── api/revalidate/       # github push webhook (cache busting)
+ │    ├── api/webhooks/       # webhook endpoints (github push, etc)
  │    ├── custom.css
  │    ├── layout.tsx
  │    └── page.tsx
  │
- ├── assets/                    # raw static files
+ ├── assets/                  # raw static files
  │    └── icons/
  │
- ├── cms/                       # content engine (runtime source + routing)
+ ├── cms/                     # content engine (runtime source + routing)
  │    ├── directives.ts
  │    ├── folders.ts
  │    ├── pages.ts
  │    ├── slugs.ts
- │    └── source.ts             # runtime content (prod: github; dev: fs)
+ │    └── source.ts           # runtime content (prod: github; dev: fs)
  │
- ├── core/                      # behavior, state, and event handling
+ ├── core/                    # behavior, state, and event handling
  │    └── controllers/
  │
- ├── meta/                      # build-time meta/structured data
+ ├── meta/                    # build-time meta/structured data
  │    ├── config/
  │    └── schema/
  │
- ├── modules/                   # concrete, feature-scoped components
+ ├── modules/                 # concrete, feature-scoped components
  │    ├── nav/
  │    ├── stage/
  │    └── stats/
  │
- └── utilities/                 # utility functions and helpers
+ └── utilities/               # generic helpers/config — inputs to a call, never the call itself
       └── [utilityName].ts
 
-webflow/                        # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
+webflow/                      # [DO NOT EDIT - OVERWRITTEN ON EXPORT]
  ├── [components]/
  ├── css/
  └── webflow_modules
