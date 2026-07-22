@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/meta/config/site";
 import { versionText, versionLink, hashText, hashLink } from "@/meta/config/version";
 
-// Webflow Components
+// Webflow
 import { DevLinkProvider } from "@webflow/DevLinkProvider";
 import { Header } from "@webflow/interface/Header";
 import { Footer } from "@webflow/interface/Footer";
@@ -25,12 +25,12 @@ import { Test } from "@webflow/panels/Test";
 import Panel from "@/modules/nav/Panel";
 import States from "@/modules/nav/states";
 
-// Stats
-import Stats from "@/modules/stats/Stats";
-
 // Controllers
 import Panels from "@/core/controllers/panels";
 import Links from "@/core/controllers/links";
+
+// Widgets
+import Stats from "@/modules/stats/Stats";
 
 // Webflow styles
 import "@webflow/css/normalize.css";
@@ -89,15 +89,15 @@ export default function RootLayout({
                     }
                   }
 
-                  // Initial styling (Folders & Active Links)
+                  // Initial styling
                   let css = '';
 
-                  // 1. Active Link State
+                  // Active links
                   const currentPath = window.location.pathname;
                   const activePath = currentPath === "/README.md" ? "/" : currentPath;
                   css += '.nav__link[href="' + activePath + '"], .nav__link[href="' + activePath + '/"] { color: var(--text-active) !important; } ';
 
-                  // 2. Folder states
+                  // Folder states
                   if (state.openFolders && state.openFolders.length > 0) {
                     for (const key of state.openFolders) {
                       css += '.nav__list[data-folder-key="' + key + '"] { height: auto !important; max-height: none !important; } ';
