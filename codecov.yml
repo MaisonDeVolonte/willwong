@@ -1,5 +1,12 @@
-# codecov.yml - patch/project coverage checks report a number but never fail a PR
-# @see AGENTS/plans/2026-07-19-coverage.md, .github/workflows/ci.yml
+#============================================
+# @file codecov.yml - test coverage reporting
+#============================================
+# @description
+# - project and patch status checks stay `informational`
+# - coverage dips surface but do not block merges
+# - pr comments disabled; the codecov check itself is the signal
+# @see .github/workflows/ci.yml/, src/modules/stats/coverage.ts
+
 coverage:
   status:
     project:
