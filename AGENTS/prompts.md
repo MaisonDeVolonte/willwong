@@ -7,6 +7,7 @@
  * - gitignored, local-only, never committed, one log file per day
  * - `prompts` are re-written in maximally clear, concise and casual language
  * - skip trivial prompts, acknowledgments, one-word replies, wdyt, etc 
+ * - `synthesize` means to `rewrite or delete` prompts that have no relavance or educational value
  * @see AGENTS.md, /AGENTS/prompts/
  */
 ```
@@ -14,7 +15,8 @@
 # AGENTS/prompts/YYYY-MM-DD.md
 
 ## YYYY-MM-DD HH:MM
-output the rewritten, maximally concise prompt only, never the original
+- output the rewritten, maximally concise prompt only, never the original, skipping trivialities entirely
+- synthesize prompts down to only the most relevant, aiming for educational value
 
 *original user submitted prompts:*
 > ## 2026-07-17 11:04

@@ -28,10 +28,10 @@ what is broken, what are the limiting factors, and what does success look like?
 what is the general strategy and what are the atomic steps to ship it?
 
 *example:*
-> 1. `combine` this with that to make it lighter
-> 2. `separate` this from that to make it easier
-> 3. `refactor` this into that to make it simpler
-> 4. `test` that with this to make it resilient
+> [ ] `combine` this with that to make it lighter
+> [ ] `separate` this from that to make it easier
+> [ ] `refactor` this into that to make it simpler
+> [ ] `test` that with this to make it resilient
 
 ## 3. Risks & Gotchas
 what could break, what hidden edge cases exist, and how do we avoid them?
