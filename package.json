@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "generate": "node scripts/version.mjs && node scripts/content.mjs && node scripts/loc.mjs && node scripts/churn.mjs",
+    "generate": "node scripts/content.mjs && node scripts/version.mjs && node scripts/commits.mjs && node scripts/lines.mjs && node scripts/churn.mjs",
     "predev": "npm run generate",
     "dev": "next dev -p 3001",
     "prebuild": "npm run generate",

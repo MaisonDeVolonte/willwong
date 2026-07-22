@@ -1,14 +1,11 @@
 /**
- * ========================================================================================
- * @file loc.mjs - build-time script that counts lines of code
- * ========================================================================================
+ * ====================================================
+ * @file lines.mjs - counts lines of code at build time
+ * ====================================================
  * @description
  * - github's api has no LOC endpoint, so this counts locally instead
- * - `cloc` does the counting (code only, comments/blanks excluded); this script only
- *   decides which files are in scope, using the same exclusions as the runtime github-stats
- *   sources — cloc's own `--exclude-dir`/`--vcs` flags have different matching semantics and
- *   would create a second, slightly-divergent definition of "which files count"
- * @see /src/modules/stats/exclusions.mjs/, /src/modules/stats/aggregate.ts/
+ * - `cloc` does the counting (code only, comments/blanks excluded)
+ * @see /src/modules/stats/exclusions.mjs/, /src/modules/stats/Stats.tsx/
  */
 
 import { execSync } from "node:child_process";
@@ -16,6 +13,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { tmpdir } from "node:os";
 import path from "node:path";
+
 import { isExcluded } from "../src/modules/stats/exclusions.mjs";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
@@ -29,17 +27,17 @@ const listFile = path.join(tmpDir, "files.txt");
 writeFileSync(listFile, included.join("\n"));
 
 let lines = 0;
+
 try {
   const output = execSync(`"${CLOC_BIN}" --json --list-file="${listFile}"`, { cwd: ROOT }).toString();
   lines = JSON.parse(output).SUM?.code ?? 0;
-} finally {
-  rmSync(tmpDir, { recursive: true, force: true });
 }
+finally { rmSync(tmpDir, { recursive: true, force: true }); }
 
 writeFileSync(
-  path.join(ROOT, "src/modules/stats/loc.generated.ts"),
-  `// generated at build by scripts/loc.mjs — do not edit, do not commit\n` +
-    `export const LINES_OF_CODE = ${lines};\n`,
+  path.join(ROOT, "src/modules/stats/lines.generated.ts"),
+  `// generated at build by scripts/lines.mjs — do not edit, do not commit\n` +
+    `export const LINES_STAT = ${lines};\n`,
 );
 
-console.log(`loc.generated.ts -> lines=${lines} (${included.length} files scanned)`);
+console.log(`lines.generated.ts -> lines=${lines} (${included.length} files scanned)`);
