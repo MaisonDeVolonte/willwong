@@ -7,9 +7,9 @@
  * - raises unauthenticated GitHub API rate limits
  * - injected as a Webflow Cloud runtime secret
  * - absent at build where unauthenticated is fine
- * - used in `src/cms/source.ts`, `src/modules/stats/apis/githubMeta.ts`, and `src/modules/stats/apis/githubTree.ts`
+ * - used in `src/apis/githubFetch.ts`, the single shared caller for every GitHub request
  * - consumes `GITHUB_TOKEN` set as a CI secret in `deploy.yml`
- * @see /src/cms/source.ts/, /src/modules/stats/
+ * @see /src/apis/githubFetch.ts/
  */
 
 export async function getGithubToken(): Promise<string | undefined> {
