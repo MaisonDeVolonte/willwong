@@ -1,59 +1,9 @@
-{"permissions": {
-  "allow": [
-    "Edit(AGENTS/logs/**)",
-    "Write(AGENTS/logs/**)",
-    "Edit(AGENTS/prompts/**)",
-    "Write(AGENTS/prompts/**)",
-    "Edit(AGENTS/plans/**)",
-    "Write(AGENTS/plans/**)",
-    "Edit(AGENTS/guides/**)",
-    "Write(AGENTS/guides/**)"
-  ],
-  "deny": [
-    "Read(.env)",
-    "Read(.env.*)",
-    "Edit(.env)",
-    "Edit(.env.*)",
-    "Edit(webflow/**)",
-    "Write(webflow/**)"
-  ]
-},
-"hooks": {
-  "SessionStart": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/sessionstart.sh", "timeout": 10 }] }],
-  "SessionEnd": [],
-  "Setup": [],
-
-  "UserPromptSubmit": [],
-  "UserPromptExpansion": [],
-  "Stop": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/stop.sh", "timeout": 10 }] }],
-  "StopFailure": [],
-  "Notification": [],
-  "MessageDisplay": [],
-
-  "PermissionRequest": [],
-  "PermissionDenied": [],
-  "PreToolUse": [],
-  "PostToolUse": [{ "matcher": "Write|Edit", "hooks": [{ "type": "command", "command": "AGENTS/hooks/posttooluse.sh", "timeout": 30 }] }],
-  "PostToolUseFailure": [],
-  "PostToolBatch": [],
-
-  "SubagentStart": [],
-  "SubagentStop": [],
-
-  "PreCompact": [],
-  "PostCompact": [],
-
-  "TaskCreated": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/taskcreated.sh", "timeout": 5 }] }],
-  "TaskCompleted": [{ "hooks": [{ "type": "command", "command": "AGENTS/hooks/taskcompleted.sh", "timeout": 10 }] }],
-
-  "Elicitation": [],
-  "ElicitationResult": [],
-  "TeammateIdle": [],
-
-  "ConfigChange": [],
-  "WorktreeCreate": [],
-  "WorktreeRemove": [],
-  "InstructionsLoaded": [],
-  "CwdChanged": [],
-  "FileChanged": []
-}}
+{
+  "permissions": {
+    "deny": [
+      "Read(.env)", "Read(.env.*)",
+      "Edit(.env)", "Edit(.env.*)",
+      "Edit(webflow/**)", "Write(webflow/**)"
+    ]
+  }
+}
