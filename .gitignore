@@ -60,8 +60,6 @@ src/modules/stats/churn.generated.ts
 src/modules/stats/commits.generated.ts
 src/cms/content.generated.ts
 
-# agents (local-only)
-AGENTS/logs/
-AGENTS/plans/
-AGENTS/prompts/
-AGENTS/guides/
+# agents (symlinked into the operator repo, local-only)
+AGENTS
+AGENTS.md
