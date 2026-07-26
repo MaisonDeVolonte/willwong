@@ -10,7 +10,7 @@
 - inspired by Paul Hammant, Martin Fowler, Dan Lines, Gergely Orosz, et al
 
 ```text
-[atomic prs → ci checks → trunk merge] --> [production release → deploy → willwong.me]
+[atomic prs → ci checks → trunk merge] --> [main:production → deploy → willwong.me]
 ```
 
 **Summary**
@@ -149,16 +149,7 @@
 ## Structure
 
 ```
-AGENTS/                       # agent automations and workflows
- ├── git/
- │    ├── [@trigger].md
- │    └── [@trigger].sh
- ├── guides/
- ├── hooks/
- ├── logs/
- ├── plans/
- ├── prompts/
- └── [docs].md
+AGENTS/                       # [@MaisonDeVolonte/operator](https://github.com/MaisonDeVolonte/operator)
 
 content/                      # git-as-cms content source
  ├── [folder]/

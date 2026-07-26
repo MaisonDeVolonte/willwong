@@ -5,7 +5,7 @@
  * @description
  * - defines project-wide ignores for generated or external code (e.g. webflow, .wrangler)
  * - enforces mandatory jsdoc wayfinding headers on all executable files
- * @see /AGENTS.md/, /package.json/
+ * @see package.json
  */
 
 import { dirname } from "path";
