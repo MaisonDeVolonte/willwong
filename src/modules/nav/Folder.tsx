@@ -5,7 +5,7 @@
  * @description
  * - renders the expandable folder grouping in the navigation sidebar
  * - wraps child nodes in a data-attributed container for the state controller
- * @see /src/modules/nav/Panel.tsx/, /src/modules/nav/states.tsx/
+ * @see src/modules/nav/Panel.tsx, src/modules/nav/states.tsx
  */
 
 type FolderProps = {

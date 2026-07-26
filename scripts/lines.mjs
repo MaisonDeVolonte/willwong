@@ -5,7 +5,7 @@
  * @description
  * - github's api has no LOC endpoint, so this counts locally instead
  * - `cloc` does the counting (code only, comments/blanks excluded)
- * @see /src/modules/stats/exclusions.mjs/, /src/modules/stats/Stats.tsx/
+ * @see src/modules/stats/exclusions.mjs, src/modules/stats/Stats.tsx
  */
 
 import { execSync } from "node:child_process";

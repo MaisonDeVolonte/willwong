@@ -9,7 +9,7 @@
  * - getLanguageStats
  *   - fails softly, rounds to 1 decimal, drops anything under 1%, and sorts descending
  *   - outputs a plain array (ext, bytes, and percent)
- * @see /src/apis/githubGitTrees.ts/, /src/modules/stats/Stats.tsx/
+ * @see src/apis/githubGitTrees.ts, src/modules/stats/Stats.tsx
  */
 
 import { unstable_cache } from "next/cache";

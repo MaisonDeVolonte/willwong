@@ -6,7 +6,7 @@
  * - silently fetches RSC payloads for all navigation routes into the Next.js router cache
  * - uses requestIdleCallback and sequential queueing to avoid blocking the main thread
  * - aborts if the user has data saver enabled or is on a slow connection
- * @see /src/modules/nav/Panel.tsx/
+ * @see src/modules/nav/Panel.tsx
  */
 
 "use client";

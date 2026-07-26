@@ -5,7 +5,7 @@
  * @description
  * - configures testing directories, test execution, and html reporters
  * - automatically spins up a local dev server on port 3001 before running test suites
- * @see /tests/, /package.json/
+ * @see tests/, package.json
  */
 
 import { defineConfig, devices } from '@playwright/test';

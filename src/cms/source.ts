@@ -7,7 +7,7 @@
  * - production (workerd) fetches content/ from the `main` branch via the GitHub API at runtime,
  *   so pushing to main publishes without a deploy; results are cached under CACHE_CONTENT_TAG
  * - dev/CI (node) reads the local content/ folder from disk for instant, hermetic previews
- * @see /src/cms/pages.ts/, /scripts/content.mjs/, /src/apis/githubFetch.ts/
+ * @see src/cms/pages.ts, scripts/content.mjs, src/apis/githubFetch.ts
  */
 
 import { unstable_cache } from "next/cache";

@@ -5,7 +5,7 @@
  * @description
  * - handles persistence of ui configuration (e.g. open folders, panel widths)
  * - safely wraps api calls in try/catch to prevent crashes in strict privacy modes
- * @see /src/modules/nav/states.tsx/, /src/core/controllers/panels.tsx/
+ * @see src/modules/nav/states.tsx, src/core/controllers/panels.tsx
  */
 
 const STORAGE_KEY = "app-state";

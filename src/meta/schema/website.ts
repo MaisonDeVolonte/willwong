@@ -5,7 +5,7 @@
  * @description
  * - defines the global website entity for seo
  * - links publisher metadata to the root person entity
- * @see /src/meta/schema/Schema.tsx/, /src/meta/schema/person.ts/
+ * @see src/meta/schema/Schema.tsx, src/meta/schema/person.ts
  */
 
 import { PERSON_ID } from "./person";

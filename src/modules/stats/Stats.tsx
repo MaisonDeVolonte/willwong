@@ -10,10 +10,10 @@
  *   - languages render as icon/label/bar/value rows (`Language`)
  *   - empty sections or rows are omitted entirely rather than faked (e.g. cold-cache 202)
  * - outputs a single `Stats` component that Layout.tsx renders
- * @see /src/modules/stats/languages.ts/, /src/modules/stats/project.ts/, /src/modules/stats/coverage.ts/,
- *   /src/modules/stats/files.ts/, /src/modules/stats/lines.generated.ts/, /src/modules/stats/churn.generated.ts/,
- *   /src/modules/stats/commits.generated.ts/, /src/utilities/icons.ts/, /webflow/elements/Stat.tsx/,
- *   /webflow/elements/Language.tsx/, /webflow/elements/MenuSection.tsx/
+ * @see src/modules/stats/languages.ts, src/modules/stats/project.ts, src/modules/stats/coverage.ts,
+ *   src/modules/stats/files.ts, src/modules/stats/lines.generated.ts, src/modules/stats/churn.generated.ts,
+ *   src/modules/stats/commits.generated.ts, src/utilities/icons.ts, webflow/elements/Stat.tsx,
+ *   webflow/elements/Language.tsx, webflow/elements/MenuSection.tsx
  */
 
 import { Stat } from "@webflow/elements/Stat";

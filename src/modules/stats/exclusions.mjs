@@ -8,7 +8,7 @@
  * - plain .mjs so `stats/files.ts`/`languages.ts` (runtime) and `scripts/lines.mjs` (build-time) import the same list
  * - exports a predicate function that callers use inside .filter() loops
  * - note: `githubRepos.ts` have no path-level filtering: age, size, commits
- * @see /src/modules/stats/files.ts/, /src/modules/stats/languages.ts/, /scripts/lines.mjs/
+ * @see src/modules/stats/files.ts, src/modules/stats/languages.ts, scripts/lines.mjs
  */
 
 export const DENY_LIST = [

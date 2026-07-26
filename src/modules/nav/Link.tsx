@@ -6,7 +6,7 @@
  * - renders individual file links within the sidebar navigation tree
  * - dynamically sets indentation levels and icon colors based on file metadata
  * - uses useTransition to display a loading spinner while fetching the RSC payload
- * @see /src/modules/nav/Panel.tsx/
+ * @see src/modules/nav/Panel.tsx
  */
 
 "use client";

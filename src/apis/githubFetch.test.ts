@@ -8,7 +8,7 @@
  * - covers githubHeaders: base headers, per-agent User-Agent, and the optional token branch
  * - mocks global fetch and @/utilities/githubToken; no real network calls, no fake timers
  *   (real 250/500ms backoff delays are cheap enough to just let run)
- * @see /src/apis/githubFetch.ts/, /vitest.config.ts/
+ * @see src/apis/githubFetch.ts, vitest.config.ts
  */
 
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";

@@ -5,7 +5,7 @@
  * @description
  * - serves as the master source of truth for the author's identity and social links
  * - all other schemas (website, article, profile) reference this entity's id
- * @see /src/meta/schema/Schema.tsx/
+ * @see src/meta/schema/Schema.tsx
  */
 
 export const PERSON_ID = "https://willwong.me/#person";

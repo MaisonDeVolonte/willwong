@@ -6,7 +6,7 @@
  * - walks the git-tree and counts total files
  * - skips non-files, empty files, and excluded files
  * - cached under the shared CACHE_STATS_TAG, fails soft (undefined) rather than throwing
- * @see /src/apis/githubGitTrees.ts/, /src/modules/stats/Stats.tsx/
+ * @see src/apis/githubGitTrees.ts, src/modules/stats/Stats.tsx
  */
 
 import { unstable_cache } from "next/cache";

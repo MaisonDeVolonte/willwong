@@ -10,7 +10,7 @@
  *   revalidateTag call busts both layers at once — no risk of busting the outer cache
  *   while an inner one stays stale
  * - only revalidates for pushes to main; any other ref is skipped entirely
- * @see /src/cms/source.ts/, /src/modules/stats/, /src/apis/, /src/utilities/githubRepo.ts/, /open-next.config.ts/
+ * @see src/cms/source.ts, src/modules/stats/, src/apis/, src/utilities/githubRepo.ts, open-next.config.ts
  */
 
 import { NextResponse } from "next/server";

@@ -7,7 +7,7 @@
  * - normalizes github's raw repo json into RepoMeta ({ createdAt, sizeKb })
  * - repo-wide data with no path-level filtering
  * - `exclusions.mjs` cannot apply here like it does for stats/languages.ts and stats/files.ts
- * @see /src/modules/stats/project.ts/, /src/apis/githubFetch.ts/
+ * @see src/modules/stats/project.ts, src/apis/githubFetch.ts
  */
 
 import { unstable_cache } from "next/cache";

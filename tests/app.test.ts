@@ -18,7 +18,7 @@
  *   - toBeVisible(): checks dom node, display:none, visibility:hidden, opacity:0, width/height:0, etc
  *   - toHaveCSS(): checks specific properties such as display, color, etc
  *   - toHaveScreenshot(): captures a screenshot and compares against provided baseline image
- * @see /playwright.config.ts, /.github/workflows/ci.yml, /tests/report/index.html, /tests/results/.last-run.json
+ * @see playwright.config.ts, .github/workflows/ci.yml, tests/report/index.html, tests/results/.last-run.json
  */
 
 import { test, expect } from '@playwright/test';

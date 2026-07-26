@@ -6,7 +6,7 @@
  * - covers the three pure parsers in directives.ts: parseMetadata, processExternal, processMirror
  * - asserts directive detection across bare, `//`, `/* *\/`, `<!-- -->`, and `#` comment styles
  * - runs under vitest (`npm run test:unit`); no dom, network, or next runtime required
- * @see /src/cms/directives.ts/, /vitest.config.ts/
+ * @see src/cms/directives.ts, vitest.config.ts
  */
 
 import { describe, test, expect } from "vitest";

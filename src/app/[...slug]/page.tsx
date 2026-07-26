@@ -5,7 +5,7 @@
  * @description
  * - resolves slugs dynamically from the in-memory content index
  * - handles 404s, generates dynamic metadata, and renders the canvas container
- * @see /src/cms/slugs.ts/, /src/app/page.tsx/
+ * @see src/cms/slugs.ts, src/app/page.tsx
  */
 
 import type { Metadata } from "next";

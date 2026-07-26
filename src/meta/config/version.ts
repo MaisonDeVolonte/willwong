@@ -5,7 +5,7 @@
  * @description
  * - imports the generated build-time script data and formats it into ui-ready strings
  * - allows footer to display the active commit hash without fs access
- * @see /scripts/version.mjs/
+ * @see scripts/version.mjs
  */
 
 import pkg from "@/../package.json";

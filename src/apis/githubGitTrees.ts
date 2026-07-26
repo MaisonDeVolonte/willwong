@@ -6,7 +6,7 @@
  * - single source for anything derived from the file tree (language bytes, file count)
  * - normalizes github's raw tree json into a flat TreeNode[] ({ path, type, size? })
  * - result is cached and revalidated every hour; subsequent callers get cached result
- * @see /src/modules/stats/languages.ts/, /src/modules/stats/files.ts/, /src/apis/githubFetch.ts/
+ * @see src/modules/stats/languages.ts, src/modules/stats/files.ts, src/apis/githubFetch.ts
  */
 
 import { unstable_cache } from "next/cache";

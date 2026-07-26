@@ -5,7 +5,7 @@
  * @description
  * - dynamically builds breadcrumb trails based on internal next.js path segments
  * - serializes data into ld+json for seo optimization
- * @see /src/meta/schema/Schema.tsx/
+ * @see src/meta/schema/Schema.tsx
  */
 
 export interface BreadcrumbItem {

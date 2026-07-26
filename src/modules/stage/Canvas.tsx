@@ -5,7 +5,7 @@
  * @description
  * - renders the main document body, syntax highlighting, and file tabs
  * - handles multi-file layouts by rendering tab links for sibling page segments
- * @see /src/app/[...slug]/page.tsx/, /src/modules/stage/Refractor.tsx/
+ * @see src/app/[...slug]/page.tsx, src/modules/stage/Refractor.tsx
  */
 
 import type { ContentPage } from "@/cms/pages";

@@ -7,7 +7,7 @@
  * - this walks local git history instead of counting every line ever touched
  * - production is covered by deploy.yml which fetches full git history
  * - local and ci.yml undercounts due to shallow checkout
- * @see /src/modules/stats/exclusions.mjs/, /scripts/commits.mjs/, /scripts/lines.mjs/
+ * @see src/modules/stats/exclusions.mjs, scripts/commits.mjs, scripts/lines.mjs
  */
 
 import { execSync } from "node:child_process";

@@ -5,7 +5,7 @@
  * @description
  * - cloudflare workers have no filesystem access, so content must be bundled at build time
  * - recursively walks /content/ and exports a static typescript object for runtime querying
- * @see /src/cms/pages.ts/, /package.json/
+ * @see src/cms/pages.ts, package.json
  */
 
 import { readdir, readFile } from "node:fs/promises";

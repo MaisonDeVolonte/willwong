@@ -6,7 +6,7 @@
  * - no auth needed for a public repo — one GET covers it
  * - `head_commit.totals` reflects the latest codecov report
  * - note: the repo-level `totals` field lags, use branch-level
- * @see /src/modules/stats/coverage.ts/
+ * @see src/modules/stats/coverage.ts
  */
 
 import { unstable_cache } from "next/cache";
