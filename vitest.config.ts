@@ -1,12 +1,12 @@
 /**
- * ========================================================================================
- * @file vitest.config.ts - vitest unit testing configuration
- * ========================================================================================
+ * =====================================
+ * @file vitest.config.ts - unit testing
+ * =====================================
  * @description
  * - scopes unit tests to co-located `src/**` specs so playwright keeps sole ownership of `/tests/`
  * - resolves the `@/` and `@webflow/` path aliases so tests import modules exactly like the app does
  * - runs in a plain node environment; unit targets are pure functions with no dom or next runtime
- * @see /package.json/, /tsconfig.json/, /src/cms/directives.test.ts/
+ * @see package.json, tsconfig.json, .github/workflows/ci.yml
  */
 
 import { dirname, resolve } from "node:path";
@@ -34,7 +34,6 @@ export default defineConfig({
       reporter: ["text", "lcov"],
       include: ["src/**/*.{ts,tsx}"],
       exclude: ["src/**/*.test.ts", "**/*.generated.ts"],
-      all: true,
     },
   },
 });
