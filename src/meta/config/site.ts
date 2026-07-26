@@ -5,7 +5,7 @@
  * @description
  * - provides centralized string constants for seo, titles, and basic structured data
  * - ensures consistency across metadata rendering
- * @see /src/app/layout.tsx/
+ * @see src/app/layout.tsx
  */
 
 export const siteConfig = {

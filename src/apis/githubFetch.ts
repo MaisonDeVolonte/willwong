@@ -6,7 +6,7 @@
  * - retries transient GitHub failures (429/5xx/network) with linear backoff
  * - builds the Accept/User-Agent/Authorization header set every GitHub caller needs
  * - agent labels which caller is asking, so GitHub's request logs can tell them apart
- * @see /src/apis/githubGitTrees.ts/, /src/apis/githubRepos.ts/, /src/cms/source.ts/
+ * @see src/apis/githubGitTrees.ts, src/apis/githubRepos.ts, src/cms/source.ts
  */
 
 import { getGithubToken } from "@/utilities/githubToken";

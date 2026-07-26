@@ -6,7 +6,7 @@
  * - production is covered by deploy.yml which fetches full git history
  * - local and ci.yml undercounts due to shallow checkout
  * - fails soft to 0 rather than throwing
- * @see /src/modules/stats/Stats.tsx/
+ * @see src/modules/stats/Stats.tsx
  */
 
 import { execSync } from "node:child_process";

@@ -5,7 +5,7 @@
  * @description
  * - renders the primary canvas container with hardcoded homepage metadata
  * - pulls raw content for the index view directly from the bundled cms
- * @see /src/app/[...slug]/page.tsx/, /src/app/layout.tsx/
+ * @see src/app/[...slug]/page.tsx, src/app/layout.tsx
  */
 
 import type { Metadata } from "next";

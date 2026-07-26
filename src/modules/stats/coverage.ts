@@ -5,7 +5,7 @@
  * @description
  * - formats codecov.ts raw coverage number into a display string
  * - fails soft (undefined) rather than throwing
- * @see src/apis/codecov.ts/, codecov.yml, src/modules/stats/Stats.tsx/
+ * @see src/apis/codecov.ts, codecov.yml, src/modules/stats/Stats.tsx
  */
 
 import { unstable_cache } from "next/cache";

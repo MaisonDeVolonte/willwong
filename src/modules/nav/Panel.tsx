@@ -5,7 +5,7 @@
  * @description
  * - fetches all parsed cms pages and transforms them into a nested visual folder tree
  * - recursively walks the tree to render Folder and Link ui components
- * @see /src/cms/folders.ts/, /src/app/layout.tsx/
+ * @see src/cms/folders.ts, src/app/layout.tsx
  */
 
 import { getAllPages } from "@/cms/pages";

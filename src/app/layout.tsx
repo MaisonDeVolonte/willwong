@@ -5,7 +5,7 @@
  * @description
  * - injects devlink providers, global css cascade, and top-level ui components
  * - mounts global behavior controllers (e.g. links, panels) outside the dom tree
- * @see /src/app/page.tsx/, /webflow/
+ * @see src/app/page.tsx, webflow/
  */
 
 // Metadata

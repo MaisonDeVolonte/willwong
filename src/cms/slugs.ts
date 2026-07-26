@@ -5,7 +5,7 @@
  * @description
  * - handles dynamic slug resolution without triggering heavy file reads
  * - formatting and sanitizing helper functions for consistent url generation
- * @see /src/app/[...slug]/page.tsx/, /src/cms/pages.ts/
+ * @see src/app/[...slug]/page.tsx, src/cms/pages.ts
  */
 
 import { getAllPages } from "@/cms/pages";

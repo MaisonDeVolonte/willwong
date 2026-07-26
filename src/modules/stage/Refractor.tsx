@@ -5,7 +5,7 @@
  * @description
  * - parses raw text strings into hast (html abstract syntax trees) for rendering
  * - dynamically applies css classes for theme-aware syntax highlighting
- * @see /src/modules/stage/Canvas.tsx/, /src/cms/pages.ts/
+ * @see src/modules/stage/Canvas.tsx, src/cms/pages.ts
  */
 
 import { refractor } from "refractor/all";

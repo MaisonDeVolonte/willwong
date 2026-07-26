@@ -5,7 +5,7 @@
  * @description
  * - single source of truth for which repo/branch every GitHub API call targets
  * - holds every cache tag/revalidate window
- * @see /src/apis/, /src/modules/stats/, /src/cms/source.ts/
+ * @see src/apis/, src/modules/stats/, src/cms/source.ts
  */
 
 export const REPO_OWNER = "MaisonDeVolonte";

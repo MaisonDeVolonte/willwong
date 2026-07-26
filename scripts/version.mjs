@@ -6,7 +6,7 @@
  * - grabs the latest git metadata (since webflow builder lacks `.git`)
  * - writes constants into a `.generated.ts` file so the app can render current versioning
  * - `COMMIT_COUNT` resets after every tag (patch version, commits-since-last-tag)
- * @see /src/meta/config/version.ts/, /scripts/commits.mjs/
+ * @see src/meta/config/version.ts, scripts/commits.mjs
  */
 
 import { execSync } from "node:child_process";

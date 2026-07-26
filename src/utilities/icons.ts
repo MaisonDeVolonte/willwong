@@ -6,7 +6,7 @@
  * - reads from the build-time bundle in `cms/content.generated.ts`
  * - icons themselves are content-agnostic
  * - used in nav, tabs, and stats
- * @see /src/cms/content.generated.ts/, /scripts/content.mjs/
+ * @see src/cms/content.generated.ts, scripts/content.mjs
  */
 
 import { cache } from "react";

@@ -5,7 +5,7 @@
  * @description
  * - accepts structured data objects and serializes them into safe script tags
  * - escapes html brackets to prevent xss injection vulnerabilities
- * @see /src/meta/schema/index.ts/
+ * @see src/meta/schema/index.ts
  */
 
 import React from "react";

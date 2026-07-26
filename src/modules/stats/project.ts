@@ -5,7 +5,7 @@
  * @description
  * - derives age and size from githubRepos.ts repo record
  * - fails soft (null) rather than throwing
- * @see /src/apis/githubRepos.ts/, /src/modules/stats/Stats.tsx/
+ * @see src/apis/githubRepos.ts, src/modules/stats/Stats.tsx
  */
 
 import { unstable_cache } from "next/cache";

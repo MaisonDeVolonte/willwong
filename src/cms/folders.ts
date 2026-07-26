@@ -5,7 +5,7 @@
  * @description
  * - groups files dynamically by their path segments to build the navigation hierarchy
  * - enforces alphabetical sorting, with standard directories hoisting above files
- * @see /src/modules/nav/Panel.tsx/
+ * @see src/modules/nav/Panel.tsx
  */
 
 import type { ContentPage, ContentFile } from "@/cms/pages";
