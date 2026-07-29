@@ -70,6 +70,12 @@ tracked `.gitignore`.
   `source.ts:76`
 - `CI hermeticity` `CONTENT_SOURCE=local` must keep working with no network; operator targets
   degrade to a placeholder in CI, which is acceptable only because no test asserts mirror bodies
+- `silent operator drift` operator can delete or rename a file at any time and nothing in willwong
+  notices; the pointer just starts rendering a placeholder at request time, with no failing build.
+  This already happened: operator 98f6680 deleted `AGENTS/templates/prompts.md` roughly four hours
+  after PR #172 repointed at it. Coverage has to be asserted, not assumed
+- `case-only mismatch` macOS resolves `prefetcher.tsx` to `Prefetcher.tsx` and Linux does not, so
+  a bad pointer passes locally and ships a placeholder; only `git ls-files` is authoritative here
 - `self-modifying script` (Phase 2) a script that rsyncs over itself mid-run can execute garbage;
   avoided by cloning to a temp dir and re-execing before any sync
 - `locked out mid-session` (Phase 2) once `Edit(AGENTS/**)` is denied, a broken hook cannot be
@@ -90,6 +96,15 @@ tracked `.gitignore`.
 - [ ] Phase 2: write `pull.sh` in operator with `pull` / `diff` / `verify`
 - [ ] Phase 2: add the `MANAGED BY OPERATOR` banner to every file under operator's `AGENTS/`
 - [ ] Phase 2: convert willwong to lead mode, flip the allow rule to deny, add the CI verify gate
+- [ ] write `scripts/mirrors.mjs` asserting every in-repo target matches a `git ls-files` entry
+      exactly, so a case-only mismatch fails on macOS instead of only on Linux
+- [ ] extend that script to reconcile `content/AGENTS/` against operator in both directions,
+      failing on a pointer with no target and on an operator file with no pointer
+- [ ] run the reconciliation against operator's pinned rev once `.operator-rev` exists, so the
+      check is deterministic rather than racing operator's `main`
+- [ ] add the script as a CI gate, before `npm run generate`, so drift blocks the trunk
+- [ ] fold the same coverage assertion into Phase 2's `verify` subcommand, so any consumer project
+      inherits it rather than each one reimplementing the check
 
 ## Future Work
 - [ ] reconsider the throw-on-unresolved guardrail for `content.mjs`, now scoped to in-repo
@@ -107,6 +122,11 @@ tracked `.gitignore`.
    enumeration is free if runtime resolution is ever wanted there; it is not wanted, see Risks
 4. mirror targets are named explicitly in the pointer files, so operator needs no tree call at
    all, just direct raw fetches by path
+8. manual reconciliation on 2026-07-29 found 1 broken pointer and 5 uncovered operator files,
+   fixed in PR #178; the same pass found the Prefetcher casing bug, fixed in PR #176
+9. runtime resolution makes drift quieter, not louder: a build-time miss used to be visible in
+   the bundle, a request-time miss is only visible on the page, which is why the coverage gate
+   above is a requirement of this architecture rather than a nice-to-have
 5. operator is public, so no auth is needed for the raw fetches
 6. willwong is operator's only consumer today, which is why Phase 2 is lead-mode and low-urgency
 7. PRs #168-#175 landed earlier today; #171 fixed the docs gitignore bug, #172 repointed the 5
