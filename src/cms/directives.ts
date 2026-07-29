@@ -59,12 +59,18 @@ export function processExternal(content: string): { externalUrl?: string; iconNa
 // stricter pattern: required prefix, anchored to the start, no /m flag.
 const MIRROR_RE = /^(?:\/\/|(?:\/\*)|(?:<!--)|#)\s*@mirror\s+(\S+)/;
 
+/** Returns the @mirror target path if the content leads with one. */
+export function parseMirrorTarget(content: string): string | undefined {
+  const match = content.match(MIRROR_RE);
+  return match ? stripValue(match[1]) : undefined;
+}
+
 /**
- * If the content begins with a @mirror directive, returns the mirrored file's
- * contents (resolved at build into the bundle). Otherwise returns it unchanged.
+ * Resolves an @mirror against the build-time bundle. Only in-repo targets live
+ * there — operator targets are fetched at request time, see src/cms/mirrors.ts.
  */
 export function processMirror(content: string): string {
-  const match = content.match(MIRROR_RE);
-  if (!match) return content;
-  return MIRRORS[stripValue(match[1])] ?? content;
+  const target = parseMirrorTarget(content);
+  if (target === undefined) return content;
+  return MIRRORS[target] ?? content;
 }
