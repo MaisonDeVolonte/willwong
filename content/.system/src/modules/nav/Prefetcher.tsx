@@ -1,1 +1,1 @@
-// @mirror src/modules/nav/prefetcher.tsx
+// @mirror src/modules/nav/Prefetcher.tsx
