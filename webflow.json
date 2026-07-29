@@ -8,7 +8,7 @@
     "global": {
       "allowTelemetry": true,
       "lastPrompted": 1781236381092,
-      "version": "2.1.0"
+      "version": "2.2.0"
     }
   },
   "devlink-export": {
