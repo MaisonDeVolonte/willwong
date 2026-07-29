@@ -1,1 +1,1 @@
-// @mirror AGENTS/prompts.md
+// @mirror AGENTS/templates/prompts.md

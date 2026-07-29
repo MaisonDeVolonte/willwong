@@ -1,1 +1,1 @@
-// @mirror AGENTS/logs.md
+// @mirror AGENTS/templates/logs.md

@@ -1,1 +1,1 @@
-// @mirror AGENTS/plans.md
+// @mirror AGENTS/templates/plans.md
