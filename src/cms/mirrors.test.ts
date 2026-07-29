@@ -10,7 +10,19 @@
  */
 
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
-import { isOperatorTarget, resolveMirror } from "@/cms/mirrors";
+import { isOperatorTarget, resolveMirror, toOperatorPath } from "@/cms/mirrors";
+
+describe("toOperatorPath", () => {
+  test("maps the scaffold entry point onto operator's README", () => {
+    // operator has no AGENTS.md; willwong's symlink renames README.md to it
+    expect(toOperatorPath("AGENTS.md")).toBe("README.md");
+  });
+
+  test("leaves every other target untouched", () => {
+    expect(toOperatorPath("AGENTS/hooks/stop.sh")).toBe("AGENTS/hooks/stop.sh");
+    expect(toOperatorPath("AGENTS/templates/logs.md")).toBe("AGENTS/templates/logs.md");
+  });
+});
 
 describe("isOperatorTarget", () => {
   test("matches the agent scaffold and nothing else", () => {

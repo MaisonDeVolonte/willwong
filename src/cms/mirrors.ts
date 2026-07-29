@@ -45,8 +45,14 @@ async function readOperatorLocal(target: string): Promise<string> {
   return readFile(join(process.cwd(), target), "utf-8");
 }
 
+// The scaffold's entry point is operator's README.md, surfaced here as AGENTS.md — the
+// local symlink already does this rename, so only the remote path has to restate it.
+export function toOperatorPath(target: string): string {
+  return target === "AGENTS.md" ? "README.md" : target;
+}
+
 async function fetchOperatorRaw(target: string): Promise<string> {
-  const encoded = target.split("/").map(encodeURIComponent).join("/");
+  const encoded = toOperatorPath(target).split("/").map(encodeURIComponent).join("/");
   const url = `https://raw.githubusercontent.com/${OPERATOR_OWNER}/${OPERATOR_NAME}/${OPERATOR_BRANCH}/${encoded}`;
   const res = await githubFetch(url, {});
   if (!res.ok) throw new Error(`operator mirror fetch failed (${res.status}): ${target}`);
