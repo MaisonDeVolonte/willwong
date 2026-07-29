@@ -63,3 +63,12 @@ src/cms/content.generated.ts
 # agents (symlinked into the operator repo, local-only)
 AGENTS
 AGENTS.md
+
+# agent artifacts (local-only, never committed)
+docs/audits/
+docs/brutal/
+docs/insights/
+docs/logs/
+docs/plans/
+docs/prompts/
+docs/study/
