@@ -1,1 +1,1 @@
-// @mirror AGENTS/git.md
+// @mirror AGENTS/templates/git.md
