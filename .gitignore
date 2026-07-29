@@ -60,15 +60,11 @@ src/modules/stats/churn.generated.ts
 src/modules/stats/commits.generated.ts
 src/cms/content.generated.ts
 
-# agents (symlinked into the operator repo, local-only)
-AGENTS
-AGENTS.md
+# agents (symlinked into the operator repo, local-only, until vendored per docs/plans/2026-07-29-operation-vendor-lock.md)
+# anchored: an unanchored AGENTS also matches content/AGENTS/ at any depth
+/AGENTS
+/AGENTS.md
 
-# agent artifacts (local-only, never committed)
-docs/audits/
-docs/brutal/
-docs/insights/
+# agent session artifacts (local-only, never committed)
 docs/logs/
-docs/plans/
 docs/prompts/
-docs/study/
