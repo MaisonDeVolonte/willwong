@@ -11,7 +11,8 @@
 import { cache } from "react";
 import { readIcon } from "@/utilities/icons";
 import { getContentMap, type ContentMap } from "@/cms/source";
-import { processMirror, processExternal, parseMetadata } from "@/cms/directives";
+import { processExternal, parseMetadata } from "@/cms/directives";
+import { resolveMirror } from "@/cms/mirrors";
 
 const LANGUAGES: Record<string, string> = {
   bash: "bash",
@@ -194,7 +195,7 @@ export async function populatePageContent(page: ContentPage): Promise<void> {
   const map = await getContentMap();
   for (const file of page.files) {
     if (file.filePath && !file.content) {
-      file.content = processMirror(map[file.filePath] ?? "");
+      file.content = await resolveMirror(map[file.filePath] ?? "");
     }
   }
 }
@@ -203,5 +204,5 @@ export async function populatePageContent(page: ContentPage): Promise<void> {
 // content/ — used by the home page for content/README.md.
 export async function getContent(rel: string): Promise<string> {
   const map = await getContentMap();
-  return processMirror(map[rel] ?? "");
+  return resolveMirror(map[rel] ?? "");
 }

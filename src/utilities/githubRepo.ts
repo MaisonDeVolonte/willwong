@@ -12,8 +12,16 @@ export const REPO_OWNER = "MaisonDeVolonte";
 export const REPO_NAME = "willwong";
 export const REPO_BRANCH = "main";
 
+// agent scaffold lives in its own repo; mirrored into content/AGENTS/ at request time
+export const OPERATOR_OWNER = "MaisonDeVolonte";
+export const OPERATOR_NAME = "operator";
+export const OPERATOR_BRANCH = "main";
+
 export const CACHE_CONTENT_TAG = "content-tag";
 export const CACHE_CONTENT_REVALIDATE = 60;
+
+export const CACHE_MIRROR_TAG = "mirror-tag";
+export const CACHE_MIRROR_REVALIDATE = 60;
 
 export const CACHE_STATS_TAG = "stats-tag";
 export const CACHE_STATS_REVALIDATE = 3600;

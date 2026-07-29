@@ -3,14 +3,14 @@
  * @file directives.test.ts - unit tests for the content directive parsers
  * ========================================================================================
  * @description
- * - covers the three pure parsers in directives.ts: parseMetadata, processExternal, processMirror
+ * - covers the pure parsers in directives.ts: parseMetadata, processExternal, parseMirrorTarget
  * - asserts directive detection across bare, `//`, `/* *\/`, `<!-- -->`, and `#` comment styles
  * - runs under vitest (`npm run test:unit`); no dom, network, or next runtime required
  * @see src/cms/directives.ts, vitest.config.ts
  */
 
 import { describe, test, expect } from "vitest";
-import { parseMetadata, processExternal, processMirror } from "@/cms/directives";
+import { parseMetadata, processExternal, processMirror, parseMirrorTarget } from "@/cms/directives";
 
 describe("parseMetadata", () => {
   test("reads a bare @title and @description", () => {
@@ -75,5 +75,19 @@ describe("processMirror", () => {
   test("falls back to the original content when the mirror target is unknown", () => {
     const content = "// @mirror does/not/exist.ts";
     expect(processMirror(content)).toBe(content);
+  });
+});
+
+describe("parseMirrorTarget", () => {
+  test("reads the target across every comment style", () => {
+    expect(parseMirrorTarget("// @mirror src/app/page.tsx")).toBe("src/app/page.tsx");
+    expect(parseMirrorTarget("# @mirror AGENTS/hooks/stop.sh")).toBe("AGENTS/hooks/stop.sh");
+    expect(parseMirrorTarget("/* @mirror next.config.ts */")).toBe("next.config.ts");
+    expect(parseMirrorTarget("<!-- @mirror README.md -->")).toBe("README.md");
+  });
+
+  test("returns undefined when the directive is absent or not in a comment", () => {
+    expect(parseMirrorTarget("export const answer = 42;")).toBeUndefined();
+    expect(parseMirrorTarget("@mirror src/app/layout.tsx")).toBeUndefined();
   });
 });

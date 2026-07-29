@@ -40,17 +40,30 @@ async function walkFiles(dir, base = "") {
 const CONTENT = await walkFiles(CONTENT_DIR);
 
 // Resolve every @mirror target (paths are relative to the project root).
+// Operator targets are skipped: they live in another repo and resolve at request
+// time instead (see src/cms/mirrors.ts), so a miss here is a real, in-repo bug.
+const isOperatorTarget = (t) => t === "AGENTS.md" || t.startsWith("AGENTS/");
+
 const MIRRORS = {};
+const UNRESOLVED = [];
 for (const text of Object.values(CONTENT)) {
   const m = text.match(MIRROR_RE);
   if (!m) continue;
   const target = m[1].replace(/\*\/$/, "").replace(/-->$/, "").trim();
-  if (target in MIRRORS) continue;
+  if (target in MIRRORS || isOperatorTarget(target)) continue;
   try {
     MIRRORS[target] = await readFile(path.join(ROOT, target), "utf-8");
   } catch {
-    MIRRORS[target] = `// @mirror target not found: ${target}`;
+    UNRESOLVED.push(target);
   }
+}
+
+// A placeholder here would ship error text to production while CI stayed green.
+if (UNRESOLVED.length > 0) {
+  throw new Error(
+    `${UNRESOLVED.length} in-repo @mirror target(s) could not be resolved:\n` +
+      UNRESOLVED.map((t) => `  - ${t}`).join("\n"),
+  );
 }
 
 const ICONS = {};
