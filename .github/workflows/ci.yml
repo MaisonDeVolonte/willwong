@@ -7,6 +7,7 @@
 # @see /package.json/, /vitest.config.ts/, /playwright.config.ts/
 
 name: CI
+# TODO: skip ci gates for markdown-only changes
 on:
   push:
     branches: [main]                               # integration gate for the main trunk line
