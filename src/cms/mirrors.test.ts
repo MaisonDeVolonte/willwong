@@ -33,7 +33,7 @@ describe("isOperatorTarget", () => {
   });
 
   test("does not match content/AGENTS, which holds the pointers themselves", () => {
-    expect(isOperatorTarget("content/AGENTS/git.md")).toBe(false);
+    expect(isOperatorTarget("content/AGENTS/templates/git/git.md")).toBe(false);
   });
 });
 
