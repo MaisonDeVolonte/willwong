@@ -17,8 +17,9 @@
 - support & customer ops
 
 ### Socials
-- [github](https://github.com/MaisonDeVolonte)
-- [linkedin](https://www.linkedin.com/in/william-wong-tech)
+- [github.com/MaisonDeVolonte](https://github.com/MaisonDeVolonte)
+- [dev.to/MaisonDeVolonte](https://dev.to/MaisonDeVolonte)
+- [linkedin.com/in/MaisonDeVolonte](https://www.linkedin.com/in/MaisonDeVolonte)
 
 ### Contact
 - email: [contact@willwong.me](mailto:contact@willwong.me)
